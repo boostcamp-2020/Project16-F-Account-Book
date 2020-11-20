@@ -5,10 +5,10 @@
 
 ## 팀원 소개
 
-- **최창희**(@changheedev) : "여기 이거는.. 저기 저거는.."
-- **정상우**(@sangw3433) : "음.. 저는 다른 생각이에요"
-- **박진용**(@namda-on) : " 근데 이 부분에서는 ... 아 아닙니다"
-- **박동현**(@parkdit94) : "조금만 쉬다가 할까요?"
+- **최창희**([@changheedev](https://github.com/changheedev)) : "여기 이거는.. 저기 저거는.."
+- **정상우**([@sangw3433](https://github.com/sangw3433)) : "음.. 저는 다른 생각이에요"
+- **박진용**([@namda-on](https://github.com/namda-on)) : " 근데 이 부분에서는 ... 아 아닙니다"
+- **박동현**([@parkdit94](https://github.com/parkdit94)) : "조금만 쉬다가 할까요?"
 
 <br>
 
