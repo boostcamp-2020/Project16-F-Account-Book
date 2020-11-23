@@ -1,4 +1,4 @@
-import Koa, { Context } from 'koa';
+import Koa from 'koa';
 import loader from './loader';
 
 const app = new Koa();
