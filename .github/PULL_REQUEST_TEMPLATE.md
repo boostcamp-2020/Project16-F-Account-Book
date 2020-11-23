@@ -26,4 +26,4 @@ Close #
 - [ ] 변경사항이 효과적이거나 동작이 작동한다는 것을 보증하는 테스트를 추가하였는가?
 - [ ] 새로운 테스트와 기존의 테스트가 변경사항에 대해 만족하는가?
 
-@AccountBook_Mentor
+@boostcamp-2020/accountbook_mentor

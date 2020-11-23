@@ -17,4 +17,4 @@ assignees: ''
 
 ---
 
-@AccountBook_F
+@boostcamp-2020/AccountBook_F
