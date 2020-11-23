@@ -1,8 +1,8 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import CategoryEntity from './category';
+import CategoryEntity from './category.entity';
 import FixedExpenditureEntity from './fixedExpenditure.entity';
 import PaymentEntity from './payment.entity';
-import TranscationEntity from './transaction';
+import TranscationEntity from './transaction.entity';
 
 @Entity('User')
 export default class UserEntity {

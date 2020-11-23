@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, OneToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import UserEntity from './user.entity';
-import TranscationEntity from './transaction';
+import TranscationEntity from './transaction.entity';
 
 @Entity('Category')
 export default class CategoryEntity {
