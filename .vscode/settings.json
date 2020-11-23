@@ -3,6 +3,10 @@
   "editor.formatOnSave": true,
   "eslint.format.enable": true,
   "eslint.alwaysShowStatus": true,
+  "eslint.workingDirectories": [
+    { "directory": "client", "changeProcessCWD": true },
+    { "directory": "server", "changeProcessCWD": true }
+  ],
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },

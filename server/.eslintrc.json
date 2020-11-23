@@ -1,12 +1,12 @@
-module.exports = {
-  parser: "@typescript-eslint/parser",
-  plugins: ["@typescript-eslint"],
-  env: {
-    node: true,
-    es2020: true,
-    jest: true,
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "env": {
+    "node": true,
+    "es2020": true,
+    "jest": true
   },
-  rules: {
+  "rules": {
     "import/no-unresolved": "off",
     // ts, tsx, json 파일은 확장자 없이 import 가능
     "no-console": "off",
@@ -15,16 +15,16 @@ module.exports = {
       "off",
       "ignorePackages",
       {
-        ts: "never",
-        tsx: "never",
-        json: "never",
-      },
-    ],
+        "ts": "never",
+        "tsx": "never",
+        "json": "never"
+      }
+    ]
   },
-  extends: [
+  "extends": [
     "airbnb-base",
     "prettier/@typescript-eslint",
     "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended",
-  ],
-};
+    "plugin:prettier/recommended"
+  ]
+}
