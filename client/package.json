@@ -11,6 +11,7 @@
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
     "react": "^17.0.1",
+    "react-app-rewire-alias": "^0.1.8",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.0",
     "styled-components": "^5.2.1",
@@ -24,7 +25,7 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "lint" : "eslint ./src/**/*.ts{,x}",
+    "lint": "eslint ./src/**/*.ts{,x}",
     "lint:fix": "eslint --fix src/**/*.ts{,x}"
   },
   "eslintConfig": {
@@ -65,6 +66,7 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.21.5",
-    "eslint-plugin-react-hooks": "^4.0.0"
+    "eslint-plugin-react-hooks": "^4.0.0",
+    "react-app-rewired": "^2.1.6"
   }
 }

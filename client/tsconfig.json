@@ -15,5 +15,6 @@
         "noEmit": true,
         "jsx": "react"
     },
-    "include": ["src"]
+    "extends": "./tsconfig.paths.json",
+    "include": ["src", "config-overrides.js"]
 }
