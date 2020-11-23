@@ -25,7 +25,8 @@
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "lint" : "eslint ./src/**/*.ts{,x}",
-    "lint:fix": "eslint --fix src/**/*.ts{,x}"
+    "lint:fix": "eslint --fix src/**/*.ts{,x}",
+    "format": "prettier --write src/**/*.ts{,x}"
   },
   "eslintConfig": {
     "extends": [
