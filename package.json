@@ -1,0 +1,24 @@
+{
+  "name": "project16-f-account-book",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boostcamp-2020/Project16-F-Account-Book.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/boostcamp-2020/Project16-F-Account-Book/issues"
+  },
+  "homepage": "https://github.com/boostcamp-2020/Project16-F-Account-Book#readme",
+  "workspaces": [
+    "client",
+    "server"
+  ]
+}
