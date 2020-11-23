@@ -13,7 +13,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "koa": "^2.13.0"
+    "dotenv": "^8.2.0",
+    "koa": "^2.13.0",
+    "mysql2": "^2.2.5",
+    "typeorm": "^0.2.29"
   },
   "devDependencies": {
     "@types/koa": "^2.11.6",
