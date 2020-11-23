@@ -1,0 +1,8 @@
+addReviewers: true
+
+addAssignees: author
+
+reviewers:
+  - boostcamp-2020/accountbook_f
+
+numberOfReviewers: 0
