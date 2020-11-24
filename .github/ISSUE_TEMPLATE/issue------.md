@@ -15,5 +15,5 @@ assignees: ''
 - Issue :
 
 ### 멘션
-@AccountBook_F
-@AccountBook_Mentor
+@boostcamp-2020/AccountBook_F
+@boostcamp-2020/accountbook_mentor
