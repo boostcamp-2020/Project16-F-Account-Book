@@ -1,7 +1,8 @@
 import Axios from 'axios';
 import * as qs from 'querystring';
+import KakaoUserInfo from './types/kakao-user-info';
 
-const getKakaoAccessToken = async (code: string) => {
+const getKakaoAccessToken = async (code: string): Promise<string> => {
   const response = await Axios.post(
     'https://kauth.kakao.com/oauth/token',
     qs.stringify({
@@ -21,7 +22,7 @@ const getKakaoAccessToken = async (code: string) => {
   return response.data.access_token;
 };
 
-const getKakaoUserInfo = async (accessToken: string) => {
+const getKakaoUserInfo = async (accessToken: string): Promise<KakaoUserInfo> => {
   const { data } = await Axios.get('https://kapi.kakao.com/v2/user/me', {
     headers: {
       Authorization: `Bearer ${accessToken}`,
