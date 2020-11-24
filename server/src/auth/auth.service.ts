@@ -70,6 +70,26 @@ const AuthService = {
     return data;
   },
 
+  getGoogleAccessToken: async (code: string): Promise<string> => {
+    const response = await Axios.post(
+      'https://www.googleapis.com/oauth2/v4/token',
+      qs.stringify({
+        grant_type: 'authorization_code',
+        code,
+        redirect_uri: process.env.GOOGLE_REDIRECT_URI,
+        client_id: process.env.GOOGLE_CLIENT_ID,
+        client_secret: process.env.GOOGLE_CLIENT_SECRET,
+      }),
+      {
+        headers: {
+          'Content-type': 'application/x-www-form-urlencoded',
+          charset: 'utf-8',
+        },
+      },
+    );
+    return response.data.access_token;
+  },
+
   generateToken: (uid: number) => {
     const token = jwt.sign(
       {
