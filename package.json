@@ -5,7 +5,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "precommit": "run-p precommit:client precommit:server",
+    "precommit:client": "yarn workspace client precommit",
+    "precommit:server": "yarn workspace server precommit"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn precommit"
+    }
   },
   "repository": {
     "type": "git",
@@ -20,5 +27,9 @@
   "workspaces": [
     "client",
     "server"
-  ]
+  ],
+  "devDependencies": {
+    "husky": "^4.3.0",
+    "npm-run-all": "^4.1.5"
+  }
 }
