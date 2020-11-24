@@ -2,13 +2,18 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColum
 import TranscationEntity from './transaction.entity';
 import UserEntity from './user.entity';
 
+type ConstructorProps = {
+  name!: string,
+  user!: UserEntity
+}
+
 @Entity('Payment')
 export default class PaymentEntity {
   @PrimaryGeneratedColumn({ type: 'int' })
   pid!: number;
 
   @Column({ type: 'varchar' })
-  name!: string;
+  name: string;
 
   @Column({ type: 'int' })
   uid!: number;
@@ -25,4 +30,9 @@ export default class PaymentEntity {
     referencedColumnName: 'uid',
   })
   user!: UserEntity;
+
+  constructor({ name, user }: ConstructorProps) {
+    this.name = name;
+    this.user = user;
+  }
 }

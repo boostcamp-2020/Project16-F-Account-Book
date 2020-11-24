@@ -1,7 +1,18 @@
 export const CategorySeed = [
-    {
-      name: '15min@mail.com',
-      isIncome: true,
-      uid: 123,
-    },
-  ];
+  {
+    name: '월급',
+    isIncome: true
+  },
+  {
+    name: '식비',
+    isIncome: false
+  },
+  {
+    name: '교통비',
+    isIncome: false
+  },
+  {
+    name: '문화생활',
+    isIncome: false
+  },
+];

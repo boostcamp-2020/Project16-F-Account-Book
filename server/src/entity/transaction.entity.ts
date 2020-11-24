@@ -3,6 +3,16 @@ import CategoryEntity from './category.entity';
 import PaymentEntity from './payment.entity';
 import UserEntity from './user.entity';
 
+type ConstructorProps = {
+  amount: number,
+  tradeAt: Date,
+  description: string, 
+  isIncome: boolean, 
+  category: CategoryEntity,
+  user: UserEntity,
+  payment: PaymentEntity
+}
+
 @Entity('Transaction')
 export default class TranscationEntity {
   @PrimaryGeneratedColumn({ type: 'int' })
@@ -56,4 +66,21 @@ export default class TranscationEntity {
     referencedColumnName: 'pid',
   })
   payment!: PaymentEntity;
+
+  constructor({
+    amount,
+    tradeAt,
+    description,
+    isIncome,
+    category,
+    user,
+    payment }: ConstructorProps) {
+    this.amount = amount;
+    this.tradeAt = tradeAt;
+    this.description = description;
+    this.isIncome = isIncome;
+    this.category = category;
+    this.user = user;
+    this.payment = payment;
+  }
 }
