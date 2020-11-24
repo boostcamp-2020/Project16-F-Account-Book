@@ -22,8 +22,7 @@ const generateToken = (uid: number) => {
 const jwtMiddleware = async (ctx: Context, next: Next) => {
   const token = ctx.cookies.get('jwt');
   if (!token) {
-    ctx.status = 401;
-    return;
+    throw new Error('unauthorized');
   }
 
   try {
