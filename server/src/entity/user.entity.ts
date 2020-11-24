@@ -13,10 +13,10 @@ export default class UserEntity {
   name!: string;
 
   @Column({ type: 'varchar' })
-  socialId!: string;
+  social_id!: string;
 
   @Column({ type: 'varchar' })
-  socialType!: string;
+  social_type!: string;
 
   @OneToMany(() => CategoryEntity, (category) => category.user, { cascade: true })
   categories?: CategoryEntity[];
