@@ -12,6 +12,11 @@ const ormConfig = {
   entities: [process.env.TYPEORM_ENTITIES || 'src/entity/*.entity.ts'],
   synchronize: process.env.TYPEORM_SYNCHRONIZE === 'true',
   logging: process.env.TYPEORM_LOGGING === 'true',
+  migrations: ['src/migrations/*.ts'],
+  cli: {
+    entitiesDir: 'src/entity',
+    migrationsDir: 'src/migrations',
+  },
 };
 
 export default ormConfig;
