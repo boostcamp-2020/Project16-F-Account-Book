@@ -1,4 +1,4 @@
-import User from 'common/types/user';
+import User from '@/user/types/user';
 import KakaoUserInfo from './kakao-user-info';
 
 export default class SocialUserDTO implements User {

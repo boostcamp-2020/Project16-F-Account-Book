@@ -19,7 +19,7 @@ AuthRouter.get('/callback/kakao', async (ctx: Context) => {
   const accessToken = await AuthService.getKakaoAccessToken(code);
   const userData: KakaoUserInfo = await AuthService.getKakaoUserInfo(accessToken);
   userData.type = 'kakao';
-  const isExistUser = await UserService.isExitSocialUser(userData.id, userData.type);
+  const isExistUser = await UserService.existSocialUser(userData.id, userData.type);
 
   const user = isExistUser
     ? ((await UserService.getUserBySocialId(userData.id, userData.type)) as UserEntity)

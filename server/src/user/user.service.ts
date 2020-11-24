@@ -21,7 +21,7 @@ const UserService = {
     return user;
   },
 
-  isExitSocialUser: async (socialId: string, socialType: string): Promise<boolean> => {
+  existSocialUser: async (socialId: string, socialType: string): Promise<boolean> => {
     const user = await UserService.getUserBySocialId(socialId, socialType);
 
     return !!user;
