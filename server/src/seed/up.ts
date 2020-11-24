@@ -1,15 +1,33 @@
-import { getManager } from "typeorm";
+/* eslint-disable no-await-in-loop */
 import createDBConnection from '@/loader/database';
-import UserSeed from './user.seed';
-    
+import generateSeedData from './generateSeedData';
+
 const up = async () => {
-    await createDBConnection();
-    const entityManager = getManager();
-    const {users, categories, payments, transactions} = UserSeed.generateSeedData(5);
-    await entityManager.insert('User', users);
-    await entityManager.insert('Category', categories);
-    await entityManager.insert('Payment', payments);
-    await entityManager.insert('Transaction', transactions);
-}
+  const connection = await createDBConnection();
+  const queryRunner = connection.createQueryRunner();
+  const { manager } = queryRunner;
+  await queryRunner.startTransaction();
+  try {
+    const { users, categories, payments, transactions } = generateSeedData();
+    await manager.insert('User', users);
+    await manager.insert('Category', categories);
+    await manager.insert('Payment', payments);
+    const transactionQuantity = 100000;
+    for (let i = 0; i < transactions.length; i += transactionQuantity) {
+      const remains = transactions.length - i;
+      const currentQuantity = Math.min(transactionQuantity, remains);
+      const endIdx = Math.min(i + currentQuantity, transactions.length);
+      await manager.insert('Transaction', transactions.slice(i, endIdx));
+    }
+    await queryRunner.commitTransaction();
+    console.log('Seed finished');
+  } catch (err) {
+    await queryRunner.rollbackTransaction();
+  } finally {
+    await queryRunner.release();
+    await connection.close();
+    console.log('Close connection');
+  }
+};
 
 up();
