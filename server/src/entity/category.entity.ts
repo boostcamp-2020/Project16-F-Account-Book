@@ -3,9 +3,9 @@ import UserEntity from './user.entity';
 import TranscationEntity from './transaction.entity';
 
 type ConsturctorProps = {
-  name: string,
-  isIncome: boolean,
-  user: UserEntity
+  name: string;
+  isIncome: boolean;
+  user: UserEntity;
 };
 
 @Entity('Category')
@@ -35,9 +35,11 @@ export default class CategoryEntity {
   })
   user!: UserEntity;
 
-  constructor({ name, isIncome, user }:ConsturctorProps) {
-    this.name = name;
-    this.isIncome = isIncome;
-    this.user = user;
+  constructor(props?: ConsturctorProps) {
+    if (props) {
+      this.name = props.name;
+      this.isIncome = props.isIncome;
+      this.user = props.user;
+    }
   }
 }

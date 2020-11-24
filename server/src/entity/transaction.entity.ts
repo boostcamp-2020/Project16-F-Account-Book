@@ -4,14 +4,14 @@ import PaymentEntity from './payment.entity';
 import UserEntity from './user.entity';
 
 type ConstructorProps = {
-  amount: number,
-  tradeAt: Date,
-  description: string, 
-  isIncome: boolean, 
-  category: CategoryEntity,
-  user: UserEntity,
-  payment: PaymentEntity
-}
+  amount: number;
+  tradeAt: Date;
+  description: string;
+  isIncome: boolean;
+  category: CategoryEntity;
+  user: UserEntity;
+  payment: PaymentEntity;
+};
 
 @Entity('Transaction')
 export default class TranscationEntity {
@@ -67,20 +67,15 @@ export default class TranscationEntity {
   })
   payment!: PaymentEntity;
 
-  constructor({
-    amount,
-    tradeAt,
-    description,
-    isIncome,
-    category,
-    user,
-    payment }: ConstructorProps) {
-    this.amount = amount;
-    this.tradeAt = tradeAt;
-    this.description = description;
-    this.isIncome = isIncome;
-    this.category = category;
-    this.user = user;
-    this.payment = payment;
+  constructor(props?: ConstructorProps) {
+    if (props) {
+      this.amount = props.amount;
+      this.tradeAt = props.tradeAt;
+      this.description = props.description;
+      this.isIncome = props.isIncome;
+      this.category = props.category;
+      this.user = props.user;
+      this.payment = props.payment;
+    }
   }
 }

@@ -3,9 +3,9 @@ import TranscationEntity from './transaction.entity';
 import UserEntity from './user.entity';
 
 type ConstructorProps = {
-  name!: string,
-  user!: UserEntity
-}
+  name: string;
+  user: UserEntity;
+};
 
 @Entity('Payment')
 export default class PaymentEntity {
@@ -13,7 +13,7 @@ export default class PaymentEntity {
   pid!: number;
 
   @Column({ type: 'varchar' })
-  name: string;
+  name!: string;
 
   @Column({ type: 'int' })
   uid!: number;
@@ -31,8 +31,10 @@ export default class PaymentEntity {
   })
   user!: UserEntity;
 
-  constructor({ name, user }: ConstructorProps) {
-    this.name = name;
-    this.user = user;
+  constructor(props?: ConstructorProps) {
+    if (props) {
+      this.name = props.name;
+      this.user = props.user;
+    }
   }
 }

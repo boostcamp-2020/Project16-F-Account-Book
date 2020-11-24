@@ -5,9 +5,9 @@ import PaymentEntity from './payment.entity';
 import TranscationEntity from './transaction.entity';
 
 type ConstructorProps = {
-  name: string,
-  socialId: string,
-  socialType: string,
+  name: string;
+  socialId: string;
+  socialType: string;
 };
 
 @Entity('User')
@@ -16,13 +16,13 @@ export default class UserEntity {
   uid!: number;
 
   @Column({ type: 'varchar', length: 50 })
-  name: string;
+  name!: string;
 
   @Column({ type: 'varchar' })
-  socialId: string;
+  socialId!: string;
 
   @Column({ type: 'varchar' })
-  socialType: string;
+  socialType!: string;
 
   @OneToMany(() => CategoryEntity, (category) => category.user, { cascade: true })
   categories?: CategoryEntity[];
@@ -38,9 +38,11 @@ export default class UserEntity {
   @OneToMany(() => TranscationEntity, (transaction) => transaction.user, { cascade: true })
   transactions?: TranscationEntity[];
 
-  constructor({ name, socialId, socialType }: ConstructorProps) {
-    this.name = name;
-    this.socialId = socialId;
-    this.socialType = socialType;
+  constructor(props?: ConstructorProps) {
+    if (props) {
+      this.name = props.name;
+      this.socialId = props.socialId;
+      this.socialType = props.socialType;
+    }
   }
 }
