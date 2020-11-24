@@ -8,7 +8,7 @@ import UserEntity from 'entity/user.entity';
 import { KakaoUserInfo } from './types/kakao-user-dto';
 import decodedJWT from './types/decoded-jwt';
 import UserDTO from './types/user-dto';
-import { NaverUserData } from '../auth/types/naver-user-dto';
+import { NaverUserInfo } from './types/naver-user-dto';
 
 const AuthService = {
   getNaverAccessToken: async (code: string): Promise<string> => {
@@ -31,7 +31,7 @@ const AuthService = {
     return response.data.access_token;
   },
 
-  getNaverUserInfo: async (accessToken: string): Promise<NaverUserData> => {
+  getNaverUserInfo: async (accessToken: string): Promise<NaverUserInfo> => {
     const { data } = await Axios.get('	https://openapi.naver.com/v1/nid/me', {
       headers: {
         Authorization: `Bearer ${accessToken}`,

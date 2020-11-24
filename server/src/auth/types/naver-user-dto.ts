@@ -1,13 +1,13 @@
 import SocialUserDTO from './social-user-dto';
 
-export interface NaverUserData {
+export interface NaverUserInfo {
   id: string;
   email: string;
   name: string;
 }
 
 export default class NaverUserDTO implements SocialUserDTO {
-  constructor(data: NaverUserData) {
+  constructor(data: NaverUserInfo) {
     this.socialId = data.id;
     this.name = data.name;
     this.socialType = 'naver';
