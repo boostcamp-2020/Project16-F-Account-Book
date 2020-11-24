@@ -3,6 +3,9 @@ addReviewers: true
 addAssignees: author
 
 reviewers:
-  - boostcamp-2020/accountbook_f
+  - changheedev
+  - sangw3433
+  - parkdit94
+  - namda-on
 
 numberOfReviewers: 0
