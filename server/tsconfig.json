@@ -67,10 +67,11 @@
     "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */,
     "baseUrl": "src",
     "paths": {
-      "@models/*": ["models/*"],
-      "@services/*": ["services/*"],
+      "@/*": ["./*"],
+      "@config/*": ["config/*"],
+      "@entity/*": ["entity/*"]
     },
     "plugins": [{ "transform": "typescript-transform-paths" }]
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "src/config/orm/index.ts"]
 }
