@@ -1,16 +1,5 @@
-import User from '@/user/types/user';
-import KakaoUserInfo from './kakao-user-info';
-
-export default class SocialUserDTO implements User {
-  constructor(userInfo: KakaoUserInfo) {
-    this.name = userInfo.properties.nickname;
-    this.socialId = userInfo.id;
-    this.socialType = userInfo.type;
-  }
-
-  name: string;
-
-  socialId: string;
-
+export default interface SocialUserDTO {
   socialType: string;
+  name: string;
+  socialId: string;
 }

@@ -1,5 +1,4 @@
-import KakaoUserInfo from 'auth/types/kakao-user-info';
-import SocialUserDTO from 'auth/types/social-user-dto';
+import SocialUserDTO from '@/auth/types/social-user-dto';
 import UserEntity from 'entity/user.entity';
 import { getRepository } from 'typeorm';
 
@@ -11,26 +10,28 @@ const UserService = {
     return user;
   },
 
-  getUserBySocialId: async (
-    socialId: string,
-    socialType: string,
-  ): Promise<UserEntity | undefined> => {
+  getUserBySocialUserInfo: async (data: SocialUserDTO): Promise<UserEntity | undefined> => {
     const userRepository = getRepository(UserEntity);
-    const user = await userRepository.findOne({ where: { socialId, socialType } });
+    const user = await userRepository.findOne({
+      where: { socialId: data.socialId, socialType: data.socialType },
+    });
 
     return user;
   },
 
-  existSocialUser: async (socialId: string, socialType: string): Promise<boolean> => {
-    const user = await UserService.getUserBySocialId(socialId, socialType);
+  existSocialUser: async (data: SocialUserDTO): Promise<boolean> => {
+    const user = await UserService.getUserBySocialUserInfo(data);
 
     return !!user;
   },
 
-  createNewUser: async (data: KakaoUserInfo): Promise<UserEntity> => {
+  createNewUser: async (data: SocialUserDTO): Promise<UserEntity> => {
     const userRepository = getRepository(UserEntity);
-    const userData = new SocialUserDTO(data);
-    const newUser = userRepository.create(userData);
+    const newUser = userRepository.create({
+      name: data.name,
+      socialId: data.socialId,
+      socialType: data.socialType,
+    });
     const savedUser = await userRepository.save(newUser);
 
     return savedUser;
