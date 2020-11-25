@@ -1,3 +1,3 @@
-export type PropType = {
+export type LogoPropType = {
   height: string;
 };

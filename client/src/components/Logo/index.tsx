@@ -1,8 +1,8 @@
 import React from 'react';
-import { PropType } from './types';
+import { LogoPropType } from './types';
 import StyledLogo from './style';
 
-function Logo({ height }: PropType): React.ReactElement {
+function Logo({ height }: LogoPropType): React.ReactElement {
   return (
     <StyledLogo height={height}>
       <svg

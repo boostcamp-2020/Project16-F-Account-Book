@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { PropType } from './types';
+import { LogoPropType } from './types';
 
 const StyledLogo = styled.div`
-  height: ${(props: PropType) => props.height};
+  height: ${(props: LogoPropType) => props.height};
 
   svg {
     height: 100%;
