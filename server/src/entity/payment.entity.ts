@@ -2,6 +2,11 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColum
 import TranscationEntity from './transaction.entity';
 import UserEntity from './user.entity';
 
+type ConstructorProps = {
+  name: string;
+  user: UserEntity;
+};
+
 @Entity('Payment')
 export default class PaymentEntity {
   @PrimaryGeneratedColumn({ type: 'int' })
@@ -25,4 +30,11 @@ export default class PaymentEntity {
     referencedColumnName: 'uid',
   })
   user!: UserEntity;
+
+  constructor(props?: ConstructorProps) {
+    if (props) {
+      this.name = props.name;
+      this.user = props.user;
+    }
+  }
 }

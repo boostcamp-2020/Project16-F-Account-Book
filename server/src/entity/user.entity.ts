@@ -4,6 +4,12 @@ import FixedExpenditureEntity from './fixed-expenditure.entity';
 import PaymentEntity from './payment.entity';
 import TranscationEntity from './transaction.entity';
 
+type ConstructorProps = {
+  name: string;
+  socialId: string;
+  socialType: string;
+};
+
 @Entity('User')
 export default class UserEntity {
   @PrimaryGeneratedColumn({ type: 'int' })
@@ -31,4 +37,12 @@ export default class UserEntity {
 
   @OneToMany(() => TranscationEntity, (transaction) => transaction.user, { cascade: true })
   transactions?: TranscationEntity[];
+
+  constructor(props?: ConstructorProps) {
+    if (props) {
+      this.name = props.name;
+      this.socialId = props.socialId;
+      this.socialType = props.socialType;
+    }
+  }
 }
