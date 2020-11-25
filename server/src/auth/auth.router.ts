@@ -10,14 +10,8 @@ import jwtAuthorize from '../middleware/jwt-authorize';
 
 const AuthRouter = new Router();
 
-AuthRouter.get('/', (ctx: Context) => {
-  ctx.body = '리다이렉트됨';
-});
-
 AuthRouter.get('/isLogin', jwtAuthorize, (ctx: Context) => {
-  ctx.body = {
-    isLogin: 'true',
-  };
+  ctx.status = 200;
 });
 AuthRouter.get('/:provider', (ctx: Context) => {
   const { provider } = ctx.params;
@@ -49,7 +43,8 @@ AuthRouter.get('/callback/naver/redirect', async (ctx: Context) => {
     maxAge: Number(process.env.TOKEN_EXP),
     httpOnly: true,
   });
-  ctx.redirect('http://localhost:4000/api/auth');
+  const clientUri = process.env.CLIENT_URI as string;
+  ctx.redirect(clientUri);
 });
 
 AuthRouter.get('/callback/kakao', async (ctx: Context) => {
@@ -67,7 +62,8 @@ AuthRouter.get('/callback/kakao', async (ctx: Context) => {
     maxAge: Number(process.env.TOKEN_EXP),
     httpOnly: true,
   });
-  ctx.redirect('http://localhost:4000/api/auth');
+  const clientUri = process.env.CLIENT_URI as string;
+  ctx.redirect(clientUri);
 });
 
 AuthRouter.get('/callback/google', async (ctx: Context) => {
@@ -85,7 +81,8 @@ AuthRouter.get('/callback/google', async (ctx: Context) => {
     maxAge: Number(process.env.TOKEN_EXP),
     httpOnly: true,
   });
-  ctx.redirect('http://localhost:4000/api/auth');
+  const clientUri = process.env.CLIENT_URI as string;
+  ctx.redirect(clientUri);
 });
 
 export default AuthRouter;
