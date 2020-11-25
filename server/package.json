@@ -10,7 +10,6 @@
     "lint:fix": "eslint --fix src/**/*.ts",
     "dev": "nodemon",
     "build": "ttsc",
-    "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run",
     "seed:up": "ts-node -r tsconfig-paths/register src/seed/up.ts",
     "seed:clear": "ts-node -r tsconfig-paths/register src/seed/clear.ts"
   },
