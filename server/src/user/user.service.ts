@@ -10,7 +10,7 @@ const UserService = {
     return user;
   },
 
-  getUid: async (data: SocialUserDTO): Promise<number> => {
+  getOrCreateUid: async (data: SocialUserDTO): Promise<number> => {
     const userRepository = getRepository(UserEntity);
     let user = await userRepository.findOne({
       where: { socialId: data.socialId, socialType: data.socialType },
