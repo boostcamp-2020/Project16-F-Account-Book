@@ -32,7 +32,7 @@ AuthRouter.get('/callback/naver/redirect', async (ctx: Context) => {
 
   const jwtToken = AuthService.generateToken(uid);
   ctx.cookies.set('jwt', jwtToken, {
-    maxAge: 1000 * 60 * 60 * 24,
+    maxAge: Number(process.env.TOKEN_EXP),
     httpOnly: true,
   });
   ctx.redirect('http://localhost:4000/api/auth');
@@ -50,7 +50,7 @@ AuthRouter.get('/callback/kakao', async (ctx: Context) => {
 
   const jwtToken = AuthService.generateToken(uid);
   ctx.cookies.set('jwt', jwtToken, {
-    maxAge: 1000 * 60 * 60 * 24,
+    maxAge: Number(process.env.TOKEN_EXP),
     httpOnly: true,
   });
   ctx.redirect('http://localhost:4000/api/auth');
@@ -65,10 +65,10 @@ AuthRouter.get('/callback/google', async (ctx: Context) => {
   const userData = new GoogleUserDTO(userInfo);
 
   const uid = await UserService.getUid(userData);
-  console.log(uid);
+
   const jwtToken = AuthService.generateToken(uid);
   ctx.cookies.set('jwt', jwtToken, {
-    maxAge: 1000 * 60 * 60 * 24,
+    maxAge: Number(process.env.TOKEN_EXP),
     httpOnly: true,
   });
   ctx.redirect('http://localhost:4000/api/auth');
