@@ -1,17 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
-
-type PropType = {
-  height: string;
-};
-
-const StyledLogo = styled.div`
-  height: ${(props: PropType) => props.height};
-
-  svg {
-    height: 100%;
-  }
-`;
+import { PropType } from './types';
+import StyledLogo from './style';
 
 function Logo({ height }: PropType): React.ReactElement {
   return (
