@@ -6,7 +6,7 @@ import KaKaoUserDTO from './types/kakao-user-dto';
 import UserService from '../user/user.service';
 import NaverUserDTO from './types/naver-user-dto';
 import GoogleUserDTO from './types/google-user-dto';
-import jwtAuthorize from '../middleware/jwt-authrize';
+import jwtAuthorize from '../middleware/jwt-authorize';
 
 const AuthRouter = new Router();
 
