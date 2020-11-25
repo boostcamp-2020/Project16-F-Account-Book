@@ -6,11 +6,18 @@ import KaKaoUserDTO from './types/kakao-user-dto';
 import UserService from '../user/user.service';
 import NaverUserDTO from './types/naver-user-dto';
 import GoogleUserDTO from './types/google-user-dto';
+import jwtAuthorize from '../middleware/jwt-authrize';
 
 const AuthRouter = new Router();
 
 AuthRouter.get('/', (ctx: Context) => {
   ctx.body = '리다이렉트됨';
+});
+
+AuthRouter.get('/isLogin', jwtAuthorize, (ctx: Context) => {
+  ctx.body = {
+    isLogin: 'true',
+  };
 });
 
 AuthRouter.get('/callback/naver/redirect', async (ctx: Context) => {
