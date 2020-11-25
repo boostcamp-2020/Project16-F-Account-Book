@@ -9,6 +9,7 @@ import { KakaoUserInfo } from './types/kakao-user-dto';
 import decodedJWT from './types/decoded-jwt';
 import UserDTO from './types/user-dto';
 import { NaverUserInfo } from './types/naver-user-dto';
+import { GoogleUserInfo } from './types/google-user-dto';
 
 const AuthService = {
   getNaverAccessToken: async (code: string): Promise<string> => {
@@ -72,7 +73,7 @@ const AuthService = {
 
   getGoogleAccessToken: async (code: string): Promise<string> => {
     const response = await Axios.post(
-      'https://www.googleapis.com/oauth2/v4/token',
+      'https://oauth2.googleapis.com/token',
       qs.stringify({
         grant_type: 'authorization_code',
         code,
@@ -87,7 +88,18 @@ const AuthService = {
         },
       },
     );
+
     return response.data.access_token;
+  },
+
+  getGoogleUserInfo: async (accessToken: string): Promise<GoogleUserInfo> => {
+    const { data } = await Axios.get('https://openidconnect.googleapis.com/v1/userinfo', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    return data;
   },
 
   generateToken: (uid: number) => {
