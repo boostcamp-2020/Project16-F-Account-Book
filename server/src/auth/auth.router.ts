@@ -28,10 +28,7 @@ AuthRouter.get('/callback/naver/redirect', async (ctx: Context) => {
   const userInfo = await AuthService.getNaverUserInfo(accessToken);
   const userData = new NaverUserDTO(userInfo);
 
-  let uid = await UserService.getUid(userData);
-  if (!uid) {
-    uid = await UserService.createNewUser(userData);
-  }
+  const uid = await UserService.getUid(userData);
 
   const jwtToken = AuthService.generateToken(uid);
   ctx.cookies.set('jwt', jwtToken, {
@@ -49,10 +46,7 @@ AuthRouter.get('/callback/kakao', async (ctx: Context) => {
   const userInfo = await AuthService.getKakaoUserInfo(accessToken);
   const userData = new KaKaoUserDTO(userInfo);
 
-  let uid = await UserService.getUid(userData);
-  if (!uid) {
-    uid = await UserService.createNewUser(userData);
-  }
+  const uid = await UserService.getUid(userData);
 
   const jwtToken = AuthService.generateToken(uid);
   ctx.cookies.set('jwt', jwtToken, {
@@ -70,11 +64,8 @@ AuthRouter.get('/callback/google', async (ctx: Context) => {
   const userInfo = await AuthService.getGoogleUserInfo(accessToken);
   const userData = new GoogleUserDTO(userInfo);
 
-  let uid = await UserService.getUid(userData);
-  if (!uid) {
-    uid = await UserService.createNewUser(userData);
-  }
-
+  const uid = await UserService.getUid(userData);
+  console.log(uid);
   const jwtToken = AuthService.generateToken(uid);
   ctx.cookies.set('jwt', jwtToken, {
     maxAge: 1000 * 60 * 60 * 24,
