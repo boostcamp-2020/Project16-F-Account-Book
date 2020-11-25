@@ -19,6 +19,20 @@ AuthRouter.get('/isLogin', jwtAuthorize, (ctx: Context) => {
     isLogin: 'true',
   };
 });
+AuthRouter.get('/:provider', (ctx: Context) => {
+  const { provider } = ctx.params;
+  let uri = '';
+
+  if (provider === 'google') {
+    uri = process.env.GOOGLE_URI as string;
+  } else if (provider === 'naver') {
+    uri = process.env.NAVER_URI as string;
+  } else if (provider === 'kakao') {
+    uri = process.env.KAKAO_URI as string;
+  }
+
+  ctx.redirect(uri);
+});
 
 AuthRouter.get('/callback/naver/redirect', async (ctx: Context) => {
   const { code, error } = ctx.request.query;
