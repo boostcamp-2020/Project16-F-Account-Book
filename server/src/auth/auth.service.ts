@@ -1,13 +1,8 @@
 import Axios from 'axios';
 import * as qs from 'querystring';
-import { Next } from 'koa';
-import { Context } from 'vm';
 import jwt from 'jsonwebtoken';
-import { getRepository } from 'typeorm';
-import UserEntity from 'entity/user.entity';
+
 import { KakaoUserInfo } from './types/kakao-user-dto';
-import decodedJWT from './types/decoded-jwt';
-import UserDTO from './types/user-dto';
 import { NaverUserInfo } from './types/naver-user-dto';
 import { GoogleUserInfo } from './types/google-user-dto';
 
@@ -113,37 +108,6 @@ const AuthService = {
       },
     );
     return token;
-  },
-
-  jwtMiddleware: async (ctx: Context, next: Next) => {
-    const token = ctx.cookies.get('jwt');
-    if (!token) {
-      throw new Error('unauthorized');
-    }
-
-    try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as decodedJWT;
-      const userRepository = getRepository(UserEntity);
-      const user = await userRepository.findOne({ where: { uid: decoded.uid } });
-
-      if (!user) throw new Error('no user');
-
-      ctx.state.user = new UserDTO(user);
-
-      const now: number = Math.floor(Date.now() / 1000);
-
-      if (decoded.exp - now < 60 * 60 * 4) {
-        const newToken = AuthService.generateToken(decoded.uid);
-        ctx.cookies.set('jwt', newToken, {
-          maxAge: 1000 * 60 * 60 * 24 * 7,
-          httpOnly: true,
-        });
-      }
-
-      next();
-    } catch (e) {
-      throw new Error(e.message);
-    }
   },
 };
 
