@@ -5,7 +5,7 @@ type PropsType = {
   provider: 'google' | 'naver' | 'kakao';
 };
 
-function OAuthLoginButton({ provider }: PropsType): React.ReactElement {
+function OAuthLoginButton({ provider }: PropsType): JSX.Element {
   const { Button, text } = LoginButtonResourceFactory.getButtonResource(provider);
   const clickHandler = () => {
     const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
