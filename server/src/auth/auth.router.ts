@@ -1,7 +1,6 @@
 import { ACCESS_DENIED } from 'common/error';
 import Router from 'koa-router';
 import { Context } from 'koa';
-import UserEntity from '@/entity/user.entity';
 import AuthService from './auth.service';
 import KaKaoUserDTO from './types/kakao-user-dto';
 import UserService from '../user/user.service';
