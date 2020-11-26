@@ -5,10 +5,10 @@ function ModalRadioButton(): JSX.Element {
   return (
     <S.RadioButtonContainer>
       <S.RadioButtonWrapper>
-        <S.RadioButton type="radio" name="수입" value="수입" /> 수입
+        <S.RadioButton type="radio" name="isIncome" value="수입" /> 수입
       </S.RadioButtonWrapper>
       <S.RadioButtonWrapper>
-        <S.RadioButton type="radio" name="지출" value="지출" /> 지출
+        <S.RadioButton type="radio" name="isIncome" value="지출" /> 지출
       </S.RadioButtonWrapper>
     </S.RadioButtonContainer>
   );
