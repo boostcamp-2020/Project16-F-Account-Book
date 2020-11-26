@@ -75,7 +75,7 @@ AuthRouter.get('/callback/google', async (ctx: Context) => {
   const userData = new GoogleUserDTO(userInfo);
 
   const uid = await UserService.getOrCreateUid(userData);
-
+  console.log(userInfo);
   const jwtToken = AuthService.generateToken(uid);
   ctx.cookies.set('jwt', jwtToken, {
     maxAge: Number(process.env.TOKEN_EXP),
