@@ -31,12 +31,12 @@ export default class TransactionService {
     });
 
     const transactionDetailsMap: TransactionDetailsByDateMap = this.groupByDate(transactions);
-    const aggregationByDate: AggregationByDateMap = this.aggregateByDate(transactionDetailsMap);
-    const integratedAggregation = this.aggregateIntegratedData(aggregationByDate);
+    const aggregationByDateMap: AggregationByDateMap = this.aggregateByDate(transactionDetailsMap);
+    const integratedAggregation = this.aggregateIntegratedData(aggregationByDateMap);
 
     return {
       ...integratedAggregation,
-      aggregationByDate: [...aggregationByDate.entries()],
+      aggregationByDate: [...aggregationByDateMap.entries()],
       transactionDetailsByDate: [...transactionDetailsMap.entries()],
     };
   }
@@ -80,7 +80,7 @@ export default class TransactionService {
     return aggregationByDate;
   }
 
-  private aggregateIntegratedData(aggregationByDate: AggregationByDateMap) {
+  private aggregateIntegratedData(aggregationByDateMap: AggregationByDateMap) {
     let totalIn = 0;
     let totalOut = 0;
     const mostOutDateDetail: MostOutDateDetail = {
@@ -88,7 +88,7 @@ export default class TransactionService {
       date: 1,
     };
 
-    aggregationByDate.forEach((aggregation, date) => {
+    aggregationByDateMap.forEach((aggregation, date) => {
       totalIn += aggregation.totalIn;
       totalOut += aggregation.totalOut;
       if (mostOutDateDetail.amount < aggregation.totalOut) {
