@@ -32,7 +32,7 @@ const jwtAuthorize = async (ctx: Context, next: Next) => {
       });
     }
 
-    next();
+    await next();
   } catch (e) {
     throw new Error(e.message);
   }
