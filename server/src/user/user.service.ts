@@ -10,19 +10,17 @@ const UserService = {
     return user;
   },
 
-  getUserBySocialUserInfo: async (data: SocialUserDTO): Promise<UserEntity | undefined> => {
+  getOrCreateUid: async (data: SocialUserDTO): Promise<number> => {
     const userRepository = getRepository(UserEntity);
-    const user = await userRepository.findOne({
+    let user = await userRepository.findOne({
       where: { socialId: data.socialId, socialType: data.socialType },
     });
 
-    return user;
-  },
+    if (!user) {
+      user = await UserService.createNewUser(data);
+    }
 
-  existSocialUser: async (data: SocialUserDTO): Promise<boolean> => {
-    const user = await UserService.getUserBySocialUserInfo(data);
-
-    return !!user;
+    return user.uid;
   },
 
   createNewUser: async (data: SocialUserDTO): Promise<UserEntity> => {
