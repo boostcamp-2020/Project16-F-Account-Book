@@ -1,13 +1,15 @@
 import React from 'react';
 import Logo from '@components/Logo';
 import { Link } from 'react-router-dom';
-import HeaderDiv from './style';
+import { warningIcon } from './icons';
+import { HeaderDiv, SVG } from './style';
 
 function Header(): JSX.Element {
   return (
     <Link to="/">
       <HeaderDiv>
-        <Logo height="80px" />
+        <Logo height="100px" />
+        <SVG>{warningIcon}</SVG>
       </HeaderDiv>
     </Link>
   );
