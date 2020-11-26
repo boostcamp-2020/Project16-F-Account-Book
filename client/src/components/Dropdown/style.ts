@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const MenuItem = styled.div`
   display: flex;
-  float: right;
+  position: absolute;
   text-decoration: none;
   border: 2px solid black;
 `;
@@ -14,7 +14,6 @@ const Item = styled.li`
 `;
 
 const UserButton = styled.button`
-  float: right;
   background-color: white;
   border: none;
 `;
