@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 const HeaderDiv = styled.div`
-  text-align: center;
   padding: 10px 0;
   border: 30px;
   color: #ffffff;
@@ -13,14 +12,15 @@ const SVG = styled.span`
   padding: 3px;
 `;
 
-const DropDown = styled.button`
+const LogoDiv = styled.div`
+  text-align: center;
+`;
+
+const UserButton = styled.button`
+  display: float;
   float: right;
   background-color: white;
   border: none;
 `;
 
-const LogoDiv = styled.div`
-  display: inline-block;
-`;
-
-export { HeaderDiv, SVG, DropDown, LogoDiv };
+export { HeaderDiv, SVG, LogoDiv, UserButton };

@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
-import Logo from '@components/Logo';
-import SelectPage from '@components/User';
+import React from 'react';
 import { Link } from 'react-router-dom';
+
+import Logo from '@components/Logo';
+import Dropdown from '@components/Dropdown';
+
+import { HeaderDiv, LogoDiv, SVG, UserButton } from './style';
 import { UserIcon } from './icons';
-import { HeaderDiv, SVG, DropDown, LogoDiv } from './style';
+
+const dropdownList = ['결제수단 관리', '수입분류 관리', '지출분류 관리', '로그아웃'];
 
 function Header(): JSX.Element {
-  const [display, setDisplay] = useState('none');
   return (
     <>
       <HeaderDiv>
@@ -15,11 +18,11 @@ function Header(): JSX.Element {
             <Logo height="100px" />
           </Link>
         </LogoDiv>
-        <DropDown onClick={() => setDisplay(display === 'none' ? 'float' : 'none')}>
+        <UserButton>
           <SVG>{UserIcon}</SVG>
-        </DropDown>
+        </UserButton>
+        <Dropdown list={dropdownList} />
       </HeaderDiv>
-      <SelectPage display={display} />
     </>
   );
 }
