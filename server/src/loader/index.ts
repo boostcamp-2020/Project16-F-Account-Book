@@ -2,7 +2,7 @@ import Koa, { Next } from 'koa';
 import { Context } from 'vm';
 import Router from 'koa-router';
 import createDBConnection from './database';
-import apiRouter from './router';
+import ApiRouter from './router';
 
 export default async (app: Koa<Koa.DefaultState, Koa.DefaultContext>): Promise<void> => {
   await createDBConnection();
@@ -19,6 +19,8 @@ export default async (app: Koa<Koa.DefaultState, Koa.DefaultContext>): Promise<v
     }
   });
 
+  const apiRouter = new ApiRouter();
+  apiRouter.initRouter();
   router.use('/api', apiRouter.routes());
   app.use(router.routes()).use(router.allowedMethods());
 };

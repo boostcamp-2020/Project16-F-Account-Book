@@ -1,8 +1,25 @@
 import AuthRouter from 'auth/auth.router';
 import Router from 'koa-router';
+import TransactionRouter from '@/transaction/transaction.router';
+import jwtAuthorize from '../middleware/jwt-authorize';
 
-const apiRouter = new Router();
+class ApiRouter extends Router {
+  transactionRouter;
 
-apiRouter.use('/auth', AuthRouter.routes());
+  authRouter;
 
-export default apiRouter;
+  constructor() {
+    super();
+    this.transactionRouter = new TransactionRouter();
+    this.transactionRouter.initRouter();
+    this.authRouter = AuthRouter;
+  }
+
+  initRouter(): void {
+    this.use('/auth', AuthRouter.routes());
+    this.use(jwtAuthorize);
+    this.use('/transactions', this.transactionRouter.routes());
+  }
+}
+
+export default ApiRouter;
