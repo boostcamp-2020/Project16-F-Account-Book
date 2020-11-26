@@ -7,20 +7,15 @@ const HeaderDiv = styled.div`
   border-bottom: 3px solid black;
   width: 100%;
 `;
-const SVG = styled.span`
-  fill: #28a745;
-  padding: 3px;
-`;
 
 const LogoDiv = styled.div`
   text-align: center;
 `;
 
-const UserButton = styled.button`
-  display: float;
-  float: right;
-  background-color: white;
-  border: none;
+const DropDiv = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
 `;
 
-export { HeaderDiv, SVG, LogoDiv, UserButton };
+export { HeaderDiv, LogoDiv, DropDiv };

@@ -12,4 +12,11 @@ const Item = styled.li`
   font-weight: bold;
   font-size: 30px;
 `;
-export { MenuItem, Item };
+
+const UserButton = styled.button`
+  float: right;
+  background-color: white;
+  border: none;
+`;
+
+export { MenuItem, Item, UserButton };
