@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
 const HeaderDiv = styled.div`
-  display: flex;
-  float: left;
+  text-align: center;
   padding: 10px 0;
   border: 30px;
   color: #ffffff;
@@ -10,9 +9,18 @@ const HeaderDiv = styled.div`
   width: 100%;
 `;
 const SVG = styled.span`
-  float: right;
   fill: #28a745;
   padding: 3px;
 `;
 
-export { HeaderDiv, SVG };
+const DropDown = styled.button`
+  float: right;
+  background-color: white;
+  border: none;
+`;
+
+const LogoDiv = styled.div`
+  display: inline-block;
+`;
+
+export { HeaderDiv, SVG, DropDown, LogoDiv };

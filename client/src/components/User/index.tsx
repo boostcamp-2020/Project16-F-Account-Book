@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MenuItem, Item } from './style';
+import { SelectPagePropType } from './types';
 
-function SelectPage(): JSX.Element {
+function SelectPage({ display }: SelectPagePropType): JSX.Element {
   return (
-    <MenuItem>
+    <MenuItem display={display}>
       <ul>
         <Item>
           <Link

@@ -1,22 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Logo from '@components/Logo';
 import SelectPage from '@components/User';
 import { Link } from 'react-router-dom';
-import { warningIcon } from './icons';
-import { HeaderDiv, SVG } from './style';
+import { UserIcon } from './icons';
+import { HeaderDiv, SVG, DropDown, LogoDiv } from './style';
 
 function Header(): JSX.Element {
+  const [display, setDisplay] = useState('none');
   return (
-    <Link to="/">
+    <>
       <HeaderDiv>
-        <Logo height="100px" />
-        <ul>
-          <li>hi</li>
-        </ul>
-        <SVG>{warningIcon}</SVG>
-        <SelectPage />
+        <LogoDiv>
+          <Link to="/">
+            <Logo height="100px" />
+          </Link>
+        </LogoDiv>
+        <DropDown onClick={() => setDisplay(display === 'none' ? 'float' : 'none')}>
+          <SVG>{UserIcon}</SVG>
+        </DropDown>
       </HeaderDiv>
-    </Link>
+      <SelectPage display={display} />
+    </>
   );
 }
 
