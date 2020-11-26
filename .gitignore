@@ -26,3 +26,6 @@ yarn-error.log*
 
 # npm
 package-lock.json
+
+# eslint
+.eslintcache
