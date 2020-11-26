@@ -7,7 +7,10 @@
   "scripts": {
     "precommit": "run-p precommit:client precommit:server",
     "precommit:client": "yarn workspace client precommit",
-    "precommit:server": "yarn workspace server precommit"
+    "precommit:server": "yarn workspace server precommit",
+    "dev:server": "yarn workspace server dev",
+    "test:server": "yarn workspace server test",
+    "storybook": "yarn workspace client storybook"
   },
   "husky": {
     "hooks": {
