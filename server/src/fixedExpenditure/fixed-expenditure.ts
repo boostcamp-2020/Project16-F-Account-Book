@@ -10,7 +10,7 @@ type fixedType = {
   uid: number;
 };
 
-const TransactionService = {
+const FixedExpenditureService = {
   getFixedExpenditure: async (uid: number) => {
     const userRepository = getRepository(UserEntity);
     const fixedRepository = getRepository(FixedExpenditureEntity);
@@ -20,10 +20,10 @@ const TransactionService = {
     const today = new Date();
 
     if (!updateAt) {
-      await TransactionService.createFixedExpenditure(uid);
+      await FixedExpenditureService.createFixedExpenditure(uid);
     } else if (updateAt.getMonth() !== today.getMonth()) {
       await fixedRepository.delete(uid);
-      await TransactionService.createFixedExpenditure(uid);
+      await FixedExpenditureService.createFixedExpenditure(uid);
     }
 
     const fixedData = await fixedRepository.find({ where: { uid }, order: { tradeAt: 'ASC' } });
@@ -78,4 +78,4 @@ const TransactionService = {
   },
 };
 
-export default TransactionService;
+export default FixedExpenditureService;
