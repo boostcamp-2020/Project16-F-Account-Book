@@ -1,6 +1,7 @@
 import Koa, { Next } from 'koa';
 import { Context } from 'vm';
 import Router from 'koa-router';
+import morgan from 'koa-morgan';
 import createDBConnection from './database';
 import ApiRouter from './router';
 
@@ -8,6 +9,8 @@ export default async (app: Koa<Koa.DefaultState, Koa.DefaultContext>): Promise<v
   await createDBConnection();
 
   const router = new Router();
+
+  app.use(morgan('dev'));
 
   app.use(async (ctx: Context, next: Next) => {
     try {
