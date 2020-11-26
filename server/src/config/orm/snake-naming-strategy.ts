@@ -7,7 +7,7 @@ import { snakeCase } from 'typeorm/util/StringUtils';
 export default class SnakeNamingStrategy extends DefaultNamingStrategy
   implements NamingStrategyInterface {
   tableName(className: string, customName: string): string {
-    return customName || snakeCase(className);
+    return snakeCase(customName) || snakeCase(className);
   }
 
   columnName(propertyName: string, customName: string, embeddedPrefixes: string[]): string {
