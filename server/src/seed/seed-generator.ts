@@ -3,8 +3,6 @@ import CategoryEntity from '@entity/category.entity';
 import PaymentEntity from '@entity/payment.entity';
 import TransactionEntity from '@entity/transaction.entity';
 
-const NUM_OF_USERS = 10000;
-const NUM_OF_TRANSACTIONS_PER_USER = 100;
 const MIN_AMOUNT = 1000;
 const MAX_AMOUNT = 10000;
 
@@ -32,16 +30,26 @@ const generatePayments = (user: UserEntity) => {
   return payments;
 };
 
-const generateTransactions = (
-  category: CategoryEntity,
-  user: UserEntity,
-  payment: PaymentEntity,
-) => {
+const generateTransactions = ({
+  category,
+  user,
+  payment,
+  numOfTransactionsPerUser,
+  startDate,
+  endDate,
+}: {
+  category: CategoryEntity;
+  user: UserEntity;
+  payment: PaymentEntity;
+  numOfTransactionsPerUser: number;
+  startDate: Date;
+  endDate: Date;
+}) => {
   const transactions = [];
-  for (let i = 0; i < NUM_OF_TRANSACTIONS_PER_USER; i += 1) {
+  for (let i = 0; i < numOfTransactionsPerUser; i += 1) {
     const amount = Math.floor(Math.random() * (MAX_AMOUNT - MIN_AMOUNT) + MIN_AMOUNT);
     const description = `${user.name}의 가계부내역 ${i + 1}`;
-    const tradeAt = generateRandomDate(new Date('2020-01-01'), new Date());
+    const tradeAt = generateRandomDate(startDate, endDate);
     const isIncome = Math.floor(Math.random() * 2) === 1;
     const transaction = new TransactionEntity({
       amount,
@@ -57,17 +65,32 @@ const generateTransactions = (
   return transactions;
 };
 
-const generateSeedData = () => {
+const generateSeedData = ({
+  numOfUsers,
+  numOfTransactionsPerUser,
+  startDate,
+  endDate,
+}: {
+  numOfUsers: number;
+  numOfTransactionsPerUser: number;
+  startDate: Date;
+  endDate: Date;
+}): {
+  users: UserEntity[];
+  categories: CategoryEntity[];
+  payments: PaymentEntity[];
+  transactions: TransactionEntity[];
+} => {
   const providers = ['google', 'naver', 'kakao'];
   const users = [];
   const categories = [];
   const payments = [];
   const transactions = [];
 
-  for (let i = 0; i < NUM_OF_USERS; i += 1) {
+  for (let i = 0; i < numOfUsers; i += 1) {
     const user = new UserEntity({
       name: `user${i + 1}`,
-      socialId: `user${i + 1}`,
+      socialId: `user${i + 1}-123456789`,
       socialType: `${providers[i % 3]}`,
     });
     users.push(user);
@@ -75,9 +98,18 @@ const generateSeedData = () => {
     payments.push(...generatePayments(user));
     const category = categories[Math.floor(Math.random() * categories.length)];
     const payment = payments[Math.floor(Math.random() * payments.length)];
-    transactions.push(...generateTransactions(category, user, payment));
+    transactions.push(
+      ...generateTransactions({
+        category,
+        user,
+        payment,
+        numOfTransactionsPerUser,
+        startDate,
+        endDate,
+      }),
+    );
   }
   return { users, categories, payments, transactions };
 };
 
-export default generateSeedData;
+export default { generateSeedData };
