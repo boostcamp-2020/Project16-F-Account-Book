@@ -1,5 +1,7 @@
 import { oAuthConfig } from '@config/index';
 import { Context } from 'koa';
+import axios from 'axios';
+import * as qs from 'querystring';
 
 export default class OAuthClient {
   private config;
@@ -11,12 +13,33 @@ export default class OAuthClient {
     this.config = oAuthConfig[provider];
   }
 
-  public redirectToAuthorizaionPage(ctx: Context): void {
-    let authorizationUri = `${this.config.authorizationUri}?client_id=${this.config.clientId}&response_type=code&redirect_uri=${this.config.callbackUri}`;
+  public redirectToAuthorizaionPage(ctx: Context, state: string): void {
+    let authorizationUri = `${this.config.authorizationUri}?client_id=${this.config.clientId}&response_type=code&redirect_uri=${this.config.callbackUri}&state=${state}`;
     if (this.provider === 'google') {
       authorizationUri +=
         '&scope=openid%20email%20profile&access_type=online&include_granted_scopes=true';
     }
     ctx.redirect(authorizationUri);
+  }
+
+  public async getAccessToken(code: string, state: string): Promise<string> {
+    const { tokenUri, callbackUri, clientId, clientSecret } = this.config;
+    const queryParams = {
+      grant_type: 'authorization_code',
+      code,
+      state,
+      redirect_uri: callbackUri,
+      client_id: clientId,
+      client_secret: clientSecret,
+    };
+    const query = qs.stringify(queryParams);
+
+    const response = await axios.post(tokenUri, query, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        charset: 'utf-8',
+      },
+    });
+    return response.data.access_token;
   }
 }
