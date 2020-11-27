@@ -2,6 +2,10 @@ import { oAuthConfig } from '@config/index';
 import { Context } from 'koa';
 import axios from 'axios';
 import * as qs from 'querystring';
+import SocialUserDTO from '@auth/types/social-user-dto';
+import GoogleUserDTO from '@auth/types/google-user-dto';
+import NaverUserDTO from '@auth/types/naver-user-dto';
+import KakaoUserDTO from '@auth/types/kakao-user-dto';
 
 export default class OAuthClient {
   private config;
@@ -41,5 +45,21 @@ export default class OAuthClient {
       },
     });
     return response.data.access_token;
+  }
+
+  public async getUserInfo(accessToken: string): Promise<SocialUserDTO> {
+    const { userInfoUri } = this.config;
+    const { data } = await axios.get(userInfoUri, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    if (this.provider === 'google') {
+      return new GoogleUserDTO(data);
+    }
+    if (this.provider === 'naver') {
+      return new NaverUserDTO(data);
+    }
+    return new KakaoUserDTO(data);
   }
 }
