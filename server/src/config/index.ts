@@ -32,8 +32,7 @@ export const oAuthConfig = {
     clientSecret: process.env.NAVER_CLIENT_SECRET || 'clientSecret',
     authorizationUri:
       process.env.NAVER_AUTHORIZATION_URI || 'https://nid.naver.com/oauth2.0/authorize',
-    callbackUri:
-      process.env.GOOGLE_CALLBACK_URI || 'http://localhost:4000/api/auth/callback/naver/redirect',
+    callbackUri: process.env.NAVER_CALLBACK_URI || 'http://localhost:4000/api/auth/callback/naver',
     tokenUri: process.env.NAVER_TOKEN_URI || 'https://nid.naver.com/oauth2.0/token',
     userInfoUri: process.env.NAVER_USERINFO_URI || 'https://openapi.naver.com/v1/nid/me',
   },
@@ -43,7 +42,7 @@ export const oAuthConfig = {
     authorizationUri:
       process.env.KAKAO_AUTHORIZATION_URI || 'https://kauth.kakao.com/oauth/authorize',
     callbackUri: process.env.KAKAO_CALLBACK_URI || 'http://localhost:4000/api/auth/callback/kakao',
-    tokenUri: process.env.KAKAO_AUTHORIZATION_URI || 'https://kauth.kakao.com/oauth/token',
-    userInfoUri: process.env.KAKAO_AUTHORIZATION_URI || 'https://kapi.kakao.com/v2/user/me',
+    tokenUri: process.env.KAKAO_TOKEN_URI || 'https://kauth.kakao.com/oauth/token',
+    userInfoUri: process.env.KAKAO_USERINFO_URI || 'https://kapi.kakao.com/v2/user/me',
   },
 };
