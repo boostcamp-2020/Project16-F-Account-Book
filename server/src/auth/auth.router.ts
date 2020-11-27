@@ -7,6 +7,7 @@ import UserService from '../user/user.service';
 import NaverUserDTO from './types/naver-user-dto';
 import GoogleUserDTO from './types/google-user-dto';
 import jwtAuthorize from '../middleware/jwt-authorize';
+import OAuthClient from './oauth-client';
 
 const AuthRouter = new Router();
 
@@ -15,17 +16,8 @@ AuthRouter.get('/isLogin', jwtAuthorize, (ctx: Context) => {
 });
 AuthRouter.get('/:provider', (ctx: Context) => {
   const { provider } = ctx.params;
-  let uri = '';
-
-  if (provider === 'google') {
-    uri = process.env.GOOGLE_URI as string;
-  } else if (provider === 'naver') {
-    uri = process.env.NAVER_URI as string;
-  } else if (provider === 'kakao') {
-    uri = process.env.KAKAO_URI as string;
-  }
-
-  ctx.redirect(uri);
+  const oAuthClient = new OAuthClient(provider);
+  oAuthClient.redirectToAuthorizaionPage(ctx);
 });
 
 AuthRouter.get('/callback/naver/redirect', async (ctx: Context) => {
