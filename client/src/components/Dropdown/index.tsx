@@ -17,7 +17,6 @@ function Dropdown({ list, getIcon }: DropdownType): JSX.Element {
       </Link>
     </Item>
   ));
-
   return (
     <>
       <UserButton>{getIcon}</UserButton>
