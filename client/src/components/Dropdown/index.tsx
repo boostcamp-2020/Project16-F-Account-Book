@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DropdownType } from './types';
-import { MenuItem, Item, UserButton } from './style';
+import { MenuItem, Item, Button } from './style';
 
 function Dropdown({ list, getIcon }: DropdownType): JSX.Element {
+  const [isShow, setDisplay] = useState(false);
   const dropdownlist = list.map((v: string) => (
     <Item>
       <Link
@@ -19,8 +20,8 @@ function Dropdown({ list, getIcon }: DropdownType): JSX.Element {
   ));
   return (
     <>
-      <UserButton>{getIcon}</UserButton>
-      <MenuItem>
+      <Button onClick={() => setDisplay(!isShow)}>{getIcon}</Button>
+      <MenuItem className={isShow ? 'show' : ''}>
         <ul>{dropdownlist}</ul>
       </MenuItem>
     </>

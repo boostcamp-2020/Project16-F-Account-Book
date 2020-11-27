@@ -1,10 +1,14 @@
 import styled from 'styled-components';
 
 const MenuItem = styled.div`
-  display: flex;
+  background-color: white;
+  display: none;
   position: absolute;
   text-decoration: none;
   border: 2px solid black;
+  &.show {
+    display: flex;
+  }
 `;
 
 const Item = styled.li`
@@ -15,14 +19,12 @@ const Item = styled.li`
   word-break: keep-all;
 `;
 
-const UserButton = styled.button`
+const Button = styled.button`
   background-color: white;
   border: none;
-  &:hover {
-    ${MenuItem} {
-      display: none;
-    }
+  padding:30 0;
+  font-size: 20px;
   }
 `;
 
-export { MenuItem, Item, UserButton };
+export { MenuItem, Item, Button };

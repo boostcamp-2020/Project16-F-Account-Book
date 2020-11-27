@@ -5,8 +5,8 @@ export const UserIcon = (
   <svg
     version="1.0"
     xmlns="http://www.w3.org/2000/svg"
-    width="100pt"
-    height="80pt"
+    width="80pt"
+    height="58pt"
     viewBox="0 0 2500.000000 2500.000000"
     preserveAspectRatio="xMidYMid meet"
   >
