@@ -34,7 +34,7 @@ AuthRouter.get('/callback/:provider', async (ctx: Context) => {
   const jwtToken = JwtUtils.generateToken(uid);
 
   ctx.cookies.set('jwt', jwtToken, {
-    maxAge: JwtConfig.cookieExpiredAt,
+    maxAge: JwtConfig.cookieExpiresIn,
     httpOnly: true,
   });
 

@@ -9,7 +9,7 @@ const generateToken = (uid: number): string => {
     },
     JwtConfig.tokenSecret,
     {
-      expiresIn: JwtConfig.tokenExpiredAt,
+      expiresIn: JwtConfig.tokenExpiresIn,
     },
   );
   return token;

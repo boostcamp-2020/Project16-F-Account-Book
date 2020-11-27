@@ -26,7 +26,7 @@ const jwtAuthorize = async (ctx: Context, next: Next): Promise<void> => {
     if (decoded.exp - now < 60 * 60 * 4) {
       const newToken = JwtUtils.generateToken(decoded.uid);
       ctx.cookies.set('jwt', newToken, {
-        maxAge: Number(JwtConfig.cookieExpiredAt),
+        maxAge: Number(JwtConfig.cookieExpiresIn),
         httpOnly: true,
       });
     }
