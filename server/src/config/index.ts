@@ -46,3 +46,9 @@ export const oAuthConfig = {
     userInfoUri: process.env.KAKAO_USERINFO_URI || 'https://kapi.kakao.com/v2/user/me',
   },
 };
+
+export const JwtConfig = {
+  tokenSecret: process.env.JWT_SECRET || 'token-secret',
+  tokenExpiredAt: process.env.JWT_TOKEN_EXPIRES_IN || '1d',
+  cookieExpiredAt: Number(process.env.JWT_COOKIE_EXPIRES_IN || 86400000),
+};
