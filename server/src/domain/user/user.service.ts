@@ -1,5 +1,5 @@
 import SocialUserDTO from '@/domain/auth/types/social-user-dto';
-import UserEntity from 'entity/user.entity';
+import UserEntity from '@/entity/user.entity';
 import { Repository } from 'typeorm';
 
 export default class UserService {

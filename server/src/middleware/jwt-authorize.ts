@@ -3,8 +3,8 @@ import { Context } from 'vm';
 import { getRepository } from 'typeorm';
 import JwtUtils from '@/domain/auth/utils/jwt-utils';
 import { JwtConfig } from '@config/index';
-import UserEntity from '../entity/user.entity';
-import UserDTO from '../domain/auth/types/user-dto';
+import UserEntity from '@/entity/user.entity';
+import UserDTO from '@/domain/auth/types/user-dto';
 
 const jwtAuthorize = async (ctx: Context, next: Next): Promise<void> => {
   const token = ctx.cookies.get('jwt');
