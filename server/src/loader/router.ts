@@ -6,11 +6,11 @@ import jwtAuthorize from '../middleware/jwt-authorize';
 
 class ApiRouter extends Router {
   transactionRouter;
-  
+
   authRouter;
-  
+
   fixedExpenditureRouter;
-  
+
   constructor() {
     super();
     this.transactionRouter = new TransactionRouter();

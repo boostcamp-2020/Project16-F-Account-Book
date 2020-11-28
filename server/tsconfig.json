@@ -15,7 +15,8 @@
     "paths": {
       "@/*": ["./*"],
       "@config/*": ["config/*"],
-      "@entity/*": ["entity/*"]
+      "@entity/*": ["entity/*"],
+      "@auth/*": ["auth/*"]
     },
     "plugins": [{ "transform": "typescript-transform-paths" }]
   },
