@@ -19,6 +19,13 @@ export default class CategoryRouter extends Router {
       ctx.status = 200;
     });
 
+    this.patch('/:categoryId', async (ctx: Context) => {
+      const { categoryId } = ctx.params;
+      const { name, isIncome } = ctx.request.body;
+      await this.categoryService.updateCategory(categoryId, name, isIncome);
+      ctx.status = 200;
+    });
+
     this.delete('/:categoryId', async (ctx: Context) => {
       const { categoryId } = ctx.params;
       await this.categoryService.deleteCategory(categoryId);

@@ -13,7 +13,11 @@ export default class CategoryService {
     await this.categoryRepository.save(category);
   }
 
+  public async updateCategory(categoryId: number, name: string, isIncome: boolean): Promise<void> {
+    await this.categoryRepository.update({ cid: categoryId }, { name, isIncome });
+  }
+
   public async deleteCategory(categoryId: number): Promise<void> {
-    await this.categoryRepository.delete(categoryId);
+    await this.categoryRepository.delete({ cid: categoryId });
   }
 }
