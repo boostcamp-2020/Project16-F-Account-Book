@@ -5,7 +5,7 @@ import TransactionRepository from '@/domain/transaction/transaction.repository';
 import FixedExpenditureService from './fixed-expenditure.service';
 import FixedExpenditureRepository from './fixed-expenditure.repository';
 
-class FixedExpenditureRouter extends Router {
+export default class FixedExpenditureRouter extends Router {
   private fixedExpenditureService;
 
   constructor() {
@@ -20,10 +20,10 @@ class FixedExpenditureRouter extends Router {
   initRouter(): void {
     this.get('/', async (ctx: Context) => {
       const { uid } = ctx.state.user;
+      console.log('test', uid);
       const fixedList = await this.fixedExpenditureService.getFixedExpenditure(uid);
-
+      console.log(fixedList);
       ctx.body = fixedList;
     });
   }
 }
-export default FixedExpenditureRouter;
