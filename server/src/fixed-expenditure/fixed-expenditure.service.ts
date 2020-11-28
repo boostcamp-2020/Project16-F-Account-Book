@@ -5,11 +5,11 @@ import { Repository, Between } from 'typeorm';
 import { FixedType } from './types';
 
 export default class FixedExpenditureService {
-  fixedExpenditureRepository: Repository<FixedExpenditureEntity>;
+  private fixedExpenditureRepository: Repository<FixedExpenditureEntity>;
 
-  userRepository: Repository<UserEntity>;
+  private userRepository: Repository<UserEntity>;
 
-  transactionRepository: Repository<TranscationEntity>;
+  private transactionRepository: Repository<TranscationEntity>;
 
   constructor(
     fixedExpenditureRepository: Repository<FixedExpenditureEntity>,

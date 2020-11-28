@@ -11,7 +11,7 @@ import {
 } from './types';
 
 export default class TransactionService {
-  transactionRepository: Repository<TranscationEntity>;
+  private transactionRepository: Repository<TranscationEntity>;
 
   constructor(transactionRepository: Repository<TranscationEntity>) {
     this.transactionRepository = transactionRepository;

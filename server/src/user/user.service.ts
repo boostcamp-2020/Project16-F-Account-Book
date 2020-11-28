@@ -3,7 +3,7 @@ import UserEntity from 'entity/user.entity';
 import { Repository } from 'typeorm';
 
 export default class UserService {
-  userRepository: Repository<UserEntity>;
+  private userRepository: Repository<UserEntity>;
 
   constructor(userRepository: Repository<UserEntity>) {
     this.userRepository = userRepository;

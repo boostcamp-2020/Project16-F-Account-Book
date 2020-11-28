@@ -6,7 +6,7 @@ import FixedExpenditureService from './fixed-expenditure.service';
 import FixedExpenditureRepository from './fixed-expenditure.repository';
 
 class FixedExpenditureRouter extends Router {
-  fixedExpenditureService;
+  private fixedExpenditureService;
 
   constructor() {
     super();

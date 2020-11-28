@@ -10,7 +10,7 @@ import OAuthClient from './oauth-client';
 import JwtUtils from './utils/jwt-utils';
 
 class AuthRouter extends Router {
-  userService;
+  private userService;
 
   constructor() {
     super();

@@ -5,11 +5,11 @@ import FixedExpenditureRouter from '@/fixed-expenditure/fixed-expenditure.router
 import jwtAuthorize from '../middleware/jwt-authorize';
 
 class ApiRouter extends Router {
-  transactionRouter;
+  private transactionRouter;
 
-  authRouter;
+  private authRouter;
 
-  fixedExpenditureRouter;
+  private fixedExpenditureRouter;
 
   constructor() {
     super();
