@@ -22,7 +22,6 @@ export default class FixedExpenditureRouter extends Router {
       const { uid } = ctx.state.user;
       console.log('test', uid);
       const fixedList = await this.fixedExpenditureService.getFixedExpenditure(uid);
-      console.log(fixedList);
       ctx.body = fixedList;
     });
   }

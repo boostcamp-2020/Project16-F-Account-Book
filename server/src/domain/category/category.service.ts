@@ -15,7 +15,7 @@ export default class CategoryService {
 
   public async readCategories(uid: number): Promise<CategoryEntity[]> {
     const categories = await this.categoryRepository.find({
-      select: ['uid', 'name', 'isIncome'],
+      select: ['cid', 'name', 'isIncome'],
       where: { uid },
     });
     return categories;
