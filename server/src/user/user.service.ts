@@ -1,39 +1,40 @@
 import SocialUserDTO from '@/auth/types/social-user-dto';
 import UserEntity from 'entity/user.entity';
-import { getRepository } from 'typeorm';
+import { Repository } from 'typeorm';
 
-const UserService = {
-  getUserById: async (id: number): Promise<UserEntity | undefined> => {
-    const userRepository = getRepository(UserEntity);
-    const user = await userRepository.findOne({ where: { uid: id } });
+export default class UserService {
+  userRepository: Repository<UserEntity>;
+
+  constructor(userRepository: Repository<UserEntity>) {
+    this.userRepository = userRepository;
+  }
+
+  public async getUserById(id: number): Promise<UserEntity | undefined> {
+    const user = await this.userRepository.findOne({ where: { uid: id } });
 
     return user;
-  },
+  }
 
-  getOrCreateUid: async (data: SocialUserDTO): Promise<number> => {
-    const userRepository = getRepository(UserEntity);
-    let user = await userRepository.findOne({
+  public async getOrCreateUid(data: SocialUserDTO): Promise<number> {
+    let user = await this.userRepository.findOne({
       where: { socialId: data.socialId, socialType: data.socialType },
     });
 
     if (!user) {
-      user = await UserService.createNewUser(data);
+      user = await this.createNewUser(data);
     }
 
     return user.uid;
-  },
+  }
 
-  createNewUser: async (data: SocialUserDTO): Promise<UserEntity> => {
-    const userRepository = getRepository(UserEntity);
-    const newUser = userRepository.create({
+  public async createNewUser(data: SocialUserDTO): Promise<UserEntity> {
+    const newUser = this.userRepository.create({
       name: data.name,
       socialId: data.socialId,
       socialType: data.socialType,
     });
-    const savedUser = await userRepository.save(newUser);
+    const savedUser = await this.userRepository.save(newUser);
 
     return savedUser;
-  },
-};
-
-export default UserService;
+  }
+}
