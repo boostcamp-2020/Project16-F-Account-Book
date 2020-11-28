@@ -1,6 +1,6 @@
 import { createConnection, getConnectionOptions, Connection } from 'typeorm';
 import SnakeNamingStrategy from '@config/orm/snake-naming-strategy';
-import ormConfig from '@config/orm';
+import { ormConfig } from '@config/index';
 
 const createDBConnection = async (): Promise<Connection> => {
   const connectionOptions = await getConnectionOptions();
