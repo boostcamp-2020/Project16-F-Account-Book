@@ -12,4 +12,12 @@ export default class PaymentService {
     const payment = this.paymentRepository.create({ name, uid });
     await this.paymentRepository.save(payment);
   }
+
+  public async readPayment(uid: number): Promise<PaymentEntity[]> {
+    const payment = await this.paymentRepository.find({
+      select: ['pid', 'name'],
+      where: { uid },
+    });
+    return payment;
+  }
 }

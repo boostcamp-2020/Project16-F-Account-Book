@@ -15,9 +15,14 @@ export default class PaymentRouter extends Router {
     this.post('/', async (ctx: Context) => {
       const { uid } = ctx.state.user;
       const { name } = ctx.request.body;
-      console.log(name);
       await this.paymentService.createPayment(name, uid);
       ctx.status = 200;
+    });
+
+    this.get('/', async (ctx: Context) => {
+      const { uid } = ctx.state.user;
+      const payment = await this.paymentService.readPayment(uid);
+      ctx.body = payment;
     });
   }
 }
