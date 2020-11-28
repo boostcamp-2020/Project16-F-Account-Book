@@ -24,4 +24,8 @@ export default class PaymentService {
   public async updatePayment(paymentId: number, name: string): Promise<void> {
     await this.paymentRepository.update({ pid: paymentId }, { name });
   }
+
+  public async deletePayment(paymentId: number): Promise<void> {
+    await this.paymentRepository.delete({ pid: paymentId });
+  }
 }
