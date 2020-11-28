@@ -18,7 +18,7 @@ class TransactionRouter extends Router {
       const { query } = ctx;
       const { year, month } = query;
       const transactionDetailsOfMonth = await this.transactionService.getTransactionDetailsOfMonth({
-        uid: ctx.state.user.uid,
+        uid: 2333,
         year,
         month,
       });

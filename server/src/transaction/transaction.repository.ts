@@ -2,8 +2,7 @@ import { getRepository, Repository } from 'typeorm';
 import TransactionEntity from '@entity/transaction.entity';
 
 const getTransactionRepository = (): Repository<TransactionEntity> => {
-  const transactionRepository = getRepository(TransactionEntity);
-  return transactionRepository;
+  return getRepository(TransactionEntity);
 };
 
 export default { getTransactionRepository };
