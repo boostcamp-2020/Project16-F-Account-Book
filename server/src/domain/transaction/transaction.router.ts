@@ -4,7 +4,7 @@ import TransactionService from './transaction.service';
 import TransactionRepository from './transaction.repository';
 
 class TransactionRouter extends Router {
-  transactionService;
+  private transactionService;
 
   constructor() {
     super();
