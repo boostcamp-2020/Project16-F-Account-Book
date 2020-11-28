@@ -1,5 +1,5 @@
 import CategoryEntity from '@/entity/category.entity';
-import { Repository, Between } from 'typeorm';
+import { Repository } from 'typeorm';
 
 export default class CategoryService {
   private categoryRepository: Repository<CategoryEntity>;
@@ -11,6 +11,14 @@ export default class CategoryService {
   public async createCategory(name: string, isIncome: boolean, uid: number): Promise<void> {
     const category = this.categoryRepository.create({ name, isIncome, uid });
     await this.categoryRepository.save(category);
+  }
+
+  public async readCategories(uid: number): Promise<CategoryEntity[]> {
+    const categories = await this.categoryRepository.find({
+      select: ['uid', 'name', 'isIncome'],
+      where: { uid },
+    });
+    return categories;
   }
 
   public async updateCategory(categoryId: number, name: string, isIncome: boolean): Promise<void> {

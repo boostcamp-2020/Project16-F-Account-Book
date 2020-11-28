@@ -19,6 +19,12 @@ export default class CategoryRouter extends Router {
       ctx.status = 200;
     });
 
+    this.get('/', async (ctx: Context) => {
+      const { uid } = ctx.state.user;
+      const categories = await this.categoryService.readCategories(uid);
+      ctx.body = categories;
+    });
+
     this.patch('/:categoryId', async (ctx: Context) => {
       const { categoryId } = ctx.params;
       const { name, isIncome } = ctx.request.body;
