@@ -9,7 +9,8 @@
     "precommit:client": "yarn workspace client precommit",
     "precommit:server": "yarn workspace server precommit",
     "dev:server": "yarn workspace server dev",
-    "test:server": "yarn workspace server test"
+    "test:server": "yarn workspace server test",
+    "storybook": "yarn workspace client storybook"
   },
   "husky": {
     "hooks": {
