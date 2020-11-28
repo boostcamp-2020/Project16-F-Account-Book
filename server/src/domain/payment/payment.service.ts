@@ -20,4 +20,8 @@ export default class PaymentService {
     });
     return payment;
   }
+
+  public async updatePayment(paymentId: number, name: string): Promise<void> {
+    await this.paymentRepository.update({ pid: paymentId }, { name });
+  }
 }
