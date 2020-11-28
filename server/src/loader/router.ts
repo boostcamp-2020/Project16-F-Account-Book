@@ -1,8 +1,8 @@
 import Router from 'koa-router';
-import TransactionRouter from '@/transaction/transaction.router';
-import AuthRouter from 'auth/auth.router';
-import FixedExpenditureRouter from '@/fixed-expenditure/fixed-expenditure.router';
-import jwtAuthorize from '../middleware/jwt-authorize';
+import TransactionRouter from '@/domain/transaction/transaction.router';
+import AuthRouter from '@/domain/auth/auth.router';
+import FixedExpenditureRouter from '@/domain/fixed-expenditure/fixed-expenditure.router';
+import jwtAuthorize from '@/middleware/jwt-authorize';
 
 class ApiRouter extends Router {
   private transactionRouter;

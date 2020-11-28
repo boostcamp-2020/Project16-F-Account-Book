@@ -1,5 +1,5 @@
 /* eslint-disable class-methods-use-this */
-import TranscationEntity from '@entity/transaction.entity';
+import TranscationEntity from '@/entity/transaction.entity';
 import { Repository, Between } from 'typeorm';
 import {
   MonthlyTransactionDetailsQueryParams,

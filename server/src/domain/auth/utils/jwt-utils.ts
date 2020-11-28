@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { JwtConfig } from '@config/index';
-import decodedJWT from '@auth/types/decoded-jwt';
+import decodedJWT from '@/domain/auth/types/decoded-jwt';
 
 const generateToken = (uid: number): string => {
   const token = jwt.sign(

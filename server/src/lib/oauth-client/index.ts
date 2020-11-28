@@ -1,11 +1,11 @@
-import { oAuthConfig } from '@config/index';
+import { oAuthConfig } from '@/config/index';
 import { Context } from 'koa';
 import axios from 'axios';
 import * as qs from 'querystring';
-import SocialUserDTO from '@auth/types/social-user-dto';
-import GoogleUserDTO from '@auth/types/google-user-dto';
-import NaverUserDTO from '@auth/types/naver-user-dto';
-import KakaoUserDTO from '@auth/types/kakao-user-dto';
+import SocialUserDTO from '@/domain/auth/types/social-user-dto';
+import GoogleUserDTO from '@/domain/auth/types/google-user-dto';
+import NaverUserDTO from '@/domain/auth/types/naver-user-dto';
+import KakaoUserDTO from '@/domain/auth/types/kakao-user-dto';
 
 export default class OAuthClient {
   private config;

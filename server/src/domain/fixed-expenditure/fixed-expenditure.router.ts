@@ -1,7 +1,7 @@
 import Router from 'koa-router';
 import { Context } from 'koa';
-import UserRepository from '@/user/user.repository';
-import TransactionRepository from '@/transaction/transaction.repository';
+import UserRepository from '@/domain/user/user.repository';
+import TransactionRepository from '@/domain/transaction/transaction.repository';
 import FixedExpenditureService from './fixed-expenditure.service';
 import FixedExpenditureRepository from './fixed-expenditure.repository';
 

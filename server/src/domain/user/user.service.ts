@@ -1,4 +1,4 @@
-import SocialUserDTO from '@/auth/types/social-user-dto';
+import SocialUserDTO from '@/domain/auth/types/social-user-dto';
 import UserEntity from 'entity/user.entity';
 import { Repository } from 'typeorm';
 

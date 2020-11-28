@@ -1,6 +1,6 @@
 import createDBConnection from '@/loader/database';
 import { Connection, Repository } from 'typeorm';
-import TransactionEntity from '@entity/transaction.entity';
+import TransactionEntity from '@/entity/transaction.entity';
 import TestSeeder from '@/seed/test.seed';
 import TransactionService from './transaction.service';
 import TransactionRepository from './transaction.repository';

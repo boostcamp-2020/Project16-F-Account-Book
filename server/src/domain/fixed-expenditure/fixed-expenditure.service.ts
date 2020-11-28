@@ -1,6 +1,6 @@
-import FixedExpenditureEntity from 'entity/fixed-expenditure.entity';
-import UserEntity from 'entity/user.entity';
-import TranscationEntity from 'entity/transaction.entity';
+import FixedExpenditureEntity from '@/entity/fixed-expenditure.entity';
+import UserEntity from '@/entity/user.entity';
+import TranscationEntity from '@/entity/transaction.entity';
 import { Repository, Between } from 'typeorm';
 import { FixedType } from './types';
 
