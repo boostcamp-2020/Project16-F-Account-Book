@@ -12,4 +12,8 @@ export default class CategoryService {
     const category = this.categoryRepository.create({ name, isIncome, uid });
     await this.categoryRepository.save(category);
   }
+
+  public async deleteCategory(categoryId: number): Promise<void> {
+    await this.categoryRepository.delete(categoryId);
+  }
 }
