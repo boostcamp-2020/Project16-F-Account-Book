@@ -20,7 +20,6 @@ export default class FixedExpenditureRouter extends Router {
   initRouter(): void {
     this.get('/', async (ctx: Context) => {
       const { uid } = ctx.state.user;
-      console.log('test', uid);
       const fixedList = await this.fixedExpenditureService.getFixedExpenditure(uid);
       ctx.body = fixedList;
     });
