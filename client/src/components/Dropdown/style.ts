@@ -5,7 +5,7 @@ const MenuItem = styled.div`
   display: none;
   position: absolute;
   text-decoration: none;
-  border: 2px solid black;
+  border: 2px solid #292929;
   &.show {
     display: flex;
   }

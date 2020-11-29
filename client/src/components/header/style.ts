@@ -1,10 +1,8 @@
 import styled from 'styled-components';
 
 const HeaderDiv = styled.div`
-  padding: 10px 0;
-  border: 30px;
-  color: #ffffff;
-  border-bottom: 2px solid black;
+  padding: 10px 0px 0px 0px;
+  border-bottom: 2px solid #292929;
   width: 100%;
 `;
 
@@ -14,7 +12,7 @@ const LogoDiv = styled.div`
 
 const DropDiv = styled.div`
   display: block;
-  padding: 9px;
+  padding: 30px 30px 0px 30px;
   position: absolute;
   top: 0;
   right: 0;
