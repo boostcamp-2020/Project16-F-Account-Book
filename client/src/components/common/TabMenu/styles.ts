@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledTabMenuButton = styled.button`
+  position: relative;
   flex: 1 auto;
   border: none;
   font-size: 1.2rem;
@@ -9,8 +10,14 @@ export const StyledTabMenuButton = styled.button`
   cursor: pointer;
   text-align: center;
 
-  &.active {
-    border-bottom: 2px solid rgba(0, 0, 0, 0.7);
+  &.active::before {
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 100%;
+    height: 2px;
+    content: '';
+    background: rgba(0, 0, 0, 0.7);
   }
 
   &:focus {
