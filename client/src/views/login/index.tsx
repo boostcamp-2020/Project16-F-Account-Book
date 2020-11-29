@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import axios from 'axios';
+import Logo from '@/components/common/Logo';
+import LoginButton from '@/container/loginButton';
 import Box from './style';
-import Logo from '../../components/Logo';
-import LoginButton from '../../container/loginButton';
 
 const LoginPage = (props: RouteComponentProps): JSX.Element => {
   useEffect(() => {
