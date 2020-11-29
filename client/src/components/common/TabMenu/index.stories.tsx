@@ -21,4 +21,4 @@ const list = [
   },
 ];
 
-export const tab = (): JSX.Element => <TabMenu list={list} />;
+export const tabMenuSample = (): JSX.Element => <TabMenu list={list} />;

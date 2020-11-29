@@ -18,6 +18,7 @@ const TabMenu = ({ list }: TabMenuPropType): JSX.Element => {
         {list.map(({ tabName }, idx) => (
           <StyledTabMenuButton
             type="button"
+            className={idx === activeTabIndex ? 'active' : ''}
             key={`tab_${tabName}`}
             onClick={() => clickHandler(idx)}
           >

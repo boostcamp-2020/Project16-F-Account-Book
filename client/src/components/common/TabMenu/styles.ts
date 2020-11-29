@@ -6,6 +6,17 @@ export const StyledTabMenuButton = styled.button`
   font-size: 1.2rem;
   padding: 0.3rem 0.8rem;
   background: transparent;
+  cursor: pointer;
+  text-align: center;
+
+  &.active {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.7);
+  }
+
+  &:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
 `;
 
 export const StyledTabMenuButtonGroup = styled.div`
