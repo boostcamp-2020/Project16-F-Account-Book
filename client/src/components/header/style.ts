@@ -12,7 +12,7 @@ const LogoDiv = styled.div`
 
 const DropDiv = styled.div`
   display: block;
-  padding: 30px 30px 0px 30px;
+  padding: 30px 68px 0px 30px;
   position: absolute;
   top: 0;
   right: 0;

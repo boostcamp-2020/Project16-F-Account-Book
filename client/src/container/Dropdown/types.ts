@@ -1,5 +1,4 @@
 export type DropdownType = {
-  dropDownList: string[];
-  LinkPage: string[];
+  dropDownList: JSX.Element[];
   getIcon: any;
 };

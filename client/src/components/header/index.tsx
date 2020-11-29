@@ -2,14 +2,20 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import Logo from '@components/Logo';
-import Dropdown from '@container/header/index';
+import DropdownList from '@components/Dropdown';
+import LinkComponent from '@components/common/typeComponent/Link';
+import Dropdown from '@container/Dropdown';
 
 import { HeaderDiv, LogoDiv, DropDiv } from './style';
 import { UserIcon } from './icons';
 
 export default function Header(): JSX.Element {
-  const dropDownList = ['결제수단 관리', '수입분류 관리', '지출분류 관리', '로그아웃'];
-  const linkPage = ['PayMent', 'imPortClassification', 'ExpenditureClassification', ''];
+  const list = ['결제수단 관리', '수입분류 관리', '지출분류 관리', '로그아웃'];
+  const linkPageList = ['PayMent', 'imPortClassification', 'ExpenditureClassification', ''];
+  const dropDonwList = list.map((v: string, i: number) => (
+    <LinkComponent LinkPage={linkPageList[i]} name={<DropdownList name={v} />} />
+  ));
+
   return (
     <>
       <HeaderDiv>
@@ -19,7 +25,7 @@ export default function Header(): JSX.Element {
           </Link>
         </LogoDiv>
         <DropDiv>
-          <Dropdown dropDownList={dropDownList} LinkPage={linkPage} getIcon={UserIcon} />
+          <Dropdown dropDownList={dropDonwList} getIcon={UserIcon} />
         </DropDiv>
       </HeaderDiv>
     </>

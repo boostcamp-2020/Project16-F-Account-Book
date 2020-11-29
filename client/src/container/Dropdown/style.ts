@@ -5,18 +5,12 @@ const MenuItem = styled.div`
   display: none;
   position: absolute;
   text-decoration: none;
-  border: 2px solid #292929;
+  border: 2px solid #c9c9c9;
+  white-space: nowrap;
+  border-radius: 15px;
   &.show {
     display: flex;
   }
-`;
-
-const Item = styled.li`
-  margin: 20px 8px;
-  white-space: nowarp;
-  font-weight: bold;
-  font-size: 20px;
-  word-break: keep-all;
 `;
 
 const Button = styled.button`
@@ -27,4 +21,4 @@ const Button = styled.button`
   }
 `;
 
-export { MenuItem, Item, Button };
+export { MenuItem, Button };
