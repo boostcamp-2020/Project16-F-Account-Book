@@ -3,16 +3,16 @@ import { Link } from 'react-router-dom';
 import { DropdownType } from './types';
 import { MenuItem, Item, Button } from './style';
 
-function Dropdown({ list, getIcon }: DropdownType): JSX.Element {
+function Dropdown({ dropDownList, LinkPage, getIcon }: DropdownType): JSX.Element {
   const [isShow, setDisplay] = useState(false);
-  const dropdownlist = list.map((v: string) => (
+  const dropdownlist = dropDownList.map((v: string, i: number) => (
     <Item>
       <Link
         style={{
-          color: 'black',
+          color: '#292929',
           textDecoration: 'none',
         }}
-        to="/"
+        to={LinkPage[i]}
       >
         {v}
       </Link>

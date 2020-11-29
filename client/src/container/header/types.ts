@@ -1,4 +1,5 @@
 export type DropdownType = {
-  list: string[];
+  dropDownList: string[];
+  LinkPage: string[];
   getIcon: any;
 };
