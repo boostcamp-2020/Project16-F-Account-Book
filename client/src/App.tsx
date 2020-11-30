@@ -2,8 +2,8 @@ import React from 'react';
 import { Reset } from 'styled-reset';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
-import DashBoardPage from './views/dashBoard';
-import LoginPage from './views/login';
+import DashBoardPage from '@/views/DashBoardPage';
+import LoginPage from '@/views/LoginPage';
 import GlobalStyled from './GlobalStyled';
 
 const Box = styled.div`
