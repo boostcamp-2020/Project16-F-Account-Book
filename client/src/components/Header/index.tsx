@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import Logo from '@components/common/Logo';
-import DropdownList from '@components/Dropdown';
-import LinkComponent from '@components/common/typeComponent/Link';
-import Dropdown from '@container/Dropdown';
+import DropdownList from '@/components/common/li';
+import LinkComponent from '@/components/common/Link';
+import Dropdown from '@/components/common/Dropdown';
 
 import CircleUserSVG from '@/assets/svg/CircleUser.svg';
 import { HeaderDiv, HeaderContentDiv, HeaderLogo, DropDiv } from './style';
