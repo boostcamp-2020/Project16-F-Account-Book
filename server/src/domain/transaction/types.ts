@@ -2,7 +2,7 @@ import CategoryEntity from '@/entity/category.entity';
 import PaymentEntity from '@/entity/payment.entity';
 import UserEntity from '@/entity/user.entity';
 
-export type Transaction = {
+export type TransactionFormData = {
   amount: number;
   tradeAt: Date;
   description: string;

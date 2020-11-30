@@ -9,7 +9,7 @@ import {
   AggregationByDateMap,
   TransactionDetailsByDateMap,
   MostOutDateDetail,
-  Transaction,
+  TransactionFormData,
 } from './types';
 
 export default class TransactionService {
@@ -102,12 +102,17 @@ export default class TransactionService {
     return { totalIn, totalOut, mostOutDateDetail };
   }
 
-  public async createTransaction(data: Transaction): Promise<void> {
+  public async createTransaction(data: TransactionFormData): Promise<TranscationEntity> {
     const transaction = this.transactionRepository.create(data);
-    await this.transactionRepository.save(transaction);
+    const newTransaction = await this.transactionRepository.save(transaction);
+    return newTransaction;
   }
 
-  public async updateTransaction(tid: number, uid: number, data: Transaction): Promise<void> {
+  public async updateTransaction(
+    tid: number,
+    uid: number,
+    data: TransactionFormData,
+  ): Promise<void> {
     const { amount, tradeAt, description, isIncome, cid, pid } = data;
     const { affected } = await this.transactionRepository.update(
       { tid, uid },
