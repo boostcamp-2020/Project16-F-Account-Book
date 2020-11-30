@@ -8,6 +8,7 @@ import {
   AggregationByDateMap,
   TransactionDetailsByDateMap,
   MostOutDateDetail,
+  Transaction,
 } from './types';
 
 export default class TransactionService {
@@ -98,5 +99,10 @@ export default class TransactionService {
     });
 
     return { totalIn, totalOut, mostOutDateDetail };
+  }
+
+  public async createTransaction(data: Transaction): Promise<void> {
+    const transaction = this.transactionRepository.create(data);
+    await this.transactionRepository.save(transaction);
   }
 }

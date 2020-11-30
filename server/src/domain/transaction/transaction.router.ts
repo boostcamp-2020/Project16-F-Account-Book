@@ -25,5 +25,10 @@ export default class TransactionRouter extends Router {
       ctx.status = 200;
       ctx.body = transactionDetailsOfMonth;
     });
+    this.post('/', async (ctx: Context) => {
+      const { uid } = ctx.state.user;
+      await this.transactionService.createTransaction({ ...ctx.request.body, uid });
+      ctx.status = 200;
+    });
   }
 }
