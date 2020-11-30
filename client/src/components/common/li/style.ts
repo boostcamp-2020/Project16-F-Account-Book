@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const name = styled.li`
+const Item = styled.li`
   margin: 13px 8px;
   white-space: nowarp;
   font-weight: bold;
@@ -9,4 +9,4 @@ const name = styled.li`
   list-style: none;
 `;
 
-export default name;
+export default Item;
