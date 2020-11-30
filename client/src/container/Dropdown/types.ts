@@ -1,4 +1,4 @@
 export type DropdownType = {
-  children: any;
-  icon: any;
+  children: React.ReactNode;
+  icon: React.ReactNode;
 };
