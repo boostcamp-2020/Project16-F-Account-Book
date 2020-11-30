@@ -3,7 +3,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import axios from 'axios';
 import Logo from '@/components/common/Logo';
 import LoginButton from '@/container/loginButton';
-import Box from './style';
+import { Box, LogoBox } from './style';
 
 const LoginPage = (props: RouteComponentProps): JSX.Element => {
   useEffect(() => {
@@ -22,7 +22,9 @@ const LoginPage = (props: RouteComponentProps): JSX.Element => {
   }, [props]);
   return (
     <Box>
-      <Logo height="150px" />
+      <LogoBox>
+        <Logo height="150px" />
+      </LogoBox>
       <LoginButton />
     </Box>
   );
