@@ -1,6 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import TranscationEntity from '@/entity/transaction.entity';
 import { Repository, Between } from 'typeorm';
+import { BAD_REQUEST } from '@/common/error';
 import {
   MonthlyTransactionDetailsQueryParams,
   MonthlyTransactionDetails,
@@ -8,6 +9,7 @@ import {
   AggregationByDateMap,
   TransactionDetailsByDateMap,
   MostOutDateDetail,
+  TransactionFormData,
 } from './types';
 
 export default class TransactionService {
@@ -98,5 +100,33 @@ export default class TransactionService {
     });
 
     return { totalIn, totalOut, mostOutDateDetail };
+  }
+
+  public async createTransaction(data: TransactionFormData): Promise<TranscationEntity> {
+    const transaction = this.transactionRepository.create(data);
+    const newTransaction = await this.transactionRepository.save(transaction);
+    return newTransaction;
+  }
+
+  public async updateTransaction(
+    tid: number,
+    uid: number,
+    data: TransactionFormData,
+  ): Promise<void> {
+    const { amount, tradeAt, description, isIncome, cid, pid } = data;
+    const { affected } = await this.transactionRepository.update(
+      { tid, uid },
+      { amount, tradeAt, description, isIncome, cid, pid },
+    );
+    if (!affected) {
+      throw new Error(BAD_REQUEST);
+    }
+  }
+
+  public async deleteTransaction(tid: number, uid: number): Promise<void> {
+    const { affected } = await this.transactionRepository.delete({ tid, uid });
+    if (!affected) {
+      throw new Error(BAD_REQUEST);
+    }
   }
 }
