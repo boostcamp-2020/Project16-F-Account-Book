@@ -1,12 +1,6 @@
 import React, { useState } from 'react';
 import { StyledTabMenuButtonGroup, StyledTabMenuButton } from './styles';
-
-type TabMenuPropType = {
-  list: {
-    tabName: string;
-    children: JSX.Element;
-  }[];
-};
+import { TabMenuPropType } from './types';
 
 const TabMenu = ({ list }: TabMenuPropType): JSX.Element => {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
