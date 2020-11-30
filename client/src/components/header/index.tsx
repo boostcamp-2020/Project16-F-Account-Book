@@ -13,7 +13,7 @@ export default function Header(): JSX.Element {
   const list = ['결제수단 관리', '수입분류 관리', '지출분류 관리', '로그아웃'];
   const linkPageList = ['PayMent', 'imPortClassification', 'ExpenditureClassification', ''];
   const dropDonwList = list.map((v: string, i: number) => (
-    <LinkComponent LinkPage={linkPageList[i]} name={<DropdownList name={v} />} />
+    <LinkComponent linkPage={linkPageList[i]} name={<DropdownList name={v} />} />
   ));
 
   return (

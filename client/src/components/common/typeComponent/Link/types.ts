@@ -1,4 +1,4 @@
 export type LinkType = {
-  LinkPage: string;
+  linkPage: string;
   name: JSX.Element;
 };
