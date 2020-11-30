@@ -4,6 +4,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import DashBoardPage from './views/dashBoard';
 import LoginPage from './views/login';
+import GlobalStyled from './GlobalStyled';
 
 const Box = styled.div`
   height: 100vh;
@@ -16,6 +17,7 @@ function App(): JSX.Element {
   return (
     <>
       <Reset />
+      <GlobalStyled />
       <Box>
         <Switch>
           <Route path="/" component={LoginPage} exact />
