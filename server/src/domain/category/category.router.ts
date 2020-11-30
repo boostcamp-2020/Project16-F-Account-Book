@@ -1,0 +1,43 @@
+import Router from 'koa-router';
+import { Context } from 'koa';
+import CategoryService from './category.service';
+import CategoryRepository from './category.repository';
+
+export default class CategoryRouter extends Router {
+  private categoryService;
+
+  constructor() {
+    super();
+    this.categoryService = new CategoryService(CategoryRepository.getCategoryRepository());
+  }
+
+  initRouter(): void {
+    this.post('/', async (ctx: Context) => {
+      const { uid } = ctx.state.user;
+      const { name, isIncome } = ctx.request.body;
+      await this.categoryService.createCategory(name, isIncome, uid);
+      ctx.status = 200;
+    });
+
+    this.get('/', async (ctx: Context) => {
+      const { uid } = ctx.state.user;
+      const categories = await this.categoryService.readCategories(uid);
+      ctx.body = categories;
+    });
+
+    this.patch('/:categoryId', async (ctx: Context) => {
+      const { uid } = ctx.state.user;
+      const { categoryId } = ctx.params;
+      const { name, isIncome } = ctx.request.body;
+      await this.categoryService.updateCategory(categoryId, name, isIncome, uid);
+      ctx.status = 200;
+    });
+
+    this.delete('/:categoryId', async (ctx: Context) => {
+      const { uid } = ctx.state.user;
+      const { categoryId } = ctx.params;
+      await this.categoryService.deleteCategory(categoryId, uid);
+      ctx.status = 200;
+    });
+  }
+}
