@@ -1,5 +1,6 @@
 import CategoryEntity from '@/entity/category.entity';
 import { Repository } from 'typeorm';
+import { BAD_REQUEST } from '@/common/error';
 
 export default class CategoryService {
   private categoryRepository: Repository<CategoryEntity>;
@@ -21,11 +22,25 @@ export default class CategoryService {
     return categories;
   }
 
-  public async updateCategory(categoryId: number, name: string, isIncome: boolean): Promise<void> {
-    await this.categoryRepository.update({ cid: categoryId }, { name, isIncome });
+  public async updateCategory(
+    categoryId: number,
+    name: string,
+    isIncome: boolean,
+    uid: number,
+  ): Promise<void> {
+    const { affected } = await this.categoryRepository.update(
+      { cid: categoryId, uid },
+      { name, isIncome },
+    );
+    if (!affected) {
+      throw new Error(BAD_REQUEST);
+    }
   }
 
-  public async deleteCategory(categoryId: number): Promise<void> {
-    await this.categoryRepository.delete({ cid: categoryId });
+  public async deleteCategory(categoryId: number, uid: number): Promise<void> {
+    const { affected } = await this.categoryRepository.delete({ cid: categoryId, uid });
+    if (!affected) {
+      throw new Error(BAD_REQUEST);
+    }
   }
 }
