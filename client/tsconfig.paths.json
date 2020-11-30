@@ -3,9 +3,8 @@
     "baseUrl": ".",
     "paths": {
       "@components/*": ["src/components/*"],
-      "@container/*": ["src/container/*"]
+      "@container/*": ["src/container/*"],
       "@libs/*": ["src/libs/*"]
-
     }
   }
 }
