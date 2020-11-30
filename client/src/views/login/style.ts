@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 
-const Box = styled.div`
-  height: 100vh;
+export const Box = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
+  max-width: 500px;
+  height: 100vh;
+  margin: 0 auto;
   justify-content: center;
-  svg {
-    width: 100%;
-  }
 `;
 
-export default Box;
+export const LogoBox = styled.div`
+  text-align: center;
+`;
