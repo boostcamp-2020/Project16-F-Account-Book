@@ -24,6 +24,9 @@ export default class UserEntity {
   @Column({ type: 'varchar' })
   socialType!: string;
 
+  @Column({ type: 'date', nullable: true })
+  updateAt!: Date | undefined;
+
   @OneToMany(() => CategoryEntity, (category) => category.user, { cascade: true })
   categories?: CategoryEntity[];
 
