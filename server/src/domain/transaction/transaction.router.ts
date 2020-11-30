@@ -3,7 +3,7 @@ import { Context } from 'koa';
 import TransactionService from './transaction.service';
 import TransactionRepository from './transaction.repository';
 
-class TransactionRouter extends Router {
+export default class TransactionRouter extends Router {
   private transactionService;
 
   constructor() {
@@ -27,5 +27,3 @@ class TransactionRouter extends Router {
     });
   }
 }
-
-export default TransactionRouter;
