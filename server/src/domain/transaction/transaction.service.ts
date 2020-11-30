@@ -1,6 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import TranscationEntity from '@/entity/transaction.entity';
 import { Repository, Between } from 'typeorm';
+import { BAD_REQUEST } from '@/common/error';
 import {
   MonthlyTransactionDetailsQueryParams,
   MonthlyTransactionDetails,
@@ -104,5 +105,16 @@ export default class TransactionService {
   public async createTransaction(data: Transaction): Promise<void> {
     const transaction = this.transactionRepository.create(data);
     await this.transactionRepository.save(transaction);
+  }
+
+  public async updateTransaction(tid: number, uid: number, data: Transaction): Promise<void> {
+    const { amount, tradeAt, description, isIncome, cid, pid } = data;
+    const { affected } = await this.transactionRepository.update(
+      { tid, uid },
+      { amount, tradeAt, description, isIncome, cid, pid },
+    );
+    if (!affected) {
+      throw new Error(BAD_REQUEST);
+    }
   }
 }

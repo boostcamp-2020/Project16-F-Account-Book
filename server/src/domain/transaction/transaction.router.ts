@@ -30,5 +30,12 @@ export default class TransactionRouter extends Router {
       await this.transactionService.createTransaction({ ...ctx.request.body, uid });
       ctx.status = 200;
     });
+
+    this.patch('/:transactionId', async (ctx: Context) => {
+      const { uid } = ctx.state.user;
+      const { transactionId } = ctx.params;
+      await this.transactionService.updateTransaction(transactionId, uid, ctx.request.body);
+      ctx.status = 200;
+    });
   }
 }
