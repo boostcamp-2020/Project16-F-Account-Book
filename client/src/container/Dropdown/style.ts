@@ -4,9 +4,11 @@ const MenuItem = styled.div`
   background-color: white;
   display: none;
   position: absolute;
+  right: 0;
   text-decoration: none;
   border: 2px solid #c9c9c9;
   white-space: nowrap;
+  margin: 0px 20px 0px 20px;
   border-radius: 15px;
   &.show {
     display: flex;
@@ -16,7 +18,6 @@ const MenuItem = styled.div`
 const Button = styled.button`
   background-color: white;
   border: none;
-  padding:30 0;
   font-size: 20px;
   }
 `;

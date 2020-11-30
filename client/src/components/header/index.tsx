@@ -25,7 +25,9 @@ export default function Header(): JSX.Element {
           </Link>
         </LogoDiv>
         <DropDiv>
-          <Dropdown dropDownList={dropDonwList} icon={UserIcon} />
+          <>
+            <Dropdown dropDownList={dropDonwList} icon={UserIcon} />
+          </>
         </DropDiv>
       </HeaderDiv>
     </>
