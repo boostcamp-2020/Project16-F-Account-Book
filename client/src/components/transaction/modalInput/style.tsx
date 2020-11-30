@@ -2,6 +2,11 @@ import styled from 'styled-components';
 import { InputButtonProps } from './types';
 
 export const TransactionInput = styled.input<InputButtonProps>`
+  background-image: none;
+  background-color: transparent;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
   display: flex;
   flex-direction: row;
   border-radius: 5px;
@@ -13,6 +18,7 @@ export const TransactionInput = styled.input<InputButtonProps>`
   min-width: 5px;
   resize: none;
   margin: 0.5rem 0rem;
+  border: 1px solid #767676;
 `;
 
 export const something = styled.div``;
