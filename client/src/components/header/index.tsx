@@ -1,13 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Logo from '@components/Logo';
+import Logo from '@components/common/Logo';
 import DropdownList from '@components/Dropdown';
 import LinkComponent from '@components/common/typeComponent/Link';
 import Dropdown from '@container/Dropdown';
 
-import { HeaderDiv, LogoDiv, DropDiv } from './style';
-import { UserIcon } from './icons';
+import CircleUserSVG from '@/assets/svg/CircleUser.svg';
+import { HeaderDiv, HeaderContentDiv, HeaderLogo, DropDiv } from './style';
+
+const HeaderDropdownIcon = (
+  <img src={CircleUserSVG} alt="settings-button" width="24px" height="24px" />
+);
 
 export default function Header(): JSX.Element {
   const list = ['결제수단 관리', '수입분류 관리', '지출분류 관리', '로그아웃'];
@@ -17,19 +21,17 @@ export default function Header(): JSX.Element {
   ));
 
   return (
-    <>
-      <HeaderDiv>
-        <LogoDiv>
+    <HeaderDiv>
+      <HeaderContentDiv>
+        <HeaderLogo>
           <Link to="/">
-            <Logo height="100px" />
+            <Logo height="35px" />
           </Link>
-        </LogoDiv>
+        </HeaderLogo>
         <DropDiv>
-          <>
-            <Dropdown dropDownList={dropDonwList} icon={UserIcon} />
-          </>
+          <Dropdown dropDownList={dropDonwList} icon={HeaderDropdownIcon} />
         </DropDiv>
-      </HeaderDiv>
-    </>
+      </HeaderContentDiv>
+    </HeaderDiv>
   );
 }
