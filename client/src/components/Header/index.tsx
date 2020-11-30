@@ -29,7 +29,7 @@ export default function Header(): JSX.Element {
           </Link>
         </HeaderLogo>
         <DropDiv>
-          <Dropdown dropDownList={dropDonwList} icon={HeaderDropdownIcon} />
+          <Dropdown icon={HeaderDropdownIcon}>{dropDonwList}</Dropdown>
         </DropDiv>
       </HeaderContentDiv>
     </HeaderDiv>

@@ -1,4 +1,4 @@
 export type DropdownType = {
-  dropDownList: JSX.Element[];
+  children: any;
   icon: any;
 };
