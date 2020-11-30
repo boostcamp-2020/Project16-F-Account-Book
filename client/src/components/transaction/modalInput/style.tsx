@@ -12,8 +12,8 @@ export const TransactionInput = styled.input<InputButtonProps>`
   border-radius: 5px;
   font-size: 1rem;
   justify-content: flex-start;
-  padding: 0.2rem 0.3rem;
-  width: 95%;
+  padding: 0.2rem 0.2rem;
+  width: 100%;
   height: ${(props) => (props.inputType === 'description' ? '4.5rem' : '1.5rem')};
   min-width: 5px;
   resize: none;
