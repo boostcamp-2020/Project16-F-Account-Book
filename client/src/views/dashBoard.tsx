@@ -1,11 +1,9 @@
 import React from 'react';
 
+import Header from '@components/header';
+
 const DashBoardPage = (): JSX.Element => {
-  return (
-    <>
-      <div>대쉬보드 페이지입니다.</div>
-    </>
-  );
+  return <Header />;
 };
 
 export default DashBoardPage;
