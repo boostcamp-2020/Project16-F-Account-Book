@@ -117,4 +117,11 @@ export default class TransactionService {
       throw new Error(BAD_REQUEST);
     }
   }
+
+  public async deleteTransaction(tid: number, uid: number): Promise<void> {
+    const { affected } = await this.transactionRepository.delete({ tid, uid });
+    if (!affected) {
+      throw new Error(BAD_REQUEST);
+    }
+  }
 }
