@@ -1,6 +1,6 @@
 import React from 'react';
+import OAuthLoginButton from '@/components/common/buttons/OAuthLoginButton';
 import ButtonBox from './style';
-import OAuthLoginButton from '../../components/common/buttons/OAuthLoginButton';
 
 const LoginButton = (): JSX.Element => {
   return (

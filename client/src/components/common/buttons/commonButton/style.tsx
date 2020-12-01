@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { ButtonColorProps } from './types';
 
 export const Button = styled.button<ButtonColorProps>`
+  box-shadow: none;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -10,6 +11,7 @@ export const Button = styled.button<ButtonColorProps>`
   height: 2rem;
   border-radius: 5px;
   background-color: ${(props) => (props.color === 'white' ? 'white' : '#0E7EE0')};
+  border: 1px solid #767676;
 `;
 
 export const ButtonImg = styled.img`
