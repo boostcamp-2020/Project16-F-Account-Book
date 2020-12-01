@@ -13,3 +13,5 @@ export const ExpenditureText = (): JSX.Element => <AmountText isIncome={false} a
 export const LargeSizeText = (): JSX.Element => <AmountText isIncome size="lg" amount={10000} />;
 
 export const SmallSizeText = (): JSX.Element => <AmountText isIncome size="sm" amount={10000} />;
+
+export const XSSizeText = (): JSX.Element => <AmountText isIncome size="xs" amount={10000} />;
