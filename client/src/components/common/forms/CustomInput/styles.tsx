@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { InputButtonProps } from './types';
 
-export const TransactionInput = styled.input<InputButtonProps>`
+const StyledInput = styled.input<InputButtonProps>`
   background-image: none;
   background-color: transparent;
   -webkit-box-shadow: none;
@@ -21,4 +21,4 @@ export const TransactionInput = styled.input<InputButtonProps>`
   border: 1px solid #767676;
 `;
 
-export const something = styled.div``;
+export default StyledInput;

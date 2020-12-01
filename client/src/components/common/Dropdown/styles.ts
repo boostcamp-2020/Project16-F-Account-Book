@@ -23,7 +23,6 @@ const Button = styled.button`
   background-color: white;
   border: none;
   font-size: 20px;
-  }
 `;
 
 export { MenuItem, Button };

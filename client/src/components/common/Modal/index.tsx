@@ -1,5 +1,5 @@
 import React from 'react';
-import * as S from './style';
+import * as S from './styles';
 
 class ModalProps {
   children?: React.ReactNode;

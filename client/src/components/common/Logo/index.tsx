@@ -1,7 +1,7 @@
 import React from 'react';
 import LogoSVG from '@/assets/svg/Logo.svg';
 import { LogoPropType } from './types';
-import StyledLogo from './style';
+import StyledLogo from './styles';
 
 function Logo({ height }: LogoPropType): JSX.Element {
   return (

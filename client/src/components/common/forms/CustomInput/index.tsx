@@ -1,12 +1,12 @@
 import React from 'react';
-import * as S from './style';
+import StyledInput from './styles';
 import { InputButtonProps } from './types';
 
-const ModalInputText = (props: InputButtonProps): JSX.Element => {
+const CustomInput = (props: InputButtonProps): JSX.Element => {
   const { placeholder, inputType } = props;
   return (
     <>
-      <S.TransactionInput
+      <StyledInput
         type={inputType === 'calendar' ? 'date' : 'text'}
         placeholder={placeholder}
         inputType={inputType}
@@ -15,4 +15,4 @@ const ModalInputText = (props: InputButtonProps): JSX.Element => {
   );
 };
 
-export default ModalInputText;
+export default CustomInput;
