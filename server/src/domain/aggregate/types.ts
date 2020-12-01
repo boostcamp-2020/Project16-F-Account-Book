@@ -21,3 +21,8 @@ export type AggregateResponse = {
   aggregate: string;
   list: Array<CategoryData>;
 };
+
+export type MaxCategory = {
+  name: string;
+  aggregate: string;
+};

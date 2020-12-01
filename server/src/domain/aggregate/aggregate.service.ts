@@ -1,6 +1,6 @@
 import TranscationEntity from '@/entity/transaction.entity';
 import { Repository } from 'typeorm';
-import { AggregateData, AggregateResponse } from './types';
+import { AggregateData, AggregateResponse, MaxCategory } from './types';
 
 export default class AggregateService {
   private transactionRepository: Repository<TranscationEntity>;
@@ -46,5 +46,24 @@ export default class AggregateService {
     });
 
     return response;
+  }
+
+  public async getMaxCategory(uid: number): Promise<MaxCategory> {
+    const startDate = new Date();
+    const endDate = new Date();
+    startDate.setDate(1);
+    endDate.setMonth(endDate.getMonth() + 1);
+    endDate.setDate(0);
+
+    const query = `select category.name, t1.aggregate
+    from category, (select cid, sum(amount) as aggregate
+    from transaction 
+    where uid=${uid} and trade_at between '${startDate}' and '${endDate}'
+    group by cid) t1
+    where category.cid = t1.cid
+    order by t1.aggregate DESC;`;
+
+    const maxCategory: Array<MaxCategory> = await this.transactionRepository.query(query);
+    return maxCategory[0];
   }
 }

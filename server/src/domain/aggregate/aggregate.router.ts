@@ -24,5 +24,12 @@ export default class AggregateRouter extends Router {
 
       ctx.body = aggregateCategory;
     });
+
+    this.get('/max-category', async (ctx: Context) => {
+      const { uid } = ctx.state.user;
+      const maxCategory = await this.aggregateService.getMaxCategory(uid);
+
+      ctx.body = maxCategory;
+    });
   }
 }
