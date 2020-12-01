@@ -28,4 +28,12 @@ const DropDiv = styled.div`
   transform: translateY(-50%);
 `;
 
-export { HeaderDiv, HeaderContentDiv, HeaderLogo, DropDiv };
+const Item = styled.li`
+  margin: 13px 8px;
+  white-space: nowarp;
+  font-weight: bold;
+  font-size: 18px;
+  word-break: keep-all;
+  list-style: none;
+`;
+export { HeaderDiv, HeaderContentDiv, HeaderLogo, DropDiv, Item };
