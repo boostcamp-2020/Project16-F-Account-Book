@@ -10,4 +10,4 @@ export const getPaymentAsync = createAsyncAction(
   GET_PAYMENT,
   GET_PAYMENT_SUCCESS,
   GET_PAYMENT_FAILURE,
-)<undefined, PaymentModel[], AxiosError>();
+)<string, PaymentModel[], AxiosError>();

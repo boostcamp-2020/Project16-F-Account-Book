@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import ModalInputText from '@components/transaction/modalInput';
 import ModalHeaderText from '@components/transaction/modalHeaderText';
 import CommonButton from '@components/common/buttons/commonButton';
@@ -10,32 +10,31 @@ import ModalSelectInput from '@components/transaction/ModalSelectInput';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@modules/index';
 import { getPaymentThunk } from '@modules/payment/thunks';
+import { getCategoryThunk } from '@modules/category';
 import * as S from './style';
 import { TransactionModalProps } from './types';
 
 const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Element => {
-  const optionList = [
-    { id: 1000, name: 'gg' },
-    { id: 25555, name: 'zz' },
-  ];
-
-  const { payments } = useSelector((state: RootState) => state.payment);
-  const { loading } = payments;
-  const paymentList = payments.data;
+  const { payment, category } = useSelector((state: RootState) => state);
+  const categoryList = category.categories.data;
+  const paymentList = payment.payments.data;
   const dispatch = useDispatch();
 
-  const getPaymentList = () => {
+  const getCategoryList = useCallback(() => {
+    dispatch(getCategoryThunk());
+  }, [dispatch]);
+  const getPaymentList = useCallback(() => {
     dispatch(getPaymentThunk());
-  };
+  }, [dispatch]);
 
   useEffect(() => {
+    getCategoryList();
     getPaymentList();
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
-      {loading && <h1>loading</h1>}
-      {paymentList && (
+      {paymentList && categoryList && (
         <Modal show={show} toggleModal={toggleModal}>
           <S.ModalHeader>
             <ModalHeaderText>가계부 등록</ModalHeaderText>
@@ -44,7 +43,7 @@ const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Ele
           <S.ModalBody>
             <ModalRadioButton />
             <ModalInputText placeholder="날짜선택" inputType="calendar" />
-            <ModalSelectInput placeHolder="카테고리">{optionList}</ModalSelectInput>
+            <ModalSelectInput placeHolder="카테고리">{categoryList}</ModalSelectInput>
             <ModalSelectInput placeHolder="결제수단">{paymentList}</ModalSelectInput>
             <ModalInputText placeholder="금액" inputType="amount" />
             <ModalInputText placeholder="상세내용" inputType="description" />
