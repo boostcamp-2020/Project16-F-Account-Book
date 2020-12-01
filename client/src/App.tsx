@@ -25,7 +25,6 @@ function App(): JSX.Element {
           <Route path="/dashboard" component={DashBoardPage} />
           <Route path="/calendar" component={CalendarPage} />
           <Redirect from="*" to="/dashboard" />
-          <Redirect from="*" to="/calendar" />
         </Switch>
       </Box>
     </>
