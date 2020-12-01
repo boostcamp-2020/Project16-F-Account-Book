@@ -7,7 +7,7 @@ const CalendarPage = (): JSX.Element => {
   return (
     <>
       <Header />
-      <Arrow />
+      <Arrow height="10" width="10" rotate="" />
     </>
   );
 };
