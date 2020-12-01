@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import ModalInputText from '@components/transaction/modalInput';
 import ModalHeaderText from '@components/transaction/modalHeaderText';
 import CommonButton from '@components/common/buttons/commonButton';
@@ -20,12 +20,12 @@ const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Ele
   const paymentList = payment.payments.data;
   const dispatch = useDispatch();
 
-  const getCategoryList = () => {
+  const getCategoryList = useCallback(() => {
     dispatch(getCategoryThunk());
-  };
-  const getPaymentList = () => {
+  }, [dispatch]);
+  const getPaymentList = useCallback(() => {
     dispatch(getPaymentThunk());
-  };
+  }, [dispatch]);
 
   useEffect(() => {
     getCategoryList();
