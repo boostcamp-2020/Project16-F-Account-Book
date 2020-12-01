@@ -1,4 +1,5 @@
 import React from 'react';
+import endpoints from '@/libs/endpoints';
 import LoginButtonResourceFactory from './buttonResourceFactory';
 
 type PropsType = {
@@ -8,8 +9,7 @@ type PropsType = {
 function OAuthLoginButton({ provider }: PropsType): JSX.Element {
   const { Button, text } = LoginButtonResourceFactory.getButtonResource(provider);
   const clickHandler = () => {
-    const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
-    window.location.href = `${apiBaseUrl}/api/auth/${provider}`;
+    window.location.href = `${endpoints.API_BASE_URL}${endpoints.AUTH_API}/${provider}`;
   };
 
   return <Button onClick={clickHandler}>{text}</Button>;
