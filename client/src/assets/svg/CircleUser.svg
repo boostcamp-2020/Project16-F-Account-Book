@@ -1,8 +1,4 @@
-import React from 'react';
-
-// eslint-disable-next-line import/prefer-default-export
-export const UserIcon = (
-  <svg
+<svg
     version="1.0"
     xmlns="http://www.w3.org/2000/svg"
     width="50pt"
@@ -25,5 +21,4 @@ export const UserIcon = (
 26 150 14 17 63 49 108 72 136 67 274 82 421 44z"
       />
     </g>
-  </svg>
-);
+</svg>

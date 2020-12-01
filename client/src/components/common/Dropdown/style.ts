@@ -8,7 +8,7 @@ const MenuItem = styled.div`
   text-decoration: none;
   border: 2px solid #c9c9c9;
   white-space: nowrap;
-  margin: 0px 20px 0px 20px;
+  margin: 8px 0px 0px 0px;
   border-radius: 15px;
   &.show {
     display: flex;
