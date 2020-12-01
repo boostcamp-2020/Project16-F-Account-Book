@@ -9,6 +9,6 @@ export type TransactionState = {
   transactions: {
     loading: boolean;
     error: Error | null;
-    data: TransactionModel[] | null;
+    data: TransactionModel[];
   };
 };

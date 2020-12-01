@@ -4,7 +4,6 @@ import { ModalRadioButtonProps } from './types';
 
 function ModalRadioButton({ setIsIncome }: ModalRadioButtonProps): JSX.Element {
   const onChangeRadioButton = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.persist();
     const { value } = event.target;
     const isIncome = value === 'income';
     setIsIncome(isIncome);

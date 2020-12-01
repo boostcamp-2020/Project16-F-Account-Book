@@ -13,26 +13,26 @@ const initialState: TransactionState = {
 const transactionReducer = createReducer<TransactionState, TransactionAction>(initialState, {
   [POST_TRANSACTION]: (state) => ({
     ...state,
-    payments: {
+    transactions: {
       loading: true,
       error: null,
-      data: null,
+      data: [],
     },
   }),
   [POST_TRANSACTION_SUCCESS]: (state, action) => ({
     ...state,
-    payments: {
+    transactions: {
       loading: false,
       error: null,
-      data: state.transactions.data?.concat(action.payload),
+      data: state.transactions.data.concat(action.payload),
     },
   }),
   [POST_TRANSACTION_FAILURE]: (state, action) => ({
     ...state,
-    payments: {
+    transactions: {
       loading: false,
       error: action.payload,
-      data: null,
+      data: [],
     },
   }),
 });
