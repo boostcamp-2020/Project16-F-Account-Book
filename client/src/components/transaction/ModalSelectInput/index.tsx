@@ -8,8 +8,8 @@ function ModalSelectInput({ children, placeHolder }: ModalSelectInputProps): JSX
       <S.ModalSelectOption value="" selected hidden disabled>
         {placeHolder}
       </S.ModalSelectOption>
-      {children.map((option) => (
-        <S.ModalSelectOption value={`${option.id}`} key={option.id}>
+      {children?.map((option) => (
+        <S.ModalSelectOption value={`${option.id}`} key={`select${option.id}`}>
           {option.name}
         </S.ModalSelectOption>
       ))}
