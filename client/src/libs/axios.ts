@@ -3,10 +3,11 @@ import endpoints from './endpoints';
 
 const instance = axios.create({
   baseURL: endpoints.API_BASE_URL,
+  withCredentials: true,
 });
 
 instance.interceptors.response.use(
-  (response) => response.data,
+  (response) => Promise.resolve(response.data),
   (error) => Promise.reject(error),
 );
 

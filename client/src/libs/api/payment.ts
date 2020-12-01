@@ -1,13 +1,11 @@
+import axios from '@/libs/axios';
+import endpoints from '@/libs/endpoints';
 import { PaymentModel } from '@commons/types/payment';
-import Axios from 'axios';
 
 const paymentAPI = {
   getPayment: async (): Promise<PaymentModel[]> => {
-    const response = await Axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/payment-methods`, {
-      withCredentials: true,
-    });
-
-    return response.data;
+    const payments = await axios.get<PaymentModel[]>(endpoints.PAYMENT_METHOD_API);
+    return payments;
   },
 };
 
