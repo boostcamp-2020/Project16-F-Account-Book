@@ -7,6 +7,7 @@ const HeaderDiv = styled.div`
   border-bottom: 2px solid rgba(0, 0, 0, 0.2);
   width: 100%;
   box-sizing: border-box;
+  z-index: 99;
 `;
 
 const HeaderContentDiv = styled.div`
