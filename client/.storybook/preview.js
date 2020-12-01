@@ -1,9 +1,5 @@
 import { Reset } from 'styled-reset';
-import GlobalStyled from '@/GlobalStyled';
-
-export const parameters = {
-  actions: { argTypesRegex: '^on[A-Z].*' },
-};
+import GlobalStyled from '../src/GlobalStyled';
 
 export const decorators = [
   (Story) => (
@@ -14,3 +10,7 @@ export const decorators = [
     </>
   ),
 ];
+
+export const parameters = {
+  actions: { argTypesRegex: '^on[A-Z].*' },
+};

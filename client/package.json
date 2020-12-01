@@ -63,6 +63,9 @@
       "last 1 safari version"
     ]
   },
+  "resolutions": {
+    "react-scripts/eslint-webpack-plugin": "2.3.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.12.7",
     "@storybook/addon-actions": "^6.1.2",

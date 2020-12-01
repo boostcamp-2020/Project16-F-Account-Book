@@ -7,6 +7,9 @@ module.exports = {
     '@storybook/addon-essentials',
     '@storybook/preset-create-react-app',
   ],
+  typescript: {
+    reactDocgen: 'react-docgen-typescript',
+  },
   webpackFinal: async (config) => {
     [].push.apply(config.resolve.plugins, [
       new TsconfigPathsPlugin({ extensions: config.resolve.extensions }),
