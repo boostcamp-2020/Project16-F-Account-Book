@@ -4,7 +4,6 @@ const MenuItem = styled.div`
   background-color: white;
   display: none;
   position: absolute;
-  right: 0;
   text-align: center;
   text-decoration: none;
   border: 2px solid #c9c9c9;
@@ -14,6 +13,9 @@ const MenuItem = styled.div`
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   &.show {
     display: flex;
+  }
+  &.right {
+    right: 0;
   }
 `;
 

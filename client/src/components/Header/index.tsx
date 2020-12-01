@@ -29,7 +29,9 @@ export default function Header(): JSX.Element {
           </Link>
         </HeaderLogo>
         <DropDiv>
-          <Dropdown icon={HeaderDropdownIcon}>{dropdonwList}</Dropdown>
+          <Dropdown icon={HeaderDropdownIcon} isRight>
+            {dropdonwList}
+          </Dropdown>
         </DropDiv>
       </HeaderContentDiv>
     </HeaderDiv>
