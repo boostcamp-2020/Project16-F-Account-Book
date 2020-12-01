@@ -1,7 +1,7 @@
 import React from 'react';
-import { DropdownType } from './types';
+import { LiType } from './types';
 import Item from './style';
 
-export default function liList({ name }: DropdownType): JSX.Element {
+export default function liComponent({ name }: LiType): JSX.Element {
   return <Item>{name}</Item>;
 }

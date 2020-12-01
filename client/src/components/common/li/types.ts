@@ -1,3 +1,3 @@
-export type DropdownType = {
+export type LiType = {
   name: string;
 };
