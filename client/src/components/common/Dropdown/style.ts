@@ -5,6 +5,7 @@ const MenuItem = styled.div`
   display: none;
   position: absolute;
   right: 0;
+  text-align: center;
   text-decoration: none;
   border: 2px solid #c9c9c9;
   white-space: nowrap;
