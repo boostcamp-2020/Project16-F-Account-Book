@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { DropdownType } from './types';
-import { MenuItem, Button } from './style';
+import * as S from './styles';
 
 export default function Dropdown({ icon, isRight, children }: DropdownType): JSX.Element {
   const [isShow, setDisplay] = useState(false);
@@ -14,10 +14,10 @@ export default function Dropdown({ icon, isRight, children }: DropdownType): JSX
 
   return (
     <>
-      <Button onClick={() => setDisplay(!isShow)}>{icon}</Button>
-      <MenuItem className={classes.join(' ')}>
+      <S.Button onClick={() => setDisplay(!isShow)}>{icon}</S.Button>
+      <S.MenuItem className={classes.join(' ')}>
         <ul>{children}</ul>
-      </MenuItem>
+      </S.MenuItem>
     </>
   );
 }

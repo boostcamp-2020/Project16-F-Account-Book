@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ModalSelectInput = styled.select`
+export const SelectInput = styled.select`
   display: flex;
   flex-direction: row;
   border-radius: 5px;
@@ -15,7 +15,7 @@ export const ModalSelectInput = styled.select`
   color: #757575;
 `;
 
-export const ModalSelectOption = styled.option`
+export const SelectOption = styled.option`
   display: flex;
   width: 100%;
   max-width: 90%;

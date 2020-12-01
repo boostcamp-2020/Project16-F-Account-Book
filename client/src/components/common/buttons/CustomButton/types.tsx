@@ -1,4 +1,4 @@
-export type CommonButtonProps = {
+export type CustomButtonProps = {
   image?: string;
   color: 'white' | 'blue';
   children: React.ReactNode;

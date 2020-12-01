@@ -1,9 +1,9 @@
 import React from 'react';
-import ArrowSVG from '@/assets/svg/arrow.svg';
-import StyledArrow from './style';
+import ArrowSVG from '@/assets/svg/Arrow.svg';
+import StyledArrow from './styles';
 import { ArrowPropType } from './types';
 
-function Arrow({ height, width, rotate }: ArrowPropType): JSX.Element {
+function ArrowIcon({ height, width, rotate }: ArrowPropType): JSX.Element {
   return (
     <StyledArrow height={height} width={width} rotate={rotate}>
       <img src={ArrowSVG} alt="arrow" />
@@ -11,4 +11,4 @@ function Arrow({ height, width, rotate }: ArrowPropType): JSX.Element {
   );
 }
 
-export default Arrow;
+export default ArrowIcon;

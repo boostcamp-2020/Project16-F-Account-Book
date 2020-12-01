@@ -1,8 +1,8 @@
 import React from 'react';
-import * as S from './style';
-import { CommonButtonProps } from './types';
+import * as S from './styles';
+import { CustomButtonProps } from './types';
 
-function CommonButton(props: CommonButtonProps): JSX.Element {
+function CustomButton(props: CustomButtonProps): JSX.Element {
   const { image, children, color, onClickEvent } = props;
 
   return (
@@ -19,4 +19,4 @@ function CommonButton(props: CommonButtonProps): JSX.Element {
   );
 }
 
-export default CommonButton;
+export default CustomButton;

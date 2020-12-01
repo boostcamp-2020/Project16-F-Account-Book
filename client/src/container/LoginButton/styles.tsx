@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const ButtonBox = styled.div`
+const StyledButtonBox = styled.div`
   width: 80%;
   display: flex;
   flex-direction: column;
@@ -9,4 +9,4 @@ const ButtonBox = styled.div`
   margin-top: 10vh;
 `;
 
-export default ButtonBox;
+export default StyledButtonBox;

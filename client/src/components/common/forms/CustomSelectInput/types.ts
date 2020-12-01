@@ -3,7 +3,7 @@ type SelectInputOption = {
   name: string;
 };
 
-export type ModalSelectInputProps = {
+export type SelectInputProps = {
   children: SelectInputOption[];
   placeHolder: string;
 };
