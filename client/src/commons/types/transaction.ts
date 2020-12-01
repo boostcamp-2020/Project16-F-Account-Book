@@ -30,3 +30,12 @@ export type MonthTransactionsResponse = {
   aggregationByDate: [number, { totalIn: number; totalOut: number }][];
   transactionDetailsByDate: [number, TransactionModel[]][];
 };
+
+export type PostTransactionRequest = {
+  amount: number;
+  tradeAt: Date;
+  description: string;
+  isIncome: boolean;
+  cid: number;
+  pid: number;
+};
