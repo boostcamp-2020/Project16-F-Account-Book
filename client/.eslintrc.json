@@ -1,4 +1,4 @@
- {
+{
   "extends": [
     "airbnb-typescript",
     "airbnb/hooks",
@@ -30,6 +30,7 @@
   },
   "rules": {
     "linebreak-style": "off",
+    "react-hooks/exhaustive-deps": "off",
     "import/extensions": [
       "off",
       "ignorePackages",

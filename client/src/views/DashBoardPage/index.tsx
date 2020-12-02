@@ -6,7 +6,6 @@ import Header from '@/components/common/Header';
 const DashBoardPage = (): JSX.Element => {
   const [showModal, setShowModal] = useState(false);
   const toggleModal = useCallback(() => setShowModal(!showModal), [showModal]);
-
   return (
     <>
       <Header />
