@@ -112,21 +112,26 @@ export default class TransactionService {
     tid: number,
     uid: number,
     data: TransactionFormData,
-  ): Promise<void> {
+  ): Promise<TransactionDetail> {
     const { amount, tradeAt, description, isIncome, cid, pid } = data;
-    const { affected } = await this.transactionRepository.update(
-      { tid, uid },
-      { amount, tradeAt, description, isIncome, cid, pid },
-    );
-    if (!affected) {
-      throw new Error(BAD_REQUEST);
-    }
+    const target = await this.transactionRepository.findOne({ where: { tid, uid } });
+    if (!target) throw new Error(BAD_REQUEST);
+    const mergedTransaction = this.transactionRepository.merge(target, {
+      amount,
+      tradeAt,
+      description,
+      isIncome,
+      cid,
+      pid,
+    });
+    const updatedTransaction = await this.transactionRepository.save(mergedTransaction);
+    return updatedTransaction;
   }
 
-  public async deleteTransaction(tid: number, uid: number): Promise<void> {
-    const { affected } = await this.transactionRepository.delete({ tid, uid });
-    if (!affected) {
-      throw new Error(BAD_REQUEST);
-    }
+  public async deleteTransaction(tid: number, uid: number): Promise<TransactionDetail> {
+    const transaction = await this.transactionRepository.findOne({ where: { tid, uid } });
+    if (!transaction) throw new Error(BAD_REQUEST);
+    await this.transactionRepository.delete(transaction);
+    return transaction;
   }
 }
