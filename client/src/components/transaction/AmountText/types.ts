@@ -1,7 +1,7 @@
 export type AmountTextProps = {
   isIncome: boolean;
   amount: number;
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'xs' | 'sm' | 'md' | 'lg';
 };
 
 export type StyledAmountTextProps = {

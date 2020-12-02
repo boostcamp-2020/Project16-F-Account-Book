@@ -1,11 +1,8 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "typeRoots": ["./node_modules/@types", "./src/commons/types"],
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -21,8 +18,5 @@
     "allowJs": true
   },
   "extends": "./tsconfig.paths.json",
-  "include": [
-    "src",
-    "config-overrides.js"
-  ]
+  "include": ["src", "config-overrides.js"]
 }

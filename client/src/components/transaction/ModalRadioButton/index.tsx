@@ -1,14 +1,28 @@
 import React from 'react';
 import * as S from './styles';
+import { ModalRadioButtonProps } from './types';
 
-function ModalRadioButton(): JSX.Element {
+function ModalRadioButton({ setIsIncome }: ModalRadioButtonProps): JSX.Element {
+  const onChangeRadioButton = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    const isIncome = value === 'income';
+    setIsIncome(isIncome);
+  };
+
   return (
     <S.RadioButtonContainer>
       <S.RadioButtonWrapper>
-        <S.RadioButton type="radio" name="isIncome" value="수입" /> 수입
+        <S.RadioButton type="radio" name="isIncome" value="income" onChange={onChangeRadioButton} />{' '}
+        수입
       </S.RadioButtonWrapper>
       <S.RadioButtonWrapper>
-        <S.RadioButton type="radio" name="isIncome" value="지출" /> 지출
+        <S.RadioButton
+          type="radio"
+          name="isIncome"
+          value="expenditure"
+          onChange={onChangeRadioButton}
+        />{' '}
+        지출
       </S.RadioButtonWrapper>
     </S.RadioButtonContainer>
   );

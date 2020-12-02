@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import CustomInput from '@components/common/forms/CustomInput';
 import ModalHeaderText from '@components/transaction/ModalHeaderText';
 import CommonButton from '@components/common/buttons/CustomButton';
@@ -15,6 +15,8 @@ import * as S from './styles';
 import { TransactionModalProps } from './types';
 
 const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Element => {
+  const [isIncome, setIsIncome] = useState(false);
+
   const { payment, category } = useSelector((state: RootState) => state);
   const categoryList = category.categories.data;
   const paymentList = payment.payments.data;
@@ -41,9 +43,11 @@ const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Ele
             <ModalXButton onClickEvent={toggleModal} />
           </S.ModalHeader>
           <S.ModalBody>
-            <ModalRadioButton />
+            <ModalRadioButton setIsIncome={setIsIncome} />
             <CustomInput placeholder="날짜선택" inputType="calendar" />
-            <CustomSelectInput placeHolder="카테고리">{categoryList}</CustomSelectInput>
+            <CustomSelectInput placeHolder="카테고리">
+              {categoryList.filter((categoryItem) => categoryItem.isIncome === isIncome)}
+            </CustomSelectInput>
             <CustomSelectInput placeHolder="결제수단">{paymentList}</CustomSelectInput>
             <CustomInput placeholder="금액" inputType="amount" />
             <CustomInput placeholder="상세내용" inputType="description" />

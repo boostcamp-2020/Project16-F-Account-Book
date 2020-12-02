@@ -1,13 +1,6 @@
 import React from 'react';
 import * as S from './styles';
-
-class ModalProps {
-  children?: React.ReactNode;
-
-  show?: boolean = true;
-
-  toggleModal?: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
-}
+import { ModalProps } from './types';
 
 function Modal({ children, show, toggleModal }: ModalProps): JSX.Element {
   return (
