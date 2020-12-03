@@ -5,12 +5,9 @@ const MonthDiv = styled.div`
 `;
 
 const ScollDiv = styled.div`
-  display: flex;
-  flex-direction: column;
   overflow: auto;
-  height: 100%;
-  border-box: box-sizing;
-  width: 90px;
+  height: 100px;
+  margin: 5px;
   &::-webkit-scrollbar {
     width: 3px;
   }
@@ -24,9 +21,6 @@ const ScollDiv = styled.div`
     border-radius: 5px;
     box-shadow: inset 0px 0px 5px white;
   }
-
-  justify-content: center;
-  align-items: center;
 `;
 
 const DropdownPosition = styled.div`
@@ -37,9 +31,7 @@ const Item = styled.li`
   display: inline-block;
   white-space: nowarp;
   font-weight: bold;
-  font-size: 16px;
-  width: 3rem;
-  height: 1rem;
+  font-size: 20px;
   word-break: keep-all;
   list-style: none;
   cursor: pointer;
