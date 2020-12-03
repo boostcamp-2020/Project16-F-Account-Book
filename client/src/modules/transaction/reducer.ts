@@ -18,9 +18,9 @@ const initialState: TransactionState = {
   date: { year: 2020, month: 11 },
   totalIn: 0,
   totalOut: 0,
-  mostOutDateInfo: { date: 0, amount: 0 },
+  mostOutDateDetail: { date: 0, amount: 0 },
   aggregationByDate: [],
-  transactionDetailisByDate: [],
+  transactionDetailsByDate: [],
   transactions: [],
 };
 
