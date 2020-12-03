@@ -28,13 +28,17 @@ const TransactionDiv = styled.div`
 const CalendarPageDiv = styled.div`
   hight: 100%;
   width: 100%;
-  overflow: auto;
 `;
 
 const WarpCalendarDiv = styled.div`
   display: block;
   height: 100%;
   margin: 20px 0px;
+  overflow: auto;
+  scroll-behavior: smooth;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const AmountAlign = styled.div`
