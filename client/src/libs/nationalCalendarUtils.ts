@@ -12,4 +12,11 @@ const getMonthShort = (locale: string): any => {
   dayjs.locale(locale);
   return Array.from({ length: 12 }, (v, i) => dayjs().localeData().monthsShort(dayjs().month(i)));
 };
-export default getMonthShort;
+const getWeekDays = (locale: string): any => {
+  dayjs.locale(locale);
+  return Array.from({ length: 7 }, (v, i) =>
+    dayjs().localeData().weekdaysShort(dayjs().weekday(i)),
+  );
+};
+
+export { getMonthShort, getWeekDays };
