@@ -33,7 +33,7 @@ const ListItemContentsRow = styled.div`
 const ListItemDescription = styled.div`
   font-weight: 500;
   font-size: 1rem;
-  line-height: 1rem;
+  line-height: 1.1rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
