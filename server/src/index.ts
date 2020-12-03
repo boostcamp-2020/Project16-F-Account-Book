@@ -1,10 +1,11 @@
 import Koa from 'koa';
 import loader from './loader';
 
+const port = process.env.PORT || 4000;
 const app = new Koa();
 
 loader(app);
 
-app.listen(4000, () => {
-  console.log('Listening to port 4000');
+app.listen(port, () => {
+  console.log(`Listening to port ${port}`);
 });
