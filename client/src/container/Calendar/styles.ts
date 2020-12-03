@@ -7,7 +7,7 @@ const HeaderDiv = styled.div`
   margin-left: 20px;
   font-size: 1rem;
   font-weight: bold;
-  color: #616161;
+  color: #333333;
   flex-direction: row;
   justify-content: space-between;
 `;
