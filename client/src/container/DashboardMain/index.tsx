@@ -9,7 +9,7 @@ const DashboardContainer = (): JSX.Element => {
   const { datePicker } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
   const getMonthlyTransactions = useCallback(() => {
-    dispatch(getMonthlyTransactionThunk({ year: 2020, month: 12 }));
+    dispatch(getMonthlyTransactionThunk(datePicker));
   }, [dispatch]);
 
   useEffect(() => {

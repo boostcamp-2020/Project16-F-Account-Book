@@ -15,7 +15,7 @@ const transactionAPI = {
     month: number;
   }): Promise<MonthTransactionsResponse> => {
     const monthlyTransactionDetails = await axios.get<MonthTransactionsResponse>(
-      `${endpoints.TRANSACTION_API}?year=${year}&month=${month}`,
+      `${endpoints.TRANSACTION_API}?year=${year}&month=${month + 1}`,
     );
 
     return monthlyTransactionDetails;
