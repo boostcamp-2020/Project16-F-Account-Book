@@ -20,7 +20,8 @@ const Tbody = styled.tbody``;
 const Tr = styled.tr`
   height: 70px;
   font-size: large;
-  color: #9e9e9e;
+  color: #333333;
+  font-weight: bold;
 `;
 
 const Th = styled.th`
