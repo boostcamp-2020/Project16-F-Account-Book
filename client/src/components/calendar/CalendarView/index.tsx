@@ -5,7 +5,7 @@ import getDayMatrix from '@libs/calendarUtils';
 import { getWeekDays } from '@libs/nationalCalendarUtils';
 import { ViewCalendarType } from './types';
 
-function ViewCalendar({ totalInOut, lang, year, month }: ViewCalendarType): JSX.Element {
+function CalendarView({ totalInOut, lang, year, month }: ViewCalendarType): JSX.Element {
   return (
     <>
       <MatrixView
@@ -17,4 +17,4 @@ function ViewCalendar({ totalInOut, lang, year, month }: ViewCalendarType): JSX.
   );
 }
 
-export default ViewCalendar;
+export default CalendarView;
