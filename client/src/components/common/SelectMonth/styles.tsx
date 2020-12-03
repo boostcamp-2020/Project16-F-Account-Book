@@ -8,6 +8,9 @@ const ScollDiv = styled.div`
   overflow: auto;
   height: 100px;
   width: 30px;
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
   &::-webkit-scrollbar-thumb {
     background-color: grey;
     border-radius: 10px;
@@ -33,4 +36,8 @@ const Item = styled.li`
   list-style: none;
 `;
 
-export { DropdownPosition, Item, ScollDiv, MonthDiv };
+const MonthList = styled.li`
+  margin: 5px 0px;
+`;
+
+export { DropdownPosition, Item, ScollDiv, MonthDiv, MonthList };

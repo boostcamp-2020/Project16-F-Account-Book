@@ -9,7 +9,7 @@ const MONTHSLIST = Array.from({ length: 12 }, (v, i) => String(i + 1));
 
 export default function SelectMonth({ month }: SelectMonthType): JSX.Element {
   const [Month, setMonth] = useState(month);
-  const dropDonwList = MONTHSLIST.map((v: string) => <li>{v}</li>);
+  const dropDonwList = MONTHSLIST.map((v: string) => <S.MonthList>{v}</S.MonthList>);
 
   return (
     <>
