@@ -94,14 +94,26 @@ const mockTransactions = [
   },
 ];
 
-export const MonoListItem = (): JSX.Element => (
+export const ListItemSample = (): JSX.Element => (
   <TransactionListItem transaction={mockTransactions[0]} />
+);
+
+export const ListItemWithBorder = (): JSX.Element => (
+  <TransactionListItem transaction={mockTransactions[0]} border />
 );
 
 export const MultipleListItem = (): JSX.Element => (
   <>
     {mockTransactions.map((mockTransaction) => (
       <TransactionListItem transaction={mockTransaction} />
+    ))}
+  </>
+);
+
+export const MultipleListItemWithBorder = (): JSX.Element => (
+  <>
+    {mockTransactions.map((mockTransaction) => (
+      <TransactionListItem transaction={mockTransaction} border />
     ))}
   </>
 );

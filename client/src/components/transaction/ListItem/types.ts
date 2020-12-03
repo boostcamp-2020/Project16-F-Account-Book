@@ -1,25 +1,10 @@
-export type Transaction = {
-  tid: number;
-  amount: number;
-  tradeAt: string;
-  description: string;
-  isIncome: boolean;
-  uid: number;
-  cid: number;
-  pid: number;
-  payment: {
-    pid: number;
-    name: string;
-    uid: number;
-  };
-  category: {
-    cid: number;
-    name: string;
-    isIncome: boolean;
-    uid: number;
-  };
-};
+import { TransactionModel } from '@/commons/types/transaction';
 
 export type TransactionListItemPropType = {
-  transaction: Transaction;
+  transaction: TransactionModel;
+  border?: boolean | null;
+};
+
+export type TransactionListItemStylePropType = {
+  border: boolean;
 };
