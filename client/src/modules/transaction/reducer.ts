@@ -1,7 +1,14 @@
 import { TransactionModel } from '@/commons/types/transaction';
 import { createReducer, PayloadAction } from 'typesafe-actions';
 import DateUtils from '@/libs/dateUtils';
-import { POST_TRANSACTION, POST_TRANSACTION_FAILURE, POST_TRANSACTION_SUCCESS } from './actions';
+import {
+  POST_TRANSACTION,
+  POST_TRANSACTION_FAILURE,
+  POST_TRANSACTION_SUCCESS,
+  GET_MONTHLY_TRANSACTION,
+  GET_MONTHLY_TRANSACTION_FAILURE,
+  GET_MONTHLY_TRANSACTION_SUCCESS,
+} from './actions';
 import { TransactionAction, TransactionState } from './types';
 import aggregateTransactions from './aggregateUtil';
 
@@ -62,10 +69,28 @@ const transactionReducer = createReducer<TransactionState, TransactionAction>(in
   }),
   [POST_TRANSACTION_SUCCESS]: (state, action) => {
     const updatedState = updateTransactionState('post', state, action);
-    console.log(updatedState);
     return updatedState;
   },
   [POST_TRANSACTION_FAILURE]: (state, action) => ({
+    ...state,
+    loading: false,
+    error: action.payload,
+  }),
+  [GET_MONTHLY_TRANSACTION]: (state) => ({
+    ...state,
+    loading: true,
+    error: null,
+  }),
+  [GET_MONTHLY_TRANSACTION_SUCCESS]: (state, { payload }) => {
+    const aggregation = aggregateTransactions(payload);
+    return {
+      ...state,
+      loading: false,
+      error: null,
+      ...aggregation,
+    };
+  },
+  [GET_MONTHLY_TRANSACTION_FAILURE]: (state, action) => ({
     ...state,
     loading: false,
     error: action.payload,

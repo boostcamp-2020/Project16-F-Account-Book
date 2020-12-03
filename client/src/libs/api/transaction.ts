@@ -7,7 +7,7 @@ import {
 } from '@/commons/types/transaction';
 
 const transactionAPI = {
-  getMonthTransactions: async ({
+  getMonthlyTransaction: async ({
     year,
     month,
   }: {
