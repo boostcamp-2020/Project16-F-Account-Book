@@ -11,11 +11,11 @@ const FixedExpenditure = (): JSX.Element => {
   const getFixedExpenditure = useCallback(() => {
     const { startDate, endDate } = dateUtils.getStartEndDate(datePicker.year, datePicker.month);
     dispatch(getFixedExpenditureThunk(startDate, endDate));
-  }, [dispatch]);
+  }, [dispatch, datePicker]);
 
   useEffect(() => {
     getFixedExpenditure();
-  }, [dispatch]);
+  }, [dispatch, datePicker]);
   return <></>;
 };
 
