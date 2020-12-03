@@ -7,8 +7,8 @@ function AmountText({ isIncome, size = 'md', amount }: AmountTextProps): JSX.Ele
   return (
     <StyledAmountText isIncome={isIncome} size={size}>
       {isIncome
-        ? `+ ${NumberUtils.numberWithCommas(amount)}`
-        : `- ${NumberUtils.numberWithCommas(amount)}`}
+        ? `+${NumberUtils.numberWithCommas(amount)}`
+        : `-${NumberUtils.numberWithCommas(amount)}`}
     </StyledAmountText>
   );
 }
