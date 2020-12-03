@@ -8,7 +8,7 @@ import aggregateTransactions from './aggregateUtil';
 const initialState: TransactionState = {
   loading: false,
   error: null,
-  date: { year: 2020, month: 11 },
+  date: null,
   totalIn: 0,
   totalOut: 0,
   mostOutDateInfo: { date: 0, amount: 0 },
