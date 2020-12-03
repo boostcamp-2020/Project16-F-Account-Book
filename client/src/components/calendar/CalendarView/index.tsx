@@ -3,9 +3,9 @@ import MatrixView from '@/components/calendar/MatrixView';
 import TableCell from '@/components/calendar/TableCell';
 import getDayMatrix from '@libs/calendarUtils';
 import { getWeekDays } from '@libs/nationalCalendarUtils';
-import { ViewCalendarType } from './types';
+import { CalendarViewType } from './types';
 
-function CalendarView({ totalInOut, lang, year, month }: ViewCalendarType): JSX.Element {
+function CalendarView({ totalInOut, lang, year, month }: CalendarViewType): JSX.Element {
   return (
     <>
       <MatrixView

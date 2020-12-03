@@ -1,4 +1,4 @@
-export type ViewCalendarType = {
+export type CalendarViewType = {
   lang: string;
   totalInOut: any;
   year: number;
