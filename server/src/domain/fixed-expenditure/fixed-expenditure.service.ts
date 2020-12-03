@@ -23,8 +23,8 @@ export default class FixedExpenditureService {
 
   public async getFixedExpenditure(
     uid: number,
-    startDate: Date,
-    endDate: Date,
+    startDate: string,
+    endDate: string,
   ): Promise<FixedExpenditureEntity[]> {
     const user = await this.userRepository.findOne({ where: { uid } });
     const updateAt = user?.updateAt ? new Date(user?.updateAt) : undefined;
