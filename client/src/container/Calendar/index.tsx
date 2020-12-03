@@ -232,7 +232,7 @@ const totalInOut: any = {
   30: { totalIn: 0, totalOut: 10000 },
 };
 
-const TempCalendar = ({ month, year }: CalendarType): JSX.Element => {
+const Calendar = ({ month, year }: CalendarType): JSX.Element => {
   return (
     <S.WarpCalendarDiv>
       <S.CalendarPageDiv>
@@ -264,4 +264,4 @@ const TempCalendar = ({ month, year }: CalendarType): JSX.Element => {
     </S.WarpCalendarDiv>
   );
 };
-export default TempCalendar;
+export default Calendar;

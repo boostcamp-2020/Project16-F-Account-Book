@@ -1,13 +1,12 @@
 import React from 'react';
-import Arrow from '@/components/common/ArrowIcon';
-import Header from '@/components/common/layouts/Header';
+import MainLayout from '@/components/common/layouts/MainLayout';
+import Calendar from '@container/Calendar';
 
 const CalendarPage = (): JSX.Element => {
   return (
-    <>
-      <Header />
-      <Arrow height="10" width="10" rotate="" />
-    </>
+    <MainLayout>
+      <Calendar year={2020} month={12} />
+    </MainLayout>
   );
 };
 
