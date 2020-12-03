@@ -14,7 +14,7 @@ function Header(): JSX.Element {
   const list = ['결제수단 관리', '수입분류 관리', '지출분류 관리', '로그아웃'];
   const linkPageList = ['PayMent', 'imPortClassification', 'ExpenditureClassification', ''];
   const dropdonwList = list.map((v: string, i: number) => (
-    <S.Item key={i.toString()}>
+    <S.Item key={`header${i.toString()}`}>
       <Link
         style={{
           color: '#292929',

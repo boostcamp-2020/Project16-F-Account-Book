@@ -13,7 +13,7 @@ function CalendarView({ totalInOut, lang, year, month }: CalendarViewType): JSX.
         matrix={getDayMatrix(year, month)}
         cell={(date, key) => (
           <>
-            <TableCell day={date} key={key} totalInOut={totalInOut} />
+            <TableCell day={date} key={`table${key}`} totalInOut={totalInOut} />
           </>
         )}
       />

@@ -44,7 +44,7 @@ const Calendar = (): JSX.Element => {
         </S.CalendarDiv>
         <S.TransactionDiv>
           {mockTransactions.map((mockTransaction, i) => (
-            <TransactionListItem key={i.toString()} transaction={mockTransaction} />
+            <TransactionListItem key={`mocLis${i.toString()}`} transaction={mockTransaction} />
           ))}
         </S.TransactionDiv>
       </S.CalendarPageDiv>
