@@ -4,12 +4,11 @@ import { getFixedExpenditureThunk } from '@modules/fixedExpenditure';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/modules';
 import dateUtils from '@libs/dateUtils';
-import { Link } from 'react-router-dom';
-import { GoCalendar } from 'react-icons/go';
 import numberUtils from '@libs/numberUtils';
+import FixedExpenditureItem from '@components/fixedExpenditure/Item';
 import * as S from './styles';
 
-const FixedExpenditure = (): JSX.Element => {
+const DetailedFixedExpenditure = (): JSX.Element => {
   const { datePicker, fixedExpenditure } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
 
@@ -36,23 +35,22 @@ const FixedExpenditure = (): JSX.Element => {
   return (
     <>
       <S.Box>
-        <S.HeaderBox>
-          <S.HeaderTitle>
-            <p>예정된 고정지출이</p>
-            <p>{fixedExpenditure.fixedExpenditure.data?.length}개 있어요</p>
-          </S.HeaderTitle>
-          <Link to="/detailed-fixed-expenditure">자세히 보기</Link>
-        </S.HeaderBox>
-        <S.SumBox>
-          <GoCalendar />
-          <S.TextBox>
-            <S.SumTitle>예정된 고정 지출</S.SumTitle>
-            <S.Amount>{getSumFixedExpenditure()}원</S.Amount>
-          </S.TextBox>
-        </S.SumBox>
+        <S.Title>고정적인 지출</S.Title>
+        <S.Amount>총 {getSumFixedExpenditure()} 원</S.Amount>
+      </S.Box>
+      <S.Box>
+        {fixedExpenditure.fixedExpenditure.data ? (
+          fixedExpenditure.fixedExpenditure.data.map((fixedItem) => (
+            <S.ItemBox key={fixedItem.fid}>
+              <FixedExpenditureItem fixedItem={fixedItem} />
+            </S.ItemBox>
+          ))
+        ) : (
+          <div />
+        )}
       </S.Box>
     </>
   );
 };
 
-export default FixedExpenditure;
+export default DetailedFixedExpenditure;
