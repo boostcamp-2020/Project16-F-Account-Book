@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import DashBoardPage from '@/views/DashBoardPage';
 import LoginPage from '@/views/LoginPage';
 import CalendarPage from '@/views/Calendar';
-import Authorization from '@/container/Authorization';
 import GlobalStyled from './GlobalStyled';
 
 const Box = styled.div`

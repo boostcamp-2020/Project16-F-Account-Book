@@ -21,20 +21,21 @@ export default class FixedExpenditureService {
     this.transactionRepository = transactionRepository;
   }
 
-  public async getFixedExpenditure(uid: number): Promise<FixedExpenditureEntity[]> {
+  public async getFixedExpenditure(
+    uid: number,
+    startDate: string,
+    endDate: string,
+  ): Promise<FixedExpenditureEntity[]> {
     const user = await this.userRepository.findOne({ where: { uid } });
     const updateAt = user?.updateAt ? new Date(user?.updateAt) : undefined;
     const today = new Date();
 
-    if (!updateAt) {
-      await this.createFixedExpenditure(uid);
-    } else if (updateAt.getMonth() !== today.getMonth()) {
-      await this.fixedExpenditureRepository.delete(uid);
+    if (!updateAt || updateAt.getMonth() !== today.getMonth()) {
       await this.createFixedExpenditure(uid);
     }
 
     const fixedData = await this.fixedExpenditureRepository.find({
-      where: { uid },
+      where: { uid, tradeAt: Between(startDate, endDate) },
       order: { tradeAt: 'ASC' },
     });
     return fixedData;
