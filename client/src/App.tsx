@@ -23,7 +23,6 @@ function App(): JSX.Element {
       <Box>
         <Switch>
           <Route path="/" component={LoginPage} exact />
-          <Authorization />
           <Route path="/dashboard" component={DashBoardPage} />
           <Route path="/calendar" component={CalendarPage} />
           <Redirect from="*" to="/dashboard" />

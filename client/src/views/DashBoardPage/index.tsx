@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import TransactionModal from '@container/TransactionModal';
 import ModalToggleButton from '@components/common/buttons/ModalToggleButton';
-import Header from '@/components/common/Header';
+import Header from '@/components/common/layouts/Header';
 
 const DashBoardPage = (): JSX.Element => {
   const [showModal, setShowModal] = useState(false);

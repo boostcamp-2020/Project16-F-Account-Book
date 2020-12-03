@@ -1,39 +1,73 @@
-import { createReducer } from 'typesafe-actions';
+import { TransactionModel } from '@/commons/types/transaction';
+import { createReducer, PayloadAction } from 'typesafe-actions';
+import DateUtils from '@/libs/dateUtils';
 import { POST_TRANSACTION, POST_TRANSACTION_FAILURE, POST_TRANSACTION_SUCCESS } from './actions';
 import { TransactionAction, TransactionState } from './types';
+import aggregateTransactions from './aggregateUtil';
 
 const initialState: TransactionState = {
-  transactions: {
+  loading: false,
+  error: null,
+  date: null,
+  totalIn: 0,
+  totalOut: 0,
+  mostOutDateInfo: { date: 0, amount: 0 },
+  aggregationByDate: [],
+  transactionDetailisByDate: [],
+  transactions: [],
+};
+
+const updateTransactionState = (
+  type: 'post' | 'patch' | 'delete',
+  state: TransactionState,
+  { payload }: PayloadAction<string, TransactionModel>,
+): TransactionState => {
+  const { year, month } = DateUtils.parseDate(payload.tradeAt);
+  if (!(state.date && year === state.date.year && month === state.date.month))
+    return {
+      ...state,
+      loading: false,
+      error: null,
+    };
+
+  const copiedState = { ...state };
+  if (type === 'post') {
+    copiedState.transactions.push(payload);
+  } else {
+    const subIndex = copiedState.transactions.findIndex(
+      (transaction) => transaction.tid === payload.tid,
+    );
+
+    if (type === 'patch') {
+      copiedState.transactions[subIndex] = payload;
+    } else {
+      copiedState.transactions.splice(subIndex, 1);
+    }
+  }
+  const aggregation = aggregateTransactions(copiedState.transactions);
+
+  return {
+    ...state,
     loading: false,
     error: null,
-    data: [],
-  },
+    ...aggregation,
+  };
 };
 
 const transactionReducer = createReducer<TransactionState, TransactionAction>(initialState, {
   [POST_TRANSACTION]: (state) => ({
     ...state,
-    transactions: {
-      loading: true,
-      error: null,
-      data: [],
-    },
+    loading: true,
+    error: null,
   }),
-  [POST_TRANSACTION_SUCCESS]: (state, action) => ({
-    ...state,
-    transactions: {
-      loading: false,
-      error: null,
-      data: state.transactions.data.concat(action.payload),
-    },
-  }),
+  [POST_TRANSACTION_SUCCESS]: (state, action) => {
+    const updatedState = updateTransactionState('post', state, action);
+    return updatedState;
+  },
   [POST_TRANSACTION_FAILURE]: (state, action) => ({
     ...state,
-    transactions: {
-      loading: false,
-      error: action.payload,
-      data: [],
-    },
+    loading: false,
+    error: action.payload,
   }),
 });
 

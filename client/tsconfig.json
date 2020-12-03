@@ -15,7 +15,8 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react",
-    "allowJs": true
+    "allowJs": true,
+    "downlevelIteration": true
   },
   "extends": "./tsconfig.paths.json",
   "include": ["src", "config-overrides.js"]

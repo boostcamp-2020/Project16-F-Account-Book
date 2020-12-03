@@ -5,5 +5,7 @@ type SelectInputOption = {
 
 export type SelectInputProps = {
   children: SelectInputOption[];
-  placeHolder: string;
+  placeholder: string;
+  name: string;
+  onChange: any;
 };

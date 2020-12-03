@@ -1,6 +1,6 @@
 import React from 'react';
 import Arrow from '@/components/common/ArrowIcon';
-import Header from '@/components/common/Header';
+import Header from '@/components/common/layouts/Header';
 
 const CalendarPage = (): JSX.Element => {
   return (
