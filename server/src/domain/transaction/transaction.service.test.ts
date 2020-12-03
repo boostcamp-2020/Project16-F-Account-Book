@@ -27,7 +27,7 @@ describe('TransactionService Tests', () => {
       numOfUsers: 1,
       numOfTransactionsPerUser: 50,
       startDate: new Date('2020-10-01'),
-      endDate: new Date('2020-11-01'),
+      endDate: new Date('2020-10-31'),
     });
   });
 
@@ -49,6 +49,50 @@ describe('TransactionService Tests', () => {
             new Date(transaction.tradeAt).getMonth() + 1 === 10,
         ),
       ).toEqual(true);
+    });
+  });
+
+  describe('createTransactions() Tests', () => {
+    it('등록에 성공하면 생성된 엔티티 데이터를 반환한다.', async () => {
+      const payload = {
+        amount: 1000,
+        tradeAt: new Date('2020-12-03'),
+        description: '간식 사먹음',
+        isIncome: false,
+        uid: 1,
+        cid: 2,
+        pid: 1,
+      };
+      const newTransaction = await transactionService.createTransaction(payload);
+      expect(newTransaction.isIncome).toEqual(payload.isIncome);
+      expect(newTransaction.tradeAt).toEqual(payload.tradeAt);
+      expect(newTransaction.amount).toEqual(payload.amount);
+      expect(newTransaction.description).toEqual(payload.description);
+      expect(newTransaction.cid).toEqual(payload.cid);
+      expect(newTransaction.pid).toEqual(payload.pid);
+      expect(newTransaction.uid).toEqual(payload.uid);
+    });
+  });
+
+  describe('updateTransactions() Tests', () => {
+    it('수정에 성공하면 수정된 엔티티 데이터를 반환한다.', async () => {
+      const payload = {
+        amount: 1000,
+        tradeAt: new Date('2020-12-03'),
+        description: '간식 사먹음',
+        isIncome: false,
+        uid: 1,
+        cid: 2,
+        pid: 1,
+      };
+      const updatedTransaction = await transactionService.updateTransaction(1, 1, payload);
+      expect(updatedTransaction.isIncome).toEqual(payload.isIncome);
+      expect(updatedTransaction.tradeAt).toEqual(payload.tradeAt);
+      expect(updatedTransaction.amount).toEqual(payload.amount);
+      expect(updatedTransaction.description).toEqual(payload.description);
+      expect(updatedTransaction.cid).toEqual(payload.cid);
+      expect(updatedTransaction.pid).toEqual(payload.pid);
+      expect(updatedTransaction.uid).toEqual(payload.uid);
     });
   });
 
