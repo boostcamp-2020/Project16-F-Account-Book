@@ -4,7 +4,7 @@ import { MonthTransactionsResponse, TransactionModel } from '@/commons/types/tra
 import TransactionRequestDTO from '@/commons/dto/transaction-request';
 
 const transactionAPI = {
-  getMonthTransactions: async ({
+  getMonthlyTransaction: async ({
     year,
     month,
   }: {
@@ -12,7 +12,7 @@ const transactionAPI = {
     month: number;
   }): Promise<MonthTransactionsResponse> => {
     const monthlyTransactionDetails = await axios.get<MonthTransactionsResponse>(
-      `${endpoints.TRANSACTION_API}?year=${year}&month=${month}`,
+      `${endpoints.TRANSACTION_API}?year=${year}&month=${month + 1}`,
     );
 
     return monthlyTransactionDetails;

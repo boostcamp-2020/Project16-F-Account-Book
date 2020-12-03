@@ -12,8 +12,8 @@ export type TransactionState = {
   date: YearMonthModel | null;
   totalIn: number;
   totalOut: number;
-  mostOutDateInfo: { date: number; amount: number };
+  mostOutDateDetail: { date: number; amount: number };
   aggregationByDate: [number, { totalIn: number; totalOut: number }][];
-  transactionDetailisByDate: [number, TransactionModel[]][];
+  transactionDetailsByDate: [number, TransactionModel[]][];
   transactions: TransactionModel[];
 };

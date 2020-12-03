@@ -3,9 +3,12 @@ import AmountText from '@/components/transaction/AmountText';
 import { TransactionListItemPropType } from './types';
 import S from './styles';
 
-const TransactionListItem = ({ transaction }: TransactionListItemPropType): JSX.Element => {
+const TransactionListItem = ({
+  transaction,
+  border = false,
+}: TransactionListItemPropType): JSX.Element => {
   return (
-    <S.ListItem>
+    <S.ListItem border={!!border}>
       <S.ListItemContentsRow>
         <S.ListItemDescription>{transaction.description}</S.ListItemDescription>
       </S.ListItemContentsRow>

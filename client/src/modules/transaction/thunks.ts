@@ -1,8 +1,11 @@
 import transactionAPI from '@/libs/api/transaction';
 import createAsyncThunk from '@/libs/createAsyncThunk';
-import { postTransactionAsync } from './actions';
+import { postTransactionAsync, getMonthlyTransactionAsync } from './actions';
 
 const postTransactionThunk = createAsyncThunk(postTransactionAsync, transactionAPI.postTransaction);
+const getMonthlyTransactionThunk = createAsyncThunk(
+  getMonthlyTransactionAsync,
+  transactionAPI.getMonthlyTransaction,
+);
 
-// eslint-disable-next-line import/prefer-default-export
-export { postTransactionThunk };
+export { postTransactionThunk, getMonthlyTransactionThunk };
