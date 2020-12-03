@@ -8,7 +8,7 @@ import aggregateTransactions from './aggregateUtil';
 const initialState: TransactionState = {
   loading: false,
   error: null,
-  date: null,
+  date: { year: 2020, month: 11 },
   totalIn: 0,
   totalOut: 0,
   mostOutDateInfo: { date: 0, amount: 0 },
@@ -62,6 +62,7 @@ const transactionReducer = createReducer<TransactionState, TransactionAction>(in
   }),
   [POST_TRANSACTION_SUCCESS]: (state, action) => {
     const updatedState = updateTransactionState('post', state, action);
+    console.log(updatedState);
     return updatedState;
   },
   [POST_TRANSACTION_FAILURE]: (state, action) => ({
