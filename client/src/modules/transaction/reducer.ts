@@ -62,7 +62,6 @@ const transactionReducer = createReducer<TransactionState, TransactionAction>(in
   }),
   [POST_TRANSACTION_SUCCESS]: (state, action) => {
     const updatedState = updateTransactionState('post', state, action);
-    console.log(updatedState);
     return updatedState;
   },
   [POST_TRANSACTION_FAILURE]: (state, action) => ({

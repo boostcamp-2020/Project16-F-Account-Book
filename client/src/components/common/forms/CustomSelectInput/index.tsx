@@ -13,11 +13,11 @@ function CustomSelectInput(props: SelectInputProps): JSX.Element {
 
   return (
     <S.SelectInput name={name} onChange={handleChange} value={inputValue}>
-      <S.SelectOption defaultValue="" selected disabled>
+      <S.SelectOption defaultValue="" selected>
         {placeholder}
       </S.SelectOption>
       {children?.map((option) => (
-        <S.SelectOption value={`${option.id}`} key={`select${option.id}`}>
+        <S.SelectOption value={`${option.id}`} key={`${name}${option.id}`}>
           {option.name}
         </S.SelectOption>
       ))}

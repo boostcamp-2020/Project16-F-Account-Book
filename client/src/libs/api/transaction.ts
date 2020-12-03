@@ -1,10 +1,7 @@
 import axios from '@/libs/axios';
 import endpoints from '@/libs/endpoints';
-import {
-  MonthTransactionsResponse,
-  PostTransactionRequest,
-  TransactionModel,
-} from '@/commons/types/transaction';
+import { MonthTransactionsResponse, TransactionModel } from '@/commons/types/transaction';
+import TransactionRequestDTO from '@/commons/dto/transaction-request';
 
 const transactionAPI = {
   getMonthTransactions: async ({
@@ -21,7 +18,7 @@ const transactionAPI = {
     return monthlyTransactionDetails;
   },
 
-  postTransaction: async (data: PostTransactionRequest): Promise<TransactionModel> => {
+  postTransaction: async (data: TransactionRequestDTO): Promise<TransactionModel> => {
     const newTransaction = await axios.post<TransactionModel>(endpoints.TRANSACTION_API, {
       ...data,
     });

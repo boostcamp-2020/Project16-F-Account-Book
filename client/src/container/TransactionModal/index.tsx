@@ -1,6 +1,4 @@
-/* eslint-disable max-classes-per-file */
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useCallback, useEffect, useReducer, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import CustomInput from '@components/common/forms/CustomInput';
 import ModalHeaderText from '@components/transaction/ModalHeaderText';
 import CustomButton from '@components/common/buttons/CustomButton';
@@ -16,39 +14,11 @@ import { postTransactionThunk } from '@/modules/transaction';
 import { PostTransactionRequest } from '@/commons/types/transaction';
 import { CategoryModel } from '@/commons/types/category';
 import { PaymentModel } from '@/commons/types/payment';
+import CategoryDTO from '@/commons/dto/category';
+import PaymentDTO from '@/commons/dto/payment';
+import TransactionRequestDTO from '@/commons/dto/transaction-request';
 import * as S from './styles';
 import { TransactionModalProps } from './types';
-
-class CategoryDTO {
-  id: number;
-
-  name: string;
-
-  isIncome: boolean;
-
-  uid: number;
-
-  constructor(category: CategoryModel) {
-    this.id = category.cid;
-    this.name = category.name;
-    this.isIncome = category.isIncome;
-    this.uid = category.uid;
-  }
-}
-
-class PaymentDTO {
-  id: number;
-
-  name: string;
-
-  uid: number;
-
-  constructor(payment: PaymentModel) {
-    this.id = payment.pid;
-    this.name = payment.name;
-    this.uid = payment.uid;
-  }
-}
 
 const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Element => {
   const [isIncome, setIsIncome] = useState(false);
@@ -90,7 +60,9 @@ const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Ele
   };
 
   const postNewTransaction = useCallback(() => {
-    dispatch(postTransactionThunk(newTransaction));
+    const newTransactionDTO = new TransactionRequestDTO(newTransaction);
+    dispatch(postTransactionThunk(newTransactionDTO));
+    toggleModal();
   }, [dispatch, newTransaction]);
 
   return (
