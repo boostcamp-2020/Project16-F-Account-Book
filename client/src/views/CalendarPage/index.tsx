@@ -5,7 +5,7 @@ import Calendar from '@container/Calendar';
 const CalendarPage = (): JSX.Element => {
   return (
     <MainLayout>
-      <Calendar year={2020} month={12} />
+      <Calendar />
     </MainLayout>
   );
 };

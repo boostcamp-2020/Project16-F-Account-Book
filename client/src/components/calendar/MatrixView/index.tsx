@@ -8,19 +8,15 @@ function MatrixView({ matrix, headers, cell }: MatrixViewTypes): JSX.Element {
       <S.Table>
         <S.Thead>
           <S.Tr>
-            <>
-              {headers.map((v) => (
-                <S.Th>{v}</S.Th>
-              ))}
-            </>
+            {headers.map((v, i) => (
+              <S.Th key={i.toString()}>{v}</S.Th>
+            ))}
           </S.Tr>
         </S.Thead>
         <S.Tbody>
-          <>
-            {matrix.map((row, i) => (
-              <S.Tr>{row.map((v, j) => cell(v, i * matrix[i].length + j))}</S.Tr>
-            ))}
-          </>
+          {matrix.map((row, i: number) => (
+            <S.Tr key={i.toString()}>{row.map((v, j) => cell(v, i * matrix[i].length + j))}</S.Tr>
+          ))}
         </S.Tbody>
       </S.Table>
     </S.Matrix>
