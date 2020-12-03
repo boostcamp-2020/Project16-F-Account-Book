@@ -1,5 +1,5 @@
 export type CategoryModel = {
-  id: number;
+  cid: number;
   name: string;
   isIncome: boolean;
   uid: number;

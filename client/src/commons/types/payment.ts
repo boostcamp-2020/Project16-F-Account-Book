@@ -1,5 +1,5 @@
 export type PaymentModel = {
-  id: number;
+  pid: number;
   name: string;
   uid: number;
 };
