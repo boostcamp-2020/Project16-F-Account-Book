@@ -31,18 +31,3 @@ export type TransactionDetail = {
   category: CategoryEntity;
   payment: PaymentEntity;
 };
-
-export type AggregationByDateMap = Map<number, { totalIn: number; totalOut: number }>;
-export type TransactionDetailsByDateMap = Map<number, TransactionDetail[]>;
-export type MostOutDateDetail = {
-  amount: number;
-  date: number;
-};
-
-export type MonthlyTransactionDetails = {
-  totalIn: number;
-  totalOut: number;
-  mostOutDateDetail: MostOutDateDetail;
-  aggregationByDate: [number, { totalIn: number; totalOut: number }][];
-  transactionDetailsByDate: [number, TransactionDetail[]][];
-};

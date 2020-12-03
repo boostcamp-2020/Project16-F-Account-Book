@@ -10,4 +10,4 @@ export const postTransactionAsync = createAsyncAction(
   POST_TRANSACTION,
   POST_TRANSACTION_SUCCESS,
   POST_TRANSACTION_FAILURE,
-)<string, TransactionModel[], AxiosError>();
+)<string, TransactionModel, AxiosError>();

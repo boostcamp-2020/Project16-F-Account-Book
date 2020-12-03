@@ -19,7 +19,7 @@ afterAll(async () => {
   await connection.close();
 });
 
-describe('getMonthlyTransactions() Tests', () => {
+describe('TransactionService Tests', () => {
   beforeEach(async () => {
     await TestSeeder.clear(connection);
     await TestSeeder.up({
@@ -34,85 +34,30 @@ describe('getMonthlyTransactions() Tests', () => {
   afterEach(async () => {
     await TestSeeder.clear(connection);
   });
-
-  it('응답데이터의 aggregationByDate는 일자별 집계 데이터로 구성된다.', async () => {
-    const transactionDetailsOfMonth = await transactionService.getTransactionDetailsOfMonth({
-      uid: 1,
-      year: 2020,
-      month: 10,
-    });
-
-    const { aggregationByDate } = transactionDetailsOfMonth;
-    const aggregationByDateMap = new Map(aggregationByDate);
-    const { transactionDetailsByDate } = transactionDetailsOfMonth;
-
-    transactionDetailsByDate.forEach(([date, transactions]) => {
-      const { totalIn, totalOut } = transactions.reduce(
-        (prevAggregate, transaction) => {
-          if (transaction.isIncome) {
-            return {
-              ...prevAggregate,
-              totalIn: prevAggregate.totalIn + transaction.amount,
-            };
-          }
-          return {
-            ...prevAggregate,
-            totalOut: prevAggregate.totalOut + transaction.amount,
-          };
-        },
-        { totalIn: 0, totalOut: 0 },
-      );
-      const aggregation = aggregationByDateMap.get(date);
-      expect(aggregation).not.toBeNull();
-      if (aggregation) {
-        expect(aggregation.totalIn).toEqual(totalIn);
-        expect(aggregation.totalOut).toEqual(totalOut);
-      }
+  describe('getMonthlyTransactions() Tests', () => {
+    it('응답된 데이터는 모두 2020년 10월 데이터이다.', async () => {
+      const transactionsOfMonth = await transactionService.getTransactionDetailsOfMonth({
+        uid: 1,
+        year: 2020,
+        month: 10,
+      });
+      expect(transactionsOfMonth.length).toEqual(50);
+      expect(
+        transactionsOfMonth.every(
+          (transaction) =>
+            new Date(transaction.tradeAt).getFullYear() === 2020 &&
+            new Date(transaction.tradeAt).getMonth() + 1 === 10,
+        ),
+      ).toEqual(true);
     });
   });
 
-  it('응답데이터의 totalIn, totalOut은 일자별 집계 데이터의 합과 일치한다.', async () => {
-    const transactionDetailsOfMonth = await transactionService.getTransactionDetailsOfMonth({
-      uid: 1,
-      year: 2020,
-      month: 10,
+  describe('deleteTransaction() Tests', () => {
+    it('delete 된 내역을 반환한다.', async () => {
+      const deletedTransaction = await transactionService.deleteTransaction(1, 1);
+      expect(deletedTransaction).not.toBeNull();
+      expect(deletedTransaction.tid).toEqual(1);
+      expect(await transactionRepository.findOne({ where: { tid: 1 } })).toBeUndefined();
     });
-
-    const { aggregationByDate } = transactionDetailsOfMonth;
-    let sumInOfDate = 0;
-    let sumOutOfDate = 0;
-
-    aggregationByDate.forEach(([date, aggregation]) => {
-      sumInOfDate += aggregation.totalIn;
-      sumOutOfDate += aggregation.totalOut;
-    });
-
-    expect(transactionDetailsOfMonth.totalIn).toEqual(sumInOfDate);
-    expect(transactionDetailsOfMonth.totalOut).toEqual(sumOutOfDate);
-  });
-
-  it('응답데이터의 mostOutDate는 일자별 소비 집계가 가장 큰 날의 정보로 구성된다.', async () => {
-    const transactionDetailsOfMonth = await transactionService.getTransactionDetailsOfMonth({
-      uid: 1,
-      year: 2020,
-      month: 10,
-    });
-
-    const { aggregationByDate } = transactionDetailsOfMonth;
-    let mostAmount = 0;
-    let mostOutDate = 0;
-
-    aggregationByDate.forEach(([date, aggregation]) => {
-      const totalOutOfDate = aggregation.totalOut;
-      if (mostAmount < totalOutOfDate) {
-        mostAmount = totalOutOfDate;
-        mostOutDate = date;
-      }
-    });
-
-    const { mostOutDateDetail } = transactionDetailsOfMonth;
-
-    expect(mostOutDateDetail.date).toEqual(mostOutDate);
-    expect(mostOutDateDetail.amount).toEqual(mostAmount);
   });
 });
