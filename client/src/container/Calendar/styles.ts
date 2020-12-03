@@ -3,14 +3,16 @@ import styled from 'styled-components';
 const HeaderDiv = styled.div`
   display: flex;
   height: 10%;
+  width: 53%;
   margin-left: 20px;
   font-size: 1rem;
   font-weight: bold;
   color: #616161;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 const AmountDiv = styled.div`
   display: flex;
-  padding: 0px 40px;
 `;
 const CalendarDiv = styled.div`
   display: inline-flex;
