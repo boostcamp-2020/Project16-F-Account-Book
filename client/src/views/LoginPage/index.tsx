@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import axios from 'axios';
+import authorizationAPI from '@/libs/api/Authorization';
 import Logo from '@/components/common/Logo';
 import LoginButton from '@/container/LoginButton';
 import { useDispatch } from 'react-redux';
@@ -12,10 +12,7 @@ const LoginPage = (props: RouteComponentProps): JSX.Element => {
   useEffect(() => {
     const checkLogin = async () => {
       try {
-        const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
-        await axios.get(`${apiBaseUrl}/api/auth/isLogin`, {
-          withCredentials: true,
-        });
+        await authorizationAPI.isLogin();
         dispatch(login());
         props.history.push('/dashboard');
       } catch (error) {
