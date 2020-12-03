@@ -10,7 +10,7 @@ export const ormConfig = {
   username: process.env.TYPEORM_USERNAME || 'test',
   password: process.env.TYPEORM_PASSWORD || 'test',
   database: process.env.TYPEORM_DATABASE || 'test',
-  entities: [process.env.TYPEORM_ENTITIES || 'src/entity/*.entity.ts'],
+  entities: [process.env.TYPEORM_ENTITIES || 'src/entity/*.entity.{js,ts}'],
   synchronize: process.env.TYPEORM_SYNCHRONIZE === 'true',
   logging: process.env.TYPEORM_LOGGING === 'true',
 };
