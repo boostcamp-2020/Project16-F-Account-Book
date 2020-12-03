@@ -35,7 +35,7 @@ export type PostTransactionRequest = {
   amount: number;
   tradeAt: Date;
   description: string;
-  isIncome: boolean;
+  isIncome: string;
   cid: number;
   pid: number;
 };
