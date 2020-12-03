@@ -17,11 +17,17 @@ const Table = styled.table`
 
 const Tbody = styled.tbody``;
 
-const Tr = styled.tr`
+const HeaderTr = styled.tr`
   height: 70px;
   font-size: large;
   color: #333333;
   font-weight: bold;
+`;
+
+const DayTr = styled.tr`
+  height: 70px;
+  font-size: large;
+  color: #616060;
 `;
 
 const Th = styled.th`
@@ -29,4 +35,4 @@ const Th = styled.th`
   vertical-align: middle;
 `;
 
-export { Table, Tbody, Tr, Thead, Matrix, Th };
+export { Table, Tbody, DayTr, Thead, Matrix, Th, HeaderTr };
