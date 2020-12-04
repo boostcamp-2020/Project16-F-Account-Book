@@ -14,7 +14,6 @@ export default function SelectMonth(): JSX.Element {
   const dispatch = useDispatch();
 
   const onChangeDate = (e: any) => {
-    console.log(e.target);
     const { value } = e.target;
     dispatch(changeDate({ year: datePicker.year, month: MONTHSLIST[value] - 1 }));
   };
