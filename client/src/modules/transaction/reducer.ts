@@ -51,6 +51,9 @@ const updateTransactionState = (
       copiedState.transactions.splice(subIndex, 1);
     }
   }
+  copiedState.transactions.sort(
+    (t1, t2) => new Date(t2.tradeAt).getTime() - new Date(t1.tradeAt).getTime(),
+  );
   const aggregation = aggregateTransactions(copiedState.transactions);
 
   return {
