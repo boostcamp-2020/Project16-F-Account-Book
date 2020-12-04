@@ -29,7 +29,7 @@ const DashboardDetailsContainer = (): JSX.Element => {
           <Link to="/calendar">자세히 보기</Link>
         </S.RecentTransactionBoxHeader>
         {transaction.transactions.slice(0, RECENT_TRANSACTION_LIMIT).map((mockTransaction) => (
-          <S.RecentTransactionBoxItem>
+          <S.RecentTransactionBoxItem key={`transaction${mockTransaction.tid}`}>
             <TransactionListItem transaction={mockTransaction} />
           </S.RecentTransactionBoxItem>
         ))}

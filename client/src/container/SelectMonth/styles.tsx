@@ -7,7 +7,7 @@ const MonthDiv = styled.div`
 const ScollDiv = styled.div`
   overflow: auto;
   height: 100px;
-  width: 30px;
+  margin: 5px;
   &::-webkit-scrollbar {
     width: 3px;
   }
@@ -31,9 +31,10 @@ const Item = styled.li`
   display: inline-block;
   white-space: nowarp;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 20px;
   word-break: keep-all;
   list-style: none;
+  cursor: pointer;
 `;
 
 const MonthList = styled.li`

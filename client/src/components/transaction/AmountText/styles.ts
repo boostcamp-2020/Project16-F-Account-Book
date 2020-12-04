@@ -13,7 +13,10 @@ const StyledAmountText = styled.span<StyledAmountTextProps>`
     if (props.size === 'xs') {
       return '0.5rem';
     }
-    return '1rem';
+    if (props.size === '') {
+      return '1rem';
+    }
+    return `${props.size}`;
   }};
   font-weight: 600;
 `;
