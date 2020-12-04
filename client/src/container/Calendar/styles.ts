@@ -18,6 +18,7 @@ const CalendarDiv = styled.div`
   display: inline-flex;
   height: 60%;
   padding: 0px, 16px;
+  margin-bottom: 1rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 `;
 
@@ -33,9 +34,8 @@ const CalendarPageDiv = styled.div`
 const WarpCalendarDiv = styled.div`
   display: block;
   height: 100%;
-  margin: 20px 0px;
-  overflow: auto;
   scroll-behavior: smooth;
+  padding-bottom: 3rem;
   &::-webkit-scrollbar {
     display: none;
   }

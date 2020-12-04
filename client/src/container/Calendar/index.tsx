@@ -2,11 +2,10 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@modules/index';
 import SelectMonth from '@/container/SelectMonth';
-import TransactionListItem from '@/components/transaction/ListItem';
 import AmountText from '@/components/transaction/AmountText';
 import ViewCalendar from '@components/calendar/CalendarView';
-import { mockTransactions, totalInOut } from '@/libs/mockData';
-import { changeDate } from '@/modules/datePicker';
+import { totalInOut } from '@/libs/mockData';
+import TransactionListContainer from '@/container/TransactionList';
 import * as S from './styles';
 
 const Calendar = (): JSX.Element => {
@@ -40,11 +39,7 @@ const Calendar = (): JSX.Element => {
             month={datePicker.month + 1}
           />
         </S.CalendarDiv>
-        <S.TransactionDiv>
-          {mockTransactions.map((mockTransaction, i) => (
-            <TransactionListItem key={`mocLis${i.toString()}`} transaction={mockTransaction} />
-          ))}
-        </S.TransactionDiv>
+        <TransactionListContainer />
       </S.CalendarPageDiv>
     </S.WarpCalendarDiv>
   );
