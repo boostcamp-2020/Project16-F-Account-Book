@@ -26,7 +26,7 @@ class AuthRouter extends Router {
       const { provider } = ctx.params;
       const oAuthClient = new OAuthClient(provider);
       const state = v4();
-      oAuthClient.redirectToAuthorizaionPage(ctx, state);
+      oAuthClient.authenticate(ctx, state);
     });
 
     this.get('/callback/:provider', async (ctx: Context) => {
@@ -35,10 +35,9 @@ class AuthRouter extends Router {
       if (error || !code) throw new Error(ACCESS_DENIED);
 
       const oAuthClient = new OAuthClient(provider);
-      const accessToken = await oAuthClient.getAccessToken(code, state);
-      const userInfo = await oAuthClient.getUserInfo(accessToken);
+      const { profile, token } = await oAuthClient.authorize(code, state);
 
-      const uid = await this.userService.getOrCreateUid(userInfo);
+      const uid = await this.userService.getOrCreateUid(profile);
       const jwtToken = JwtUtils.generateToken(uid);
 
       ctx.cookies.set('jwt', jwtToken, {

@@ -1,0 +1,41 @@
+name: Run-Test
+
+on: 
+  pull_request:
+    branches: 
+      - dev
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      db:
+        image: mysql:5.7
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_USER: user
+          MYSQL_PASSWORD: password
+          MYSQL_DATABASE: test
+          MYSQL_ROOT_PASSWORD: password
+        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
+    steps:
+      - name: Verify MySQL connection
+        env:
+          PORT: ${{ jobs.build.services.db.ports[3306] }}
+        run: |
+          while ! mysqladmin ping -h"127.0.0.1" -P"$PORT" --silent; do
+              sleep 1
+          done
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Install packages
+        run: yarn install
+      - name: Run tests
+        env:
+          TYPEORM_USERNAME: user
+          TYPEORM_PASSWORD: password
+          TYPEORM_DATABASE: test
+        run: yarn test

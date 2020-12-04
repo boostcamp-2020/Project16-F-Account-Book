@@ -5,12 +5,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "storybook": "yarn workspace client storybook",
     "precommit": "run-p precommit:client precommit:server",
     "precommit:client": "yarn workspace client precommit",
     "precommit:server": "yarn workspace server precommit",
+    "dev:client": "yarn workspace client start",
     "dev:server": "yarn workspace server dev",
+    "test": "run-p test:server test:client",
+    "test:client": "yarn workspace client test",
     "test:server": "yarn workspace server test",
-    "storybook": "yarn workspace client storybook"
+    "build:server": "yarn workspace server build",
+    "build:client": "yarn workspace client build",
+    "build": "run-p build:server build:client",
+    "pre:up": "docker-compose -f docker-compose.dev.yml up -d",
+    "pre:down": "docker-compose -f docker-compose.dev.yml down --remove-orphan"
   },
   "husky": {
     "hooks": {

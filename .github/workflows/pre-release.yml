@@ -1,0 +1,19 @@
+name: Pre-Release
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  pre-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build Pre-release Docker Images
+        env:
+          DOCKER_USER: ${{ secrets.DOCKERHUB_USER }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: |
+          chmod +x ./scripts/build.sh
+          ./scripts/build.sh "pre-release" "$DOCKER_USER" "$DOCKER_PASSWORD"

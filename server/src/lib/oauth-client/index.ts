@@ -1,32 +1,57 @@
-import { oAuthConfig } from '@/config/index';
+import { OAuthConfig } from '@/config/index';
 import { Context } from 'koa';
 import axios from 'axios';
 import * as qs from 'querystring';
-import SocialUserDTO from '@/domain/auth/types/social-user-dto';
-import GoogleUserDTO from '@/domain/auth/types/google-user-dto';
-import NaverUserDTO from '@/domain/auth/types/naver-user-dto';
-import KakaoUserDTO from '@/domain/auth/types/kakao-user-dto';
+import SocialUserInfo from './userinfo/default';
+import UserInfoFactory from './userinfo/factory';
+
+export type OAuthProvider = 'google' | 'naver' | 'kakao';
+
+type OAuthTokenResponse = {
+  tokenType: string;
+  accessToken: string;
+  expiresIn?: number;
+  refreshToken?: string;
+  refreshTokenExpiresIn?: number;
+  scope?: string;
+};
+
+type OAuthAuthorizationResponse = {
+  token: OAuthTokenResponse;
+  profile: SocialUserInfo;
+};
 
 export default class OAuthClient {
   private config;
 
   private provider;
 
-  constructor(provider: 'google' | 'naver' | 'kakao') {
+  constructor(provider: OAuthProvider) {
     this.provider = provider;
-    this.config = oAuthConfig[provider];
+    this.config = OAuthConfig[provider];
   }
 
-  public redirectToAuthorizaionPage(ctx: Context, state: string): void {
-    let authorizationUri = `${this.config.authorizationUri}?client_id=${this.config.clientId}&response_type=code&redirect_uri=${this.config.callbackUri}&state=${state}`;
+  public authenticate(ctx: Context, state: string): void {
+    const { authorizationUri, clientId, callbackUri, scope } = this.config;
+    const params = new URLSearchParams();
+    params.set('client_id', clientId);
+    params.set('response_type', 'code');
+    params.set('redirect_uri', callbackUri);
+    params.set('state', state);
+    params.set('scope', scope);
     if (this.provider === 'google') {
-      authorizationUri +=
-        '&scope=openid%20email%20profile&access_type=online&include_granted_scopes=true';
+      params.set('access_type', 'offline');
     }
-    ctx.redirect(authorizationUri);
+    ctx.redirect(`${authorizationUri}?${params.toString()}`);
   }
 
-  public async getAccessToken(code: string, state: string): Promise<string> {
+  public async authorize(code: string, state: string): Promise<OAuthAuthorizationResponse> {
+    const tokenResponse = await this.getAccessToken(code, state);
+    const userInfo = await this.getUserInfo(tokenResponse.accessToken);
+    return { token: tokenResponse, profile: userInfo };
+  }
+
+  private async getAccessToken(code: string, state: string): Promise<OAuthTokenResponse> {
     const { tokenUri, callbackUri, clientId, clientSecret } = this.config;
     const queryParams = {
       grant_type: 'authorization_code',
@@ -37,29 +62,34 @@ export default class OAuthClient {
       client_secret: clientSecret,
     };
     const query = qs.stringify(queryParams);
-
-    const response = await axios.post(tokenUri, query, {
+    const header = {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         charset: 'utf-8',
       },
-    });
-    return response.data.access_token;
+    };
+
+    const response = await axios.post(tokenUri, query, header);
+    const { data } = response;
+    const tokenResponse = {
+      tokenType: data.token_type,
+      accessToken: data.access_token,
+      expiresIn: data.expires_in,
+      refreshToken: data.refresh_token,
+      refreshTokenExpiresIn: data.refresh_token_expires_in,
+      scope: data.scope,
+    };
+    return tokenResponse;
   }
 
-  public async getUserInfo(accessToken: string): Promise<SocialUserDTO> {
+  private async getUserInfo(accessToken: string): Promise<SocialUserInfo> {
     const { userInfoUri } = this.config;
     const { data } = await axios.get(userInfoUri, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    if (this.provider === 'google') {
-      return new GoogleUserDTO(data);
-    }
-    if (this.provider === 'naver') {
-      return new NaverUserDTO(data);
-    }
-    return new KakaoUserDTO(data);
+    const userInfo = UserInfoFactory.parseUserInfo(this.provider, data);
+    return userInfo;
   }
 }
