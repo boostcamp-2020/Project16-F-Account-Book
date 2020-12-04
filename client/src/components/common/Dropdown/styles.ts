@@ -6,11 +6,11 @@ const MenuItem = styled.div`
   position: absolute;
   text-align: center;
   text-decoration: none;
-  border: 2px solid #c9c9c9;
+  border: 1px solid #c9c9c9;
   white-space: nowrap;
   margin: 8px 0px 0px 0px;
   border-radius: 15px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.2);
   &.show {
     display: flex;
   }
