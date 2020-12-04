@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@modules/index';
 import TransactionListItem from '@/components/transaction/ListItem';
 import AmountText from '@/components/transaction/AmountText';
+import FixedExpenditure from '@container/FixedExpenditure';
 import * as S from './styles';
 
 const RECENT_TRANSACTION_LIMIT = 3;
@@ -33,6 +34,7 @@ const DashboardDetailsContainer = (): JSX.Element => {
           </S.RecentTransactionBoxItem>
         ))}
       </S.RecentTransactionBox>
+      <FixedExpenditure />
     </>
   );
 };

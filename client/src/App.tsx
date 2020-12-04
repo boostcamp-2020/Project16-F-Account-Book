@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import DashBoardPage from '@/views/DashBoardPage';
 import LoginPage from '@/views/LoginPage';
 import CalendarPage from '@/views/CalendarPage';
+import DetailedFixedExpenditurePage from '@/views/DetailedFixedExpenditurePage';
 import GlobalStyled from './GlobalStyled';
 
 const Box = styled.div`
@@ -24,6 +25,7 @@ function App(): JSX.Element {
           <Route path="/" component={LoginPage} exact />
           <Route path="/dashboard" component={DashBoardPage} />
           <Route path="/calendar" component={CalendarPage} />
+          <Route path="/detailed-fixed-expenditure" component={DetailedFixedExpenditurePage} />
           <Redirect from="*" to="/dashboard" />
         </Switch>
       </Box>

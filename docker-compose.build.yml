@@ -1,0 +1,12 @@
+version: '3'
+services:
+  accountbook-client:
+    image: accountbook-client:pre-release
+    build:
+      context: .
+      dockerfile: ./client/Dockerfile
+  accountbook-server:
+    image: accountbook-server:pre-release
+    build:
+      context: .
+      dockerfile: ./server/Dockerfile
