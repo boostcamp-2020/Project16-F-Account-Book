@@ -10,10 +10,14 @@ const TransactionListContainer = (): JSX.Element => {
   return (
     <>
       {transaction.transactionDetailsByDate.map(([date, transactionDetails]) => (
-        <S.DateContainer>
+        <S.DateContainer key={`transaction_box_${date}`}>
           <S.DateLabel>{date}일</S.DateLabel>
           {transactionDetails.map((transactionDetail) => (
-            <TransactionListItem transaction={transactionDetail} border />
+            <TransactionListItem
+              key={`transaction_${transactionDetail.tid}`}
+              transaction={transactionDetail}
+              border
+            />
           ))}
         </S.DateContainer>
       ))}
