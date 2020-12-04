@@ -3,6 +3,10 @@
 
 ![스크린샷 2020-11-20 오전 10 47 13](https://user-images.githubusercontent.com/17294694/99751194-0f92df00-2b25-11eb-89f9-b41313bf3c27.png)
 
+배포링크 - [http://tess.kro.kr](http://tess.kro.kr)
+
+<br>
+
 ## 팀원 소개
 
 - **최창희**([@changheedev](https://github.com/changheedev)) : "여기 이거는.. 저기 저거는.."
