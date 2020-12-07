@@ -1,3 +1,5 @@
+import { YearMonthModel } from '@/commons/types/date';
+
 export type TransactionModel = {
   tid: number;
   amount: number;
@@ -20,16 +22,7 @@ export type TransactionModel = {
   };
 };
 
-export type MonthTransactionsResponse = {
-  totalIn: number;
-  totalOut: number;
-  mostOutDateDetail: {
-    amount: number;
-    date: number;
-  };
-  aggregationByDate: [number, { totalIn: number; totalOut: number }][];
-  transactionDetailsByDate: [number, TransactionModel[]][];
-};
+export type MonthTransactionsResponse = { date: YearMonthModel; list: TransactionModel[] };
 
 export type PostTransactionRequest = {
   amount: number;
