@@ -39,4 +39,6 @@ jobs:
           TYPEORM_USERNAME: user
           TYPEORM_PASSWORD: password
           TYPEORM_DATABASE: test
+          TYPEORM_SYNCHRONIZE: true
+          TYPEORM_LOGGING: false
         run: yarn test
