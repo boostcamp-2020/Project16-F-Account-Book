@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import deleteIcon from '@/assets/svg/minus.svg';
-import pencilIcon from '@/assets/svg/pencil.svg';
+import deleteIcon from '@/assets/svg/Minus.svg';
+import pencilIcon from '@/assets/svg/Pencil.svg';
 import * as S from './styles';
-import { MangeItemProps } from './types';
-import MangeItemInput from '../ManageItemInput';
+import { ManageItemProps } from './types';
+import ManageItemInput from '../ManageItemInput';
 
-const MangeItem = ({ item, deleteItem, updateItem }: MangeItemProps): JSX.Element => {
+const ManageItem = ({ item, deleteItem, updateItem }: ManageItemProps): JSX.Element => {
   const [itemUpdateToggle, setItemUpdateToggle] = useState(false);
 
   const toggleUpdate = () => setItemUpdateToggle(!itemUpdateToggle);
@@ -18,9 +18,13 @@ const MangeItem = ({ item, deleteItem, updateItem }: MangeItemProps): JSX.Elemen
   return (
     <>
       {itemUpdateToggle ? (
-        <MangeItemInput name={item.name} cancelHandler={toggleUpdate} saveHandler={updateHandler} />
+        <ManageItemInput
+          name={item.name}
+          cancelHandler={toggleUpdate}
+          saveHandler={updateHandler}
+        />
       ) : (
-        <S.MangeItemContainer>
+        <S.ManageItemContainer>
           <S.DeleteImgContainer onClick={deleteItem}>
             <img src={deleteIcon} alt="deleteIcon" />{' '}
           </S.DeleteImgContainer>
@@ -28,10 +32,10 @@ const MangeItem = ({ item, deleteItem, updateItem }: MangeItemProps): JSX.Elemen
           <S.UpdateImgContainer onClick={toggleUpdate}>
             <img src={pencilIcon} alt="updateIcon" />{' '}
           </S.UpdateImgContainer>
-        </S.MangeItemContainer>
+        </S.ManageItemContainer>
       )}
     </>
   );
 };
 
-export default MangeItem;
+export default ManageItem;

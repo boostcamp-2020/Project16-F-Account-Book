@@ -3,11 +3,11 @@ import { BsPlus } from 'react-icons/bs';
 import { ManageHeaderProps } from './types';
 import * as S from './styles';
 
-const ManageHeader = ({ text, addEvent }: ManageHeaderProps) => {
+const ManageHeader = ({ text, onClick }: ManageHeaderProps) => {
   return (
     <S.ManageHeaderContainer>
       <S.ManageTextContainer>{text}</S.ManageTextContainer>
-      <S.PlusIconContainer onClick={addEvent}>
+      <S.PlusIconContainer onClick={onClick}>
         <BsPlus />
       </S.PlusIconContainer>
     </S.ManageHeaderContainer>

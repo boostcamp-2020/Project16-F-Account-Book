@@ -6,7 +6,8 @@ export const ManageHeaderContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 1.2rem 0.6rem;
+  margin-top: 1rem;
+  padding: 1.2rem 1.5rem;
   border-radius: 0.3rem;
   box-shadow: 0.5px 1px 4px 1px rgba(0, 0, 0, 0.2);
 `;
@@ -24,4 +25,5 @@ export const PlusIconContainer = styled.div`
   svg {
     height: 100%;
   }
+  cursor: pointer;
 `;

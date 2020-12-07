@@ -1,4 +1,4 @@
 export type ManageHeaderProps = {
   text: string;
-  addEvent?: any;
+  onClick?: any;
 };

@@ -1,9 +1,9 @@
 import React from 'react';
-import MangeItemInput from '.';
+import ManageItemInput from '.';
 
 export default {
-  title: 'components/MangeItemInput',
-  component: MangeItemInput,
+  title: 'components/ManageItemInput',
+  component: ManageItemInput,
   decorators: [
     (Story: any) => (
       <div style={{ maxWidth: '300px' }}>
@@ -13,4 +13,4 @@ export default {
   ],
 };
 
-export const mangeItemSample = (): JSX.Element => <MangeItemInput name="결제수단 예시" />;
+export const ManageItemSample = (): JSX.Element => <ManageItemInput name="결제수단 예시" />;
