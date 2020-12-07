@@ -11,7 +11,7 @@ export const MangeItemInputContainer = styled.div`
   box-shadow: 0.5px 1px 4px 1px rgba(0, 0, 0, 0.2);
 `;
 
-export const MangeInputBoxContinaer = styled.div`
+export const MangeInputBoxContainer = styled.div`
   display: flex;
   width: 60%;
 `;
@@ -21,5 +21,5 @@ export const MangeButtonContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 35%;
+  width: 33%;
 `;

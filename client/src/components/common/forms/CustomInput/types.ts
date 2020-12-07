@@ -4,4 +4,5 @@ export type InputButtonProps = {
   name?: string;
   onChange?: any;
   initialValue?: string;
+  ref?: React.Ref<HTMLInputElement>;
 };
