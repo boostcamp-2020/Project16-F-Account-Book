@@ -27,7 +27,7 @@ const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Ele
   const categoryList = (category.categories.data as CategoryModel[])?.map(
     (c) => new CategoryDTO(c as CategoryModel),
   );
-  const paymentList = (payment.payments.data as PaymentModel[])?.map(
+  const paymentList = (payment.data as PaymentModel[])?.map(
     (p) => new PaymentDTO(p as PaymentModel),
   );
   const dispatch = useDispatch();
