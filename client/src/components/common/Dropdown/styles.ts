@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const MenuItem = styled.div`
+  z-index: 1100;
   background-color: white;
   display: flex;
   position: absolute;
@@ -16,6 +17,19 @@ const MenuItem = styled.div`
   }
 `;
 
-const IconDiv = styled.div``;
+const IconDiv = styled.div`
+  z-index: 1100;
+`;
 
-export { MenuItem, IconDiv };
+const CloseDiv = styled.div`
+  position: fixed;
+  z-index: 1000;
+  right: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  opctiy: 0;
+`;
+
+export { MenuItem, IconDiv, CloseDiv };
