@@ -1,5 +1,5 @@
 import React from 'react';
-import deleteIcon from '@/assets/svg/delete.svg';
+import deleteIcon from '@/assets/svg/minus.svg';
 import pencilIcon from '@/assets/svg/pencil.svg';
 import * as S from './styles';
 import { MangeItemProps } from './types';

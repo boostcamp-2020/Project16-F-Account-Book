@@ -5,7 +5,7 @@ export const MangeItemContainer = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 0.3rem;
+  padding: 0.9rem 0.3rem;
   width: 100%;
   border-radius: 0.3rem;
   box-shadow: 0.5px 1px 4px 1px rgba(0, 0, 0, 0.2);
