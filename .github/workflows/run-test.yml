@@ -21,9 +21,10 @@ jobs:
           MYSQL_ROOT_PASSWORD: password
         options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
     steps:
+      - uses: actions/checkout@v2 
       - name: Verify MySQL connection
         env:
-          PORT: ${{ jobs.build.services.db.ports[3306] }}
+          PORT: 3306
         run: |
           while ! mysqladmin ping -h"127.0.0.1" -P"$PORT" --silent; do
               sleep 1
@@ -38,4 +39,6 @@ jobs:
           TYPEORM_USERNAME: user
           TYPEORM_PASSWORD: password
           TYPEORM_DATABASE: test
+          TYPEORM_SYNCHRONIZE: true
+          TYPEORM_LOGGING: false
         run: yarn test

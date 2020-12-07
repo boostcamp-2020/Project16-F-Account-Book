@@ -25,7 +25,7 @@ export default class TransactionService {
     const transactions = await this.transactionRepository.find({
       where: { uid, tradeAt: Between(startDate, endDate) },
       relations: ['payment', 'category'],
-      order: { tradeAt: 'ASC' },
+      order: { tradeAt: 'DESC' },
     });
 
     return transactions;
