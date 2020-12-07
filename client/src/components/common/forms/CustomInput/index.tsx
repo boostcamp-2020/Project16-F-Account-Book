@@ -3,7 +3,7 @@ import StyledInput from './styles';
 import { InputButtonProps } from './types';
 
 const CustomInput = (props: InputButtonProps): JSX.Element => {
-  const { placeholder, inputType, name, onChange } = props;
+  const { placeholder, inputType, name, onChange, initialValue } = props;
   return (
     <>
       <StyledInput
@@ -12,6 +12,7 @@ const CustomInput = (props: InputButtonProps): JSX.Element => {
         type={inputType === 'calendar' ? 'date' : 'text'}
         placeholder={placeholder}
         inputType={inputType}
+        value={initialValue || ''}
       />
     </>
   );
