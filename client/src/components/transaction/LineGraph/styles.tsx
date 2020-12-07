@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 export const StyledLineGraph = styled.div`
   padding: 10px;
-  width: 800px;
-  height: 800px;
+  width: auto;
+  height: auto;
   background-color: #fff;
 `;
 

@@ -3,14 +3,15 @@ import { RootState } from '@/modules';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import StyledLineGraphContainer from './style';
+import { LineGraphContainerProps } from './types';
 
-const LineGraphContainer = () => {
+const LineGraphContainer = ({ width, height }: LineGraphContainerProps) => {
   const { transaction } = useSelector((state: RootState) => state);
   return (
     <>
       {transaction && (
         <StyledLineGraphContainer>
-          <LineGraph width={500} height={300} data={transaction.aggregationByDate} />
+          <LineGraph width={width} height={height} data={transaction.aggregationByDate} />
         </StyledLineGraphContainer>
       )}
     </>
