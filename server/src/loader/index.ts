@@ -4,13 +4,11 @@ import Router from 'koa-router';
 import morgan from 'koa-morgan';
 import cors from '@koa/cors';
 import bodyParser from 'koa-bodyparser';
-import { initializeTransactionalContext } from 'typeorm-transactional-cls-hooked';
 import createDBConnection from './database';
 import ApiRouter from './router';
 
 export default async (app: Koa<Koa.DefaultState, Koa.DefaultContext>): Promise<void> => {
   await createDBConnection();
-  initializeTransactionalContext();
 
   const router = new Router();
 

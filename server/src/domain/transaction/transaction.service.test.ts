@@ -9,17 +9,17 @@ let transactionRepository: Repository<TransactionEntity>;
 let transactionService: TransactionService;
 let connection: Connection;
 
-beforeAll(async () => {
-  connection = await createDBConnection();
-  transactionRepository = TransactionRepository.getTransactionRepository();
-  transactionService = new TransactionService(transactionRepository);
-});
-
-afterAll(async () => {
-  await connection.close();
-});
-
 describe('TransactionService Tests', () => {
+  beforeAll(async () => {
+    connection = await createDBConnection();
+    transactionRepository = TransactionRepository.getTransactionRepository();
+    transactionService = new TransactionService(transactionRepository);
+  });
+
+  afterAll(async () => {
+    await connection.close();
+  });
+
   beforeEach(async () => {
     await TestSeeder.clear(connection);
     await TestSeeder.up({
@@ -34,6 +34,7 @@ describe('TransactionService Tests', () => {
   afterEach(async () => {
     await TestSeeder.clear(connection);
   });
+
   describe('getMonthlyTransactions() Tests', () => {
     it('응답된 데이터는 모두 2020년 10월 데이터이다.', async () => {
       const transactionsOfMonth = await transactionService.getTransactionDetailsOfMonth({
@@ -65,7 +66,7 @@ describe('TransactionService Tests', () => {
       };
       const newTransaction = await transactionService.createTransaction(payload);
       expect(newTransaction.isIncome).toEqual(payload.isIncome);
-      expect(newTransaction.tradeAt).toEqual(payload.tradeAt);
+      expect(new Date(newTransaction.tradeAt)).toEqual(payload.tradeAt);
       expect(newTransaction.amount).toEqual(payload.amount);
       expect(newTransaction.description).toEqual(payload.description);
       expect(newTransaction.cid).toEqual(payload.cid);
@@ -87,7 +88,7 @@ describe('TransactionService Tests', () => {
       };
       const updatedTransaction = await transactionService.updateTransaction(1, 1, payload);
       expect(updatedTransaction.isIncome).toEqual(payload.isIncome);
-      expect(updatedTransaction.tradeAt).toEqual(payload.tradeAt);
+      expect(new Date(updatedTransaction.tradeAt)).toEqual(payload.tradeAt);
       expect(updatedTransaction.amount).toEqual(payload.amount);
       expect(updatedTransaction.description).toEqual(payload.description);
       expect(updatedTransaction.cid).toEqual(payload.cid);

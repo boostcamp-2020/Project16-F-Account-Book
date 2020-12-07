@@ -93,7 +93,7 @@ describe('Transaction Reducer Tests', () => {
     expect(afterState.totalOut).toEqual(prevState.totalOut);
   });
 
-  it('should handle GET_MONTHLY_TRANSACTION', () => {
+  it('월 가계부 내역을 불러오는데 성공하면 상태의 년,월과 내역 리스트, 집계 데이터가 업데이트 된다.', () => {
     const prevState = {
       loading: false,
       error: null,
@@ -122,6 +122,12 @@ describe('Transaction Reducer Tests', () => {
     });
 
     expect(afterState.date).toEqual({ year: 2020, month: 12 });
+    expect(afterState.totalIn).not.toEqual(0);
+    expect(afterState.totalOut).not.toEqual(0);
+    expect(afterState.mostOutDateDetail.date).not.toEqual(0);
+    expect(afterState.mostOutDateDetail.amount).not.toEqual(0);
+    expect(afterState.aggregationByDate.length).toBeGreaterThan(0);
+    expect(afterState.transactionDetailsByDate.length).toBeGreaterThan(0);
     expect(afterState.transactions.length).toBeGreaterThan(0);
   });
 });
