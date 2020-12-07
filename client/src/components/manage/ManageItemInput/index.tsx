@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import CustomButton from '../buttons/CustomButton';
-import CustomInput from '../forms/CustomInput';
+import CustomButton from '../../common/buttons/CustomButton';
+import CustomInput from '../../common/forms/CustomInput';
 import * as S from './styles';
 import { ManageItemInputProps } from './types';
 
