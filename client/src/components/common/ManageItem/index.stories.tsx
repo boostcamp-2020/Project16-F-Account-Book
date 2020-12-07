@@ -13,6 +13,11 @@ export default {
   ],
 };
 
+const exampleItem = {
+  id: 1,
+  name: '결제수단 예시',
+};
+
 export const mangeItemSample = (): JSX.Element => (
-  <MangeItem name="결제수단" deleteItem={() => {}} updateItem={() => {}} />
+  <MangeItem item={exampleItem} deleteItem={() => {}} updateItem={() => {}} />
 );

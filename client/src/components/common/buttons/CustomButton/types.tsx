@@ -3,7 +3,7 @@ export type CustomButtonProps = {
   color: 'white' | 'blue';
   children: React.ReactNode;
   size?: 's' | 'm';
-  onClickEvent?: () => void;
+  onClickEvent?: any;
 };
 
 export type ButtonProps = {

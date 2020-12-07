@@ -1,20 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import deleteIcon from '@/assets/svg/minus.svg';
 import pencilIcon from '@/assets/svg/pencil.svg';
 import * as S from './styles';
 import { MangeItemProps } from './types';
+import MangeItemInput from '../ManageItemInput';
 
-const MangeItem = ({ name, deleteItem, updateItem }: MangeItemProps): JSX.Element => {
+const MangeItem = ({ item, deleteItem, updateItem }: MangeItemProps): JSX.Element => {
+  const [itemUpdateToggle, setItemUpdateToggle] = useState(false);
+
+  const toggleUpdate = () => setItemUpdateToggle(!itemUpdateToggle);
+
+  const updateHandler = (e: React.MouseEvent<HTMLElement>) => {
+    updateItem();
+    toggleUpdate();
+  };
+
   return (
-    <S.MangeItemContainer>
-      <S.DeleteImgContainer onClick={deleteItem}>
-        <img src={deleteIcon} alt="deleteIcon" />{' '}
-      </S.DeleteImgContainer>
-      <S.ItemTextContainer> {name} </S.ItemTextContainer>
-      <S.UpdateImgContainer onClick={updateItem}>
-        <img src={pencilIcon} alt="updateIcon" />{' '}
-      </S.UpdateImgContainer>
-    </S.MangeItemContainer>
+    <>
+      {itemUpdateToggle ? (
+        <MangeItemInput name={item.name} cancelHandler={toggleUpdate} saveHandler={updateHandler} />
+      ) : (
+        <S.MangeItemContainer>
+          <S.DeleteImgContainer onClick={deleteItem}>
+            <img src={deleteIcon} alt="deleteIcon" />{' '}
+          </S.DeleteImgContainer>
+          <S.ItemTextContainer> {item.name} </S.ItemTextContainer>
+          <S.UpdateImgContainer onClick={toggleUpdate}>
+            <img src={pencilIcon} alt="updateIcon" />{' '}
+          </S.UpdateImgContainer>
+        </S.MangeItemContainer>
+      )}
+    </>
   );
 };
 
