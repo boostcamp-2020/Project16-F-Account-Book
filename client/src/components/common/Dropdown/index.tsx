@@ -1,32 +1,26 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { DropdownType } from './types';
 import * as S from './styles';
 
 export default function Dropdown({ icon, isRight, children }: DropdownType): JSX.Element {
-  const iconDiv: any = useRef();
   const [isShow, setDisplay] = useState(false);
   const position = isRight ? 'right' : '';
 
-  const handleClickOutside = ({ target }: any) => {
-    if (!isShow && iconDiv.current.contains(target)) {
-      setDisplay(true);
-    } else setDisplay(false);
+  const onClick = () => {
+    setDisplay(!isShow);
   };
-
-  useEffect(() => {
-    window.addEventListener('click', handleClickOutside);
-    return () => {
-      window.removeEventListener('click', handleClickOutside);
-    };
-  });
+  const dropdownOff = () => {
+    setDisplay(false);
+  };
   return (
     <>
-      <S.IconDiv ref={iconDiv}>{icon}</S.IconDiv>
+      <S.IconDiv onClick={onClick}>{icon}</S.IconDiv>
       {isShow && (
         <S.MenuItem className={position}>
           <ul>{children}</ul>
         </S.MenuItem>
       )}
+      {isShow && <S.CloseDiv onClick={dropdownOff} />}
     </>
   );
 }
