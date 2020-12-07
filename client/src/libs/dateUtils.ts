@@ -54,11 +54,7 @@ const makeDataForLineGraph = (aggregateInfo: AggregateInfo, year: number, month:
   }
 
   const dateKeys = Array.from(aggregateDateMap.keys()).map((key) => Number(key));
-  dateKeys.sort((a, b) => {
-    if (a < b) return -1;
-    if (a > b) return 1;
-    return 0;
-  });
+  dateKeys.sort((a, b) => a - b);
 
   const graphData = dateKeys.map((key) => {
     const dailyInfo = aggregateDateMap.get(key);
