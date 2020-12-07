@@ -61,7 +61,7 @@ describe('Transaction Reducer Tests', () => {
       reducer.handlers[TransactionActions.POST_TRANSACTION_SUCCESS];
 
     if (!getPostTransactionsSuccessHandler) {
-      throw new Error('handler undefiend');
+      throw new Error('handler undefined');
     }
 
     const afterState = getPostTransactionsSuccessHandler(prevState, {
@@ -110,7 +110,7 @@ describe('Transaction Reducer Tests', () => {
       reducer.handlers[TransactionActions.GET_MONTHLY_TRANSACTION_SUCCESS];
 
     if (!getMonthTransactionsSuccessHandler) {
-      throw new Error('handler undefiend');
+      throw new Error('handler undefined');
     }
 
     const afterState = getMonthTransactionsSuccessHandler(prevState, {
