@@ -5,7 +5,7 @@ import { PaymentAction, PaymentState } from './types';
 const initialState: PaymentState = {
   loading: false,
   error: null,
-  data: null,
+  data: [],
 };
 
 const paymentReducer = createReducer<PaymentState, PaymentAction>(initialState, {
@@ -13,7 +13,6 @@ const paymentReducer = createReducer<PaymentState, PaymentAction>(initialState, 
     ...state,
     loading: true,
     error: null,
-    data: null,
   }),
   [GET_PAYMENT_SUCCESS]: (state, action) => ({
     ...state,
@@ -25,7 +24,6 @@ const paymentReducer = createReducer<PaymentState, PaymentAction>(initialState, 
     ...state,
     loading: false,
     error: action.payload,
-    data: null,
   }),
 });
 

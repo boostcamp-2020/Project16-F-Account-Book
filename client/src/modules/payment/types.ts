@@ -7,5 +7,5 @@ export type PaymentAction = ActionType<typeof actions>;
 export type PaymentState = {
   loading: boolean;
   error: Error | null;
-  data: PaymentModel[] | null;
+  data: PaymentModel[];
 };
