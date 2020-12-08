@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import CategoryEntity from './category.entity';
 import FixedExpenditureEntity from './fixed-expenditure.entity';
 import PaymentEntity from './payment.entity';
@@ -26,6 +26,9 @@ export default class UserEntity {
 
   @Column({ type: 'date', nullable: true })
   updateAt!: Date | undefined;
+
+  @CreateDateColumn()
+  createAt!: Date;
 
   @OneToMany(() => CategoryEntity, (category) => category.user, { cascade: true })
   categories?: CategoryEntity[];
