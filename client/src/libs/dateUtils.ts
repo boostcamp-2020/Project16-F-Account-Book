@@ -10,7 +10,7 @@ const parseDate = (date: Date | string): ParsedDateModel => {
   const dateInstance = date.constructor === Date ? date : new Date(date);
   return {
     year: dateInstance.getFullYear(),
-    month: dateInstance.getMonth(),
+    month: dateInstance.getMonth() + 1,
     date: dateInstance.getDate(),
   };
 };
@@ -20,6 +20,9 @@ type StartEndDate = {
   endDate: string;
 };
 
+/**
+ * @deprecated
+ */
 const getStartEndDate = (year: number, month: number): StartEndDate => {
   const date = new Date(year, month, 1);
   const startDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-01`;

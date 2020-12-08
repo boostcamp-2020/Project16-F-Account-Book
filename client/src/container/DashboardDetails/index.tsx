@@ -15,7 +15,7 @@ const DashboardDetailsContainer = (): JSX.Element => {
   return (
     <>
       <S.TotalInOutBox>
-        <S.BoxTitle>{datePicker.month + 1}월 소비/수입</S.BoxTitle>
+        <S.BoxTitle>{datePicker.month}월 소비/수입</S.BoxTitle>
         <S.TotalInOutBoxItem>
           <AmountText isIncome={false} size="lg" amount={transaction.totalOut} />
         </S.TotalInOutBoxItem>
