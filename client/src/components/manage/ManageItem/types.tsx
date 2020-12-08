@@ -4,7 +4,7 @@ export type ItemProp = {
 };
 
 export type ManageItemProps = {
-  deleteItem: () => void;
-  updateItem: () => void;
+  deleteItem: any;
+  updateItem: any;
   item: ItemProp;
 };

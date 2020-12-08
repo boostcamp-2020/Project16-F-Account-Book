@@ -13,6 +13,10 @@ const ManageItem = ({ item, deleteItem, updateItem }: ManageItemProps): JSX.Elem
     toggleUpdate();
   };
 
+  const deleteHandler = () => {
+    deleteItem(item.id);
+  };
+
   return (
     <>
       {itemUpdateToggle ? (
@@ -23,7 +27,7 @@ const ManageItem = ({ item, deleteItem, updateItem }: ManageItemProps): JSX.Elem
         />
       ) : (
         <S.ManageItemContainer>
-          <S.DeleteImgContainer onClick={deleteItem}>
+          <S.DeleteImgContainer onClick={deleteHandler}>
             <img src={deleteIcon} alt="deleteIcon" />{' '}
           </S.DeleteImgContainer>
           <S.ItemTextContainer> {item.name} </S.ItemTextContainer>
