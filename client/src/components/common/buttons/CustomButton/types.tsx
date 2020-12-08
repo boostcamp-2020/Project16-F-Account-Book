@@ -2,9 +2,11 @@ export type CustomButtonProps = {
   image?: string;
   color: 'white' | 'blue';
   children: React.ReactNode;
-  onClickEvent?: () => void;
+  size?: 'sm' | 'md';
+  onClickEvent?: any;
 };
 
-export type ButtonColorProps = {
-  color: 'white' | 'blue';
+export type ButtonProps = {
+  color: 'white' | 'blue' | 'gray';
+  size?: 'sm' | 'md';
 };
