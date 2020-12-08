@@ -4,22 +4,20 @@ import * as S from './styles';
 
 export default function Dropdown({ icon, isRight, children }: DropdownType): JSX.Element {
   const [isShow, setDisplay] = useState(false);
-  const position = isRight ? 'right' : '';
+  const classes = [];
+  if (isShow) {
+    classes.push('show');
+  }
+  if (isRight) {
+    classes.push('right');
+  }
 
-  const toggleDropdown = () => {
-    setDisplay(!isShow);
-  };
   return (
     <>
-      <S.IconDiv onClick={toggleDropdown}>{icon}</S.IconDiv>
-      {isShow && (
-        <>
-          <S.CloseDiv onClick={toggleDropdown} />
-          <S.MenuItem className={position} onClick={toggleDropdown}>
-            <ul>{children}</ul>
-          </S.MenuItem>
-        </>
-      )}
+      <S.Button onClick={() => setDisplay(!isShow)}>{icon}</S.Button>
+      <S.MenuItem className={classes.join(' ')}>
+        <ul>{children}</ul>
+      </S.MenuItem>
     </>
   );
 }
