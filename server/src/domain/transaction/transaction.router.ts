@@ -31,22 +31,31 @@ export default class TransactionRouter extends Router {
         ...ctx.request.body,
         uid,
       });
-      ctx.status = 200;
+      ctx.status = 201;
       ctx.body = newTransaction;
     });
 
     this.patch('/:transactionId', async (ctx: Context) => {
       const { uid } = ctx.state.user;
       const { transactionId } = ctx.params;
-      await this.transactionService.updateTransaction(transactionId, uid, ctx.request.body);
+      const updatedTransaction = await this.transactionService.updateTransaction(
+        transactionId,
+        uid,
+        ctx.request.body,
+      );
       ctx.status = 200;
+      ctx.body = updatedTransaction;
     });
 
     this.delete('/:transactionId', async (ctx: Context) => {
       const { uid } = ctx.state.user;
       const { transactionId } = ctx.params;
-      await this.transactionService.deleteTransaction(transactionId, uid);
+      const deletedTransaction = await this.transactionService.deleteTransaction(
+        transactionId,
+        uid,
+      );
       ctx.status = 200;
+      ctx.body = deletedTransaction;
     });
   }
 }

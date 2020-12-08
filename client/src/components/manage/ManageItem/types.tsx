@@ -3,7 +3,7 @@ export type ItemProp = {
   name: string;
 };
 
-export type MangeItemProps = {
+export type ManageItemProps = {
   deleteItem: () => void;
   updateItem: () => void;
   item: ItemProp;

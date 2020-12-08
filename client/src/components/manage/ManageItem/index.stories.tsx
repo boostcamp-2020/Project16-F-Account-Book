@@ -1,9 +1,9 @@
 import React from 'react';
-import MangeItem from '.';
+import ManageItem from '.';
 
 export default {
   title: 'components/ManageItem',
-  component: MangeItem,
+  component: ManageItem,
   decorators: [
     (Story: any) => (
       <div style={{ maxWidth: '300px' }}>
@@ -18,6 +18,6 @@ const exampleItem = {
   name: '결제수단 예시',
 };
 
-export const mangeItemSample = (): JSX.Element => (
-  <MangeItem item={exampleItem} deleteItem={() => {}} updateItem={() => {}} />
+export const ManageItemSample = (): JSX.Element => (
+  <ManageItem item={exampleItem} deleteItem={() => {}} updateItem={() => {}} />
 );
