@@ -29,14 +29,14 @@ export default class FixedExpenditureService {
     month: number,
   ): Promise<ResponseType> {
     const startDate = dateToString(new Date(year, month, 1));
-    const endDate = dateToString(new Date(2020, Number(month) + 1, 0));
+    const endDate = dateToString(new Date(year, Number(month) + 1, 0));
 
     if (!updateAt || updateAt.getFullYear() < year || updateAt.getMonth() < month) {
       await this.createFixedExpenditure(uid, year, month);
     }
 
     const fixedDatas: ResultType[] = await this.fixedExpenditureRepository
-      .query(`select f1.fid, f1.trade_at, f1.amount as estimated_amount, f1.description, t1.amount as paid_amount
+      .query(`select f1.fid, f1.trade_at as tradeAt, f1.amount as estimatedAmount, f1.description, t1.amount as paidAmount
     from (select * from fixed_expenditure where uid=${uid} and trade_at between '${startDate}' and '${endDate}') f1 
     left outer join (select * from transaction where uid=${uid} and trade_at between '${startDate}' and '${endDate}') t1 on f1.uid = t1.uid and f1.trade_at = t1.trade_at
     order by f1.trade_at ASC;`);
@@ -45,18 +45,18 @@ export default class FixedExpenditureService {
     const estimated: FixedType[] = [];
 
     fixedDatas.forEach((fixedData) => {
-      if (fixedData.paid_amount) {
+      if (fixedData.paidAmount) {
         paid.push({
           fid: fixedData.fid,
-          tradeAt: fixedData.trade_at,
-          amount: fixedData.paid_amount,
+          tradeAt: fixedData.tradeAt,
+          amount: fixedData.paidAmount,
           description: fixedData.description,
         });
       } else {
         estimated.push({
           fid: fixedData.fid,
-          tradeAt: fixedData.trade_at,
-          amount: fixedData.estimated_amount,
+          tradeAt: fixedData.tradeAt,
+          amount: fixedData.estimatedAmount,
           description: fixedData.description,
         });
       }

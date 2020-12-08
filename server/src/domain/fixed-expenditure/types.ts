@@ -15,10 +15,10 @@ export type InputType = {
 
 export type ResultType = {
   fid: number;
-  trade_at: Date;
-  estimated_amount: number;
+  tradeAt: Date;
+  estimatedAmount: number;
   description: string;
-  paid_amount: number | null;
+  paidAmount: number | null;
 };
 
 export type ResponseType = {
