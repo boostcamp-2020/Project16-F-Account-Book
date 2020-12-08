@@ -7,7 +7,7 @@ import PaymentDTO from '@/commons/dto/payment';
 import ManageItemInput from '@/components/manage/ManageItemInput';
 import * as S from './styles';
 
-const PaymentManageContainer = () => {
+const PaymentManageContainer = (): JSX.Element => {
   const { data } = useSelector((state: RootState) => state.payment);
   const paymentList = data?.map((payment) => new PaymentDTO(payment));
   const [addPayment, setAddPayment] = useState(false);
@@ -25,10 +25,10 @@ const PaymentManageContainer = () => {
             <ManageItem
               item={payment}
               deleteItem={() => {
-                console.log('삭제');
+                console.log('삭제'); // delete 함수 전달을 test 하기 위한 console
               }}
               updateItem={() => {
-                console.log('업데이트');
+                console.log('업데이트'); // update 함수 전달을 test하기 위한 console
               }}
             />
           ))}
