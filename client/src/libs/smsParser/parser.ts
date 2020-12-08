@@ -71,6 +71,16 @@ const parsePaymentDetail = (sms: string) => {
 const parse = (sms: string): ParsedSMS => {
   const paymentType = parsePaymentType(sms);
   const paymentDetail = parsePaymentDetail(sms);
+  if (paymentDetail.amount === 0 && paymentDetail.date === '' && paymentDetail.time === '') {
+    return {
+      cardname: '',
+      amount: 0,
+      date: '',
+      time: '',
+      paymentType: '',
+      isDeposit: false,
+    };
+  }
   return { ...paymentType, ...paymentDetail };
 };
 

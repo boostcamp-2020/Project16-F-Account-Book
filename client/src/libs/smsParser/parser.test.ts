@@ -234,4 +234,20 @@ describe('SMSParser Tests', () => {
       });
     });
   });
+
+  describe('예외처리 Tests', () => {
+    it('결제내역에 대한 텍스트가 아닐때', () => {
+      const sms = '이것은 결제내역에 대한 텍스트가 아닙니다.';
+      const parsedSMS = SMSParser.parse(sms);
+
+      expect(parsedSMS).toEqual({
+        cardname: '',
+        amount: 0,
+        date: '',
+        time: '',
+        paymentType: '',
+        isDeposit: false,
+      });
+    });
+  });
 });
