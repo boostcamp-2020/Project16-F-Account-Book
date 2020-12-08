@@ -22,17 +22,18 @@ export default class PaymentService {
     return payment;
   }
 
-  public async updatePayment(paymentId: number, name: string, uid: number): Promise<void> {
-    const { affected } = await this.paymentRepository.update({ pid: paymentId, uid }, { name });
-    if (!affected) {
-      throw new Error(BAD_REQUEST);
-    }
+  public async updatePayment(pid: number, name: string, uid: number): Promise<PaymentEntity> {
+    const payment = await this.paymentRepository.findOne({ where: { pid, uid } });
+    if (!payment) throw new Error(BAD_REQUEST);
+    const mergedPayment = await this.paymentRepository.merge(payment, { name });
+    const updatedPayment = await this.paymentRepository.save(mergedPayment);
+    return updatedPayment;
   }
 
-  public async deletePayment(paymentId: number, uid: number): Promise<void> {
-    const { affected } = await this.paymentRepository.delete({ pid: paymentId, uid });
-    if (!affected) {
-      throw new Error(BAD_REQUEST);
-    }
+  public async deletePayment(pid: number, uid: number): Promise<PaymentEntity> {
+    const payment = await this.paymentRepository.findOne({ where: { pid, uid } });
+    if (!payment) throw new Error(BAD_REQUEST);
+    await this.paymentRepository.delete(payment);
+    return payment;
   }
 }

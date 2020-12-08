@@ -16,7 +16,7 @@ export default class PaymentRouter extends Router {
       const { uid } = ctx.state.user;
       const { name } = ctx.request.body;
       await this.paymentService.createPayment(name, uid);
-      ctx.status = 200;
+      ctx.status = 201;
     });
 
     this.get('/', async (ctx: Context) => {
@@ -29,15 +29,17 @@ export default class PaymentRouter extends Router {
       const { uid } = ctx.state.user;
       const { paymentId } = ctx.params;
       const { name } = ctx.request.body;
-      await this.paymentService.updatePayment(paymentId, name, uid);
+      const updatedPayment = await this.paymentService.updatePayment(paymentId, name, uid);
       ctx.status = 200;
+      ctx.body = updatedPayment;
     });
 
     this.delete('/:paymentId', async (ctx: Context) => {
       const { uid } = ctx.state.user;
       const { paymentId } = ctx.params;
-      await this.paymentService.deletePayment(paymentId, uid);
+      const deletedPayment = await this.paymentService.deletePayment(paymentId, uid);
       ctx.status = 200;
+      ctx.body = deletedPayment;
     });
   }
 }
