@@ -32,8 +32,9 @@ export default class PaymentService {
 
   public async deletePayment(pid: number, uid: number): Promise<PaymentEntity> {
     const payment = await this.paymentRepository.findOne({ where: { pid, uid } });
+
     if (!payment) throw new Error(BAD_REQUEST);
-    await this.paymentRepository.delete(payment);
+    await this.paymentRepository.softDelete(payment);
     return payment;
   }
 }

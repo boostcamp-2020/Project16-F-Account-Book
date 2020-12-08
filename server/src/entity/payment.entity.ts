@@ -1,4 +1,12 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  DeleteDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import TranscationEntity from './transaction.entity';
 import UserEntity from './user.entity';
 
@@ -17,6 +25,9 @@ export default class PaymentEntity {
 
   @Column({ type: 'int' })
   uid!: number;
+
+  @DeleteDateColumn()
+  deletedDate?: Date;
 
   @OneToMany(() => TranscationEntity, (transaction) => transaction.payment, { cascade: true })
   transactions?: TranscationEntity[];
