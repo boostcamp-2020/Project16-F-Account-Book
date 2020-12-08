@@ -17,12 +17,7 @@ const ManageItemInput = ({
   return (
     <S.ManageItemInputContainer>
       <S.ManageInputBoxContainer>
-        <CustomInput
-          inputType="amount"
-          initialValue={name}
-          placeholder={name}
-          ref={inputComponent}
-        />
+        <CustomInput inputType="amount" value={name} placeholder={name} ref={inputComponent} />
       </S.ManageInputBoxContainer>
       <S.ManageButtonContainer>
         <CustomButton color="white" size="sm" onClickEvent={cancelHandler}>

@@ -3,6 +3,6 @@ export type InputButtonProps = {
   inputType: 'amount' | 'description' | 'calendar';
   name?: string;
   onChange?: any;
-  initialValue?: string;
+  value?: string;
   ref?: React.Ref<HTMLInputElement>;
 };
