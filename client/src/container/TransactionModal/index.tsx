@@ -13,7 +13,6 @@ import { getCategoryThunk } from '@modules/category';
 import { postTransactionThunk } from '@/modules/transaction';
 import { PostTransactionRequest } from '@/commons/types/transaction';
 import { CategoryModel } from '@/commons/types/category';
-import { PaymentModel } from '@/commons/types/payment';
 import CategoryDTO from '@/commons/dto/category';
 import PaymentDTO from '@/commons/dto/payment';
 import TransactionRequestDTO from '@/commons/dto/transaction-request';
@@ -27,9 +26,7 @@ const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Ele
   const categoryList = (category.categories.data as CategoryModel[])?.map(
     (c) => new CategoryDTO(c as CategoryModel),
   );
-  const paymentList = (payment.data as PaymentModel[])?.map(
-    (p) => new PaymentDTO(p as PaymentModel),
-  );
+  const paymentList = payment.data.map((p) => new PaymentDTO(p));
   const dispatch = useDispatch();
 
   const getCategoryList = useCallback(() => {
