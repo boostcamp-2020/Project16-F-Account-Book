@@ -1,17 +1,19 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '@modules/index';
 import SelectMonth from '@/container/SelectMonth';
+import TransactionListContainer from '@/container/TransactionList';
+import TransactionSelectList from '@/container/TransactionSelectList';
 import AmountText from '@/components/transaction/AmountText';
 import ViewCalendar from '@components/calendar/CalendarView';
-import { totalInOut } from '@/libs/mockData';
-import TransactionListContainer from '@/container/TransactionList';
 import * as S from './styles';
 
 const Calendar = (): JSX.Element => {
-  const { datePicker } = useSelector((state: RootState) => state);
-  const dispatch = useDispatch();
-
+  const { datePicker, transaction, dayPicker } = useSelector((state: RootState) => state);
+  const dailyTotalInOut = new Map();
+  transaction.aggregationByDate.map((dayData) =>
+    dailyTotalInOut.set(String(dayData[0]), dayData[1]),
+  );
   return (
     <S.WarpCalendarDiv>
       <S.CalendarPageDiv>
@@ -23,23 +25,23 @@ const Calendar = (): JSX.Element => {
             </S.InOutDiv>
             <S.AmountAlign>
               <div>
-                <AmountText isIncome={false} amount={20000} />
+                <AmountText isIncome={false} amount={transaction.totalOut} />
               </div>
               <div>
-                <AmountText isIncome amount={70000} />
+                <AmountText isIncome amount={transaction.totalIn} />
               </div>
             </S.AmountAlign>
           </S.AmountDiv>
         </S.HeaderDiv>
         <S.CalendarDiv>
           <ViewCalendar
-            totalInOut={totalInOut}
+            totalInOut={dailyTotalInOut}
             lang="ko"
             year={datePicker.year}
             month={datePicker.month}
           />
         </S.CalendarDiv>
-        <TransactionListContainer />
+        {dayPicker.day === 0 ? <TransactionListContainer /> : <TransactionSelectList />}
       </S.CalendarPageDiv>
     </S.WarpCalendarDiv>
   );
