@@ -21,10 +21,10 @@ const ManageItemInput = ({ name, cancelHandler, saveHandler }: ManageItemInputPr
         />
       </S.ManageInputBoxContainer>
       <S.ManageButtonContainer>
-        <CustomButton color="white" size="s" onClickEvent={cancelHandler}>
+        <CustomButton color="white" size="sm" onClickEvent={cancelHandler}>
           취소
         </CustomButton>
-        <CustomButton color="blue" size="s" onClickEvent={saveHandler}>
+        <CustomButton color="blue" size="sm" onClickEvent={saveHandler}>
           저장
         </CustomButton>
       </S.ManageButtonContainer>
