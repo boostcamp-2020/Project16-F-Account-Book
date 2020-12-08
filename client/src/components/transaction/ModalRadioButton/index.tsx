@@ -14,24 +14,26 @@ function ModalRadioButton({ setIsIncome, onChange, value }: ModalRadioButtonProp
     <S.RadioButtonContainer>
       <S.RadioButtonWrapper>
         <S.RadioButton
+          id="radio-withdraw"
           type="radio"
           name="isIncome"
           value="false"
           onChange={onChangeRadioButton}
           defaultChecked
           checked={!value}
-        />{' '}
-        지출
+        />
+        <label htmlFor="radio-withdraw">지출</label>
       </S.RadioButtonWrapper>
       <S.RadioButtonWrapper>
         <S.RadioButton
+          id="radio-income"
           type="radio"
           name="isIncome"
           value="true"
           onChange={onChangeRadioButton}
           checked={!!value}
         />
-        수입
+        <label htmlFor="radio-income">수입</label>
       </S.RadioButtonWrapper>
     </S.RadioButtonContainer>
   );
