@@ -1,8 +1,15 @@
 import paymentAPI from '@libs/api/payment';
 import createAsyncThunk from '@libs/createAsyncThunk';
-import { getPaymentAsync } from './actions';
+import {
+  deletePaymentAsync,
+  getPaymentAsync,
+  postPaymentAsync,
+  updatePaymentAsync,
+} from './actions';
 
 const getPaymentThunk = createAsyncThunk(getPaymentAsync, paymentAPI.getPayment);
+const postPaymentThunk = createAsyncThunk(postPaymentAsync, paymentAPI.postPayment);
+const updatePaymentThunk = createAsyncThunk(updatePaymentAsync, paymentAPI.updatePayment);
+const deletePaymentThunk = createAsyncThunk(deletePaymentAsync, paymentAPI.deletePayment);
 
-// eslint-disable-next-line import/prefer-default-export
-export { getPaymentThunk };
+export { getPaymentThunk, postPaymentThunk, updatePaymentThunk, deletePaymentThunk };
