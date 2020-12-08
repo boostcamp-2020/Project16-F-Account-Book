@@ -9,9 +9,10 @@ export default class PaymentService {
     this.paymentRepository = paymentRepository;
   }
 
-  public async createPayment(name: string, uid: number): Promise<void> {
+  public async createPayment(name: string, uid: number): Promise<PaymentEntity> {
     const payment = this.paymentRepository.create({ name, uid });
-    await this.paymentRepository.save(payment);
+    const newPayment = await this.paymentRepository.save(payment);
+    return newPayment;
   }
 
   public async readPayment(uid: number): Promise<PaymentEntity[]> {
