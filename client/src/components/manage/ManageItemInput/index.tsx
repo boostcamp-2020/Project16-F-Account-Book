@@ -4,7 +4,11 @@ import CustomInput from '../../common/forms/CustomInput';
 import * as S from './styles';
 import { ManageItemInputProps } from './types';
 
-const ManageItemInput = ({ name, cancelHandler, saveHandler }: ManageItemInputProps) => {
+const ManageItemInput = ({
+  name,
+  cancelHandler,
+  saveHandler,
+}: ManageItemInputProps): JSX.Element => {
   const inputComponent = useRef<HTMLInputElement>(null);
   useEffect(() => {
     if (inputComponent.current) inputComponent.current.focus();

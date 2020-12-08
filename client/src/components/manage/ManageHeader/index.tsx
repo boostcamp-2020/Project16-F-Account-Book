@@ -3,7 +3,7 @@ import { BsPlus } from 'react-icons/bs';
 import { ManageHeaderProps } from './types';
 import * as S from './styles';
 
-const ManageHeader = ({ text, onClick }: ManageHeaderProps) => {
+const ManageHeader = ({ text, onClick }: ManageHeaderProps): JSX.Element => {
   return (
     <S.ManageHeaderContainer>
       <S.ManageTextContainer>{text}</S.ManageTextContainer>
