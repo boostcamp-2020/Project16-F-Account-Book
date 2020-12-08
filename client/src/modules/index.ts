@@ -4,7 +4,7 @@ import category from './category';
 import authorization from './authorization/reducer';
 import transaction from './transaction';
 import fixedExpenditure from './fixedExpenditure';
-import datePicker from './datePicker';
+import { datePicker, dayPicker } from './datePicker';
 
 const rootReducer = combineReducers({
   payment,
@@ -12,6 +12,7 @@ const rootReducer = combineReducers({
   transaction,
   authorization,
   fixedExpenditure,
+  dayPicker,
   datePicker,
 });
 
