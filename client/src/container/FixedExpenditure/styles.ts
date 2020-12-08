@@ -31,11 +31,11 @@ export const HeaderTitle = styled.h3`
 export const SumBox = styled.div`
   display: flex;
   align-items: center;
+  padding: 0.8rem 0 0.8rem 0;
   & + & {
     border-top: 1px solid rgba(0, 0, 0, 0.1);
   }
   svg {
-    color: #0e7ee0;
     margin-right: 0.8rem;
   }
 `;
