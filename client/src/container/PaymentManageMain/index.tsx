@@ -1,6 +1,6 @@
 import ManageHeader from '@/components/manage/ManageHeader';
 import { RootState } from '@/modules';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import ManageItem from '@components/manage/ManageItem';
 import PaymentDTO from '@/commons/dto/payment';
@@ -12,9 +12,9 @@ const PaymentManageContainer = (): JSX.Element => {
   const paymentList = data?.map((payment) => new PaymentDTO(payment));
   const [addPayment, setAddPayment] = useState(false);
 
-  const toggleAddPayment = () => {
+  const toggleAddPayment = useCallback(() => {
     setAddPayment(!addPayment);
-  };
+  }, [addPayment]);
 
   return (
     <>
