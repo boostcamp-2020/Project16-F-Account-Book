@@ -5,14 +5,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import ManageItem from '@/components/manage/ManageItem';
 import PaymentDTO from '@/commons/dto/payment';
 import ManageItemInput from '@/components/manage/ManageItemInput';
-import { deletePaymentThunk, postPaymentThunk } from '@/modules/payment';
+import { deletePaymentThunk, postPaymentThunk, updatePaymentThunk } from '@/modules/payment';
 import PaymentRequestDTO from '@/commons/dto/payment-request';
+import { PaymentRequest } from '@/commons/types/payment';
 import * as S from './styles';
 
 const PaymentManageContainer = (): JSX.Element => {
   const { data } = useSelector((state: RootState) => state.payment);
   const paymentList = data.map((payment) => new PaymentDTO(payment));
-  const [paymentName, setPaymentName] = useState('');
+  const [paymentData, setPaymentData] = useState({} as PaymentRequest);
   const [addPayment, setAddPayment] = useState(false);
   const dispatch = useDispatch();
 
@@ -29,15 +30,23 @@ const PaymentManageContainer = (): JSX.Element => {
 
   const onChangePaymentName = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setPaymentName(e.target.value);
+      setPaymentData({ name: e.target.value });
     },
-    [paymentName],
+    [paymentData],
   );
 
   const postNewPayment = useCallback(() => {
-    const newPayment = new PaymentRequestDTO({ name: paymentName });
+    const newPayment = new PaymentRequestDTO(paymentData);
     dispatch(postPaymentThunk(newPayment));
-  }, [dispatch, paymentName]);
+  }, [dispatch, paymentData]);
+
+  const updatePayment = useCallback(
+    (pid) => {
+      const updatePaymentData = new PaymentRequestDTO({ pid, ...paymentData });
+      dispatch(updatePaymentThunk(updatePaymentData));
+    },
+    [dispatch, paymentData],
+  );
 
   return (
     <>
@@ -47,9 +56,8 @@ const PaymentManageContainer = (): JSX.Element => {
           <ManageItem
             item={payment}
             deleteItem={deletePayment}
-            updateItem={() => {
-              console.log('업데이트'); // update 함수 전달을 test하기 위한 console
-            }}
+            updateItem={updatePayment}
+            onChangeInput={onChangePaymentName}
           />
         ))}
       </S.ManageListContainer>

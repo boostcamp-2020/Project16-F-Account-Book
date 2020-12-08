@@ -5,11 +5,16 @@ import * as S from './styles';
 import { ManageItemProps } from './types';
 import ManageItemInput from '../ManageItemInput';
 
-const ManageItem = ({ item, deleteItem, updateItem }: ManageItemProps): JSX.Element => {
+const ManageItem = ({
+  item,
+  deleteItem,
+  updateItem,
+  onChangeInput,
+}: ManageItemProps): JSX.Element => {
   const [itemUpdateToggle, setItemUpdateToggle] = useState(false);
   const toggleUpdate = () => setItemUpdateToggle(!itemUpdateToggle);
   const updateHandler = () => {
-    updateItem();
+    updateItem(item.id);
     toggleUpdate();
   };
 
@@ -24,6 +29,7 @@ const ManageItem = ({ item, deleteItem, updateItem }: ManageItemProps): JSX.Elem
           name={item.name}
           cancelHandler={toggleUpdate}
           saveHandler={updateHandler}
+          onChangeInput={onChangeInput}
         />
       ) : (
         <S.ManageItemContainer>
