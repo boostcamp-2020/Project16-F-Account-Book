@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import Dropdown from '@components/common/Dropdown';
 import ArrowIcon from '@/components/common/ArrowIcon';
@@ -15,15 +15,21 @@ export default function SelectMonth(): JSX.Element {
 
   const onChangeDate = (e: any) => {
     const { value } = e.target;
-    dispatch(changeDate({ year: datePicker.year, month: MONTHSLIST[value] - 1 }));
+    dispatch(changeDate({ year: datePicker.year, month: MONTHSLIST[value] }));
   };
+
+  const dropdownButton = (
+    <>
+      {`${datePicker.month}월 `}
+      <ArrowIcon height="15px" width="20px" rotate="" />
+    </>
+  );
 
   return (
     <>
       <S.MonthDiv>
-        {datePicker.month + 1 > 9 ? `${datePicker.month + 1}월` : `0${datePicker.month + 1}월`}
         <S.DropdownPosition>
-          <Dropdown icon={<ArrowIcon height="15px" width="20px" rotate="" />} isRight={false}>
+          <Dropdown icon={dropdownButton} isRight={false}>
             <S.Item>
               <S.ScollDiv>
                 {MONTHSLIST.map((candidateDate: number, i: number) => (

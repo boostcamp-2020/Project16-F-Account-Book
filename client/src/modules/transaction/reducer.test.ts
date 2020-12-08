@@ -8,7 +8,7 @@ describe('Transaction Reducer Tests', () => {
     const prevState = {
       loading: false,
       error: null,
-      date: { year: 2020, month: 11 },
+      date: { year: 2020, month: 12 },
       ...aggregateTransactions(mockTransactions),
     };
     const prevTransactionsLength = prevState.transactions.length;
@@ -52,7 +52,7 @@ describe('Transaction Reducer Tests', () => {
     const prevState = {
       loading: false,
       error: null,
-      date: { year: 2020, month: 11 },
+      date: { year: 2020, month: 12 },
       ...aggregateTransactions(mockTransactions),
     };
     const prevTransactionsLength = prevState.transactions.length;

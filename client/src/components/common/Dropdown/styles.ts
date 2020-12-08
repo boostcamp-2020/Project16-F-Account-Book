@@ -17,8 +17,9 @@ const MenuItem = styled.div`
   }
 `;
 
-const IconDiv = styled.div`
+const DropdownButton = styled.div`
   z-index: 1100;
+  cursor: pointer;
 `;
 
 const CloseDiv = styled.div`
@@ -32,4 +33,4 @@ const CloseDiv = styled.div`
   opctiy: 0;
 `;
 
-export { MenuItem, IconDiv, CloseDiv };
+export { MenuItem, DropdownButton, CloseDiv };

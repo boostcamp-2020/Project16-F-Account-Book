@@ -36,7 +36,7 @@ const Calendar = (): JSX.Element => {
             totalInOut={totalInOut}
             lang="ko"
             year={datePicker.year}
-            month={datePicker.month + 1}
+            month={datePicker.month}
           />
         </S.CalendarDiv>
         <TransactionListContainer />

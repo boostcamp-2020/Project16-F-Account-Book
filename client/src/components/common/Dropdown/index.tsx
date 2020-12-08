@@ -11,7 +11,7 @@ export default function Dropdown({ icon, isRight, children }: DropdownType): JSX
   };
   return (
     <>
-      <S.IconDiv onClick={toggleDropdown}>{icon}</S.IconDiv>
+      <S.DropdownButton onClick={toggleDropdown}>{icon}</S.DropdownButton>
       {isShow && (
         <>
           <S.CloseDiv onClick={toggleDropdown} />
