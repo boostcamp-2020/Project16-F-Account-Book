@@ -64,9 +64,12 @@ const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Ele
       if (parsedText.amount === 0) {
         infoDispatch({
           ...newTransaction,
+          tradeAt: '',
+          isIncome: 'false',
           amount: `${parsedText.amount}`,
           description: clipText,
         });
+        setIsIncome(false);
       } else {
         const { year: thisYear } = DateUtils.parseDate(new Date());
         const formattedDate = DateUtils.formatString(new Date(`${thisYear}/${parsedText.date}`));

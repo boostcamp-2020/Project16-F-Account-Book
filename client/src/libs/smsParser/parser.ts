@@ -44,24 +44,30 @@ const parsePaymentDetail = (sms: string) => {
     }
     if (token.includes('원') && !paymentDetail.amount) {
       const amountTokens = token.match(/[0-9]+(,?[0-9]+)+/);
-      const [amount] = amountTokens;
-      if (amount) {
-        paymentDetail.amount = Number(amount.replace(',', ''));
+      if (amountTokens) {
+        const [amount] = amountTokens;
+        if (amount) {
+          paymentDetail.amount = Number(amount.replace(',', ''));
+        }
       }
       return;
     }
     if (token.includes(':')) {
       const timeTokens = token.match(/[0-9]{2}:[0-9]{2}/);
-      const [time] = timeTokens;
-      if (time) {
-        paymentDetail.time = time;
+      if (timeTokens) {
+        const [time] = timeTokens;
+        if (time) {
+          paymentDetail.time = time;
+        }
       }
     }
     if (token.includes('/')) {
       const dateTokens = token.match(/[0-9]{2}\/[0-9]{2}/);
-      const [date] = dateTokens;
-      if (date) {
-        paymentDetail.date = date;
+      if (dateTokens) {
+        const [date] = dateTokens;
+        if (date) {
+          paymentDetail.date = date;
+        }
       }
     }
   });
