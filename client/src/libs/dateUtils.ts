@@ -15,6 +15,13 @@ const parseDate = (date: Date | string): ParsedDateModel => {
   };
 };
 
+const formatString = (date: Date): string => {
+  const { year: yearToken, month: monthToken, date: dateToken } = parseDate(date);
+  return `${yearToken}-${monthToken >= 10 ? monthToken : `0${monthToken}`}-${
+    dateToken >= 10 ? `${dateToken}` : `0${dateToken}`
+  }`;
+};
+
 type StartEndDate = {
   startDate: string;
   endDate: string;
@@ -67,4 +74,10 @@ const makeDataForLineGraph = (aggregateInfo: AggregateInfo, year: number, month:
   return { maxTotal, graphData };
 };
 
-export default { parseDate, getStartEndDate, getEndDateOfMonth, makeDataForLineGraph };
+export default {
+  parseDate,
+  formatString,
+  getStartEndDate,
+  getEndDateOfMonth,
+  makeDataForLineGraph,
+};
