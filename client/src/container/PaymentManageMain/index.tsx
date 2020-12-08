@@ -2,7 +2,7 @@ import ManageHeader from '@/components/manage/ManageHeader';
 import { RootState } from '@/modules';
 import React, { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
-import ManageItem from '@components/manage/ManageItem';
+import ManageItem from '@/components/manage/ManageItem';
 import PaymentDTO from '@/commons/dto/payment';
 import ManageItemInput from '@/components/manage/ManageItemInput';
 import * as S from './styles';
