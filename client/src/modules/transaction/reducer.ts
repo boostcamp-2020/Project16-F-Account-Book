@@ -85,11 +85,13 @@ const transactionReducer = createReducer<TransactionState, TransactionAction>(in
     error: null,
   }),
   [GET_MONTHLY_TRANSACTION_SUCCESS]: (state, { payload }) => {
-    const aggregation = aggregateTransactions(payload);
+    const { date, list } = payload;
+    const aggregation = aggregateTransactions(list);
     return {
       ...state,
       loading: false,
       error: null,
+      date,
       ...aggregation,
     };
   },

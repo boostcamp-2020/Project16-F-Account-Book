@@ -1,7 +1,8 @@
 /* eslint-disable class-methods-use-this */
 import TranscationEntity from '@/entity/transaction.entity';
 import { Repository, Between } from 'typeorm';
-import { BAD_REQUEST } from '@/common/error';
+import { BAD_REQUEST, DATABASE_ERROR } from '@/common/error';
+import { Transactional } from 'typeorm-transactional-cls-hooked';
 import {
   MonthlyTransactionDetailsQueryParams,
   TransactionDetail,
@@ -31,12 +32,21 @@ export default class TransactionService {
     return transactions;
   }
 
+  @Transactional()
   public async createTransaction(data: TransactionFormData): Promise<TranscationEntity> {
     const transaction = this.transactionRepository.create(data);
-    const newTransaction = await this.transactionRepository.save(transaction);
+    const { tid } = await this.transactionRepository.save(transaction);
+    const newTransaction = await this.transactionRepository.findOne({
+      where: { tid },
+      relations: ['payment', 'category'],
+    });
+    if (!newTransaction) {
+      throw new Error(DATABASE_ERROR);
+    }
     return newTransaction;
   }
 
+  @Transactional()
   public async updateTransaction(
     tid: number,
     uid: number,
@@ -53,10 +63,18 @@ export default class TransactionService {
       cid,
       pid,
     });
-    const updatedTransaction = await this.transactionRepository.save(mergedTransaction);
+    await this.transactionRepository.save(mergedTransaction);
+    const updatedTransaction = await this.transactionRepository.findOne({
+      where: { tid },
+      relations: ['payment', 'category'],
+    });
+    if (!updatedTransaction) {
+      throw new Error(DATABASE_ERROR);
+    }
     return updatedTransaction;
   }
 
+  @Transactional()
   public async deleteTransaction(tid: number, uid: number): Promise<TransactionDetail> {
     const transaction = await this.transactionRepository.findOne({ where: { tid, uid } });
     if (!transaction) throw new Error(BAD_REQUEST);
