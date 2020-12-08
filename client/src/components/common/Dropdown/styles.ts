@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 
 const MenuItem = styled.div`
-  z-index: 1100;
   background-color: white;
-  display: flex;
+  display: none;
   position: absolute;
   text-align: center;
   text-decoration: none;
@@ -12,24 +11,18 @@ const MenuItem = styled.div`
   margin: 8px 0px 0px 0px;
   border-radius: 15px;
   box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.2);
+  &.show {
+    display: flex;
+  }
   &.right {
     right: 0;
   }
 `;
 
-const IconDiv = styled.div`
-  z-index: 1100;
+const Button = styled.button`
+  background-color: white;
+  border: none;
+  font-size: 20px;
 `;
 
-const CloseDiv = styled.div`
-  position: fixed;
-  z-index: 1000;
-  right: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: auto;
-  opctiy: 0;
-`;
-
-export { MenuItem, IconDiv, CloseDiv };
+export { MenuItem, Button };
