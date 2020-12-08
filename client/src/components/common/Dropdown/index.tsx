@@ -6,21 +6,20 @@ export default function Dropdown({ icon, isRight, children }: DropdownType): JSX
   const [isShow, setDisplay] = useState(false);
   const position = isRight ? 'right' : '';
 
-  const onClick = () => {
+  const toggleDropdown = () => {
     setDisplay(!isShow);
-  };
-  const dropdownOff = () => {
-    setDisplay(false);
   };
   return (
     <>
-      <S.IconDiv onClick={onClick}>{icon}</S.IconDiv>
+      <S.IconDiv onClick={toggleDropdown}>{icon}</S.IconDiv>
       {isShow && (
-        <S.MenuItem className={position}>
-          <ul>{children}</ul>
-        </S.MenuItem>
+        <>
+          <S.CloseDiv onClick={toggleDropdown} />
+          <S.MenuItem className={position} onClick={toggleDropdown}>
+            <ul>{children}</ul>
+          </S.MenuItem>
+        </>
       )}
-      {isShow && <S.CloseDiv onClick={dropdownOff} />}
     </>
   );
 }
