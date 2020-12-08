@@ -3,7 +3,7 @@ import { PostTransactionRequest } from '../types/transaction';
 export default class TransactionRequestDTO {
   isIncome: boolean;
 
-  tradeAt: Date;
+  tradeAt: string;
 
   cid: number;
 
