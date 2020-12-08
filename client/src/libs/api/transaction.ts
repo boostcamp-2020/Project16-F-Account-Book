@@ -11,11 +11,11 @@ const transactionAPI = {
     year: number;
     month: number;
   }): Promise<MonthTransactionsResponse> => {
-    const monthlyTransactionDetails = await axios.get<MonthTransactionsResponse>(
+    const monthlyTransactionDetails = await axios.get<TransactionModel[]>(
       `${endpoints.TRANSACTION_API}?year=${year}&month=${month + 1}`,
     );
 
-    return monthlyTransactionDetails;
+    return { date: { year, month }, list: monthlyTransactionDetails };
   },
 
   postTransaction: async (data: TransactionRequestDTO): Promise<TransactionModel> => {

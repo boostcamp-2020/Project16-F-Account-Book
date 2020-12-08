@@ -1,6 +1,7 @@
 import { createConnection, getConnectionOptions, Connection } from 'typeorm';
 import SnakeNamingStrategy from '@config/orm/snake-naming-strategy';
 import { ormConfig } from '@config/index';
+import { initializeTransactionalContext } from 'typeorm-transactional-cls-hooked';
 
 const createDBConnection = async (): Promise<Connection> => {
   const connectionOptions = await getConnectionOptions();
@@ -13,6 +14,7 @@ const createDBConnection = async (): Promise<Connection> => {
     }),
   );
   console.log('✌️ Database Connected');
+  initializeTransactionalContext();
   return connection;
 };
 

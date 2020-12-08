@@ -39,6 +39,7 @@
     "koa-router": "^10.0.0",
     "mysql2": "^2.2.5",
     "typeorm": "^0.2.29",
+    "typeorm-transactional-cls-hooked": "^0.1.17",
     "uuid": "^8.3.1"
   },
   "devDependencies": {

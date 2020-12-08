@@ -9,24 +9,21 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    services:
-      db:
-        image: mysql:5.7
-        ports:
-          - 3306:3306
-        env:
-          MYSQL_USER: user
-          MYSQL_PASSWORD: password
-          MYSQL_DATABASE: test
-          MYSQL_ROOT_PASSWORD: password
-        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
     steps:
-      - uses: actions/checkout@v2 
-      - name: Verify MySQL connection
-        env:
-          PORT: 3306
+      - uses: actions/checkout@v2
+      - name: Create MySQL Database
         run: |
-          while ! mysqladmin ping -h"127.0.0.1" -P"$PORT" --silent; do
+          docker run --name mysql -p 3306:3306 \
+          -e MYSQL_ROOT_PASSWORD=password \
+          -e MYSQL_USER=user \
+          -e MYSQL_PASSWORD=password \
+          -e MYSQL_DATABASE=test \
+          --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3 \
+          -d mysql:5.7 \
+          --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+      - name: Verify MySQL connection
+        run: |
+          while ! mysqladmin ping --host 127.0.0.1 --port 3306 --silent; do
               sleep 1
           done
       - uses: actions/setup-node@v1
@@ -36,6 +33,9 @@ jobs:
         run: yarn install
       - name: Run tests
         env:
+          TYPEORM_CONNECTION: mysql
+          TYPEORM_HOST: 127.0.0.1
+          TYPEORM_PORT: 3306
           TYPEORM_USERNAME: user
           TYPEORM_PASSWORD: password
           TYPEORM_DATABASE: test

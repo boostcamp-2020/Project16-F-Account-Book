@@ -1,4 +1,4 @@
-import { TransactionModel } from '@/commons/types/transaction';
+import { TransactionModel, MonthTransactionsResponse } from '@/commons/types/transaction';
 import { AxiosError } from 'axios';
 import { createAsyncAction } from 'typesafe-actions';
 
@@ -20,4 +20,4 @@ export const getMonthlyTransactionAsync = createAsyncAction(
   GET_MONTHLY_TRANSACTION,
   GET_MONTHLY_TRANSACTION_SUCCESS,
   GET_MONTHLY_TRANSACTION_FAILURE,
-)<string, TransactionModel[], AxiosError>();
+)<string, MonthTransactionsResponse, AxiosError>();
