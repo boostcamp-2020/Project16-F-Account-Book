@@ -2,7 +2,8 @@ import FixedExpenditureEntity from '@/entity/fixed-expenditure.entity';
 import UserEntity from '@/entity/user.entity';
 import TranscationEntity from '@/entity/transaction.entity';
 import { Repository, Between } from 'typeorm';
-import { FixedType } from './types';
+import dateToString from '@/lib/dateUtils';
+import { FixedType, InputType, ResultType, ResponseType } from './types';
 
 export default class FixedExpenditureService {
   private fixedExpenditureRepository: Repository<FixedExpenditureEntity>;
@@ -23,30 +24,51 @@ export default class FixedExpenditureService {
 
   public async getFixedExpenditure(
     uid: number,
-    startDate: string,
-    endDate: string,
-  ): Promise<FixedExpenditureEntity[]> {
-    const user = await this.userRepository.findOne({ where: { uid } });
-    const updateAt = user?.updateAt ? new Date(user?.updateAt) : undefined;
-    const today = new Date();
+    updateAt: Date | undefined,
+    year: number,
+    month: number,
+  ): Promise<ResponseType> {
+    const startDate = dateToString(new Date(year, month, 1));
+    const endDate = dateToString(new Date(2020, Number(month) + 1, 0));
 
-    if (!updateAt || updateAt.getMonth() !== today.getMonth()) {
-      await this.createFixedExpenditure(uid);
+    if (!updateAt || updateAt.getFullYear() < year || updateAt.getMonth() < month) {
+      await this.createFixedExpenditure(uid, year, month);
     }
 
-    const fixedData = await this.fixedExpenditureRepository.find({
-      where: { uid, tradeAt: Between(startDate, endDate) },
-      order: { tradeAt: 'ASC' },
+    const fixedDatas: ResultType[] = await this.fixedExpenditureRepository
+      .query(`select f1.fid, f1.trade_at, f1.amount as estimated_amount, f1.description, t1.amount as paid_amount
+    from (select * from fixed_expenditure where uid=${uid} and trade_at between '${startDate}' and '${endDate}') f1 
+    left outer join (select * from transaction where uid=${uid} and trade_at between '${startDate}' and '${endDate}') t1 on f1.uid = t1.uid and f1.trade_at = t1.trade_at
+    order by f1.trade_at ASC;`);
+
+    const paid: FixedType[] = [];
+    const estimated: FixedType[] = [];
+
+    fixedDatas.forEach((fixedData) => {
+      if (fixedData.paid_amount) {
+        paid.push({
+          fid: fixedData.fid,
+          tradeAt: fixedData.trade_at,
+          amount: fixedData.paid_amount,
+          description: fixedData.description,
+        });
+      } else {
+        estimated.push({
+          fid: fixedData.fid,
+          tradeAt: fixedData.trade_at,
+          amount: fixedData.estimated_amount,
+          description: fixedData.description,
+        });
+      }
     });
-    return fixedData;
+
+    return { paid, estimated };
   }
 
-  public async createFixedExpenditure(uid: number): Promise<void> {
+  private async createFixedExpenditure(uid: number, year: number, month: number): Promise<void> {
     const today = new Date();
-    const startDate = new Date();
-    const endDate = new Date();
-    startDate.setFullYear(today.getFullYear(), today.getMonth() - 3, 1);
-    endDate.setFullYear(today.getFullYear(), today.getMonth(), 1);
+    const startDate = new Date(year, Number(month) - 3, 1);
+    const endDate = new Date(year, month, 0);
 
     const list = await this.transactionRepository.find({
       where: { uid, tradeAt: Between(startDate, endDate), isIncome: false },
@@ -56,22 +78,22 @@ export default class FixedExpenditureService {
     const map = new Map();
     list.forEach((transaction) => {
       const { amount, tradeAt, description } = transaction;
-      key = `${tradeAt.toString().slice(8)}-${description}-${amount}`;
+      key = `${tradeAt.toString().slice(8)}-${description}`;
       if (map.has(key)) {
-        map.set(key, map.get(key) + 1);
+        map.set(key, { count: map.get(key).count + 1, amount: map.get(key).amount + amount });
       } else {
-        map.set(key, 1);
+        map.set(key, { count: 1, amount });
       }
     });
-    const fixedArray: Array<FixedType> = [];
+    const fixedArray: InputType[] = [];
     map.forEach((value, mapKey) => {
-      if (value > 2) {
+      if (value.count > 2) {
         const fixedData = mapKey.split('-');
         const setDay = new Date();
         setDay.setDate(fixedData[0]);
         fixedArray.push({
           tradeAt: setDay,
-          amount: Number(fixedData[2]),
+          amount: value.amount,
           description: fixedData[1],
           uid,
         });
