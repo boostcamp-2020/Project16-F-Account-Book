@@ -28,14 +28,20 @@ export default class AggregateRouter extends Router {
 
     this.get('/max-category', async (ctx: Context) => {
       const { uid } = ctx.state.user;
-      const maxCategory = await this.aggregateService.getMaxCategory(uid);
+      const { year, month } = ctx.query;
+      const maxCategory = await this.aggregateService.getMaxCategory(uid, year, month);
 
       ctx.body = maxCategory;
     });
 
     this.get('/overspending-index', async (ctx: Context) => {
       const { user } = ctx.state;
-      const overspendingIndexInfo = await this.aggregateService.getOverspendingIndex(user);
+      const { year, month } = ctx.query;
+      const overspendingIndexInfo = await this.aggregateService.getOverspendingIndex(
+        user,
+        year,
+        month,
+      );
       ctx.body = overspendingIndexInfo;
     });
   }

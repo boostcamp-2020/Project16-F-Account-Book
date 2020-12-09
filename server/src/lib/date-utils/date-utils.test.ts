@@ -17,4 +17,18 @@ describe('DateUtils Tests', () => {
       expect(count).toEqual(1);
     });
   });
+
+  describe('getStartDateAndEndDate() Tests', () => {
+    it('year=2020, month=12일때 startDate=2020-12-01, endDate=2020-12-31이다.', () => {
+      const { startDate, endDate } = DateUtils.getStartDateAndEndDate(2020, 12);
+      expect(DateUtils.dateToString(startDate)).toEqual('2020-12-01');
+      expect(DateUtils.dateToString(endDate)).toEqual('2020-12-31');
+    });
+
+    it('year=2020, month=1일때 startDate=2020-01-01, endDate=2020-01-31이다.', () => {
+      const { startDate, endDate } = DateUtils.getStartDateAndEndDate(2020, 1);
+      expect(DateUtils.dateToString(startDate)).toEqual('2020-01-01');
+      expect(DateUtils.dateToString(endDate)).toEqual('2020-01-31');
+    });
+  });
 });
