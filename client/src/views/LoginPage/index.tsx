@@ -12,8 +12,8 @@ const LoginPage = (props: RouteComponentProps): JSX.Element => {
   useEffect(() => {
     const checkLogin = async () => {
       try {
-        await authorizationAPI.isLogin();
-        dispatch(login());
+        const createAt = await authorizationAPI.isLogin();
+        dispatch(login({ createAt }));
         props.history.push('/dashboard');
       } catch (error) {
         console.log(error);

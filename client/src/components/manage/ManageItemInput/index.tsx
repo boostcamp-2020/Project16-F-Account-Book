@@ -8,6 +8,7 @@ const ManageItemInput = ({
   name,
   cancelHandler,
   saveHandler,
+  onChangeInput,
 }: ManageItemInputProps): JSX.Element => {
   const inputComponent = useRef<HTMLInputElement>(null);
   useEffect(() => {
@@ -19,9 +20,10 @@ const ManageItemInput = ({
       <S.ManageInputBoxContainer>
         <CustomInput
           inputType="amount"
-          initialValue={name}
+          value={name}
           placeholder={name}
           ref={inputComponent}
+          onChange={onChangeInput}
         />
       </S.ManageInputBoxContainer>
       <S.ManageButtonContainer>

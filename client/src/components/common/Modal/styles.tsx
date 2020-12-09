@@ -21,8 +21,9 @@ export const Modal = styled.div<ModalProps>`
 
 export const Container = styled.div`
   width: 100%;
-  max-width: 40rem;
+  max-width: 500px;
   margin: 0rem 2rem;
+  padding: 1.5rem;
 
   z-index: 1100;
   display: flex;

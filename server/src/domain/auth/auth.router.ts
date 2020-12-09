@@ -19,7 +19,8 @@ class AuthRouter extends Router {
 
   initRouter(): void {
     this.get('/isLogin', jwtAuthorize, (ctx: Context) => {
-      ctx.status = 200;
+      const { createAt } = ctx.state.user;
+      ctx.body = createAt;
     });
 
     this.get('/:provider', (ctx: Context) => {

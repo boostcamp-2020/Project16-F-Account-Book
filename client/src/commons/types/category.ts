@@ -4,3 +4,9 @@ export type CategoryModel = {
   isIncome: boolean;
   uid: number;
 };
+
+export type CategoryRequest = {
+  cid?: number;
+  name: string;
+  isIncome: boolean;
+};

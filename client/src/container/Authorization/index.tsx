@@ -8,12 +8,12 @@ import { login } from '@/modules/authorization/actions';
 const Authorization = (): JSX.Element => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state: RootState) => state.authorization.isLoggedIn);
+  const createAt = useSelector((state: RootState) => state.authorization.createAt);
   const checkLogin = useCallback(async () => {
-    if (!isLoggedIn) {
+    if (!createAt) {
       try {
-        await authorizationAPI.isLogin();
-        dispatch(login());
+        const inputCreateAt = await authorizationAPI.isLogin();
+        dispatch(login({ createAt: inputCreateAt }));
       } catch (error) {
         console.log(error);
         history.push('/');
