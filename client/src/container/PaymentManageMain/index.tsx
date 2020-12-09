@@ -51,6 +51,15 @@ const PaymentManageContainer = (): JSX.Element => {
   return (
     <>
       <ManageHeader text="결제수단" onClick={toggleAddPayment} />
+      {addPayment && (
+        <ManageItemInput
+          name=""
+          cancelHandler={toggleAddPayment}
+          saveHandler={postNewPayment}
+          onChangeInput={onChangePaymentName}
+          border
+        />
+      )}
       <S.ManageListContainer>
         {paymentList.map((payment) => (
           <ManageItem
@@ -61,14 +70,6 @@ const PaymentManageContainer = (): JSX.Element => {
           />
         ))}
       </S.ManageListContainer>
-      {addPayment && (
-        <ManageItemInput
-          name=""
-          cancelHandler={toggleAddPayment}
-          saveHandler={postNewPayment}
-          onChangeInput={onChangePaymentName}
-        />
-      )}
     </>
   );
 };

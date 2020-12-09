@@ -9,6 +9,7 @@ const ManageItemInput = ({
   cancelHandler,
   saveHandler,
   onChangeInput,
+  border,
 }: ManageItemInputProps): JSX.Element => {
   const inputComponent = useRef<HTMLInputElement>(null);
   useEffect(() => {
@@ -16,7 +17,7 @@ const ManageItemInput = ({
   }, []);
 
   return (
-    <S.ManageItemInputContainer>
+    <S.ManageItemInputContainer border={border}>
       <S.ManageInputBoxContainer>
         <CustomInput
           inputType="amount"

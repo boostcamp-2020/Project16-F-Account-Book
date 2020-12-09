@@ -13,4 +13,6 @@ export default {
   ],
 };
 
-export const ManageItemSample = (): JSX.Element => <ManageItemInput name="결제수단 예시" />;
+export const ManageItemSample = (): JSX.Element => (
+  <ManageItemInput name="결제수단 예시" border={false} />
+);
