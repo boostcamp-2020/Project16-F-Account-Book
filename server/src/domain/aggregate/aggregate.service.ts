@@ -80,7 +80,7 @@ export default class AggregateService {
       this.getExpenditureThisMonth(user),
     ]);
 
-    const overspendingIndex = (expenditureThisMonth / averageIncome).toFixed(2);
+    const overspendingIndex = averageIncome ? (expenditureThisMonth / averageIncome).toFixed(2) : 0;
     return {
       overspendingIndex: Number(overspendingIndex),
       averageIncome,
@@ -105,6 +105,13 @@ export default class AggregateService {
 
   private async getAverageIncome(user: UserDTO): Promise<number> {
     const today = new Date();
+    if (
+      user.createAt.getFullYear() === today.getFullYear() &&
+      user.createAt.getMonth() === today.getMonth()
+    ) {
+      return 0;
+    }
+
     const startDate = new Date(
       Math.max(new Date(today.getFullYear(), 0, 1).getTime(), user.createAt.getTime()),
     );
