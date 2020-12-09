@@ -9,5 +9,5 @@ export default {
   FIXED_EXPENDITURE_API: '/fixed-expenditure',
   AUTH_API: '/auth',
   GET_OVERSPENDING_INDEX_API: '/aggregate/overspending-index',
-  GET_MOST_SPEND_CATEGORY_API: '/aggregate/max-category',
+  GET_MOST_SPENDING_CATEGORY_API: '/aggregate/max-category',
 };
