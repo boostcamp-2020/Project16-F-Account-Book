@@ -5,8 +5,7 @@ import ManageHeader from '@/components/manage/ManageHeader';
 import ManageItem from '@/components/manage/ManageItem';
 import ManageItemInput from '@/components/manage/ManageItemInput';
 import { RootState } from '@/modules';
-import { postCategoryThunk, updateCategoryThunk } from '@/modules/category';
-import { deletePaymentThunk } from '@/modules/payment';
+import { deleteCategoryThunk, postCategoryThunk, updateCategoryThunk } from '@/modules/category';
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CategoryManageContainerProps } from './types';
@@ -28,7 +27,7 @@ const CategoryManageContainer = ({ isIncome }: CategoryManageContainerProps): JS
 
   const deleteCategory = useCallback(
     (cid) => {
-      dispatch(deletePaymentThunk(cid));
+      dispatch(deleteCategoryThunk(cid));
     },
     [dispatch],
   );
@@ -43,12 +42,15 @@ const CategoryManageContainer = ({ isIncome }: CategoryManageContainerProps): JS
   const postNewCategory = useCallback(() => {
     const newCategory = new CategoryRequestDTO(categoryData);
     dispatch(postCategoryThunk(newCategory));
+    toggleAddCategory();
+    setCategoryData({ isIncome } as CategoryRequest);
   }, [dispatch, categoryData]);
 
   const updateCategory = useCallback(
     (cid) => {
       const updateCategoryData = new CategoryRequestDTO({ cid, ...categoryData });
       dispatch(updateCategoryThunk(updateCategoryData));
+      setCategoryData({ isIncome } as CategoryRequest);
     },
     [dispatch, categoryData],
   );
@@ -58,7 +60,7 @@ const CategoryManageContainer = ({ isIncome }: CategoryManageContainerProps): JS
       <ManageHeader text="카테고리" onClick={toggleAddCategory} />
       {addCategory && (
         <ManageItemInput
-          name=""
+          name={categoryData.name}
           cancelHandler={toggleAddCategory}
           saveHandler={postNewCategory}
           onChangeInput={onChangeCategoryName}
@@ -68,10 +70,12 @@ const CategoryManageContainer = ({ isIncome }: CategoryManageContainerProps): JS
       <CategoryListContainer>
         {categoryList.map((category) => (
           <ManageItem
+            value={categoryData.name}
             item={category}
             deleteItem={deleteCategory}
             updateItem={updateCategory}
             onChangeInput={onChangeCategoryName}
+            key={`m-category${category.id}`}
           />
         ))}
       </CategoryListContainer>
