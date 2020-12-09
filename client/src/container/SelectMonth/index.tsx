@@ -1,10 +1,11 @@
-import React from 'react';
-
+import React, { useEffect, useCallback } from 'react';
+import { getMonthlyTransactionThunk } from '@/modules/transaction';
 import Dropdown from '@components/common/Dropdown';
 import ArrowIcon from '@/components/common/ArrowIcon';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/modules';
 import { changeDate, changeDay } from '@modules/datePicker/actions';
+import { dayPicker } from '@/modules/datePicker';
 import * as S from './styles';
 
 const MONTHSLIST = Array.from({ length: 12 }, (v, i) => 12 - i);
@@ -18,6 +19,13 @@ export default function SelectMonth(): JSX.Element {
     dispatch(changeDate({ year: datePicker.year, month: MONTHSLIST[value] }));
     dispatch(changeDay({ day: 0 }));
   };
+  const getMonthlyTransactions = useCallback(() => {
+    dispatch(getMonthlyTransactionThunk(datePicker));
+  }, [dispatch, dayPicker]);
+
+  useEffect(() => {
+    getMonthlyTransactions();
+  }, [datePicker]);
 
   const dropdownButton = (
     <>
