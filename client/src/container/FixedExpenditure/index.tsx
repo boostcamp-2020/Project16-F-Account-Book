@@ -47,7 +47,7 @@ const FixedExpenditure = (): JSX.Element => {
         <S.HeaderBox>
           <S.HeaderTitle>
             <p>예정된 고정지출이</p>
-            <p>{fixedExpenditure.data?.estimated.length}개 있어요</p>
+            <p>{fixedExpenditure.data.estimated.length}개 있어요</p>
           </S.HeaderTitle>
           <Link to="/detailed-fixed-expenditure">자세히 보기</Link>
         </S.HeaderBox>
