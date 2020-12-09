@@ -1,8 +1,6 @@
 import React, { useCallback, useEffect, useReducer, useState } from 'react';
-import ModalHeaderText from '@/components/transaction/ModalHeaderText';
 import CustomButton from '@/components/common/buttons/CustomButton';
 import Modal from '@/components/common/Modal';
-import ModalXButton from '@/components/transaction/ModalXButton';
 import ModalRadioButton from '@/components/transaction/ModalRadioButton';
 import CustomSelectInput from '@/components/common/forms/CustomSelectInput';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,6 +15,7 @@ import TransactionRequestDTO from '@/commons/dto/transaction-request';
 import SMSParser from '@/libs/smsParser/parser';
 import DateUtils from '@/libs/dateUtils';
 import ModalInput from '@/components/transaction/ModalInput';
+import ModalHeader from '@/components/transaction/ModalHeader';
 import * as S from './styles';
 import { TransactionModalProps } from './types';
 
@@ -86,10 +85,7 @@ const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Ele
     <>
       {paymentList && categoryList && (
         <Modal show={show} toggleModal={toggleModal}>
-          <S.ModalHeader>
-            <ModalHeaderText>가계부 등록</ModalHeaderText>
-            <ModalXButton onClickEvent={toggleModal} />
-          </S.ModalHeader>
+          <ModalHeader text="가계부 등록" toggleModal={toggleModal} />
           <S.ModalBody>
             <ModalRadioButton
               setIsIncome={setIsIncome}
