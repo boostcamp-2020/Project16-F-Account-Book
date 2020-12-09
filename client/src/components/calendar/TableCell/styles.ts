@@ -10,17 +10,12 @@ const TotalOut = styled.div`
 `;
 const CellButton = styled.td`
   position: relative;
+  cursor: pointer;
   text-align: center;
+  &.isBold {
+    font-weight: bold;
+    color: black;
+  }
 `;
 
-const ClickCircle = styled.div`
-  position: absolute;
-  width: 60px;
-  height: 60px;
-  top: 0;
-  margin-left: 24px;
-  border-radius: 50%;
-  background-color: rgba(250, 185, 189, 0.6);
-`;
-
-export { TotalIn, TotalOut, CellButton, ClickCircle };
+export { TotalIn, TotalOut, CellButton };
