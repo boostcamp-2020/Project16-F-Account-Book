@@ -1,5 +1,6 @@
 import Router from 'koa-router';
 import { Context } from 'koa';
+import { getCustomRepository } from 'typeorm';
 import UserRepository from '@/domain/user/user.repository';
 import TransactionRepository from '@/domain/transaction/transaction.repository';
 import FixedExpenditureService from './fixed-expenditure.service';
@@ -13,7 +14,7 @@ export default class FixedExpenditureRouter extends Router {
     this.fixedExpenditureService = new FixedExpenditureService(
       FixedExpenditureRepository.getFixedExpenditureRepository(),
       UserRepository.getUserRepository(),
-      TransactionRepository.getTransactionRepository(),
+      getCustomRepository(TransactionRepository),
     );
   }
 
