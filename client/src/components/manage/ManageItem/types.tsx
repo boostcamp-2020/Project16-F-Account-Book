@@ -4,7 +4,8 @@ export type ItemProp = {
 };
 
 export type ManageItemProps = {
-  deleteItem: () => void;
-  updateItem: () => void;
+  deleteItem: (id: number) => void;
+  updateItem: (id: number) => void;
   item: ItemProp;
+  onChangeInput?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
