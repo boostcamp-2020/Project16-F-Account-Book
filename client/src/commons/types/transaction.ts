@@ -25,8 +25,8 @@ export type TransactionModel = {
 export type MonthTransactionsResponse = { date: YearMonthModel; list: TransactionModel[] };
 
 export type PostTransactionRequest = {
-  amount: number;
-  tradeAt: Date;
+  amount: string;
+  tradeAt: string;
   description: string;
   isIncome: string;
   cid: number;

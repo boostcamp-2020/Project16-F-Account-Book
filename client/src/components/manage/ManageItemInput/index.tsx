@@ -20,7 +20,7 @@ const ManageItemInput = ({
       <S.ManageInputBoxContainer>
         <CustomInput
           inputType="amount"
-          initialValue={name}
+          value={name}
           placeholder={name}
           ref={inputComponent}
           onChange={onChangeInput}

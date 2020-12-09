@@ -4,7 +4,7 @@ import { InputButtonProps } from './types';
 
 const CustomInput = forwardRef<HTMLInputElement, InputButtonProps>(
   (props: InputButtonProps, ref): JSX.Element => {
-    const { placeholder, inputType, name, onChange, initialValue } = props;
+    const { placeholder, inputType, name, onChange, value } = props;
     return (
       <StyledInput
         name={name}
@@ -12,7 +12,7 @@ const CustomInput = forwardRef<HTMLInputElement, InputButtonProps>(
         type={inputType === 'calendar' ? 'date' : 'text'}
         placeholder={placeholder}
         inputType={inputType}
-        defaultValue={initialValue || ''}
+        value={value || ''}
         ref={ref}
       />
     );
