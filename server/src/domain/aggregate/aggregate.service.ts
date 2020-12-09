@@ -49,12 +49,8 @@ export default class AggregateService {
     return response;
   }
 
-  public async getMaxCategory(uid: number): Promise<MaxCategory> {
-    const startDate = new Date();
-    const endDate = new Date();
-    startDate.setDate(1);
-    endDate.setMonth(endDate.getMonth() + 1);
-    endDate.setDate(0);
+  public async getMaxCategory(uid: number, year: number, month: number): Promise<MaxCategory> {
+    const { startDate, endDate } = DateUtils.getStartDateAndEndDate(year, month);
 
     const query = `select category.name, t1.aggregate
     from category, (select cid, sum(amount) as aggregate
@@ -70,14 +66,16 @@ export default class AggregateService {
 
   public async getOverspendingIndex(
     user: UserDTO,
+    year: number,
+    month: number,
   ): Promise<{
     overspendingIndex: number;
     averageIncome: number;
     expenditureThisMonth: number;
   }> {
     const [averageIncome, expenditureThisMonth] = await Promise.all([
-      this.getAverageIncome(user),
-      this.getExpenditureThisMonth(user),
+      this.getAverageIncome(user, year, month),
+      this.getSumSpendAmountOfMonth(user, year, month),
     ]);
 
     const overspendingIndex = averageIncome ? (expenditureThisMonth / averageIncome).toFixed(2) : 0;
@@ -88,11 +86,12 @@ export default class AggregateService {
     };
   }
 
-  private async getExpenditureThisMonth(user: UserDTO): Promise<number> {
-    const today = new Date();
-    const startDate = new Date(today.getFullYear(), today.getMonth(), 1);
-    const endDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-
+  private async getSumSpendAmountOfMonth(
+    user: UserDTO,
+    year: number,
+    month: number,
+  ): Promise<number> {
+    const { startDate, endDate } = DateUtils.getStartDateAndEndDate(year, month);
     const { sum } = await this.transactionRepository.sumAmount(
       user.uid,
       false,
@@ -103,28 +102,22 @@ export default class AggregateService {
     return Number(sum || 0);
   }
 
-  private async getAverageIncome(user: UserDTO): Promise<number> {
-    const today = new Date();
-    if (
-      user.createAt.getFullYear() === today.getFullYear() &&
-      user.createAt.getMonth() === today.getMonth()
-    ) {
+  private async getAverageIncome(user: UserDTO, year: number, month: number): Promise<number> {
+    if (new Date(year, month, 1).getTime() <= new Date(user.createAt).setDate(1)) {
       return 0;
     }
 
-    const startDate = new Date(
-      Math.max(new Date(today.getFullYear(), 0, 1).getTime(), user.createAt.getTime()),
-    );
-    const endDate = new Date(today.getFullYear(), today.getMonth(), 0);
-
+    const startDateOfYear = new Date(year, 0, 1);
+    const lastMonth = new Date(year, month - 1, 0);
+    const startDate = new Date(Math.max(startDateOfYear.getTime(), user.createAt.getTime()));
     const { sum } = await this.transactionRepository.sumAmount(
       user.uid,
       true,
       DateUtils.dateToString(startDate),
-      DateUtils.dateToString(endDate),
+      DateUtils.dateToString(lastMonth),
     );
 
-    const numOfMonthFromStartDateToLastMonth = DateUtils.countMonthBetween(startDate, endDate);
+    const numOfMonthFromStartDateToLastMonth = DateUtils.countMonthBetween(startDate, lastMonth);
     const averageIncome = Number(sum || 0) / numOfMonthFromStartDateToLastMonth;
     return Math.round(averageIncome);
   }

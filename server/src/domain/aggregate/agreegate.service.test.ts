@@ -38,10 +38,10 @@ describe('TransactionService Tests', () => {
         overspendingIndex,
         averageIncome,
         expenditureThisMonth,
-      } = await aggregateService.getOverspendingIndex(user);
+      } = await aggregateService.getOverspendingIndex(user, 2020, 12);
 
-      expect(averageIncome).toBeGreaterThanOrEqual(0);
-      expect(expenditureThisMonth).toBeGreaterThanOrEqual(0);
+      expect(averageIncome).toBeGreaterThan(0);
+      expect(expenditureThisMonth).toBeGreaterThan(0);
       if (averageIncome <= expenditureThisMonth) {
         expect(overspendingIndex).toBeGreaterThanOrEqual(1);
       } else {
@@ -63,7 +63,11 @@ describe('TransactionService Tests', () => {
         overspendingIndex,
         averageIncome,
         expenditureThisMonth,
-      } = await aggregateService.getOverspendingIndex(user);
+      } = await aggregateService.getOverspendingIndex(
+        user,
+        today.getFullYear(),
+        today.getMonth() + 1,
+      );
 
       expect(averageIncome).toEqual(0);
       expect(expenditureThisMonth).toBeGreaterThanOrEqual(0);
