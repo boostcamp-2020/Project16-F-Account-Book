@@ -13,8 +13,13 @@ const getRem = (n: number): string => {
   if (len > 6) rem = '0.1rem';
   return rem;
 };
+
 function TableCell({ day, totalInOut }: TableCellTypes): JSX.Element {
   const { dayPicker } = useSelector((state: RootState) => state);
+  const isBold = (): 'isBold' | '' => {
+    if (Number(dayPicker.day) === Number(day)) return 'isBold';
+    return '';
+  };
   const dispatch = useDispatch();
 
   const onClick = (e: any) => {
@@ -27,9 +32,12 @@ function TableCell({ day, totalInOut }: TableCellTypes): JSX.Element {
   };
   return (
     <>
-      <S.CellButton onClick={onClick} key={day}>
-        {Number(dayPicker.day) === Number(day) && dayPicker.day !== 0 && <S.ClickCircle />}
-        <div>{day}</div>
+      <S.CellButton onClick={onClick} key={day} className={isBold()}>
+        {Number(dayPicker.day) === Number(day) && dayPicker.day !== 0 ? (
+          <div>{day}</div>
+        ) : (
+          <div>{day}</div>
+        )}
         <S.TotalIn>
           {totalInOut.get(day) && totalInOut.get(day).totalIn > 0 ? (
             <div>
