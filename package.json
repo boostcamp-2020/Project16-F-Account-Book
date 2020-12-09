@@ -17,8 +17,10 @@
     "build:server": "yarn workspace server build",
     "build:client": "yarn workspace client build",
     "build": "run-p build:server build:client",
-    "pre:up": "docker-compose -f docker-compose.dev.yml pull && docker-compose -f docker-compose.dev.yml up -d",
-    "pre:down": "docker-compose -f docker-compose.dev.yml down --remove-orphan"
+    "docker": "docker-compose -f docker-compose.dev.yml pull && docker-compose -f docker-compose.dev.yml up -d",
+    "docker:server": "docker-compose -f docker-compose.dev.yml pull && docker-compose -f docker-compose.dev.yml up -d accountbook-server",
+    "docker:client": "docker-compose -f docker-compose.dev.yml pull && docker-compose -f docker-compose.dev.yml up -d accountbook-client",
+    "docker:down": "docker-compose -f docker-compose.dev.yml down --remove-orphan"
   },
   "husky": {
     "hooks": {
