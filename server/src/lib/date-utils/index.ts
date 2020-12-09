@@ -14,4 +14,13 @@ const countMonthBetween = (startDate: Date, endDate: Date): number => {
   return yearDiff * 12 + monthDiff;
 };
 
-export default { dateToString, countMonthBetween };
+const getStartDateAndEndDate = (
+  year: number,
+  month: number,
+): { startDate: Date; endDate: Date } => {
+  const startDate = new Date(year, month - 1, 1);
+  const endDate = new Date(year, month, 0);
+  return { startDate, endDate };
+};
+
+export default { dateToString, countMonthBetween, getStartDateAndEndDate };
