@@ -11,8 +11,8 @@ const HeaderDropdownIcon = (
   <img src={CircleUserSVG} alt="settings-button" width="24px" height="24px" />
 );
 function Header(): JSX.Element {
-  const list = ['결제수단 관리', '수입분류 관리', '지출분류 관리', '로그아웃'];
-  const linkPageList = ['manage-payment', 'imPortClassification', 'ExpenditureClassification', ''];
+  const list = ['결제수단 관리', '카테고리 관리', '로그아웃'];
+  const linkPageList = ['manage-payment', 'manage-category', ''];
   const dropdonwList = list.map((v: string, i: number) => (
     <S.Item key={`header${i.toString()}`}>
       <Link
@@ -31,7 +31,7 @@ function Header(): JSX.Element {
     <S.HeaderDiv>
       <S.HeaderContentDiv>
         <S.HeaderLogo>
-          <Link to="/">
+          <Link to="/dashboard">
             <Logo height="35px" />
           </Link>
         </S.HeaderLogo>
