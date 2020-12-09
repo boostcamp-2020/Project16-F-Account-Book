@@ -4,6 +4,7 @@ import { RootState } from '@modules/index';
 import { getMonthlyTransactionThunk } from '@/modules/transaction';
 import TabMenu from '@/components/common/TabMenu';
 import DashboardDetailsContainer from '@/container/DashboardDetails';
+import DashboardStaticsContainer from '@/container/DashboardStatics';
 
 const DashboardContainer = (): JSX.Element => {
   const { datePicker } = useSelector((state: RootState) => state);
@@ -18,7 +19,7 @@ const DashboardContainer = (): JSX.Element => {
 
   const tabMenu = [
     { tabName: '내역', children: <DashboardDetailsContainer /> },
-    { tabName: '통계', children: <div /> },
+    { tabName: '통계', children: <DashboardStaticsContainer /> },
   ];
   return <TabMenu list={tabMenu} />;
 };
