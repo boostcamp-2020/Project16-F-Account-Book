@@ -23,7 +23,7 @@ export default class FixedExpenditureRouter extends Router {
       const { year, month } = ctx.query;
       const fixedList = await this.fixedExpenditureService.getFixedExpenditure(
         uid,
-        updateAt,
+        new Date(updateAt),
         year,
         Number(month) - 1,
       );
