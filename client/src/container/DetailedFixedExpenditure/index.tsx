@@ -35,10 +35,8 @@ const DetailedFixedExpenditure = (): JSX.Element => {
         data.paid.forEach((temp) => {
           sum += temp.amount;
         });
-
-        return numberUtils.numberWithCommas(sum);
       }
-      return sum;
+      return numberUtils.numberWithCommas(sum);
     },
     [fixedExpenditure],
   );
