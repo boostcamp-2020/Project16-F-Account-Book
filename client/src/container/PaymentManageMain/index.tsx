@@ -66,7 +66,6 @@ const PaymentManageContainer = (): JSX.Element => {
       <S.ManageListContainer>
         {paymentList.map((payment) => (
           <ManageItem
-            value={paymentData.name}
             item={payment}
             deleteItem={deletePayment}
             updateItem={updatePayment}

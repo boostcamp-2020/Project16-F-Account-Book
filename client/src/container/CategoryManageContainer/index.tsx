@@ -70,7 +70,6 @@ const CategoryManageContainer = ({ isIncome }: CategoryManageContainerProps): JS
       <CategoryListContainer>
         {categoryList.map((category) => (
           <ManageItem
-            value={categoryData.name}
             item={category}
             deleteItem={deleteCategory}
             updateItem={updateCategory}
