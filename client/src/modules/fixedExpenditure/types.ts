@@ -5,9 +5,7 @@ import * as actions from './actions';
 export type FixedExpenditureAction = ActionType<typeof actions>;
 
 export type FixedExpenditureState = {
-  fixedExpenditure: {
-    loading: boolean;
-    error: Error | null;
-    data: FixedExpenditure[] | null;
-  };
+  loading: boolean;
+  error: Error | null;
+  data: FixedExpenditure | null;
 };

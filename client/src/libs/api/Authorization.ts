@@ -2,8 +2,10 @@ import axios from '@/libs/axios';
 import endplints from '@/libs/endpoints';
 
 const authorizationAPI = {
-  isLogin: async (): Promise<void> => {
-    await axios.get<void>(`${endplints.AUTH_API}/isLogin`);
+  isLogin: async (): Promise<Date> => {
+    const createAt = await axios.get<Date>(`${endplints.AUTH_API}/isLogin`);
+
+    return createAt;
   },
 };
 

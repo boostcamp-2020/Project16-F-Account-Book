@@ -1,39 +1,79 @@
+import { CategoryModel } from '@/commons/types/category';
 import { createReducer } from 'typesafe-actions';
-import { GET_CATEGORY, GET_CATEGORY_FAILURE, GET_CATEGORY_SUCCESS } from './actions';
+import * as categoryActions from './actions';
 import { CategoryAction, CategoryState } from './types';
 
 const initialState: CategoryState = {
-  categories: {
-    loading: false,
-    error: null,
-    data: null,
-  },
+  loading: false,
+  error: null,
+  data: [],
 };
 
 const categoryReducer = createReducer<CategoryState, CategoryAction>(initialState, {
-  [GET_CATEGORY]: (state) => ({
+  [categoryActions.GET_CATEGORY]: (state) => ({
     ...state,
-    categories: {
-      loading: true,
-      error: null,
-      data: null,
-    },
+    loading: true,
+    error: null,
   }),
-  [GET_CATEGORY_SUCCESS]: (state, action) => ({
+  [categoryActions.GET_CATEGORY_SUCCESS]: (state, { payload }) => ({
     ...state,
-    categories: {
-      loading: false,
-      error: null,
-      data: action.payload,
-    },
+    loading: false,
+    error: null,
+    data: payload,
   }),
-  [GET_CATEGORY_FAILURE]: (state, action) => ({
+  [categoryActions.GET_CATEGORY_FAILURE]: (state, { payload }) => ({
     ...state,
-    categories: {
-      loading: false,
-      error: action.payload,
-      data: null,
-    },
+    loading: false,
+    error: payload,
+  }),
+  [categoryActions.POST_CATEGORY]: (state) => ({
+    ...state,
+    loading: true,
+    error: null,
+  }),
+  [categoryActions.POST_CATEGORY_SUCCESS]: (state, { payload }) => ({
+    ...state,
+    loading: false,
+    error: null,
+    data: state.data.concat(payload),
+  }),
+  [categoryActions.POST_CATEGORY_FAILURE]: (state, { payload }) => ({
+    ...state,
+    loading: false,
+    error: payload,
+  }),
+  [categoryActions.UPDATE_CATEGORY]: (state) => ({
+    ...state,
+    loading: true,
+    error: null,
+  }),
+  [categoryActions.UPDATE_CATEGORY_SUCCESS]: (state, { payload }) => ({
+    ...state,
+    loading: false,
+    data: state.data.map((category) => {
+      if (category.cid === payload.cid) return payload;
+      return state.data;
+    }) as CategoryModel[],
+  }),
+  [categoryActions.UPDATE_CATEGORY_FAILURE]: (state, { payload }) => ({
+    ...state,
+    loading: false,
+    error: payload,
+  }),
+  [categoryActions.DELETE_CATEGORY]: (state) => ({
+    ...state,
+    loading: true,
+    error: null,
+  }),
+  [categoryActions.DELETE_CATEGORY_SUCCESS]: (state, { payload }) => ({
+    ...state,
+    loading: false,
+    data: state.data.filter((category) => category.cid !== payload.cid),
+  }),
+  [categoryActions.DELETE_CATEGORY_FAILURE]: (state, { payload }) => ({
+    ...state,
+    loading: false,
+    error: payload,
   }),
 });
 

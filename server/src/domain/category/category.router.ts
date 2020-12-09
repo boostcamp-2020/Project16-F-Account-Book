@@ -15,8 +15,9 @@ export default class CategoryRouter extends Router {
     this.post('/', async (ctx: Context) => {
       const { uid } = ctx.state.user;
       const { name, isIncome } = ctx.request.body;
-      await this.categoryService.createCategory(name, isIncome, uid);
-      ctx.status = 200;
+      const newCategory = await this.categoryService.createCategory(name, isIncome, uid);
+      ctx.status = 201;
+      ctx.body = newCategory;
     });
 
     this.get('/', async (ctx: Context) => {
@@ -29,15 +30,22 @@ export default class CategoryRouter extends Router {
       const { uid } = ctx.state.user;
       const { categoryId } = ctx.params;
       const { name, isIncome } = ctx.request.body;
-      await this.categoryService.updateCategory(categoryId, name, isIncome, uid);
+      const updatedCategory = await this.categoryService.updateCategory(
+        categoryId,
+        name,
+        isIncome,
+        uid,
+      );
       ctx.status = 200;
+      ctx.body = updatedCategory;
     });
 
     this.delete('/:categoryId', async (ctx: Context) => {
       const { uid } = ctx.state.user;
       const { categoryId } = ctx.params;
-      await this.categoryService.deleteCategory(categoryId, uid);
+      const deletedCategory = await this.categoryService.deleteCategory(categoryId, uid);
       ctx.status = 200;
+      ctx.body = deletedCategory;
     });
   }
 }

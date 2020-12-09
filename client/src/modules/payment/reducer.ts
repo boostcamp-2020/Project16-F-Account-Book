@@ -1,5 +1,6 @@
+import { PaymentModel } from '@/commons/types/payment';
 import { createReducer } from 'typesafe-actions';
-import { GET_PAYMENT, GET_PAYMENT_FAILURE, GET_PAYMENT_SUCCESS } from './actions';
+import * as paymentActions from './actions';
 import { PaymentAction, PaymentState } from './types';
 
 const initialState: PaymentState = {
@@ -9,21 +10,70 @@ const initialState: PaymentState = {
 };
 
 const paymentReducer = createReducer<PaymentState, PaymentAction>(initialState, {
-  [GET_PAYMENT]: (state) => ({
+  [paymentActions.GET_PAYMENT]: (state) => ({
     ...state,
     loading: true,
     error: null,
   }),
-  [GET_PAYMENT_SUCCESS]: (state, action) => ({
+  [paymentActions.GET_PAYMENT_SUCCESS]: (state, { payload }) => ({
     ...state,
     loading: false,
     error: null,
-    data: action.payload,
+    data: payload,
   }),
-  [GET_PAYMENT_FAILURE]: (state, action) => ({
+  [paymentActions.GET_PAYMENT_FAILURE]: (state, { payload }) => ({
     ...state,
     loading: false,
-    error: action.payload,
+    error: payload,
+  }),
+  [paymentActions.POST_PAYMENT]: (state) => ({
+    ...state,
+    loading: true,
+    error: null,
+  }),
+  [paymentActions.POST_PAYMENT_SUCCESS]: (state, { payload }) => ({
+    ...state,
+    loading: false,
+    error: null,
+    data: state.data.concat(payload),
+  }),
+  [paymentActions.POST_PAYMENT_FAILURE]: (state, { payload }) => ({
+    ...state,
+    loading: false,
+    error: payload,
+  }),
+  [paymentActions.UPDATE_PAYMENT]: (state) => ({
+    ...state,
+    loading: true,
+    error: null,
+  }),
+  [paymentActions.UPDATE_PAYMENT_SUCCESS]: (state, { payload }) => ({
+    ...state,
+    loading: false,
+    data: state.data.map((payment) => {
+      if (payment.pid === payload.pid) return payload;
+      return state.data;
+    }) as PaymentModel[],
+  }),
+  [paymentActions.UPDATE_PAYMENT_FAILURE]: (state, { payload }) => ({
+    ...state,
+    loading: false,
+    error: payload,
+  }),
+  [paymentActions.DELETE_PAYMENT]: (state) => ({
+    ...state,
+    loading: true,
+    error: null,
+  }),
+  [paymentActions.DELETE_PAYMENT_SUCCESS]: (state, { payload }) => ({
+    ...state,
+    loading: false,
+    data: state.data.filter((payment) => payment.pid !== payload.pid),
+  }),
+  [paymentActions.DELETE_PAYMENT_FAILURE]: (state, { payload }) => ({
+    ...state,
+    loading: false,
+    error: payload,
   }),
 });
 

@@ -9,9 +9,14 @@ export default class CategoryService {
     this.categoryRepository = categoryRepository;
   }
 
-  public async createCategory(name: string, isIncome: boolean, uid: number): Promise<void> {
+  public async createCategory(
+    name: string,
+    isIncome: boolean,
+    uid: number,
+  ): Promise<CategoryEntity> {
     const category = this.categoryRepository.create({ name, isIncome, uid });
-    await this.categoryRepository.save(category);
+    const newCategory = await this.categoryRepository.save(category);
+    return newCategory;
   }
 
   public async readCategories(uid: number): Promise<CategoryEntity[]> {
@@ -23,24 +28,22 @@ export default class CategoryService {
   }
 
   public async updateCategory(
-    categoryId: number,
+    cid: number,
     name: string,
     isIncome: boolean,
     uid: number,
-  ): Promise<void> {
-    const { affected } = await this.categoryRepository.update(
-      { cid: categoryId, uid },
-      { name, isIncome },
-    );
-    if (!affected) {
-      throw new Error(BAD_REQUEST);
-    }
+  ): Promise<CategoryEntity> {
+    const category = await this.categoryRepository.findOne({ where: { cid, uid } });
+    if (!category) throw new Error(BAD_REQUEST);
+    const mergedCategory = this.categoryRepository.merge(category, { name, isIncome });
+    const updatedCategory = await this.categoryRepository.save(mergedCategory);
+    return updatedCategory;
   }
 
-  public async deleteCategory(categoryId: number, uid: number): Promise<void> {
-    const { affected } = await this.categoryRepository.delete({ cid: categoryId, uid });
-    if (!affected) {
-      throw new Error(BAD_REQUEST);
-    }
+  public async deleteCategory(cid: number, uid: number): Promise<CategoryEntity> {
+    const category = await this.categoryRepository.findOne({ where: { cid, uid } });
+    if (!category) throw new Error(BAD_REQUEST);
+    await this.categoryRepository.softDelete(category);
+    return category;
   }
 }

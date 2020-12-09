@@ -10,4 +10,4 @@ export const getFixedExpenditureAsync = createAsyncAction(
   GET_FIXED_EXPENDITURE,
   GET_FIXED_EXPENDITURE_SUCCESS,
   GET_FIXED_EXPENDITURE_FAILURE,
-)<string, FixedExpenditure[], AxiosError>();
+)<string, FixedExpenditure, AxiosError>();
