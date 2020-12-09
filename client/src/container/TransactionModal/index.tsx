@@ -23,9 +23,7 @@ const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Ele
   const [isIncome, setIsIncome] = useState(false);
 
   const { payment, category } = useSelector((state: RootState) => state);
-  const categoryList = (category.categories.data as CategoryModel[])?.map(
-    (c) => new CategoryDTO(c as CategoryModel),
-  );
+  const categoryList = category.data.map((c) => new CategoryDTO(c));
   const paymentList = payment.data.map((p) => new PaymentDTO(p));
   const dispatch = useDispatch();
 
