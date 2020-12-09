@@ -9,7 +9,7 @@ import ViewCalendar from '@components/calendar/CalendarView';
 import * as S from './styles';
 
 const Calendar = (): JSX.Element => {
-  const { datePicker, transaction, dayPicker } = useSelector((state: RootState) => state);
+  const { datePicker, transaction, calendarDaySelector } = useSelector((state: RootState) => state);
   const dailyTotalInOut = new Map();
   transaction.aggregationByDate.map((dayData) =>
     dailyTotalInOut.set(String(dayData[0]), dayData[1]),
@@ -41,7 +41,7 @@ const Calendar = (): JSX.Element => {
             month={datePicker.month}
           />
         </S.CalendarDiv>
-        {dayPicker.day === 0 ? <TransactionListContainer /> : <TransactionSelectList />}
+        {calendarDaySelector.day === 0 ? <TransactionListContainer /> : <TransactionSelectList />}
       </S.CalendarPageDiv>
     </S.WarpCalendarDiv>
   );

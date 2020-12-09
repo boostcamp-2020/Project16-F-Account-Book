@@ -1,7 +1,7 @@
 import DateUtils from '@/libs/dateUtils';
 import { createReducer } from 'typesafe-actions';
-import { CHANGE_DATE, CHANGE_DAY } from './actions';
-import { DatePickerState, DatePickerAction, DayPickerState, DayPickerAction } from './types';
+import { CHANGE_DATE } from './actions';
+import { DatePickerState, DatePickerAction } from './types';
 
 const { year, month } = DateUtils.parseDate(new Date());
 
@@ -17,17 +17,4 @@ const datePickerReducer = createReducer<DatePickerState, DatePickerAction>(initi
   }),
 });
 
-const day = 0;
-
-const initialDayState: DayPickerState = {
-  day,
-};
-
-const dayPickerReducer = createReducer<DayPickerState, DayPickerAction>(initialDayState, {
-  [CHANGE_DAY]: (state, { payload }) => ({
-    ...state,
-    ...payload,
-  }),
-});
-
-export { dayPickerReducer as dayPicker, datePickerReducer as datePicker };
+export default datePickerReducer;

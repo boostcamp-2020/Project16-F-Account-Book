@@ -5,10 +5,10 @@ import TransactionListItem from '@/components/transaction/ListItem';
 import * as S from './styles';
 
 const TransactionSelectList = (): JSX.Element => {
-  const { transaction, dayPicker } = useSelector((state: RootState) => state);
+  const { transaction, calendarDaySelector } = useSelector((state: RootState) => state);
   const transactionData = new Map(transaction.transactionDetailsByDate);
   const transactionList = transactionData
-    .get(Number(dayPicker.day))
+    .get(Number(calendarDaySelector.day))
     ?.map((transactionDay) => (
       <TransactionListItem
         key={`transaction_${transactionDay.tid}`}
@@ -19,7 +19,7 @@ const TransactionSelectList = (): JSX.Element => {
   return (
     <>
       <S.DateContainer>
-        <S.DateLabel>{dayPicker.day}일</S.DateLabel>
+        <S.DateLabel>{calendarDaySelector.day}일</S.DateLabel>
         {transactionList}
       </S.DateContainer>
     </>

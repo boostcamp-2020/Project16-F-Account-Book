@@ -4,8 +4,8 @@ import Dropdown from '@components/common/Dropdown';
 import ArrowIcon from '@/components/common/ArrowIcon';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/modules';
-import { changeDate, changeDay } from '@modules/datePicker/actions';
-import { dayPicker } from '@/modules/datePicker';
+import { changeDate } from '@modules/datePicker/actions';
+import { changeDay } from '@/modules/calendarDaySelector/action';
 import * as S from './styles';
 
 const MONTHSLIST = Array.from({ length: 12 }, (v, i) => 12 - i);
@@ -13,7 +13,6 @@ const MONTHSLIST = Array.from({ length: 12 }, (v, i) => 12 - i);
 export default function SelectMonth(): JSX.Element {
   const { datePicker } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
-
   const onChangeDate = (e: any) => {
     const { value } = e.target;
     dispatch(changeDate({ year: datePicker.year, month: MONTHSLIST[value] }));
@@ -21,7 +20,7 @@ export default function SelectMonth(): JSX.Element {
   };
   const getMonthlyTransactions = useCallback(() => {
     dispatch(getMonthlyTransactionThunk(datePicker));
-  }, [dispatch, dayPicker]);
+  }, [dispatch, datePicker]);
 
   useEffect(() => {
     getMonthlyTransactions();

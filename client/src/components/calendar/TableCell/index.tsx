@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/modules';
-import { changeDay } from '@modules/datePicker/actions';
+import { changeDay } from '@/modules/calendarDaySelector/action';
 import AmountText from '@/components/transaction/AmountText';
 import * as S from './styles';
 import { TableCellTypes } from './types';
@@ -15,16 +15,16 @@ const getRem = (n: number): string => {
 };
 
 function TableCell({ day, totalInOut }: TableCellTypes): JSX.Element {
-  const { dayPicker } = useSelector((state: RootState) => state);
+  const { calendarDaySelector } = useSelector((state: RootState) => state);
   const isBold = (): 'isBold' | '' => {
-    if (Number(dayPicker.day) === Number(day)) return 'isBold';
+    if (Number(calendarDaySelector.day) === Number(day)) return 'isBold';
     return '';
   };
   const dispatch = useDispatch();
 
   const onClick = (e: any) => {
     const value = e.currentTarget.innerText.split('\n')[0];
-    if (value === dayPicker.day) {
+    if (value === calendarDaySelector.day) {
       dispatch(changeDay({ day: 0 }));
       return;
     }
@@ -33,11 +33,7 @@ function TableCell({ day, totalInOut }: TableCellTypes): JSX.Element {
   return (
     <>
       <S.CellButton onClick={onClick} key={day} className={isBold()}>
-        {Number(dayPicker.day) === Number(day) && dayPicker.day !== 0 ? (
-          <div>{day}</div>
-        ) : (
-          <div>{day}</div>
-        )}
+        <div>{day}</div>
         <S.TotalIn>
           {totalInOut.get(day) && totalInOut.get(day).totalIn > 0 ? (
             <div>
