@@ -73,5 +73,34 @@ describe('TransactionService Tests', () => {
       expect(expenditureThisMonth).toBeGreaterThanOrEqual(0);
       expect(overspendingIndex).toEqual(0);
     });
+
+    it('유저의 가입일 이전 날짜를 기준으로 과소비 지수가 계산되지 않는다.', async () => {
+      await TestSeeder.up({
+        connection,
+        numOfUsers: 1,
+        numOfTransactionsPerUser: 100,
+        startDate: new Date('2020-03-15'),
+        endDate: new Date('2020-12-31'),
+      });
+
+      const registeredAt = new Date('2020-03-15');
+      const user = {
+        uid: 1,
+        name: 'testUser',
+        socialType: 'google',
+        updateAt: registeredAt,
+        createAt: registeredAt,
+      };
+
+      const {
+        overspendingIndex,
+        averageIncome,
+        expenditureThisMonth,
+      } = await aggregateService.getOverspendingIndex(user, 2020, 2);
+
+      expect(averageIncome).toEqual(0);
+      expect(expenditureThisMonth).toEqual(0);
+      expect(overspendingIndex).toEqual(0);
+    });
   });
 });
