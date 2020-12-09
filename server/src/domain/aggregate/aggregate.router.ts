@@ -1,5 +1,6 @@
 import Router from 'koa-router';
 import { Context } from 'koa';
+import { getCustomRepository } from 'typeorm';
 import TransactionRepository from '@/domain/transaction/transaction.repository';
 import AggregateService from './aggregate.service';
 
@@ -8,7 +9,7 @@ export default class AggregateRouter extends Router {
 
   constructor() {
     super();
-    this.aggregateService = new AggregateService(TransactionRepository.getTransactionRepository());
+    this.aggregateService = new AggregateService(getCustomRepository(TransactionRepository));
   }
 
   initRouter(): void {
@@ -30,6 +31,12 @@ export default class AggregateRouter extends Router {
       const maxCategory = await this.aggregateService.getMaxCategory(uid);
 
       ctx.body = maxCategory;
+    });
+
+    this.get('/overspending-index', async (ctx: Context) => {
+      const { user } = ctx.state;
+      const overspendingIndexInfo = await this.aggregateService.getOverspendingIndex(user);
+      ctx.body = overspendingIndexInfo;
     });
   }
 }
