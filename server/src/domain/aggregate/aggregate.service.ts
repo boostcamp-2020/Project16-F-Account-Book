@@ -55,7 +55,9 @@ export default class AggregateService {
     const query = `select category.name, t1.aggregate
     from category, (select cid, sum(amount) as aggregate
     from transaction 
-    where uid=${uid} and trade_at between '${startDate}' and '${endDate}'
+    where uid=${uid} and is_income=${false} and trade_at between '${DateUtils.dateToString(
+      startDate,
+    )}' and '${DateUtils.dateToString(endDate)}'
     group by cid) t1
     where category.cid = t1.cid
     order by t1.aggregate DESC;`;
