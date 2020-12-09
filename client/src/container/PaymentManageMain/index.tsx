@@ -38,12 +38,15 @@ const PaymentManageContainer = (): JSX.Element => {
   const postNewPayment = useCallback(() => {
     const newPayment = new PaymentRequestDTO(paymentData);
     dispatch(postPaymentThunk(newPayment));
+    toggleAddPayment();
+    setPaymentData({} as PaymentRequest);
   }, [dispatch, paymentData]);
 
   const updatePayment = useCallback(
     (pid) => {
       const updatePaymentData = new PaymentRequestDTO({ pid, ...paymentData });
       dispatch(updatePaymentThunk(updatePaymentData));
+      setPaymentData({} as PaymentRequest);
     },
     [dispatch, paymentData],
   );
@@ -53,7 +56,7 @@ const PaymentManageContainer = (): JSX.Element => {
       <ManageHeader text="결제수단" onClick={toggleAddPayment} />
       {addPayment && (
         <ManageItemInput
-          name=""
+          name={paymentData.name}
           cancelHandler={toggleAddPayment}
           saveHandler={postNewPayment}
           onChangeInput={onChangePaymentName}
@@ -63,10 +66,12 @@ const PaymentManageContainer = (): JSX.Element => {
       <S.ManageListContainer>
         {paymentList.map((payment) => (
           <ManageItem
+            value={paymentData.name}
             item={payment}
             deleteItem={deletePayment}
             updateItem={updatePayment}
             onChangeInput={onChangePaymentName}
+            key={`m-payment${payment.id}`}
           />
         ))}
       </S.ManageListContainer>

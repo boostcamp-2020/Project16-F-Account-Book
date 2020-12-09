@@ -19,5 +19,10 @@ const exampleItem = {
 };
 
 export const ManageItemSample = (): JSX.Element => (
-  <ManageItem item={exampleItem} deleteItem={() => {}} updateItem={() => {}} />
+  <ManageItem
+    item={exampleItem}
+    deleteItem={() => {}}
+    updateItem={() => {}}
+    value={exampleItem.name}
+  />
 );

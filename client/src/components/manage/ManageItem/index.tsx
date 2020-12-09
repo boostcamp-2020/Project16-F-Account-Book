@@ -10,6 +10,7 @@ const ManageItem = ({
   deleteItem,
   updateItem,
   onChangeInput,
+  value,
 }: ManageItemProps): JSX.Element => {
   const [itemUpdateToggle, setItemUpdateToggle] = useState(false);
   const toggleUpdate = () => setItemUpdateToggle(!itemUpdateToggle);
@@ -26,7 +27,7 @@ const ManageItem = ({
     <>
       {itemUpdateToggle ? (
         <ManageItemInput
-          name={item.name}
+          name={value || item.name}
           cancelHandler={toggleUpdate}
           saveHandler={updateHandler}
           onChangeInput={onChangeInput}
