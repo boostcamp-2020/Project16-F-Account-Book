@@ -11,16 +11,16 @@ export const TitleBox = styled.div``;
 export const Description = styled.p`
   font-size: 1.2rem;
   font-weight: 600;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.6rem;
 `;
 
 export const Amount = styled.p`
   font-weight: 600;
-  color: #a4a4a4;
+  color: #6f6f6f;
 `;
 
 export const Date = styled.p`
   font-size: 1.2rem;
   font-weight: 600;
-  color: #a4a4a4;
+  color: #6f6f6f;
 `;

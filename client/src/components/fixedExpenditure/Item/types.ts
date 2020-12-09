@@ -1,5 +1,6 @@
-import { FixedExpenditure } from '@/commons/types/fixedExpenditure';
+import { FixedData } from '@/commons/types/fixedExpenditure';
 
 export type FixedExpenditureItemPropType = {
-  fixedItem: FixedExpenditure;
+  fixedItem: FixedData;
+  isPaid: boolean;
 };

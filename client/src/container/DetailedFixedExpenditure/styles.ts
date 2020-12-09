@@ -21,7 +21,7 @@ export const Title = styled.p`
 export const Amount = styled.p`
   font-size: 1.2rem;
   font-weight: 600;
-  color: #a4a4a4;
+  color: #6f6f6f;
 `;
 
 export const ItemBox = styled.div`
@@ -29,4 +29,22 @@ export const ItemBox = styled.div`
   & + & {
     border-top: 1px solid rgba(0, 0, 0, 0.1);
   }
+`;
+
+export const AmountBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: 0.9rem;
+`;
+
+export const Category = styled.p`
+  width: 4rem;
+  padding: 0.2rem;
+  color: white;
+  background-color: ${(props) => props.color || '#d1d1d1'};
+  border-radius: 5px;
+  font-size: 0.8rem;
+  text-align: center;
 `;

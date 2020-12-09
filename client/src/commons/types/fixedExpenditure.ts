@@ -1,7 +1,11 @@
-export type FixedExpenditure = {
+export type FixedData = {
   fid: number;
   tradeAt: Date;
   amount: number;
   description: string;
-  uid: number;
+};
+
+export type FixedExpenditure = {
+  paid: FixedData[];
+  estimated: FixedData[];
 };

@@ -1,14 +1,15 @@
 import { handleActions } from 'redux-actions';
 import { LOGIN, LOGOUT } from './actions';
+import { AuthorizationState } from './types';
 
-const initialState = {
-  isLoggedIn: false,
+const initialState: AuthorizationState = {
+  createAt: null,
 };
 
 const authorization = handleActions(
   {
-    [LOGIN]: (state, action) => ({ isLoggedIn: true }),
-    [LOGOUT]: (state, action) => ({ isLoggedIn: false }),
+    [LOGIN]: (state, action) => ({ createAt: action.payload.createAt }),
+    [LOGOUT]: (state, action) => ({ createAt: null }),
   },
   initialState,
 );
