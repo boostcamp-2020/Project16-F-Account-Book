@@ -11,6 +11,7 @@ const MenuItem = styled.div`
   margin: 8px 0px 0px 0px;
   padding: 0.2rem;
   border-radius: 0.5rem;
+  cursor: pointer;
   box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.2);
   &.right {
     right: 0;
