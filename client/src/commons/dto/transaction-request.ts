@@ -16,7 +16,7 @@ export default class TransactionRequestDTO {
   description: string;
 
   constructor(input: TransactionReqeust) {
-    this.tid = input.pid ? input.pid : null;
+    this.tid = input.tid ? input.tid : null;
     this.isIncome = input.isIncome === 'true';
     this.tradeAt = input.tradeAt;
     this.cid = Number(input.cid);

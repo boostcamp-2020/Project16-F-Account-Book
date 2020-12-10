@@ -14,8 +14,8 @@ const updateModalReducer = createReducer<UpdateModalState, UpdateModalAction>(in
     data: payload,
   }),
   [TOGGLE_OFF]: (state) => ({
-    ...state,
     toggle: false,
+    data: {} as TransactionModel,
   }),
 });
 

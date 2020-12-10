@@ -37,7 +37,7 @@ const transactionAPI = {
   },
 
   deleteTransaction: async (tid: number): Promise<TransactionModel> => {
-    const deletedTransaction = await axios.patch<TransactionModel>(
+    const deletedTransaction = await axios.delete<TransactionModel>(
       `${endpoints.TRANSACTION_API}/${tid}`,
     );
 

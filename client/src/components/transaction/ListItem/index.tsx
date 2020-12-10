@@ -6,9 +6,10 @@ import S from './styles';
 const TransactionListItem = ({
   transaction,
   border = false,
+  toggleUpdateModal,
 }: TransactionListItemPropType): JSX.Element => {
   return (
-    <S.ListItem border={!!border}>
+    <S.ListItem border={!!border} onDoubleClick={toggleUpdateModal}>
       <S.ListItemContentsRow>
         <S.ListItemDescription>{transaction.description}</S.ListItemDescription>
       </S.ListItemContentsRow>

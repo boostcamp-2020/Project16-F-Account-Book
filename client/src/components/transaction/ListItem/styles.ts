@@ -8,7 +8,7 @@ const ListItem = styled.div<TransactionListItemStylePropType>`
   width: 100%;
   align-items: center;
   font-size: 0.8rem;
-
+  cursor: pointer;
   ${(props) =>
     props.border &&
     css`
