@@ -1,13 +1,21 @@
 import React from 'react';
 import AmountText from '@/components/transaction/AmountText';
+import pencilIcon from '@/assets/svg/Pencil.svg';
 import { TransactionListItemPropType } from './types';
 import S from './styles';
 
-const TransactionListItem = ({ transaction }: TransactionListItemPropType): JSX.Element => {
+const TransactionListItem = ({
+  transaction,
+  toggleUpdateModal,
+  editable,
+}: TransactionListItemPropType): JSX.Element => {
   return (
     <S.ListItem>
       <S.ListItemContentsRow>
         <S.ListItemDescription>{transaction.description}</S.ListItemDescription>
+        <S.ListIteImgContainer editable={editable} onClick={toggleUpdateModal}>
+          <img src={pencilIcon} alt="updateIcon" />
+        </S.ListIteImgContainer>
       </S.ListItemContentsRow>
       <S.ListItemContentsRow>
         <S.ListItemPaymentInfo>

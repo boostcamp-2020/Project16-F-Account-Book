@@ -1,4 +1,4 @@
-type SelectInputOption = {
+export type SelectInputOption = {
   id: number;
   name: string;
 };
@@ -8,4 +8,5 @@ export type SelectInputProps = {
   placeholder: string;
   name: string;
   onChange: any;
+  value?: SelectInputOption;
 };

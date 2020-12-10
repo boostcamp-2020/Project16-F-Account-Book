@@ -1,4 +1,5 @@
 import { YearMonthModel } from '@/commons/types/date';
+import { Interface } from 'readline';
 
 export type TransactionModel = {
   tid: number;
@@ -24,11 +25,31 @@ export type TransactionModel = {
 
 export type MonthTransactionsResponse = { date: YearMonthModel; list: TransactionModel[] };
 
-export type PostTransactionRequest = {
+export interface TransactionReqeust {
+  tid?: number;
   amount: string;
   tradeAt: string;
   description: string;
   isIncome: string;
   cid: number;
   pid: number;
-};
+}
+
+export interface PostTransactionRequest extends TransactionReqeust {
+  amount: string;
+  tradeAt: string;
+  description: string;
+  isIncome: string;
+  cid: number;
+  pid: number;
+}
+
+export interface UpdateTransactionRequest extends TransactionReqeust {
+  tid: number;
+  amount: string;
+  tradeAt: string;
+  description: string;
+  isIncome: string;
+  cid: number;
+  pid: number;
+}

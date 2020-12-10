@@ -10,4 +10,5 @@ export default {
   AUTH_API: '/auth',
   GET_OVERSPENDING_INDEX_API: '/aggregate/overspending-index',
   GET_MOST_SPENDING_CATEGORY_API: '/aggregate/max-category',
+  AGGREGATE_CATEGORY_API: '/aggregate/category',
 };

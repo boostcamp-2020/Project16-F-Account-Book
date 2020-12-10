@@ -1,14 +1,7 @@
 import { TransactionModel } from '@/commons/types/transaction';
 import { createReducer, PayloadAction } from 'typesafe-actions';
 import DateUtils from '@/libs/dateUtils';
-import {
-  POST_TRANSACTION,
-  POST_TRANSACTION_FAILURE,
-  POST_TRANSACTION_SUCCESS,
-  GET_MONTHLY_TRANSACTION,
-  GET_MONTHLY_TRANSACTION_FAILURE,
-  GET_MONTHLY_TRANSACTION_SUCCESS,
-} from './actions';
+import * as transactionActions from './actions';
 import { TransactionAction, TransactionState } from './types';
 import aggregateTransactions from './aggregateUtil';
 
@@ -65,26 +58,26 @@ const updateTransactionState = (
 };
 
 const transactionReducer = createReducer<TransactionState, TransactionAction>(initialState, {
-  [POST_TRANSACTION]: (state) => ({
+  [transactionActions.POST_TRANSACTION]: (state) => ({
     ...state,
     loading: true,
     error: null,
   }),
-  [POST_TRANSACTION_SUCCESS]: (state, action) => {
+  [transactionActions.POST_TRANSACTION_SUCCESS]: (state, action) => {
     const updatedState = updateTransactionState('post', state, action);
     return updatedState;
   },
-  [POST_TRANSACTION_FAILURE]: (state, action) => ({
+  [transactionActions.POST_TRANSACTION_FAILURE]: (state, action) => ({
     ...state,
     loading: false,
     error: action.payload,
   }),
-  [GET_MONTHLY_TRANSACTION]: (state) => ({
+  [transactionActions.GET_MONTHLY_TRANSACTION]: (state) => ({
     ...state,
     loading: true,
     error: null,
   }),
-  [GET_MONTHLY_TRANSACTION_SUCCESS]: (state, { payload }) => {
+  [transactionActions.GET_MONTHLY_TRANSACTION_SUCCESS]: (state, { payload }) => {
     const { date, list } = payload;
     const aggregation = aggregateTransactions(list);
     return {
@@ -95,7 +88,35 @@ const transactionReducer = createReducer<TransactionState, TransactionAction>(in
       ...aggregation,
     };
   },
-  [GET_MONTHLY_TRANSACTION_FAILURE]: (state, action) => ({
+  [transactionActions.GET_MONTHLY_TRANSACTION_FAILURE]: (state, action) => ({
+    ...state,
+    loading: false,
+    error: action.payload,
+  }),
+  [transactionActions.UPDATE_TRANSACTION]: (state) => ({
+    ...state,
+    loading: true,
+    error: null,
+  }),
+  [transactionActions.UPDATE_TRANSACTION_SUCCESS]: (state, action) => {
+    const updatedState = updateTransactionState('patch', state, action);
+    return updatedState;
+  },
+  [transactionActions.UPDATE_TRANSACTION_FAILURE]: (state, action) => ({
+    ...state,
+    loading: false,
+    error: action.payload,
+  }),
+  [transactionActions.DELETE_TRANSACTION]: (state) => ({
+    ...state,
+    loading: true,
+    error: null,
+  }),
+  [transactionActions.DELETE_TRANSACTION_SUCCESS]: (state, action) => {
+    const updatedState = updateTransactionState('delete', state, action);
+    return updatedState;
+  },
+  [transactionActions.DELETE_TRANSACTION_FAILURE]: (state, action) => ({
     ...state,
     loading: false,
     error: action.payload,

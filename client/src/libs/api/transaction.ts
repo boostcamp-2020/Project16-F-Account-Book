@@ -25,6 +25,24 @@ const transactionAPI = {
 
     return newTransaction;
   },
+
+  updateTransaction: async (data: TransactionRequestDTO): Promise<TransactionModel> => {
+    const updatedTransaction = await axios.patch<TransactionModel>(
+      `${endpoints.TRANSACTION_API}/${data.tid}`,
+      {
+        ...data,
+      },
+    );
+    return updatedTransaction;
+  },
+
+  deleteTransaction: async (tid: number): Promise<TransactionModel> => {
+    const deletedTransaction = await axios.delete<TransactionModel>(
+      `${endpoints.TRANSACTION_API}/${tid}`,
+    );
+
+    return deletedTransaction;
+  },
 };
 
 export default transactionAPI;

@@ -95,13 +95,13 @@ const mockTransactions = [
 ];
 
 export const ListItemSample = (): JSX.Element => (
-  <TransactionListItem transaction={mockTransactions[0]} />
+  <TransactionListItem transaction={mockTransactions[0]} editable />
 );
 
 export const MultipleListItem = (): JSX.Element => (
   <>
     {mockTransactions.map((mockTransaction) => (
-      <TransactionListItem transaction={mockTransaction} />
+      <TransactionListItem transaction={mockTransaction} editable />
     ))}
   </>
 );

@@ -5,6 +5,8 @@ import authorization from './authorization/reducer';
 import transaction from './transaction';
 import fixedExpenditure from './fixedExpenditure';
 import datePicker from './datePicker';
+import updateModal from './updateModal';
+import aggregateCategory from './aggregateCategory';
 import calendarDaySelector from './calendarDaySelector';
 
 const rootReducer = combineReducers({
@@ -15,6 +17,8 @@ const rootReducer = combineReducers({
   fixedExpenditure,
   calendarDaySelector,
   datePicker,
+  updateModal,
+  aggregateCategory,
 });
 
 export default rootReducer;
