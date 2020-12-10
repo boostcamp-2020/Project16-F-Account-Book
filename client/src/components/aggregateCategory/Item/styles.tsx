@@ -30,15 +30,16 @@ export const DetailBox = styled.div`
 `;
 
 export const DetailItemBox = styled.div`
+  margin-left: 0.5rem;
   padding: 0.7rem 0;
   & + & {
     border-top: 1px solid rgba(0, 0, 0, 0.2);
   }
 `;
-export const DetailItem = styled.div`
+export const DetailItem = styled.div``;
+export const DetailBottomBox = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  margin-top: 0.6rem;
 `;
-
 export const DetailInfo = styled.p``;

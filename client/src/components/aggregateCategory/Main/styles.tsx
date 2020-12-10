@@ -1,12 +1,6 @@
 import styled from 'styled-components';
 
-const DefaultStyle = styled.div`
-  border-radius: 0.3rem;
-  box-shadow: 1px 2px 4px 1px rgba(0, 0, 0, 0.2);
-  padding: 1rem;
-`;
-
-export const Box = styled(DefaultStyle)`
+export const Box = styled.div`
   max-width: 100%;
   width: 100%;
   margin-top: 1rem;

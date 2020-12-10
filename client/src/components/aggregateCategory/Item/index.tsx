@@ -48,11 +48,11 @@ const AggregateCategoryItem = ({ item, total }: AggregateCategoryItemPropType): 
               <></>
             )}
             <S.DetailItem>
-              <S.DetailInfo>
-                {`${value.description} | 
-              ${value.payment}`}
-              </S.DetailInfo>
-              <S.Agregate>{NumberUtils.numberWithCommas(Number(value.amount))}원</S.Agregate>
+              <S.DetailInfo>{value.description}</S.DetailInfo>
+              <S.DetailBottomBox>
+                <S.DetailInfo>{value.payment}</S.DetailInfo>
+                <S.Agregate>{NumberUtils.numberWithCommas(Number(value.amount))}원</S.Agregate>
+              </S.DetailBottomBox>
             </S.DetailItem>
           </S.DetailItemBox>
         ))}
