@@ -73,22 +73,24 @@ export default class AggregateService {
   ): Promise<{
     overspendingIndex: number;
     averageIncome: number;
-    expenditureThisMonth: number;
+    sumSpendingAmountOfMonth: number;
   }> {
-    const [averageIncome, expenditureThisMonth] = await Promise.all([
+    const [averageIncome, sumSpendingAmountOfMonth] = await Promise.all([
       this.getAverageIncome(user, year, month),
-      this.getSumSpendAmountOfMonth(user, year, month),
+      this.getSumSpendingAmountOfMonth(user, year, month),
     ]);
 
-    const overspendingIndex = averageIncome ? (expenditureThisMonth / averageIncome).toFixed(2) : 0;
+    const overspendingIndex = averageIncome
+      ? (sumSpendingAmountOfMonth / averageIncome).toFixed(2)
+      : 0;
     return {
       overspendingIndex: Number(overspendingIndex),
       averageIncome,
-      expenditureThisMonth,
+      sumSpendingAmountOfMonth,
     };
   }
 
-  private async getSumSpendAmountOfMonth(
+  private async getSumSpendingAmountOfMonth(
     user: UserDTO,
     year: number,
     month: number,

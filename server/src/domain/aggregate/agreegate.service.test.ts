@@ -23,7 +23,7 @@ describe('TransactionService Tests', () => {
       await TestSeeder.up({
         connection,
         numOfUsers: 1,
-        numOfTransactionsPerUser: 100,
+        numOfTransactionsPerUser: 300,
         startDate: new Date('2020-05-12'),
         endDate: new Date('2020-12-31'),
       });
@@ -37,12 +37,12 @@ describe('TransactionService Tests', () => {
       const {
         overspendingIndex,
         averageIncome,
-        expenditureThisMonth,
+        sumSpendingAmountOfMonth,
       } = await aggregateService.getOverspendingIndex(user, 2020, 12);
 
       expect(averageIncome).toBeGreaterThan(0);
-      expect(expenditureThisMonth).toBeGreaterThan(0);
-      if (averageIncome <= expenditureThisMonth) {
+      expect(sumSpendingAmountOfMonth).toBeGreaterThan(0);
+      if (averageIncome <= sumSpendingAmountOfMonth) {
         expect(overspendingIndex).toBeGreaterThanOrEqual(1);
       } else {
         expect(overspendingIndex).toBeLessThan(1);
@@ -62,7 +62,7 @@ describe('TransactionService Tests', () => {
       const {
         overspendingIndex,
         averageIncome,
-        expenditureThisMonth,
+        sumSpendingAmountOfMonth,
       } = await aggregateService.getOverspendingIndex(
         user,
         today.getFullYear(),
@@ -70,7 +70,7 @@ describe('TransactionService Tests', () => {
       );
 
       expect(averageIncome).toEqual(0);
-      expect(expenditureThisMonth).toBeGreaterThanOrEqual(0);
+      expect(sumSpendingAmountOfMonth).toBeGreaterThanOrEqual(0);
       expect(overspendingIndex).toEqual(0);
     });
 
@@ -95,11 +95,11 @@ describe('TransactionService Tests', () => {
       const {
         overspendingIndex,
         averageIncome,
-        expenditureThisMonth,
+        sumSpendingAmountOfMonth,
       } = await aggregateService.getOverspendingIndex(user, 2020, 2);
 
       expect(averageIncome).toEqual(0);
-      expect(expenditureThisMonth).toEqual(0);
+      expect(sumSpendingAmountOfMonth).toEqual(0);
       expect(overspendingIndex).toEqual(0);
     });
   });
