@@ -12,7 +12,6 @@ const Table = styled.table`
   table-layout: fixed;
   text-align: center;
   border-spacing: none;
-  border-collapse: collapse;
 `;
 
 const Tbody = styled.tbody``;
