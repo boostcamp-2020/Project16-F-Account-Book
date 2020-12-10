@@ -1,7 +1,7 @@
 import TransactionRepository from '@/domain/transaction/transaction.repository';
 import DateUtils from '@/lib/date-utils';
 import UserDTO from '@/domain/auth/types/user-dto';
-import { AggregateData, AggregateResponse, MaxCategory } from './types';
+import { AggregateData, AggregateValue, AggregateResponse, MaxCategory } from './types';
 
 export default class AggregateService {
   private transactionRepository: TransactionRepository;
@@ -13,40 +13,58 @@ export default class AggregateService {
   public async getAggregateCategory(
     startDate: Date,
     endDate: Date,
-    income: boolean,
     uid: number,
-  ): Promise<AggregateResponse[]> {
-    const query = `select (select name from category where cid=t1.cid) as category, t1.aggregate, t2.amount, t2.trade_at as tradeAt, t2.description, t2.is_income as isIncome, (select name from payment where pid=t2.pid) as payment
+  ): Promise<AggregateResponse> {
+    const query = `select t2.is_income as isIncome, c1.name as category, t1.aggregate, t2.tid, t2.amount, t2.trade_at as tradeAt, t2.description, p1.name as payment
     from (select cid, sum(amount) as aggregate
     from transaction
     where uid = ${uid} and trade_at between '${startDate}' and '${endDate}'
-    group by cid) t1, transaction t2
-    where t2.cid = t1.cid and t2.uid = ${uid} and t2.is_income = ${income} and trade_at between '${startDate}' and '${endDate}'
-    order by t1.aggregate DESC, t2.cid ASC, t2.trade_at DESC;`;
+    group by cid) t1, (select * from transaction where uid = ${uid} and trade_at between '${startDate}' and '${endDate}') t2, (select * from category where uid = ${uid}) c1, (select * from payment where uid = ${uid}) p1
+    where t2.cid = t1.cid and t1.cid = c1.cid and t2.pid = p1.pid
+    order by t2.is_income ASC, t1.aggregate DESC, t2.trade_at DESC;`;
 
     const aggregateList: AggregateData[] = await this.transactionRepository.query(query);
-    const map: Map<string, AggregateResponse> = new Map();
+    const incomeMap: Map<string, AggregateValue> = new Map();
+    const expenditureMap: Map<string, AggregateValue> = new Map();
 
     aggregateList.forEach((data) => {
-      const { category, aggregate, amount, tradeAt, description, isIncome, payment } = data;
-      if (!map.has(category)) {
-        map.set(category, { category, aggregate, list: [] });
+      const { isIncome, category, aggregate, tid, amount, tradeAt, description, payment } = data;
+      if (isIncome) {
+        if (!incomeMap.has(category)) {
+          incomeMap.set(category, { category, aggregate, dataArray: [] });
+        }
+        (incomeMap.get(category) as AggregateValue).dataArray.push({
+          tid,
+          amount,
+          tradeAt,
+          description,
+          payment,
+        });
+      } else {
+        if (!expenditureMap.has(category)) {
+          expenditureMap.set(category, { category, aggregate, dataArray: [] });
+        }
+        (expenditureMap.get(category) as AggregateValue).dataArray.push({
+          tid,
+          amount,
+          tradeAt,
+          description,
+          payment,
+        });
       }
-      (map.get(category) as AggregateResponse).list.push({
-        amount,
-        tradeAt,
-        description,
-        isIncome,
-        payment,
-      });
     });
 
-    const response: Array<AggregateResponse> = [];
-    map.forEach((value) => {
-      response.push(value);
+    const income: AggregateValue[] = [];
+    const expenditure: AggregateValue[] = [];
+
+    incomeMap.forEach((value) => {
+      income.push(value);
+    });
+    expenditureMap.forEach((value) => {
+      expenditure.push(value);
     });
 
-    return response;
+    return { income, expenditure };
   }
 
   public async getMaxCategory(uid: number, year: number, month: number): Promise<MaxCategory> {
