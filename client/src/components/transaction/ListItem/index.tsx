@@ -1,5 +1,6 @@
 import React from 'react';
 import AmountText from '@/components/transaction/AmountText';
+import pencilIcon from '@/assets/svg/Pencil.svg';
 import { TransactionListItemPropType } from './types';
 import S from './styles';
 
@@ -7,11 +8,15 @@ const TransactionListItem = ({
   transaction,
   border = false,
   toggleUpdateModal,
+  editable,
 }: TransactionListItemPropType): JSX.Element => {
   return (
-    <S.ListItem border={!!border} onDoubleClick={toggleUpdateModal}>
+    <S.ListItem border={!!border}>
       <S.ListItemContentsRow>
         <S.ListItemDescription>{transaction.description}</S.ListItemDescription>
+        <S.ListIteImgContainer editable={editable} onClick={toggleUpdateModal}>
+          <img src={pencilIcon} alt="updateIcon" />
+        </S.ListIteImgContainer>
       </S.ListItemContentsRow>
       <S.ListItemContentsRow>
         <S.ListItemPaymentInfo>

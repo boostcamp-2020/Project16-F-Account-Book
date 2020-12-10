@@ -30,7 +30,7 @@ const DashboardDetailsContainer = (): JSX.Element => {
         </S.RecentTransactionBoxHeader>
         {transaction.transactions.slice(0, RECENT_TRANSACTION_LIMIT).map((mockTransaction) => (
           <S.RecentTransactionBoxItem key={`transaction${mockTransaction.tid}`}>
-            <TransactionListItem transaction={mockTransaction} />
+            <TransactionListItem transaction={mockTransaction} editable={false} />
           </S.RecentTransactionBoxItem>
         ))}
       </S.RecentTransactionBox>

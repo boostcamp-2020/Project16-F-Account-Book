@@ -5,8 +5,9 @@ import { RootState } from '@modules/index';
 import { toggleModalOn } from '@/modules/updateModal';
 import { TransactionModel } from '@/commons/types/transaction';
 import * as S from './styles';
+import { TransactionListContainerProps } from './types';
 
-const TransactionListContainer = (): JSX.Element => {
+const TransactionListContainer = ({ editable }: TransactionListContainerProps): JSX.Element => {
   const { transaction } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
   const toggleModal = useCallback(
@@ -29,6 +30,7 @@ const TransactionListContainer = (): JSX.Element => {
               key={`transaction_${transactionDetail.tid}`}
               transaction={transactionDetail}
               border
+              editable={editable}
             />
           ))}
         </S.DateContainer>

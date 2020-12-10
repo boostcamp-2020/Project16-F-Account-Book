@@ -39,7 +39,7 @@ const Calendar = (): JSX.Element => {
             month={datePicker.month}
           />
         </S.CalendarDiv>
-        <TransactionListContainer />
+        <TransactionListContainer editable />
       </S.CalendarPageDiv>
     </S.WarpCalendarDiv>
   );

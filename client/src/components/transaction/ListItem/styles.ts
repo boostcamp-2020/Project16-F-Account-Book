@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { TransactionListItemStylePropType } from './types';
+import { ImgContainerProps, TransactionListItemStylePropType } from './types';
 
 const ListItem = styled.div<TransactionListItemStylePropType>`
   display: flex;
@@ -8,7 +8,6 @@ const ListItem = styled.div<TransactionListItemStylePropType>`
   width: 100%;
   align-items: center;
   font-size: 0.8rem;
-  cursor: pointer;
   ${(props) =>
     props.border &&
     css`
@@ -31,12 +30,23 @@ const ListItemContentsRow = styled.div`
 `;
 
 const ListItemDescription = styled.div`
+  flex: 1;
   font-weight: 500;
   font-size: 1rem;
   line-height: 1.1rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+`;
+
+const ListIteImgContainer = styled.div<ImgContainerProps>`
+  display: ${(props) => (props.editable ? 'block' : 'none')};
+  flex: 0 0 20px;
+  height: 1rem;
+  img {
+    height: 100%;
+  }
+  cursor: pointer;
 `;
 
 const ListItemPaymentInfo = styled.div`
@@ -55,4 +65,5 @@ export default {
   ListItemDescription,
   ListItemPaymentInfo,
   ListItemAmount,
+  ListIteImgContainer,
 };
