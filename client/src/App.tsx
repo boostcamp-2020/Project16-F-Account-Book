@@ -8,7 +8,6 @@ import DetailedFixedExpenditurePage from '@/views/DetailedFixedExpenditurePage';
 import PaymentManagePage from '@/views/PaymentManagePage';
 import AggregateCategoryPage from '@/views/AggregateCategoryPage';
 import GlobalStyled from './GlobalStyled';
-import PaymentManagePage from './views/PaymentManagePage';
 import CategoryManagePage from './views/CategoryManagePage';
 
 function App(): JSX.Element {

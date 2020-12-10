@@ -1,6 +1,8 @@
-import { PostTransactionRequest } from '../types/transaction';
+import { TransactionReqeust } from '../types/transaction';
 
 export default class TransactionRequestDTO {
+  tid?: number | null;
+
   isIncome: boolean;
 
   tradeAt: string;
@@ -13,12 +15,13 @@ export default class TransactionRequestDTO {
 
   description: string;
 
-  constructor(postInput: PostTransactionRequest) {
-    this.isIncome = postInput.isIncome === 'true';
-    this.tradeAt = postInput.tradeAt;
-    this.cid = Number(postInput.cid);
-    this.pid = Number(postInput.pid);
-    this.amount = Number(postInput.amount);
-    this.description = postInput.description;
+  constructor(input: TransactionReqeust) {
+    this.tid = input.tid ? input.tid : null;
+    this.isIncome = input.isIncome === 'true';
+    this.tradeAt = input.tradeAt;
+    this.cid = Number(input.cid);
+    this.pid = Number(input.pid);
+    this.amount = Number(input.amount);
+    this.description = input.description;
   }
 }

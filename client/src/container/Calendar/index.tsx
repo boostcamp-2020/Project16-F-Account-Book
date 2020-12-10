@@ -34,7 +34,11 @@ const Calendar = (): JSX.Element => {
             month={datePicker.month}
           />
         </S.CalendarDiv>
-        {calendarDaySelector.day === 0 ? <TransactionListContainer /> : <TransactionSelectList />}
+        {calendarDaySelector.day === 0 ? (
+          <TransactionListContainer editable />
+        ) : (
+          <TransactionSelectList />
+        )}
       </S.CalendarPageDiv>
     </S.WarpCalendarDiv>
   );
