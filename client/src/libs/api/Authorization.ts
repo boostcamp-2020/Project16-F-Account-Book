@@ -7,6 +7,9 @@ const authorizationAPI = {
 
     return createAt;
   },
+  logout: async (): Promise<void> => {
+    await axios.post<void>(`${endplints.AUTH_API}/logout`);
+  },
 };
 
 export default authorizationAPI;

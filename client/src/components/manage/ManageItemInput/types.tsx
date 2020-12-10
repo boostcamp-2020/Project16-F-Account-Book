@@ -3,4 +3,9 @@ export type ManageItemInputProps = {
   cancelHandler?: () => void;
   saveHandler?: (e: React.MouseEvent<HTMLElement>) => void;
   onChangeInput?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  border: boolean;
+};
+
+export type ManageItemInputContainerProps = {
+  border: boolean;
 };

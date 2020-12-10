@@ -7,5 +7,5 @@ export type FixedExpenditureAction = ActionType<typeof actions>;
 export type FixedExpenditureState = {
   loading: boolean;
   error: Error | null;
-  data: FixedExpenditure | null;
+  data: FixedExpenditure;
 };

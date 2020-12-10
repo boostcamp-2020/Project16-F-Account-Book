@@ -7,13 +7,14 @@ export const ManageItemContainer = styled.div`
   justify-content: space-between;
   padding: 0.9rem 0.3rem;
   width: 100%;
-  border-radius: 0.3rem;
-  box-shadow: 0.5px 1px 4px 1px rgba(0, 0, 0, 0.2);
+  & + & {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
 `;
 
 export const DeleteImgContainer = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   padding-left: 0.5rem;
   height: 1.2rem;
   width: 13%;
@@ -34,7 +35,7 @@ export const UpdateImgContainer = styled.div`
   display: flex;
   height: 1.2rem;
   width: 13%;
-  justify-content: center;
+  justify-content: flex-end;
   img {
     height: 100%;
   }

@@ -22,6 +22,10 @@ class AuthRouter extends Router {
       const { createAt } = ctx.state.user;
       ctx.body = createAt;
     });
+    this.post('/logout', jwtAuthorize, (ctx: Context) => {
+      ctx.cookies.set('jwt');
+      ctx.status = 204;
+    });
 
     this.get('/:provider', (ctx: Context) => {
       const { provider } = ctx.params;

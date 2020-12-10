@@ -5,21 +5,21 @@ const MenuItem = styled.div`
   z-index: 1100;
   display: flex;
   position: absolute;
-  text-align: center;
   text-decoration: none;
   border: 1px solid #c9c9c9;
   white-space: nowrap;
   margin: 8px 0px 0px 0px;
-  border-radius: 15px;
+  padding: 0.2rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
   box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.2);
   &.right {
     right: 0;
   }
 `;
 
-const DropdownButton = styled.div`
+const IconDiv = styled.div`
   z-index: 1100;
-  cursor: pointer;
 `;
 
 const CloseDiv = styled.div`
@@ -33,4 +33,4 @@ const CloseDiv = styled.div`
   opctiy: 0;
 `;
 
-export { MenuItem, DropdownButton, CloseDiv };
+export { MenuItem, IconDiv, CloseDiv };

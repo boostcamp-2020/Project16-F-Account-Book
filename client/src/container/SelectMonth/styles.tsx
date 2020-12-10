@@ -27,18 +27,10 @@ const DropdownPosition = styled.div`
   text-align: top;
   margin-top: -5px;
 `;
-const Item = styled.li`
-  display: inline-block;
-  white-space: nowarp;
-  font-weight: bold;
-  font-size: 20px;
-  word-break: keep-all;
-  list-style: none;
-  cursor: pointer;
-`;
 
 const MonthList = styled.li`
-  margin: 5px 0px;
+  & + & {
+    margin-top: 7px;
+  }
 `;
-
-export { DropdownPosition, Item, ScollDiv, MonthDiv, MonthList };
+export { DropdownPosition, ScollDiv, MonthDiv, MonthList };

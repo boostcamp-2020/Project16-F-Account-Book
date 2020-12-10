@@ -52,8 +52,8 @@ const paymentReducer = createReducer<PaymentState, PaymentAction>(initialState, 
     loading: false,
     data: state.data.map((payment) => {
       if (payment.pid === payload.pid) return payload;
-      return state.data;
-    }) as PaymentModel[],
+      return payment;
+    }),
   }),
   [paymentActions.UPDATE_PAYMENT_FAILURE]: (state, { payload }) => ({
     ...state,

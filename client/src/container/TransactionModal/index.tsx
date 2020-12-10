@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useReducer, useState } from 'react';
-import CustomInput from '@/components/common/forms/CustomInput';
 import ModalHeaderText from '@/components/transaction/ModalHeaderText';
 import CustomButton from '@/components/common/buttons/CustomButton';
 import Modal from '@/components/common/Modal';
@@ -12,12 +11,12 @@ import { getPaymentThunk } from '@/modules/payment/thunks';
 import { getCategoryThunk } from '@/modules/category';
 import { postTransactionThunk } from '@/modules/transaction';
 import { PostTransactionRequest } from '@/commons/types/transaction';
-import { CategoryModel } from '@/commons/types/category';
 import CategoryDTO from '@/commons/dto/category';
 import PaymentDTO from '@/commons/dto/payment';
 import TransactionRequestDTO from '@/commons/dto/transaction-request';
 import SMSParser from '@/libs/smsParser/parser';
 import DateUtils from '@/libs/dateUtils';
+import ModalInput from '@/components/transaction/ModalInput';
 import * as S from './styles';
 import { TransactionModalProps } from './types';
 
@@ -97,7 +96,7 @@ const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Ele
               onChange={onChangeInput}
               value={newTransaction.isIncome === 'true'}
             />
-            <CustomInput
+            <ModalInput
               name="tradeAt"
               onChange={onChangeInput}
               placeholder="날짜선택"
@@ -110,14 +109,14 @@ const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Ele
             <CustomSelectInput name="pid" onChange={onChangeInput} placeholder="결제수단">
               {paymentList}
             </CustomSelectInput>
-            <CustomInput
+            <ModalInput
               name="amount"
               onChange={onChangeInput}
               placeholder="금액"
               inputType="amount"
               value={newTransaction.amount}
             />
-            <CustomInput
+            <ModalInput
               name="description"
               onChange={onChangeInput}
               placeholder="상세내용"

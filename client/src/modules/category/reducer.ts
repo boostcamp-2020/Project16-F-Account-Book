@@ -52,8 +52,8 @@ const categoryReducer = createReducer<CategoryState, CategoryAction>(initialStat
     loading: false,
     data: state.data.map((category) => {
       if (category.cid === payload.cid) return payload;
-      return state.data;
-    }) as CategoryModel[],
+      return category;
+    }),
   }),
   [categoryActions.UPDATE_CATEGORY_FAILURE]: (state, { payload }) => ({
     ...state,
