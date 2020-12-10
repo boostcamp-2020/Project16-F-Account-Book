@@ -1,21 +1,13 @@
-import styled, { css } from 'styled-components';
-import { TransactionListItemStylePropType } from './types';
+import styled from 'styled-components';
 
-const ListItem = styled.div<TransactionListItemStylePropType>`
+const ListItem = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 100%;
   width: 100%;
   align-items: center;
   font-size: 0.8rem;
-
-  ${(props) =>
-    props.border &&
-    css`
-      padding: 0.8rem 1rem;
-      border-radius: 0.3rem;
-      box-shadow: 1px 2px 4px 1px rgba(0, 0, 0, 0.2);
-    `}
+  padding: 0.8rem 0;
 
   & + & {
     margin-top: 0.7rem;
