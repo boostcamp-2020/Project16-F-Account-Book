@@ -15,12 +15,7 @@ export default class AggregateRouter extends Router {
     this.get('/category', async (ctx: Context) => {
       const { uid } = ctx.state.user;
       const { start, end, income } = ctx.query;
-      const aggregateCategory = await this.aggregateService.getAggregateCategory(
-        start,
-        end,
-        income,
-        uid,
-      );
+      const aggregateCategory = await this.aggregateService.getAggregateCategory(start, end, uid);
 
       ctx.body = aggregateCategory;
     });
