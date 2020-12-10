@@ -1,8 +1,8 @@
-export type InputButtonProps = {
+export type ModalInputProps = {
   placeholder: string;
   inputType: 'amount' | 'description' | 'calendar';
   name?: string;
   onChange?: any;
-  initialValue?: string;
+  value?: string;
   ref?: React.Ref<HTMLInputElement>;
 };

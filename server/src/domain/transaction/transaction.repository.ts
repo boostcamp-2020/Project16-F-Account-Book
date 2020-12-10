@@ -3,12 +3,17 @@ import TransactionEntity from '@/entity/transaction.entity';
 
 @EntityRepository(TransactionEntity)
 class TransactionRepository extends Repository<TransactionEntity> {
-  sumAmount(
-    uid: number,
-    isIncome: boolean,
-    startDate: string,
-    endDate: string,
-  ): Promise<{ sum: string }> {
+  sumAmountBetween({
+    uid,
+    isIncome,
+    startDate,
+    endDate,
+  }: {
+    uid: number;
+    isIncome: boolean;
+    startDate: string;
+    endDate: string;
+  }): Promise<{ sum: string }> {
     return this.createQueryBuilder()
       .select('SUM(amount)', 'sum')
       .where('uid = :uid', { uid })

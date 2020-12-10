@@ -19,7 +19,7 @@ describe('TransactionService Tests', () => {
     await TestSeeder.up({
       connection,
       numOfUsers: 1,
-      numOfTransactionsPerUser: 50,
+      numOfTransactionsPerMonth: 50,
       startDate: new Date('2020-10-01'),
       endDate: new Date('2020-10-31'),
     });
