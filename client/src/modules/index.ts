@@ -6,6 +6,7 @@ import transaction from './transaction';
 import fixedExpenditure from './fixedExpenditure';
 import datePicker from './datePicker';
 import updateModal from './updateModal';
+import calendarDaySelector from './calendarDaySelector';
 
 const rootReducer = combineReducers({
   payment,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   transaction,
   authorization,
   fixedExpenditure,
+  calendarDaySelector,
   datePicker,
   updateModal,
 });
