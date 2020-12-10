@@ -17,7 +17,7 @@ const getRem = (n: number): string => {
 function TableCell({ day, totalInOut }: TableCellTypes): JSX.Element {
   const { calendarDaySelector } = useSelector((state: RootState) => state);
   const isBold = (): 'isBold' | '' => {
-    if (Number(calendarDaySelector.day) === Number(day)) return 'isBold';
+    if (Number(calendarDaySelector.day) === Number(day) && day !== ' ') return 'isBold';
     return '';
   };
   const dispatch = useDispatch();

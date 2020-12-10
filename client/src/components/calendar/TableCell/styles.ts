@@ -14,7 +14,7 @@ const CellButton = styled.td`
   text-align: center;
   &.isBold {
     font-weight: bold;
-    color: black;
+    color: #f21800;
   }
 `;
 
