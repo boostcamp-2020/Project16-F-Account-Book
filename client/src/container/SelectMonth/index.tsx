@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { getMonthlyTransactionThunk } from '@/modules/transaction';
 import Dropdown from '@/components/common/Dropdown';
 import ArrowIcon from '@/components/common/ArrowIcon';
@@ -13,29 +13,34 @@ const MONTHSLIST = Array.from({ length: 12 }, (v, i) => 12 - i);
 export default function SelectMonth(): JSX.Element {
   const { datePicker, authorization } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
-  const [currentYear, currentMonth] = [new Date().getFullYear(), new Date().getMonth() + 1];
-  const [createYear, createMonth] = authorization.createAt?.toString().split('-').slice(0, 2);
+  const [dateList, setDateList] = useState([] as (number | number[])[][]);
 
-  const dataList = Array.from(
-    { length: currentYear - Number(createYear) + 1 },
-    (v, i) => currentYear - i,
-  ).map((v) => {
-    let Monthslenght = 0;
-    if (Number(createYear) === currentYear) Monthslenght = currentMonth - Number(createMonth) + 1;
-    if (v === currentYear && Number(createYear) !== currentYear) Monthslenght = currentMonth;
-    if (v === Number(createYear) && v !== currentYear) Monthslenght = 13 - Number(createMonth);
-    return [
-      v,
-      Array.from({ length: Monthslenght }, (value, i) => {
-        if (v === Number(createYear) && v !== currentYear) return 12 - i;
-        return currentMonth - i;
-      }),
-    ];
-  });
+  const makeDateList = () => {
+    const [currentYear, currentMonth] = [new Date().getFullYear(), new Date().getMonth() + 1];
+    const [createYear, createMonth] = authorization.createAt?.toString().split('-').slice(0, 2);
+
+    const computedList = Array.from(
+      { length: currentYear - Number(createYear) + 1 },
+      (v, i) => currentYear - i,
+    ).map((v) => {
+      let Monthslenght = 0;
+      if (Number(createYear) === currentYear) Monthslenght = currentMonth - Number(createMonth) + 1;
+      if (v === currentYear && Number(createYear) !== currentYear) Monthslenght = currentMonth;
+      if (v === Number(createYear) && v !== currentYear) Monthslenght = 13 - Number(createMonth);
+      return [
+        v,
+        Array.from({ length: Monthslenght }, (value, i) => {
+          if (v === Number(createYear) && v !== currentYear) return 12 - i;
+          return currentMonth - i;
+        }),
+      ];
+    });
+    return computedList;
+  };
 
   const onChangeDate = (e: any) => {
-    const { value } = e.target;
-    dispatch(changeDate({ year: datePicker.year, month: MONTHSLIST[value] }));
+    const [year, month] = e.target.innerText.split('-');
+    dispatch(changeDate({ year: Number(year), month: Number(month) }));
     dispatch(changeDay({ day: 0 }));
   };
   const getMonthlyTransactions = useCallback(() => {
@@ -43,8 +48,9 @@ export default function SelectMonth(): JSX.Element {
   }, [dispatch, datePicker]);
 
   useEffect(() => {
+    setDateList(authorization.createAt ? makeDateList() : []);
     getMonthlyTransactions();
-  }, [datePicker]);
+  }, [datePicker, authorization.createAt]);
 
   const dropdownButton = (
     <>
@@ -59,7 +65,7 @@ export default function SelectMonth(): JSX.Element {
         <S.DropdownPosition>
           <Dropdown icon={dropdownButton} isRight={false}>
             <S.ScollDiv>
-              {dataList.map((date) =>
+              {dateList.map((date) =>
                 [...date[1]].map((month, i) => (
                   <S.MonthList
                     key={`candidateDate${i.toString()}`}
