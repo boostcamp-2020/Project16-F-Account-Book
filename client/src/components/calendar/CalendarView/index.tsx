@@ -11,11 +11,7 @@ function CalendarView({ totalInOut, lang, year, month }: CalendarViewType): JSX.
       <MatrixView
         headers={getWeekDays(lang)}
         matrix={getDayMatrix(year, month)}
-        cell={(date, key) => (
-          <>
-            <TableCell day={date} key={`table${key}`} totalInOut={totalInOut} />
-          </>
-        )}
+        cell={(date, key) => <TableCell day={date} key={`table${key}`} totalInOut={totalInOut} />}
       />
     </>
   );
