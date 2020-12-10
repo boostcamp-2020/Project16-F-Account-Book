@@ -8,6 +8,7 @@ import CalendarPage from '@/views/CalendarPage';
 import DetailedFixedExpenditurePage from '@/views/DetailedFixedExpenditurePage';
 import GlobalStyled from './GlobalStyled';
 import PaymentManagePage from './views/PaymentManagePage';
+import CategoryManagePage from './views/CategoryManagePage';
 
 const Box = styled.div`
   height: 100vh;
@@ -28,6 +29,7 @@ function App(): JSX.Element {
           <Route path="/calendar" component={CalendarPage} />
           <Route path="/detailed-fixed-expenditure" component={DetailedFixedExpenditurePage} />
           <Route path="/manage-payment" component={PaymentManagePage} />
+          <Route path="/manage-category" component={CategoryManagePage} />
           <Redirect from="*" to="/dashboard" />
         </Switch>
       </Box>

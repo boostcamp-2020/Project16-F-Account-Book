@@ -7,7 +7,6 @@ export const Button = styled.button<ButtonProps>`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: ${(props) => (props.size === 'sm' ? '2.9rem' : '3.5rem')};
   height: ${(props) => (props.size === 'sm' ? '1.7rem' : '2rem')};
   font-size: ${(props) => (props.size === 'sm' ? 'small' : 'medium')};
   border-radius: 5px;

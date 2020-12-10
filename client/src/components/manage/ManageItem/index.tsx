@@ -30,6 +30,7 @@ const ManageItem = ({
           cancelHandler={toggleUpdate}
           saveHandler={updateHandler}
           onChangeInput={onChangeInput}
+          border={false}
         />
       ) : (
         <S.ManageItemContainer>
