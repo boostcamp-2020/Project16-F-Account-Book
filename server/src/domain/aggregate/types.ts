@@ -1,25 +1,31 @@
 export type AggregateData = {
+  isIncome: boolean;
   category: string;
   aggregate: string;
+  tid: number;
   amount: number;
   tradeAt: Date;
   description: string;
-  isIncome: boolean;
   payment: string;
 };
 
-type CategoryData = {
+export type CategoryData = {
+  tid: number;
   amount: number;
   tradeAt: Date;
   description: string;
-  isIncome: boolean;
   payment: string;
+};
+
+export type AggregateValue = {
+  category: string;
+  aggregate: string;
+  dataArray: CategoryData[];
 };
 
 export type AggregateResponse = {
-  category: string;
-  aggregate: string;
-  list: Array<CategoryData>;
+  income: AggregateValue[];
+  expenditure: AggregateValue[];
 };
 
 export type MaxCategory = {

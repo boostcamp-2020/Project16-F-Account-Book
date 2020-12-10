@@ -19,19 +19,12 @@ const Calendar = (): JSX.Element => {
       <S.CalendarPageDiv>
         <S.HeaderDiv>
           <SelectMonth />
-          <S.AmountDiv>
-            <S.InOutDiv>
-              <div>소비: </div> <div>수입: </div>
-            </S.InOutDiv>
-            <S.AmountAlign>
-              <div>
-                <AmountText isIncome={false} amount={transaction.totalOut} />
-              </div>
-              <div>
-                <AmountText isIncome amount={transaction.totalIn} />
-              </div>
-            </S.AmountAlign>
-          </S.AmountDiv>
+          <S.InOutDiv>
+            소비: <AmountText isIncome={false} amount={transaction.totalOut} />
+          </S.InOutDiv>
+          <S.InOutDiv>
+            수입: <AmountText isIncome amount={transaction.totalIn} />
+          </S.InOutDiv>
         </S.HeaderDiv>
         <S.CalendarDiv>
           <ViewCalendar
@@ -41,7 +34,11 @@ const Calendar = (): JSX.Element => {
             month={datePicker.month}
           />
         </S.CalendarDiv>
-        {calendarDaySelector.day === 0 ? <TransactionListContainer editable /> : <TransactionSelectList />}
+        {calendarDaySelector.day === 0 ? (
+          <TransactionListContainer editable />
+        ) : (
+          <TransactionSelectList />
+        )}
       </S.CalendarPageDiv>
     </S.WarpCalendarDiv>
   );

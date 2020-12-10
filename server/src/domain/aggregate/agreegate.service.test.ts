@@ -49,31 +49,6 @@ describe('TransactionService Tests', () => {
       }
     });
 
-    it('이번달에 가입한 유저라면 과소비 지수가 계산되지 않는다.', async () => {
-      const today = new Date();
-      const user = {
-        uid: 1,
-        name: 'testUser',
-        socialType: 'google',
-        updateAt: today,
-        createAt: today,
-      };
-
-      const {
-        overspendingIndex,
-        averageIncome,
-        sumSpendingAmountOfMonth,
-      } = await aggregateService.getOverspendingIndex(
-        user,
-        today.getFullYear(),
-        today.getMonth() + 1,
-      );
-
-      expect(averageIncome).toEqual(0);
-      expect(sumSpendingAmountOfMonth).toBeGreaterThanOrEqual(0);
-      expect(overspendingIndex).toEqual(0);
-    });
-
     it('유저의 가입일 이전 날짜를 기준으로 과소비 지수가 계산되지 않는다.', async () => {
       await TestSeeder.up({
         connection,

@@ -8,6 +8,7 @@ const GlobalStyled = createGlobalStyle`
   html,body{
     font-size: 16px;
     color: #363B40;
+    height: 100%;
 
     @media (max-width: 575.98px) { 
       font-size: 14px;
