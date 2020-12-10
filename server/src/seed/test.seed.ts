@@ -9,13 +9,13 @@ import SeedGenerator from './seed-generator';
 const up = async ({
   connection,
   numOfUsers,
-  numOfTransactionsPerUser,
+  numOfTransactionsPerMonth,
   startDate,
   endDate,
 }: {
   connection: Connection;
   numOfUsers: number;
-  numOfTransactionsPerUser: number;
+  numOfTransactionsPerMonth: number;
   startDate: Date;
   endDate: Date;
 }): Promise<void> => {
@@ -25,7 +25,7 @@ const up = async ({
   try {
     const { users, categories, payments, transactions } = SeedGenerator.generateSeedData({
       numOfUsers,
-      numOfTransactionsPerUser,
+      numOfTransactionsPerMonth,
       startDate,
       endDate,
     });
