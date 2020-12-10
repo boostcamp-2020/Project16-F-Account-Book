@@ -9,7 +9,7 @@ import { FixedExpenditureAction, FixedExpenditureState } from './types';
 const initialState: FixedExpenditureState = {
   loading: false,
   error: null,
-  data: null,
+  data: { paid: [], estimated: [] },
 };
 
 const fixedExpenditureReducer = createReducer<FixedExpenditureState, FixedExpenditureAction>(
@@ -19,7 +19,7 @@ const fixedExpenditureReducer = createReducer<FixedExpenditureState, FixedExpend
       ...state,
       loading: true,
       error: null,
-      data: null,
+      data: { paid: [], estimated: [] },
     }),
     [GET_FIXED_EXPENDITURE_SUCCESS]: (state, action) => ({
       ...state,
@@ -31,7 +31,7 @@ const fixedExpenditureReducer = createReducer<FixedExpenditureState, FixedExpend
       ...state,
       loading: false,
       error: action.payload,
-      data: null,
+      data: { paid: [], estimated: [] },
     }),
   },
 );
