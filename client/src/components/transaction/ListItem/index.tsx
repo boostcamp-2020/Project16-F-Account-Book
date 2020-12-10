@@ -6,12 +6,11 @@ import S from './styles';
 
 const TransactionListItem = ({
   transaction,
-  border = false,
   toggleUpdateModal,
   editable,
 }: TransactionListItemPropType): JSX.Element => {
   return (
-    <S.ListItem border={!!border}>
+    <S.ListItem>
       <S.ListItemContentsRow>
         <S.ListItemDescription>{transaction.description}</S.ListItemDescription>
         <S.ListIteImgContainer editable={editable} onClick={toggleUpdateModal}>

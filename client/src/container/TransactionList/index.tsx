@@ -23,15 +23,16 @@ const TransactionListContainer = ({ editable }: TransactionListContainerProps): 
         <S.DateContainer key={`transaction_box_${date}`}>
           <S.DateLabel>{date}일</S.DateLabel>
           {transactionDetails.map((transactionDetail) => (
-            <TransactionListItem
-              toggleUpdateModal={() => {
-                toggleModal(transactionDetail);
-              }}
-              key={`transaction_${transactionDetail.tid}`}
-              transaction={transactionDetail}
-              border
-              editable={editable}
-            />
+            <S.TransactionListItemWrapper>
+              <TransactionListItem
+                toggleUpdateModal={() => {
+                  toggleModal(transactionDetail);
+                }}
+                key={`transaction_${transactionDetail.tid}`}
+                transaction={transactionDetail}
+                editable={editable}
+              />
+            </S.TransactionListItemWrapper>
           ))}
         </S.DateContainer>
       ))}
