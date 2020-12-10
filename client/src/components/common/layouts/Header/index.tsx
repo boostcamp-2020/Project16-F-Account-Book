@@ -1,32 +1,31 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-
+import { Link, useHistory } from 'react-router-dom';
 import Logo from '@components/common/Logo';
 import Dropdown from '@/components/common/Dropdown';
-
+import authorizationAPI from '@/libs/api/Authorization';
 import CircleUserSVG from '@/assets/svg/CircleUser.svg';
+import { useDispatch } from 'react-redux';
+import { logout } from '@/modules/authorization/actions';
 import * as S from './styles';
 
 const HeaderDropdownIcon = (
   <img src={CircleUserSVG} alt="settings-button" width="24px" height="24px" />
 );
 function Header(): JSX.Element {
-  const list = ['결제수단 관리', '수입분류 관리', '지출분류 관리', '로그아웃'];
-  const linkPageList = ['manage-payment', 'imPortClassification', 'ExpenditureClassification', ''];
+  const list = ['결제수단 관리', '수입분류 관리', '지출분류 관리'];
+  const linkPageList = ['manage-payment', 'imPortClassification', 'ExpenditureClassification'];
   const dropdonwList = list.map((v: string, i: number) => (
     <S.Item key={`header${i.toString()}`}>
-      <Link
-        style={{
-          color: '#292929',
-          textDecoration: 'none',
-        }}
-        to={linkPageList[i]}
-      >
-        {v}
-      </Link>
+      <Link to={linkPageList[i]}>{v}</Link>
     </S.Item>
   ));
-
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const onClick = async () => {
+    await authorizationAPI.logout();
+    history.push('/');
+    dispatch(logout({ createAt: null }));
+  };
   return (
     <S.HeaderDiv>
       <S.HeaderContentDiv>
@@ -38,6 +37,9 @@ function Header(): JSX.Element {
         <S.DropDiv>
           <Dropdown icon={HeaderDropdownIcon} isRight>
             {dropdonwList}
+            <S.Item onClick={onClick} key="headerLogout">
+              로그아웃
+            </S.Item>
           </Dropdown>
         </S.DropDiv>
       </S.HeaderContentDiv>
