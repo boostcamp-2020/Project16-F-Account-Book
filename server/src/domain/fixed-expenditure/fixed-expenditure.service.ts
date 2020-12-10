@@ -2,7 +2,7 @@ import FixedExpenditureEntity from '@/entity/fixed-expenditure.entity';
 import UserEntity from '@/entity/user.entity';
 import TranscationEntity from '@/entity/transaction.entity';
 import { Repository, Between } from 'typeorm';
-import dateToString from '@/lib/dateUtils';
+import DateUtils from '@/lib/date-utils';
 import { FixedType, InputType, ResultType, ResponseType } from './types';
 
 export default class FixedExpenditureService {
@@ -28,8 +28,8 @@ export default class FixedExpenditureService {
     year: number,
     month: number,
   ): Promise<ResponseType> {
-    const startDate = dateToString(new Date(year, month, 1));
-    const endDate = dateToString(new Date(year, Number(month) + 1, 0));
+    const startDate = DateUtils.dateToString(new Date(year, month, 1));
+    const endDate = DateUtils.dateToString(new Date(year, Number(month) + 1, 0));
 
     if (!updateAt || updateAt.getFullYear() < year || updateAt.getMonth() < month) {
       await this.createFixedExpenditure(uid, year, month);

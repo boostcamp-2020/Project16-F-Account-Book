@@ -1,4 +1,5 @@
 import Router from 'koa-router';
+import { getCustomRepository } from 'typeorm';
 import { Context } from 'koa';
 import TransactionService from './transaction.service';
 import TransactionRepository from './transaction.repository';
@@ -8,9 +9,7 @@ export default class TransactionRouter extends Router {
 
   constructor() {
     super();
-    this.transactionService = new TransactionService(
-      TransactionRepository.getTransactionRepository(),
-    );
+    this.transactionService = new TransactionService(getCustomRepository(TransactionRepository));
   }
 
   initRouter(): void {

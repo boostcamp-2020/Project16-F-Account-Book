@@ -30,7 +30,7 @@ function Header(): JSX.Element {
     <S.HeaderDiv>
       <S.HeaderContentDiv>
         <S.HeaderLogo>
-          <Link to="/">
+          <Link to="/dashboard">
             <Logo height="35px" />
           </Link>
         </S.HeaderLogo>

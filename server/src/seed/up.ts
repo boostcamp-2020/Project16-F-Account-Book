@@ -10,7 +10,7 @@ const up = async () => {
   try {
     const { users, categories, payments, transactions } = SeedGenerator.generateSeedData({
       numOfUsers: 2500,
-      numOfTransactionsPerUser: 400,
+      numOfTransactionsPerMonth: 40,
       startDate: new Date('2020-01-01'),
       endDate: new Date(),
     });
@@ -27,6 +27,7 @@ const up = async () => {
     await queryRunner.commitTransaction();
     console.log('Seed finished');
   } catch (err) {
+    console.log(err);
     await queryRunner.rollbackTransaction();
   } finally {
     await queryRunner.release();

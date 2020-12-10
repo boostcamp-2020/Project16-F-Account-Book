@@ -1,23 +1,17 @@
-import createDBConnection from '@/loader/database';
-import { Connection, Repository } from 'typeorm';
-import TransactionEntity from '@/entity/transaction.entity';
+import { Connection, getConnection, getCustomRepository } from 'typeorm';
 import TestSeeder from '@/seed/test.seed';
 import TransactionService from './transaction.service';
 import TransactionRepository from './transaction.repository';
 
-let transactionRepository: Repository<TransactionEntity>;
+let transactionRepository: TransactionRepository;
 let transactionService: TransactionService;
 let connection: Connection;
 
 describe('TransactionService Tests', () => {
   beforeAll(async () => {
-    connection = await createDBConnection();
-    transactionRepository = TransactionRepository.getTransactionRepository();
+    connection = getConnection();
+    transactionRepository = getCustomRepository(TransactionRepository);
     transactionService = new TransactionService(transactionRepository);
-  });
-
-  afterAll(async () => {
-    await connection.close();
   });
 
   beforeEach(async () => {
@@ -25,7 +19,7 @@ describe('TransactionService Tests', () => {
     await TestSeeder.up({
       connection,
       numOfUsers: 1,
-      numOfTransactionsPerUser: 50,
+      numOfTransactionsPerMonth: 50,
       startDate: new Date('2020-10-01'),
       endDate: new Date('2020-10-31'),
     });

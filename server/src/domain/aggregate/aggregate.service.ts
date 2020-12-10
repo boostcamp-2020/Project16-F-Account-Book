@@ -1,11 +1,12 @@
-import TranscationEntity from '@/entity/transaction.entity';
-import { Repository } from 'typeorm';
+import TransactionRepository from '@/domain/transaction/transaction.repository';
+import DateUtils from '@/lib/date-utils';
+import UserDTO from '@/domain/auth/types/user-dto';
 import { AggregateData, AggregateResponse, MaxCategory } from './types';
 
 export default class AggregateService {
-  private transactionRepository: Repository<TranscationEntity>;
+  private transactionRepository: TransactionRepository;
 
-  constructor(transactionRepository: Repository<TranscationEntity>) {
+  constructor(transactionRepository: TransactionRepository) {
     this.transactionRepository = transactionRepository;
   }
 
@@ -48,22 +49,80 @@ export default class AggregateService {
     return response;
   }
 
-  public async getMaxCategory(uid: number): Promise<MaxCategory> {
-    const startDate = new Date();
-    const endDate = new Date();
-    startDate.setDate(1);
-    endDate.setMonth(endDate.getMonth() + 1);
-    endDate.setDate(0);
+  public async getMaxCategory(uid: number, year: number, month: number): Promise<MaxCategory> {
+    const { startDate, endDate } = DateUtils.getStartDateAndEndDate(year, month);
 
     const query = `select category.name, t1.aggregate
     from category, (select cid, sum(amount) as aggregate
     from transaction 
-    where uid=${uid} and trade_at between '${startDate}' and '${endDate}'
+    where uid=${uid} and is_income=${false} and trade_at between '${DateUtils.dateToString(
+      startDate,
+    )}' and '${DateUtils.dateToString(endDate)}'
     group by cid) t1
     where category.cid = t1.cid
     order by t1.aggregate DESC;`;
 
     const maxCategory: Array<MaxCategory> = await this.transactionRepository.query(query);
     return maxCategory[0];
+  }
+
+  public async getOverspendingIndex(
+    user: UserDTO,
+    year: number,
+    month: number,
+  ): Promise<{
+    overspendingIndex: number;
+    averageIncome: number;
+    sumSpendingAmountOfMonth: number;
+  }> {
+    const [averageIncome, sumSpendingAmountOfMonth] = await Promise.all([
+      this.getAverageIncome(user, year, month),
+      this.getSumSpendingAmountOfMonth(user, year, month),
+    ]);
+
+    const overspendingIndex = averageIncome
+      ? (sumSpendingAmountOfMonth / averageIncome).toFixed(2)
+      : 0;
+    return {
+      overspendingIndex: Number(overspendingIndex),
+      averageIncome,
+      sumSpendingAmountOfMonth,
+    };
+  }
+
+  private async getSumSpendingAmountOfMonth(
+    user: UserDTO,
+    year: number,
+    month: number,
+  ): Promise<number> {
+    const { startDate, endDate } = DateUtils.getStartDateAndEndDate(year, month);
+    const { sum } = await this.transactionRepository.sumAmountBetween({
+      uid: user.uid,
+      isIncome: false,
+      startDate: DateUtils.dateToString(startDate),
+      endDate: DateUtils.dateToString(endDate),
+    });
+
+    return Number(sum || 0);
+  }
+
+  private async getAverageIncome(user: UserDTO, year: number, month: number): Promise<number> {
+    if (new Date(year, month, 1).getTime() <= new Date(user.createAt).setDate(1)) {
+      return 0;
+    }
+
+    const startDateOfYear = new Date(year, 0, 1);
+    const lastMonth = new Date(year, month - 1, 0);
+    const startDate = new Date(Math.max(startDateOfYear.getTime(), user.createAt.getTime()));
+    const { sum } = await this.transactionRepository.sumAmountBetween({
+      uid: user.uid,
+      isIncome: true,
+      startDate: DateUtils.dateToString(startDate),
+      endDate: DateUtils.dateToString(lastMonth),
+    });
+
+    const numOfMonthFromStartDateToLastMonth = DateUtils.countMonthBetween(startDate, lastMonth);
+    const averageIncome = Number(sum || 0) / numOfMonthFromStartDateToLastMonth;
+    return Math.round(averageIncome);
   }
 }

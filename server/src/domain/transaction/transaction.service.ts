@@ -1,6 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import TranscationEntity from '@/entity/transaction.entity';
-import { Repository, Between } from 'typeorm';
+import TransactionRepository from '@/domain/transaction/transaction.repository';
+import { Between } from 'typeorm';
 import { BAD_REQUEST, DATABASE_ERROR } from '@/common/error';
 import { Transactional } from 'typeorm-transactional-cls-hooked';
 import {
@@ -10,9 +11,9 @@ import {
 } from './types';
 
 export default class TransactionService {
-  private transactionRepository: Repository<TranscationEntity>;
+  private transactionRepository: TransactionRepository;
 
-  constructor(transactionRepository: Repository<TranscationEntity>) {
+  constructor(transactionRepository: TransactionRepository) {
     this.transactionRepository = transactionRepository;
   }
 
