@@ -4,9 +4,9 @@ import { AggregateData } from '@/commons/types/aggregateCategory';
 
 const aggregateCategoryAPI = {
   getAggregateCategory: async (startDate: string, endDate: string): Promise<AggregateData> => {
-    const aggregateCategory = await axios.get<AggregateData>(
-      `${endpoints.AGGREGATE_CATEGORY_api}/category?start=${startDate}&end=${endDate}`,
-    );
+    const aggregateCategory = await axios.get<AggregateData>(endpoints.AGGREGATE_CATEGORY_API, {
+      params: { start: startDate, end: endDate },
+    });
     return aggregateCategory;
   },
 };

@@ -8,5 +8,5 @@ export default {
   CATEGORY_API: '/categories',
   FIXED_EXPENDITURE_API: '/fixed-expenditure',
   AUTH_API: '/auth',
-  AGGREGATE_CATEGORY_api: '/aggregate',
+  AGGREGATE_CATEGORY_API: '/aggregate/category',
 };
