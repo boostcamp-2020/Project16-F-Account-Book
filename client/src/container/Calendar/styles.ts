@@ -1,18 +1,11 @@
 import styled from 'styled-components';
 
 const HeaderDiv = styled.div`
-  display: flex;
+  left: 1;
   height: 10%;
-  width: 53%;
-  margin-left: 20px;
   font-size: 1rem;
   font-weight: bold;
   color: #333333;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-const AmountDiv = styled.div`
-  display: flex;
 `;
 const CalendarDiv = styled.div`
   display: inline-flex;
@@ -40,25 +33,13 @@ const WarpCalendarDiv = styled.div`
     display: none;
   }
 `;
-
-const AmountAlign = styled.div`
-  display: block;
-  position: right;
-  text-align: right;
-`;
-
 const InOutDiv = styled.div`
   display: block;
-  text-align: right;
+  text-align: left;
+  margin-left: 1rem;
+  & + & {
+    margin-top: 6px;
+  }
 `;
 
-export {
-  HeaderDiv,
-  AmountDiv,
-  CalendarDiv,
-  TransactionDiv,
-  CalendarPageDiv,
-  WarpCalendarDiv,
-  AmountAlign,
-  InOutDiv,
-};
+export { HeaderDiv, CalendarDiv, TransactionDiv, CalendarPageDiv, WarpCalendarDiv, InOutDiv };

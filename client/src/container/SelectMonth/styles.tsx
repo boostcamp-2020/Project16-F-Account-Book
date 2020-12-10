@@ -1,36 +1,16 @@
 import styled from 'styled-components';
 
 const MonthDiv = styled.div`
-  display: flex;
+  display: inline-flex;
+  width: 100%;
+  justify-content: center;
+  cursor: pointer;
+  margin: 10px 0px 0px 0px;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
 `;
 
-const ScollDiv = styled.div`
-  overflow: auto;
-  height: 100px;
-  margin: 5px;
-  &::-webkit-scrollbar {
-    width: 3px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: grey;
-    border-radius: 10px;
-    background-clip: padding-box;
-    border: 2px solid transparent;
-  }
-  &::-webkit-scrollbar-track {
-    border-radius: 5px;
-    box-shadow: inset 0px 0px 5px white;
-  }
+const ClickArrow = styled.div`
+  margin: 0px 10px;
 `;
-
-const DropdownPosition = styled.div`
-  text-align: top;
-  margin-top: -5px;
-`;
-
-const MonthList = styled.li`
-  & + & {
-    margin-top: 7px;
-  }
-`;
-export { DropdownPosition, ScollDiv, MonthDiv, MonthList };
+export { ClickArrow, MonthDiv };
