@@ -1,6 +1,6 @@
 import TransactionRepository from '@/domain/transaction/transaction.repository';
 import DateUtils from '@/lib/date-utils';
-import UserDTO from '../auth/types/user-dto';
+import UserDTO from '@/domain/auth/types/user-dto';
 import { AggregateData, AggregateResponse, MaxCategory } from './types';
 
 export default class AggregateService {
@@ -94,12 +94,12 @@ export default class AggregateService {
     month: number,
   ): Promise<number> {
     const { startDate, endDate } = DateUtils.getStartDateAndEndDate(year, month);
-    const { sum } = await this.transactionRepository.sumAmount(
-      user.uid,
-      false,
-      DateUtils.dateToString(startDate),
-      DateUtils.dateToString(endDate),
-    );
+    const { sum } = await this.transactionRepository.sumAmountBetween({
+      uid: user.uid,
+      isIncome: false,
+      startDate: DateUtils.dateToString(startDate),
+      endDate: DateUtils.dateToString(endDate),
+    });
 
     return Number(sum || 0);
   }
@@ -112,12 +112,12 @@ export default class AggregateService {
     const startDateOfYear = new Date(year, 0, 1);
     const lastMonth = new Date(year, month - 1, 0);
     const startDate = new Date(Math.max(startDateOfYear.getTime(), user.createAt.getTime()));
-    const { sum } = await this.transactionRepository.sumAmount(
-      user.uid,
-      true,
-      DateUtils.dateToString(startDate),
-      DateUtils.dateToString(lastMonth),
-    );
+    const { sum } = await this.transactionRepository.sumAmountBetween({
+      uid: user.uid,
+      isIncome: true,
+      startDate: DateUtils.dateToString(startDate),
+      endDate: DateUtils.dateToString(lastMonth),
+    });
 
     const numOfMonthFromStartDateToLastMonth = DateUtils.countMonthBetween(startDate, lastMonth);
     const averageIncome = Number(sum || 0) / numOfMonthFromStartDateToLastMonth;
