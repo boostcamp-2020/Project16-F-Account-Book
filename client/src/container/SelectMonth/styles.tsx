@@ -10,7 +10,7 @@ const MonthDiv = styled.div`
   margin-bottom: 10px;
 `;
 
-const ClickArrow = styled.div`
+const ArrowDiv = styled.div`
   margin: 0px 10px;
 `;
-export { ClickArrow, MonthDiv };
+export { ArrowDiv, MonthDiv };
