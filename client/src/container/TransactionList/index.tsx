@@ -13,11 +13,12 @@ const TransactionListContainer = (): JSX.Element => {
         <S.DateContainer key={`transaction_box_${date}`}>
           <S.DateLabel>{date}일</S.DateLabel>
           {transactionDetails.map((transactionDetail) => (
-            <TransactionListItem
-              key={`transaction_${transactionDetail.tid}`}
-              transaction={transactionDetail}
-              border
-            />
+            <S.TransactionListItemWrapper>
+              <TransactionListItem
+                key={`transaction_${transactionDetail.tid}`}
+                transaction={transactionDetail}
+              />
+            </S.TransactionListItemWrapper>
           ))}
         </S.DateContainer>
       ))}
