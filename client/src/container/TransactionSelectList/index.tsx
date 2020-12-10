@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '@modules/index';
+import { RootState } from '@/modules/index';
 import TransactionListItem from '@/components/transaction/ListItem';
 import * as S from './styles';
 

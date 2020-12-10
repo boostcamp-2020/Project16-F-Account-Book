@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '@modules/index';
+import { RootState } from '@/modules/index';
 import SelectMonth from '@/container/SelectMonth';
 import TransactionListContainer from '@/container/TransactionList';
 import TransactionSelectList from '@/container/TransactionSelectList';

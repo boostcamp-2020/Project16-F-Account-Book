@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 import { getMonthlyTransactionThunk } from '@/modules/transaction';
-import Dropdown from '@components/common/Dropdown';
+import Dropdown from '@/components/common/Dropdown';
 import ArrowIcon from '@/components/common/ArrowIcon';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/modules';
