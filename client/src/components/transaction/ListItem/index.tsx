@@ -7,7 +7,7 @@ import S from './styles';
 const TransactionListItem = ({
   transaction,
   toggleUpdateModal,
-  editable,
+  editable = false,
 }: TransactionListItemPropType): JSX.Element => {
   return (
     <S.ListItem>
