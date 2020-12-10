@@ -6,5 +6,5 @@ export type UpdateModalAction = ActionType<typeof actions>;
 
 export type UpdateModalState = {
   toggle: boolean;
-  data: TransactionModel;
+  data: TransactionModel | null;
 };

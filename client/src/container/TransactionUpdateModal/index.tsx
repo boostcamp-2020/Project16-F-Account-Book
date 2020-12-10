@@ -32,14 +32,14 @@ const TransactionUpdateModal = (): JSX.Element => {
   };
 
   const [updatedTransaction, infoDispatch] = useReducer(onChangeReducer, {
-    tid: data.tid,
+    tid: data?.tid,
   } as UpdateTransactionRequest);
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     infoDispatch({ ...updatedTransaction, [e.target.name]: e.target.value });
   };
 
   useEffect(() => {
-    if (!data.tid) return;
+    if (!data) return;
     infoDispatch({
       tid: data.tid,
       tradeAt: data.tradeAt,
@@ -59,6 +59,7 @@ const TransactionUpdateModal = (): JSX.Element => {
   }, [dispatch, updatedTransaction, data]);
 
   const deleteTransaction = useCallback(() => {
+    if (!data) return;
     dispatch(deleteTransactionThunk(data.tid));
     dispatch(toggleModalOff());
   }, [dispatch, data]);
@@ -81,10 +82,20 @@ const TransactionUpdateModal = (): JSX.Element => {
               inputType="calendar"
               value={updatedTransaction.tradeAt}
             />
-            <CustomSelectInput name="cid" onChange={onChangeInput} placeholder="카테고리">
+            <CustomSelectInput
+              name="cid"
+              onChange={onChangeInput}
+              placeholder="카테고리"
+              value={new CategoryDTO(data.category)}
+            >
               {categoryList.filter((categoryItem) => categoryItem.isIncome === isIncome)}
             </CustomSelectInput>
-            <CustomSelectInput name="pid" onChange={onChangeInput} placeholder="결제수단">
+            <CustomSelectInput
+              name="pid"
+              onChange={onChangeInput}
+              placeholder="결제수단"
+              value={new PaymentDTO(data.payment)}
+            >
               {paymentList}
             </CustomSelectInput>
             <ModalInput
@@ -106,7 +117,7 @@ const TransactionUpdateModal = (): JSX.Element => {
             <CustomButton color="white" onClickEvent={deleteTransaction}>
               삭제
             </CustomButton>
-            <CustomButton color="white" onClickEvent={updateTransaction}>
+            <CustomButton color="blue" onClickEvent={updateTransaction}>
               저장
             </CustomButton>
           </S.ModalFooter>

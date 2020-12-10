@@ -5,7 +5,7 @@ import { UpdateModalAction, UpdateModalState } from './types';
 
 const initialState: UpdateModalState = {
   toggle: false,
-  data: {} as TransactionModel,
+  data: null,
 };
 
 const updateModalReducer = createReducer<UpdateModalState, UpdateModalAction>(initialState, {
@@ -15,7 +15,7 @@ const updateModalReducer = createReducer<UpdateModalState, UpdateModalAction>(in
   }),
   [TOGGLE_OFF]: (state) => ({
     toggle: false,
-    data: {} as TransactionModel,
+    data: null,
   }),
 });
 

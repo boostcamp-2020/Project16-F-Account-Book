@@ -1,19 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { SelectInputProps } from './types';
 import * as S from './style';
 
 function CustomSelectInput(props: SelectInputProps): JSX.Element {
-  const { placeholder, children, name, onChange } = props;
-  const [inputValue, setInputValue] = useState('');
+  const { placeholder, children, name, onChange, value } = props;
+  const initialValue = value?.id || 0;
+  const [inputValue, setInputValue] = useState(initialValue);
+
+  const selectInput = useRef<HTMLSelectElement>(null);
+
+  const getMatchedOptionValue = () => {
+    const idx = children?.findIndex((child) => {
+      return child.name === value?.name;
+    });
+    if (idx === -1) return 0;
+    return children[idx].id;
+  };
+
+  useEffect(() => {
+    if (!value) return;
+    const matchedValue = getMatchedOptionValue();
+    if (matchedValue) setInputValue(matchedValue);
+  }, [value]);
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setInputValue(e.target.value);
+    setInputValue(Number(e.target.value));
     onChange(e);
   };
 
   return (
-    <S.SelectInput name={name} onChange={handleChange} value={inputValue}>
-      <S.SelectOption defaultValue="" selected>
+    <S.SelectInput name={name} onChange={handleChange} value={inputValue} ref={selectInput}>
+      <S.SelectOption value={0} selected>
         {placeholder}
       </S.SelectOption>
       {children?.map((option) => (
