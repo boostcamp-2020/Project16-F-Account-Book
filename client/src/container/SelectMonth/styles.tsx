@@ -29,7 +29,8 @@ const DropdownPosition = styled.div`
 `;
 
 const MonthList = styled.li`
-  margin: 5px 0px;
+  & + & {
+    margin-top: 7px;
+  }
 `;
-
 export { DropdownPosition, ScollDiv, MonthDiv, MonthList };
