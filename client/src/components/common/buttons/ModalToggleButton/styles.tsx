@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const ModalButton = styled.button`
   display: flex;
-  position: absolute;
+  position: fixed;
   bottom: 1.5rem;
   right: 1.5rem;
   width: 3rem;
@@ -12,6 +12,7 @@ export const ModalButton = styled.button`
   justify-content: center;
   border: none;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.36);
+  z-index: 100;
 `;
 
 export const ModalButtonContent = styled.div`
