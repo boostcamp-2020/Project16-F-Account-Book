@@ -27,17 +27,15 @@ type StartEndDate = {
   endDate: string;
 };
 
-/**
- * @deprecated
- */
 const getStartEndDate = (year: number, month: number): StartEndDate => {
-  const date = new Date(year, month, 1);
-  const startDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-01`;
-  date.setMonth(month + 1);
-  date.setDate(0);
+  const date = new Date(year, month, 0);
   const endDate = `${date.getFullYear()}-${(date.getMonth() + 1)
     .toString()
     .padStart(2, '0')}-${date.getDate()}`;
+
+  date.setDate(1);
+  const startDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-01`;
+
   return { startDate, endDate };
 };
 
