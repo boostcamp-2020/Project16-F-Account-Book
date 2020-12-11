@@ -58,7 +58,7 @@
 프로젝트를 실행하기 위해서 환경 변수를 설정해주어야 합니다.
 
 ```
-cp server/dummy.env server/.env
+cp server/.dummy.env server/.env
 ```
 
 **환경변수**
