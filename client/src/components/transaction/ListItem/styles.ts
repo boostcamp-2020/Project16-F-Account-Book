@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ImgContainerProps, TransactionListItemStylePropType } from './types';
+import { ImgContainerProps } from './types';
 
 const ListItem = styled.div`
   display: flex;

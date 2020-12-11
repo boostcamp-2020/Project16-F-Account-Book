@@ -98,7 +98,7 @@ const DashboardContainer = (): JSX.Element => {
       <S.Box>
         <S.BoxHeader>
           <S.BoxTitle>카테고리 통계</S.BoxTitle>
-          <Link to="/calendar">자세히 보기</Link>
+          <Link to="/aggregate-category">자세히 보기</Link>
         </S.BoxHeader>
         <S.BoxRow>{mostSpendingCategoryState.name}에 가장 많은 돈을 쓰셨어요</S.BoxRow>
         <S.BoxRow>
