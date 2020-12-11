@@ -36,7 +36,7 @@ export default function SelectMonth(): JSX.Element {
     <>
       <S.MonthDiv>
         <S.ArrowDiv onClick={() => onChangeLeftMonth()}>{'<'}</S.ArrowDiv>
-        <S.MonthText>{`${datePicker.year}-${datePicker.month}`}</S.MonthText>
+        {`${datePicker.year}-${datePicker.month}`}
         <S.ArrowDiv onClick={() => onChangeRightMonth()}>{'>'}</S.ArrowDiv>
       </S.MonthDiv>
     </>

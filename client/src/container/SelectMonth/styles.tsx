@@ -1,17 +1,16 @@
 import styled from 'styled-components';
 
-export const MonthDiv = styled.div`
+const MonthDiv = styled.div`
   display: inline-flex;
   width: 100%;
-  justify-content: start;
+  justify-content: center;
+  margin: 10px 0px 0px 0px;
   font-size: 1.5rem;
   margin-bottom: 10px;
 `;
 
-export const ArrowDiv = styled.div`
+const ArrowDiv = styled.div`
   cursor: pointer;
+  margin: 0px 10px;
 `;
-
-export const MonthText = styled.p`
-  margin: 0 0.3rem 0 0.3rem;
-`;
+export { ArrowDiv, MonthDiv };
