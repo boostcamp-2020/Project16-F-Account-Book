@@ -38,7 +38,7 @@ export default class FixedExpenditureService {
     const fixedDatas: ResultType[] = await this.fixedExpenditureRepository
       .query(`select f1.fid, f1.trade_at as tradeAt, f1.amount as estimatedAmount, f1.description, t1.amount as paidAmount
     from (select * from fixed_expenditure where uid=${uid} and trade_at between '${startDate}' and '${endDate}') f1 
-    left outer join (select * from transaction where uid=${uid} and trade_at between '${startDate}' and '${endDate}') t1 on f1.uid = t1.uid and f1.trade_at = t1.trade_at
+    left outer join (select * from transaction where uid=${uid} and trade_at between '${startDate}' and '${endDate}') t1 on f1.uid = t1.uid and f1.trade_at = t1.trade_at and t1.description = f1.description
     order by f1.trade_at ASC;`);
 
     const paid: FixedType[] = [];
