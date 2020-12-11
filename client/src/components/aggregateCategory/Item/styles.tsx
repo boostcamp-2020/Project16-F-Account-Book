@@ -24,6 +24,9 @@ export const InfoBox = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.8rem;
+  svg {
+    cursor: pointer;
+  }
 `;
 export const DetailBox = styled.div`
   display: ${(props) => props.style?.display};
