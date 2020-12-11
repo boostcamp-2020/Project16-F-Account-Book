@@ -24,8 +24,10 @@
 
 ### 기술스택
 
-![스크린샷 2020-11-20 오전 11 12 06](https://user-images.githubusercontent.com/17294694/99751186-0b66c180-2b25-11eb-8ab4-bac628a7bc22.png)
+![스크린샷 2020-12-11 오후 9 36 26](https://user-images.githubusercontent.com/17294694/101904293-f5ff2780-3bf8-11eb-8775-52034f850fcb.png)
+
+
 
 ### Architecture
 
-![README%20md%20455ebaf5dd964ea5aa9b3015e5a19dbd/Untitled.png](https://user-images.githubusercontent.com/60877502/99751015-c17ddb80-2b24-11eb-8e1c-fbb29330f24d.png)
+![스크린샷 2020-12-11 오후 9 33 31](https://user-images.githubusercontent.com/17294694/101904084-a882ba80-3bf8-11eb-8679-78145643e0c1.png)
