@@ -13,7 +13,7 @@ const FixedExpenditureItem = ({ fixedItem, isPaid }: FixedExpenditureItemPropTyp
           {numberUtils.numberWithCommas(fixedItem.amount)} 원
         </S.Amount>
       </S.TitleBox>
-      <S.Date>{fixedItem.tradeAt.toString().substring(8, 10)}일</S.Date>
+      <S.Date>{new Date(fixedItem.tradeAt).toString().substring(8, 10)}일</S.Date>
     </S.Box>
   );
 };
