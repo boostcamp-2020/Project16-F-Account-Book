@@ -9,6 +9,7 @@ import AmountText from '@/components/transaction/AmountText';
 import FixedExpenditure from '@container/FixedExpenditure';
 import aggregateAPI from '@/libs/api/aggregate';
 import NumberUtils from '@/libs/numberUtils';
+import EmptyStateComponent from '@/components/transaction/EmptyState';
 import * as S from './styles';
 
 const RECENT_TRANSACTION_LIMIT = 3;
@@ -88,11 +89,15 @@ const DashboardContainer = (): JSX.Element => {
           <S.BoxTitle>최근 내역</S.BoxTitle>
           <Link to="/calendar">자세히 보기</Link>
         </S.BoxHeader>
-        {transactionState.transactions.slice(0, RECENT_TRANSACTION_LIMIT).map((transaction) => (
-          <S.RecentTransactionBoxItem key={`transaction${transaction.tid}`}>
-            <TransactionListItem transaction={transaction} />
-          </S.RecentTransactionBoxItem>
-        ))}
+        {transactionState.transactions.length !== 0 ? (
+          transactionState.transactions.slice(0, RECENT_TRANSACTION_LIMIT).map((transaction) => (
+            <S.RecentTransactionBoxItem key={`transaction${transaction.tid}`}>
+              <TransactionListItem transaction={transaction} />
+            </S.RecentTransactionBoxItem>
+          ))
+        ) : (
+          <EmptyStateComponent align="left" />
+        )}
       </S.Box>
       <FixedExpenditure />
       <S.Box>

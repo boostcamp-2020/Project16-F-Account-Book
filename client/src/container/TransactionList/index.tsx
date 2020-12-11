@@ -4,6 +4,7 @@ import TransactionListItem from '@/components/transaction/ListItem';
 import { RootState } from '@modules/index';
 import { toggleModalOn } from '@/modules/updateModal';
 import { TransactionModel } from '@/commons/types/transaction';
+import EmptyStateComponent from '@/components/transaction/EmptyState';
 import * as S from './styles';
 import { TransactionListContainerProps } from './types';
 
@@ -19,23 +20,27 @@ const TransactionListContainer = ({ editable }: TransactionListContainerProps): 
 
   return (
     <>
-      {transaction.transactionDetailsByDate.map(([date, transactionDetails]) => (
-        <S.DateContainer key={`transaction_box_${date}`}>
-          <S.DateLabel>{date}일</S.DateLabel>
-          {transactionDetails.map((transactionDetail) => (
-            <S.TransactionListItemWrapper>
-              <TransactionListItem
-                toggleUpdateModal={() => {
-                  toggleModal(transactionDetail);
-                }}
-                key={`transaction_${transactionDetail.tid}`}
-                transaction={transactionDetail}
-                editable={editable}
-              />
-            </S.TransactionListItemWrapper>
-          ))}
-        </S.DateContainer>
-      ))}
+      {transaction.transactionDetailsByDate.length !== 0 ? (
+        transaction.transactionDetailsByDate.map(([date, transactionDetails]) => (
+          <S.DateContainer key={`transaction_box_${date}`}>
+            <S.DateLabel>{date}일</S.DateLabel>
+            {transactionDetails.map((transactionDetail) => (
+              <S.TransactionListItemWrapper>
+                <TransactionListItem
+                  toggleUpdateModal={() => {
+                    toggleModal(transactionDetail);
+                  }}
+                  key={`transaction_${transactionDetail.tid}`}
+                  transaction={transactionDetail}
+                  editable={editable}
+                />
+              </S.TransactionListItemWrapper>
+            ))}
+          </S.DateContainer>
+        ))
+      ) : (
+        <EmptyStateComponent />
+      )}
     </>
   );
 };
