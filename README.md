@@ -1,7 +1,8 @@
 # Project16-F-Account-Book
 
 
-![스크린샷 2020-11-20 오전 10 47 13](https://user-images.githubusercontent.com/17294694/99751194-0f92df00-2b25-11eb-89f9-b41313bf3c27.png)
+![Logo](https://user-images.githubusercontent.com/17294694/101917945-1c7a8e00-3c0c-11eb-828d-03e127a4d883.png)
+
 
 배포링크 - [http://tess.kro.kr](http://tess.kro.kr)
 
