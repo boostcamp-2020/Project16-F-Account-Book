@@ -1,10 +1,8 @@
-# Project16-F-Account-Book
+# Project16-F-Account-Book ([Link](http://tess.kro.kr))
 
 
 ![Logo](https://user-images.githubusercontent.com/17294694/101917945-1c7a8e00-3c0c-11eb-828d-03e127a4d883.png)
 
-
-배포링크 - [http://tess.kro.kr](http://tess.kro.kr)
 
 <br>
 
@@ -74,15 +72,15 @@ TYPEORM_DATABASE : 연결할 Database
 TYPEORM_SYNCHRONIZE : 엔티티와 테이블 sync 설정    ex) true
 TYPEORM_LOGGING : Logging 설정                 ex) true
 
-CLIENT_URI = 프론트엔드 URI                      ex) http://localhost:3000
+CLIENT_URI : 프론트엔드 URI                      ex) http://localhost:3000
 
 JWT_SECRET : 토큰 생성에 사용할 Secret
-JWT_TOKEN_EXPIRES_IN** : 토큰의 유효기간              ex) 1d
-JWT_COOKIE_EXPIRES_IN** = 인증 쿠키의 유효기간 (ms)    ex) 86400000
+JWT_TOKEN_EXPIRES_IN : 토큰의 유효기간              ex) 1d
+JWT_COOKIE_EXPIRES_IN : 인증 쿠키의 유효기간 (ms)    ex) 86400000
 
-XXX_CLIENT_ID** = 개발자 센터에서 발급받은 client id 
-XXX_CLIENT_SECRET** = 개발자 센터에서 발급받은 client secret
-XXX_CALLBACK_URI** = 개발자 센터에서 설정한 callback uri      ex) http://localhost:4000/api/auth/callback/xxx (xxx = kakao | naver | google)
+XXX_CLIENT_ID : 개발자 센터에서 발급받은 client id 
+XXX_CLIENT_SECRET : 개발자 센터에서 발급받은 client secret
+XXX_CALLBACK_URI : 개발자 센터에서 설정한 callback uri      ex) http://localhost:4000/api/auth/callback/xxx (xxx = kakao | naver | google)
 ```
 
 ### 프로젝트 실행
