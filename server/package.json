@@ -10,7 +10,7 @@
     "lint:fix": "eslint --fix src/**/*.ts",
     "dev": "nodemon",
     "build": "NODE_ENV=production ttsc",
-    "test": "NODE_ENV=test jest",
+    "test": "NODE_ENV=test jest --runInBand",
     "seed:up": "ts-node -r tsconfig-paths/register src/seed/up.ts",
     "seed:clear": "ts-node -r tsconfig-paths/register src/seed/clear.ts"
   },
