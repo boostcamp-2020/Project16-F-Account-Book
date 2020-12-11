@@ -10,6 +10,7 @@ const MonthDiv = styled.div`
 `;
 
 const ArrowDiv = styled.div`
+  cursor: pointer;
   margin: 0px 10px;
   cursor: pointer;
 `;

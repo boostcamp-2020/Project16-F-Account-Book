@@ -51,34 +51,36 @@ const DetailedFixedExpenditure = (): JSX.Element => {
         <S.Amount>총 {getAmount('both')} 원</S.Amount>
       </S.Box>
       {fixedExpenditure.data.paid.length !== 0 ? (
-        <>
-          <S.Box>
-            <S.Category color="#E73636">지출 완료</S.Category>
-            {fixedExpenditure.data.paid.map((fixedItem) => (
-              <S.ItemBox key={`fixed${fixedItem.fid}`}>
-                <FixedExpenditureItem fixedItem={fixedItem} isPaid />
-              </S.ItemBox>
-            ))}
-            <S.AmountBox>
-              <p>지출 완료 합계</p>
-              <p>{getAmount('paid')}원</p>
-            </S.AmountBox>
-          </S.Box>
-          <S.Box>
-            <S.Category color="#0e7ee0">지출 예정</S.Category>
-            {fixedExpenditure.data.estimated.map((fixedItem) => (
-              <S.ItemBox key={`fixed${fixedItem.fid}`}>
-                <FixedExpenditureItem fixedItem={fixedItem} isPaid={false} />
-              </S.ItemBox>
-            ))}
-            <S.AmountBox>
-              <p>지출 예정 합계</p>
-              <p>{getAmount('estimated')}원</p>
-            </S.AmountBox>
-          </S.Box>
-        </>
+        <S.Box>
+          <S.Category color="#E73636">지출 완료</S.Category>
+          {fixedExpenditure.data.paid.map((fixedItem) => (
+            <S.ItemBox key={`fixed${fixedItem.fid}`}>
+              <FixedExpenditureItem fixedItem={fixedItem} isPaid />
+            </S.ItemBox>
+          ))}
+          <S.AmountBox>
+            <p>지출 완료 합계</p>
+            <p>{getAmount('paid')}원</p>
+          </S.AmountBox>
+        </S.Box>
       ) : (
-        <div />
+        <></>
+      )}
+      {fixedExpenditure.data.estimated.length !== 0 ? (
+        <S.Box>
+          <S.Category color="#0e7ee0">지출 예정</S.Category>
+          {fixedExpenditure.data.estimated.map((fixedItem) => (
+            <S.ItemBox key={`fixed${fixedItem.fid}`}>
+              <FixedExpenditureItem fixedItem={fixedItem} isPaid={false} />
+            </S.ItemBox>
+          ))}
+          <S.AmountBox>
+            <p>지출 예정 합계</p>
+            <p>{getAmount('estimated')}원</p>
+          </S.AmountBox>
+        </S.Box>
+      ) : (
+        <></>
       )}
     </>
   );

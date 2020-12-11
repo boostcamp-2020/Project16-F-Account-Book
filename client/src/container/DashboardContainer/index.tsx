@@ -9,6 +9,7 @@ import AmountText from '@/components/transaction/AmountText';
 import FixedExpenditure from '@container/FixedExpenditure';
 import aggregateAPI from '@/libs/api/aggregate';
 import NumberUtils from '@/libs/numberUtils';
+import EmptyStateComponent from '@/components/transaction/EmptyState';
 import * as S from './styles';
 
 const RECENT_TRANSACTION_LIMIT = 3;
@@ -57,7 +58,7 @@ const DashboardContainer = (): JSX.Element => {
         return '이 좋지 않네요 😢';
       }
       if (overspendingIndex >= 0.5) {
-        return '은 나쁘지 않아요 🙂';
+        return '이 좋습니다 🙂';
       }
       return '이 훌륭하네요 😍';
     },
@@ -73,7 +74,7 @@ const DashboardContainer = (): JSX.Element => {
         <S.BoxHeader>
           <S.BoxTitle>{datePicker.month}월 소비/수입</S.BoxTitle>
           <S.SpendingStatusDescription>
-            이번달 소비 습관{getSpendingStatus(overspendingIndexState.overspendingIndex)}
+            소비 습관{getSpendingStatus(overspendingIndexState.overspendingIndex)}
           </S.SpendingStatusDescription>
         </S.BoxHeader>
         <S.BoxRow>
@@ -88,11 +89,15 @@ const DashboardContainer = (): JSX.Element => {
           <S.BoxTitle>최근 내역</S.BoxTitle>
           <Link to="/calendar">자세히 보기</Link>
         </S.BoxHeader>
-        {transactionState.transactions.slice(0, RECENT_TRANSACTION_LIMIT).map((transaction) => (
-          <S.RecentTransactionBoxItem key={`transaction${transaction.tid}`}>
-            <TransactionListItem transaction={transaction} />
-          </S.RecentTransactionBoxItem>
-        ))}
+        {transactionState.transactions.length !== 0 ? (
+          transactionState.transactions.slice(0, RECENT_TRANSACTION_LIMIT).map((transaction) => (
+            <S.RecentTransactionBoxItem key={`transaction${transaction.tid}`}>
+              <TransactionListItem transaction={transaction} />
+            </S.RecentTransactionBoxItem>
+          ))
+        ) : (
+          <EmptyStateComponent align="left" />
+        )}
       </S.Box>
       <FixedExpenditure />
       <S.Box>
@@ -102,8 +107,8 @@ const DashboardContainer = (): JSX.Element => {
         </S.BoxHeader>
         <S.BoxRow>{mostSpendingCategoryState.name}에 가장 많은 돈을 쓰셨어요</S.BoxRow>
         <S.BoxRow>
-          사용한 금액 : {NumberUtils.numberWithCommas(Number(mostSpendingCategoryState.aggregate))}
-          원
+          사용한 금액 :{' '}
+          {NumberUtils.numberWithCommas(Number(mostSpendingCategoryState.aggregate || 0))}원
         </S.BoxRow>
       </S.Box>
       <S.Box>
