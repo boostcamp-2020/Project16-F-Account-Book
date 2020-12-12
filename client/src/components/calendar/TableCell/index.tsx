@@ -20,11 +20,15 @@ function TableCell({ day, totalInOut }: TableCellTypes): JSX.Element {
     if (Number(calendarDaySelector.day) === Number(day) && day !== ' ') return 'isBold';
     return '';
   };
+  const isCursor = (): 'isCursor' | '' => {
+    if (Number(day)) return 'isCursor';
+    return '';
+  };
   const dispatch = useDispatch();
 
   const onClick = (e: any) => {
     const value = e.currentTarget.innerText.split('\n')[0];
-    if (value === calendarDaySelector.day) {
+    if (value === calendarDaySelector.day || Number(day[0]) === 0) {
       dispatch(changeDay({ day: 0 }));
       return;
     }
@@ -32,7 +36,7 @@ function TableCell({ day, totalInOut }: TableCellTypes): JSX.Element {
   };
   return (
     <>
-      <S.CellButton onClick={onClick} key={day} className={isBold()}>
+      <S.CellButton onClick={onClick} key={day} className={(isBold(), isCursor())}>
         <div>{day}</div>
         <S.TotalIn>
           {totalInOut.get(day) && totalInOut.get(day).totalIn > 0 ? (

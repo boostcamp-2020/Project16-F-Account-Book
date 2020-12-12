@@ -10,7 +10,9 @@ const TotalOut = styled.div`
 `;
 const CellButton = styled.td`
   position: relative;
-  cursor: pointer;
+  &.isCursor {
+    cursor: pointer;
+  }
   text-align: center;
   &.isBold {
     font-weight: bold;
