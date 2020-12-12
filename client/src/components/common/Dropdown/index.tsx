@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { DropdownType } from './types';
 import * as S from './styles';
 
-export default function Dropdown({ icon, isRight, children }: DropdownType): JSX.Element {
+const Dropdown = ({ icon, isRight, children }: DropdownType): JSX.Element => {
   const [isShow, setDisplay] = useState(false);
   const position = isRight ? 'right' : '';
 
@@ -22,4 +22,6 @@ export default function Dropdown({ icon, isRight, children }: DropdownType): JSX
       )}
     </>
   );
-}
+};
+
+export default Dropdown;

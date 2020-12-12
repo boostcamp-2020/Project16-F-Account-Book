@@ -2,7 +2,7 @@ import React from 'react';
 import * as S from './styles';
 import { ModalProps } from './types';
 
-function Modal({ children, show, toggleModal }: ModalProps): JSX.Element {
+const Modal = ({ children, show, toggleModal }: ModalProps): JSX.Element => {
   return (
     <S.Modal show={show} onClick={toggleModal}>
       <S.Container
@@ -12,6 +12,6 @@ function Modal({ children, show, toggleModal }: ModalProps): JSX.Element {
       </S.Container>
     </S.Modal>
   );
-}
+};
 
 export default Modal;

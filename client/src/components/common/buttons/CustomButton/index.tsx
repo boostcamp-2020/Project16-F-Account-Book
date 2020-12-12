@@ -2,7 +2,7 @@ import React from 'react';
 import * as S from './styles';
 import { CustomButtonProps } from './types';
 
-function CustomButton(props: CustomButtonProps): JSX.Element {
+const CustomButton = (props: CustomButtonProps): JSX.Element => {
   const { image, children, color, size, onClickEvent } = props;
 
   return (
@@ -17,6 +17,6 @@ function CustomButton(props: CustomButtonProps): JSX.Element {
       )}
     </S.Button>
   );
-}
+};
 
 export default CustomButton;
