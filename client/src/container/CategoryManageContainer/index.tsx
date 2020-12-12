@@ -44,7 +44,7 @@ const CategoryManageContainer = ({ isIncome }: CategoryManageContainerProps): JS
     dispatch(postCategoryThunk(newCategory));
     toggleAddCategory();
     setCategoryData({ isIncome } as CategoryRequest);
-  }, [dispatch, categoryData]);
+  }, [dispatch, categoryData, isIncome]);
 
   const updateCategory = useCallback(
     (cid) => {
