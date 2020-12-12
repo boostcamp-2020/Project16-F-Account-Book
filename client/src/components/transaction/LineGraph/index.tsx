@@ -8,6 +8,7 @@ import {
   Tooltip,
   Legend,
   TooltipProps,
+  ResponsiveContainer,
 } from 'recharts';
 import dateUtil from '@libs/dateUtils';
 import { useSelector } from 'react-redux';
@@ -22,10 +23,10 @@ const customTooltip = ({ active, payload, label }: TooltipProps) => {
         <S.CustomTooltipContainer>
           <S.TooltipText>{`${label}일`}</S.TooltipText>
           <S.TooltipText>
-            <S.TooltipColorBox color="#8884d8" /> {`수입 : ${payload ? payload[0].value : 0}원`}
+            <S.TooltipColorBox color="#4B88C4" /> {`수입 : ${payload ? payload[0].value : 0}원`}
           </S.TooltipText>
           <S.TooltipText>
-            <S.TooltipColorBox color="#82ca9d" /> {`지출 : ${payload ? payload[1].value : 0}원`}
+            <S.TooltipColorBox color="#c2255c" /> {`지출 : ${payload ? payload[1].value : 0}원`}
           </S.TooltipText>
         </S.CustomTooltipContainer>
       )}
@@ -33,28 +34,23 @@ const customTooltip = ({ active, payload, label }: TooltipProps) => {
   );
 };
 
-const LineGraph = ({ width, height, data }: LineGraphProps): JSX.Element => {
+const LineGraph = ({ data }: LineGraphProps): JSX.Element => {
   const { datePicker } = useSelector((state: RootState) => state);
   const { year, month } = datePicker;
   const { maxTotal, graphData } = dateUtil.makeDataForLineGraph(data, year, month);
 
   return (
-    <S.StyledLineGraph>
-      <LineChart
-        width={width}
-        height={height}
-        data={graphData}
-        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-      >
+    <ResponsiveContainer aspect={1.5}>
+      <LineChart data={graphData} margin={{ top: 5, right: 15, left: 5, bottom: 5 }}>
         <XAxis dataKey="date" />
         <YAxis type="number" domain={[0, maxTotal]} />
         <CartesianGrid strokeDasharray="3 3" />
         <Tooltip content={customTooltip} />
         <Legend />
-        <Line type="monotone" dataKey="수입" stroke="#8884d8" activeDot={{ r: 8 }} />
-        <Line type="monotone" dataKey="지출" stroke="#82ca9d" />
+        <Line type="monotone" dataKey="수입" stroke="#4B88C4" activeDot={{ r: 8 }} />
+        <Line type="monotone" dataKey="지출" stroke="#c2255c" />
       </LineChart>
-    </S.StyledLineGraph>
+    </ResponsiveContainer>
   );
 };
 

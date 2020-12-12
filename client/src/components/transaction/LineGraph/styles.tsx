@@ -1,12 +1,5 @@
 import styled from 'styled-components';
 
-export const StyledLineGraph = styled.div`
-  padding: 10px;
-  width: auto;
-  height: auto;
-  background-color: #fff;
-`;
-
 export const CustomTooltipContainer = styled.div`
   display: flex;
   flex-direction: column;
