@@ -36,7 +36,7 @@ const CategoryManageContainer = ({ isIncome }: CategoryManageContainerProps): JS
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setCategoryData({ ...categoryData, name: e.target.value });
     },
-    [categoryData],
+    [categoryData, isIncome],
   );
 
   const postNewCategory = useCallback(() => {
@@ -44,7 +44,7 @@ const CategoryManageContainer = ({ isIncome }: CategoryManageContainerProps): JS
     dispatch(postCategoryThunk(newCategory));
     toggleAddCategory();
     setCategoryData({ isIncome } as CategoryRequest);
-  }, [dispatch, categoryData]);
+  }, [dispatch, categoryData, isIncome]);
 
   const updateCategory = useCallback(
     (cid) => {
@@ -54,6 +54,8 @@ const CategoryManageContainer = ({ isIncome }: CategoryManageContainerProps): JS
     },
     [dispatch, categoryData],
   );
+
+  console.log('isIncome : ', isIncome);
 
   return (
     <>
