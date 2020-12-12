@@ -6,7 +6,6 @@ function CustomSelectInput(props: SelectInputProps): JSX.Element {
   const { placeholder, children, name, onChange, value } = props;
   const initialValue = value?.id || 0;
   const [inputValue, setInputValue] = useState(initialValue);
-
   const selectInput = useRef<HTMLSelectElement>(null);
 
   const getMatchedOptionValue = () => {
@@ -20,7 +19,7 @@ function CustomSelectInput(props: SelectInputProps): JSX.Element {
   useEffect(() => {
     if (!value) return;
     const matchedValue = getMatchedOptionValue();
-    if (matchedValue) setInputValue(matchedValue);
+    setInputValue(matchedValue);
   }, [value]);
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {

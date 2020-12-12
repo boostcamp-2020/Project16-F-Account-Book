@@ -11,20 +11,24 @@ import { UpdateTransactionRequest } from '@/commons/types/transaction';
 import ModalInput from '@/components/transaction/ModalInput';
 import CustomSelectInput from '@/components/common/forms/CustomSelectInput';
 import CustomButton from '@/components/common/buttons/CustomButton';
+import checkValidation from '@/libs/checkValidation';
 import TransactionRequestDTO from '@/commons/dto/transaction-request';
 import { deleteTransactionThunk, updateTransactionThunk } from '@/modules/transaction';
 import * as S from './styles';
 
+const MODALLSITARR = ['tradeAt', 'description', 'amount', 'pid', 'cid', 'isIncome'];
+
 const TransactionUpdateModal = (): JSX.Element => {
   const [isIncome, setIsIncome] = useState(false);
+  const [validation, setValidation] = useState(new Set(MODALLSITARR));
   const { payment, category } = useSelector((state: RootState) => state);
   const { toggle, data } = useSelector((state: RootState) => state.updateModal);
   const categoryList = category.data.map((c) => new CategoryDTO(c));
   const paymentList = payment.data.map((p) => new PaymentDTO(p));
-
   const dispatch = useDispatch();
   const toggleModal = useCallback(() => {
     dispatch(toggleModalOff());
+    setValidation(new Set(MODALLSITARR));
   }, [dispatch]);
 
   const onChangeReducer = (state: UpdateTransactionRequest, action: UpdateTransactionRequest) => {
@@ -34,8 +38,20 @@ const TransactionUpdateModal = (): JSX.Element => {
   const [updatedTransaction, infoDispatch] = useReducer(onChangeReducer, {
     tid: data?.tid,
   } as UpdateTransactionRequest);
+
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    infoDispatch({ ...updatedTransaction, [e.target.name]: e.target.value });
+    if (checkValidation(e.target.name, e.target.value)) {
+      infoDispatch({ ...updatedTransaction, [e.target.name]: e.target.value });
+      validation.add(e.target.name);
+      setValidation(new Set([...validation]));
+    } else {
+      validation.delete(e.target.name);
+      setValidation(new Set([...validation]));
+    }
+    if ((e.target.name === 'description' || e.target.name === 'amount') && e.target.value === '') {
+      validation.delete(e.target.name);
+      setValidation(new Set([...validation]));
+    }
   };
 
   useEffect(() => {
@@ -59,9 +75,13 @@ const TransactionUpdateModal = (): JSX.Element => {
   }, [dispatch, updatedTransaction, data]);
 
   const deleteTransaction = useCallback(() => {
-    if (!data) return;
-    dispatch(deleteTransactionThunk(data.tid));
-    dispatch(toggleModalOff());
+    if (window.confirm('삭제 하시겠습니까?')) {
+      if (!data) return;
+      dispatch(deleteTransactionThunk(data.tid));
+      dispatch(toggleModalOff());
+    } else {
+      toggleModalOff();
+    }
   }, [dispatch, data]);
 
   return (
@@ -117,9 +137,11 @@ const TransactionUpdateModal = (): JSX.Element => {
             <CustomButton color="white" onClickEvent={deleteTransaction}>
               삭제
             </CustomButton>
-            <CustomButton color="blue" onClickEvent={updateTransaction}>
-              저장
-            </CustomButton>
+            {validation.size > 5 && (
+              <CustomButton color="blue" onClickEvent={updateTransaction}>
+                저장
+              </CustomButton>
+            )}
           </S.ModalFooter>
         </Modal>
       )}

@@ -11,7 +11,7 @@ const DashBoardPage = (): JSX.Element => {
     <MainLayout>
       <DashboardContainer />
       <ModalToggleButton setToggle={toggleModal} />
-      <TransactionModal show={showModal} toggleModal={toggleModal} />
+      {showModal && <TransactionModal show={showModal} toggleModal={toggleModal} />}
     </MainLayout>
   );
 };
