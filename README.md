@@ -48,7 +48,7 @@
 
 ### Architecture
 
-![스크린샷 2020-12-11 오후 9 33 31](https://user-images.githubusercontent.com/17294694/101904084-a882ba80-3bf8-11eb-8679-78145643e0c1.png)
+![스크린샷 2020-12-13 오전 3 18 13](https://user-images.githubusercontent.com/17294694/101991738-f3ccc400-3cf1-11eb-9af5-0842f99efecd.png)
 
 
 ## 프로젝트 세팅 및 실행
