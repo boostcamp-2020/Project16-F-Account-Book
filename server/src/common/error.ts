@@ -1,16 +1,26 @@
-const BAD_REQUEST = JSON.stringify({
+const BAD_REQUEST = {
   status: 400,
-  body: 'Bad request',
-});
+  message: 'Bad request',
+};
 
-const ACCESS_DENIED = JSON.stringify({
+const ACCESS_DENIED = {
   status: 401,
-  body: 'Unauthorized',
-});
+  message: 'Unauthorized',
+};
 
-const DATABASE_ERROR = JSON.stringify({
+const FORBIDDEN = {
+  stats: 403,
+  message: 'Does not havee access rights',
+};
+
+const DATABASE_ERROR = {
   status: 500,
-  body: 'Internal server error',
-});
+  message: 'Internal server error',
+};
 
-export { BAD_REQUEST, ACCESS_DENIED, DATABASE_ERROR };
+const NOT_FOUND_ERROR = {
+  status: 404,
+  message: 'cannot find requested resource',
+};
+
+export { BAD_REQUEST, ACCESS_DENIED, DATABASE_ERROR, NOT_FOUND_ERROR, FORBIDDEN };
