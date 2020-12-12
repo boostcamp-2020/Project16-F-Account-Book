@@ -1,5 +1,6 @@
 import React from 'react';
 import numberUtils from '@libs/numberUtils';
+import dateUtils from '@libs/dateUtils';
 import { FixedExpenditureItemPropType } from './types';
 import * as S from './styles';
 
@@ -13,7 +14,7 @@ const FixedExpenditureItem = ({ fixedItem, isPaid }: FixedExpenditureItemPropTyp
           {numberUtils.numberWithCommas(fixedItem.amount)} 원
         </S.Amount>
       </S.TitleBox>
-      <S.Date>{fixedItem.tradeAt.toString().substring(8, 10)}일</S.Date>
+      <S.Date>{dateUtils.parseDate(fixedItem.tradeAt).date}일</S.Date>
     </S.Box>
   );
 };

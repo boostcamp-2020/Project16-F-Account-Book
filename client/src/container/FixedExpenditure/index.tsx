@@ -9,7 +9,7 @@ import numberUtils from '@libs/numberUtils';
 import * as S from './styles';
 
 const FixedExpenditure = (): JSX.Element => {
-  const { datePicker, fixedExpenditure } = useSelector((state: RootState) => state);
+  const { datePicker, fixedExpenditure, transaction } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
 
   const getFixedExpenditure = useCallback(() => {
@@ -40,7 +40,7 @@ const FixedExpenditure = (): JSX.Element => {
 
   useEffect(() => {
     getFixedExpenditure();
-  }, [dispatch, datePicker]);
+  }, [dispatch, datePicker, transaction]);
   return (
     <>
       <S.Box>
