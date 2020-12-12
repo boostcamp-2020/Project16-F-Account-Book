@@ -5,14 +5,14 @@ export const StyledLineGraphContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 80%;
+  width: 95%;
   margin: 1rem auto;
   .div {
     display: flex;
   }
   border-radius: 0.3rem;
   box-shadow: 1px 2px 4px 1px rgba(0, 0, 0, 0.2);
-  padding: 1rem;
+  padding: 0.6rem;
 `;
 
 export const LineGraphText = styled.div`
