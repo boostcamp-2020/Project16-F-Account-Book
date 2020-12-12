@@ -2,17 +2,21 @@ import LineGraph from '@/components/transaction/LineGraph';
 import { RootState } from '@/modules';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import StyledLineGraphContainer from './style';
-import { LineGraphContainerProps } from './types';
+import SelectMonth from '../SelectMonth';
+import * as S from './styles';
 
-const LineGraphContainer = ({ width, height }: LineGraphContainerProps) => {
+const LineGraphContainer = () => {
   const { transaction } = useSelector((state: RootState) => state);
   return (
     <>
       {transaction && (
-        <StyledLineGraphContainer>
-          <LineGraph width={width} height={height} data={transaction.aggregationByDate} />
-        </StyledLineGraphContainer>
+        <>
+          <SelectMonth />
+          <S.StyledLineGraphContainer>
+            <S.LineGraphText>기간별 통계</S.LineGraphText>
+            <LineGraph data={transaction.aggregationByDate} />
+          </S.StyledLineGraphContainer>
+        </>
       )}
     </>
   );

@@ -114,7 +114,7 @@ const DashboardContainer = (): JSX.Element => {
       <S.Box>
         <S.BoxHeader>
           <S.BoxTitle>기간별 통계</S.BoxTitle>
-          <Link to="/calendar">자세히 보기</Link>
+          <Link to="/aggregate-period">자세히 보기</Link>
         </S.BoxHeader>
         <S.BoxRow>{transactionState.mostOutDateDetail.date}일에 가장 많은 돈을 쓰셨어요</S.BoxRow>
         <S.BoxRow>

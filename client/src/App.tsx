@@ -9,6 +9,7 @@ import PaymentManagePage from '@/views/PaymentManagePage';
 import AggregateCategoryPage from '@/views/AggregateCategoryPage';
 import GlobalStyled from './GlobalStyled';
 import CategoryManagePage from './views/CategoryManagePage';
+import AggregatePeriodPage from './views/AggregatePeriodPage';
 
 function App(): JSX.Element {
   return (
@@ -21,8 +22,9 @@ function App(): JSX.Element {
         <Route path="/calendar" component={CalendarPage} />
         <Route path="/detailed-fixed-expenditure" component={DetailedFixedExpenditurePage} />
         <Route path="/manage-payment" component={PaymentManagePage} />
-        <Route path="/aggregate-category" component={AggregateCategoryPage} />
         <Route path="/manage-category" component={CategoryManagePage} />
+        <Route path="/aggregate-category" component={AggregateCategoryPage} />
+        <Route path="/aggregate-period" component={AggregatePeriodPage} />
         <Redirect from="*" to="/dashboard" />
       </Switch>
     </>
