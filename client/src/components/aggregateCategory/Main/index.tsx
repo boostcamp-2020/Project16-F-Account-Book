@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import AggregateCategoryItem from '@/components/aggregateCategory/Item';
 import { AggregateCategoryPropType } from '@/commons/types/aggregateCategory';
 import { Doughnut } from 'react-chartjs-2';
+import EmptyStateComponent from '@/components/transaction/EmptyState';
 import * as S from './styles';
 
 const AggregateCategoryMain = ({ list, isIncome }: AggregateCategoryPropType): JSX.Element => {
@@ -32,32 +33,44 @@ const AggregateCategoryMain = ({ list, isIncome }: AggregateCategoryPropType): J
   }, [list, isIncome]);
   return (
     <>
-      <S.Chart>
-        <Doughnut
-          data={state}
-          options={{
-            width: '400',
-            height: '400',
-            responsive: true,
-            maintainAspectRatio: true,
-            legend: {
-              display: true,
-              position: 'right',
-              labels: { fontSize: 14, boxWidth: 14 },
-            },
-          }}
-        />
-      </S.Chart>
-      <S.Box>
-        {isIncome ? <S.Title>카테고리별 수입</S.Title> : <S.Title>카테고리별 지출</S.Title>}
-        {list.length !== 0 ? (
-          list.map((item) => (
-            <AggregateCategoryItem key={item.category + item.aggregate} item={item} total={total} />
-          ))
-        ) : (
-          <></>
-        )}
-      </S.Box>
+      {list.length === 0 ? (
+        <S.EmptyStateBox>
+          <EmptyStateComponent />
+        </S.EmptyStateBox>
+      ) : (
+        <>
+          <S.Chart>
+            <Doughnut
+              data={state}
+              options={{
+                width: '400',
+                height: '400',
+                responsive: true,
+                maintainAspectRatio: true,
+                legend: {
+                  display: true,
+                  position: 'right',
+                  labels: { fontSize: 14, boxWidth: 14 },
+                },
+              }}
+            />
+          </S.Chart>
+          <S.Box>
+            {isIncome ? <S.Title>카테고리별 수입</S.Title> : <S.Title>카테고리별 지출</S.Title>}
+            {list.length !== 0 ? (
+              list.map((item) => (
+                <AggregateCategoryItem
+                  key={item.category + item.aggregate}
+                  item={item}
+                  total={total}
+                />
+              ))
+            ) : (
+              <></>
+            )}
+          </S.Box>
+        </>
+      )}
     </>
   );
 };
