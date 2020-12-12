@@ -1,6 +1,6 @@
 import CategoryEntity from '@/entity/category.entity';
 import { Repository } from 'typeorm';
-import { BAD_REQUEST } from '@/common/error';
+import { DATABASE_ERROR, NOT_FOUND_ERROR } from '@/common/error';
 
 export default class CategoryService {
   private categoryRepository: Repository<CategoryEntity>;
@@ -16,6 +16,10 @@ export default class CategoryService {
   ): Promise<CategoryEntity> {
     const category = this.categoryRepository.create({ name, isIncome, uid });
     const newCategory = await this.categoryRepository.save(category);
+
+    if (!newCategory) {
+      throw DATABASE_ERROR;
+    }
     return newCategory;
   }
 
@@ -34,7 +38,10 @@ export default class CategoryService {
     uid: number,
   ): Promise<CategoryEntity> {
     const category = await this.categoryRepository.findOne({ where: { cid, uid } });
-    if (!category) throw new Error(BAD_REQUEST);
+
+    if (!category) {
+      throw NOT_FOUND_ERROR;
+    }
     const mergedCategory = this.categoryRepository.merge(category, { name, isIncome });
     const updatedCategory = await this.categoryRepository.save(mergedCategory);
     return updatedCategory;
@@ -42,7 +49,10 @@ export default class CategoryService {
 
   public async deleteCategory(cid: number, uid: number): Promise<CategoryEntity> {
     const category = await this.categoryRepository.findOne({ where: { cid, uid } });
-    if (!category) throw new Error(BAD_REQUEST);
+
+    if (!category) {
+      throw NOT_FOUND_ERROR;
+    }
     await this.categoryRepository.softDelete(category);
     return category;
   }

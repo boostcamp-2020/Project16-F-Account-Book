@@ -2,7 +2,7 @@
 import TranscationEntity from '@/entity/transaction.entity';
 import TransactionRepository from '@/domain/transaction/transaction.repository';
 import { Between } from 'typeorm';
-import { BAD_REQUEST, DATABASE_ERROR } from '@/common/error';
+import { BAD_REQUEST, DATABASE_ERROR, NOT_FOUND_ERROR } from '@/common/error';
 import { Transactional } from 'typeorm-transactional-cls-hooked';
 import {
   MonthlyTransactionDetailsQueryParams,
@@ -42,7 +42,7 @@ export default class TransactionService {
       relations: ['payment', 'category'],
     });
     if (!newTransaction) {
-      throw new Error(DATABASE_ERROR);
+      throw DATABASE_ERROR;
     }
     return newTransaction;
   }
@@ -55,7 +55,10 @@ export default class TransactionService {
   ): Promise<TransactionDetail> {
     const { amount, tradeAt, description, isIncome, cid, pid } = data;
     const target = await this.transactionRepository.findOne({ where: { tid, uid } });
-    if (!target) throw new Error(BAD_REQUEST);
+
+    if (!target) {
+      throw NOT_FOUND_ERROR;
+    }
     const mergedTransaction = this.transactionRepository.merge(target, {
       amount,
       tradeAt,
@@ -70,7 +73,7 @@ export default class TransactionService {
       relations: ['payment', 'category'],
     });
     if (!updatedTransaction) {
-      throw new Error(DATABASE_ERROR);
+      throw DATABASE_ERROR;
     }
     return updatedTransaction;
   }
@@ -78,7 +81,10 @@ export default class TransactionService {
   @Transactional()
   public async deleteTransaction(tid: number, uid: number): Promise<TransactionDetail> {
     const transaction = await this.transactionRepository.findOne({ where: { tid, uid } });
-    if (!transaction) throw new Error(BAD_REQUEST);
+
+    if (!transaction) {
+      throw NOT_FOUND_ERROR;
+    }
     await this.transactionRepository.delete(transaction);
     return transaction;
   }

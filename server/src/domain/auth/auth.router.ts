@@ -37,10 +37,10 @@ class AuthRouter extends Router {
     this.get('/callback/:provider', async (ctx: Context) => {
       const { provider } = ctx.params;
       const { code, state, error } = ctx.request.query;
-      if (error || !code) throw new Error(ACCESS_DENIED);
+      if (error || !code) throw ACCESS_DENIED;
 
       const oAuthClient = new OAuthClient(provider);
-      const { profile, token } = await oAuthClient.authorize(code, state);
+      const { profile } = await oAuthClient.authorize(code, state);
 
       const uid = await this.userService.getOrCreateUid(profile);
       const jwtToken = JwtUtils.generateToken(uid);
