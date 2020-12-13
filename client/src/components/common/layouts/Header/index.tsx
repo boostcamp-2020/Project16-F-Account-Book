@@ -21,23 +21,23 @@ function Header(): JSX.Element {
   ));
   const dispatch = useDispatch();
   const history = useHistory();
-  const onClick = async () => {
+  const doLogout = async () => {
     await authorizationAPI.logout();
-    history.push('/');
+    history.push('/login');
     dispatch(logout({ createAt: null }));
   };
   return (
     <S.HeaderDiv>
       <S.HeaderContentDiv>
         <S.HeaderLogo>
-          <Link to="/dashboard">
+          <Link to="/">
             <Logo height="35px" />
           </Link>
         </S.HeaderLogo>
         <S.DropDiv>
           <Dropdown icon={HeaderDropdownIcon} isRight>
             {dropdonwList}
-            <S.Item onClick={onClick} key="headerLogout">
+            <S.Item onClick={doLogout} key="headerLogout">
               로그아웃
             </S.Item>
           </Dropdown>
