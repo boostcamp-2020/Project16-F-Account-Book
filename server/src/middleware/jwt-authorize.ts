@@ -1,5 +1,6 @@
 import { Context, Next } from 'koa';
 import { getRepository } from 'typeorm';
+import { JwtConfig } from '@/config';
 import JwtUtils from '@/domain/auth/utils/jwt-utils';
 import UserEntity from '@/entity/user.entity';
 import UserDTO from '@/domain/auth/types/user-dto';
@@ -14,15 +15,14 @@ const jwtAuthorize = async (ctx: Context, next: Next): Promise<void> => {
     const decoded = JwtUtils.verifyToken(token);
     const userRepository = getRepository(UserEntity);
     const user = await userRepository.findOne({ where: { uid: decoded.uid } });
-    if (!user) throw new Error('no user');
+    if (!user) throw new Error('Not found user');
 
     const userDTO = new UserDTO(user);
     ctx.state.user = userDTO;
 
     const now: number = new Date().getTime();
-    const FOUR_HOUR = 1000 * 60 * 60 * 4;
 
-    if (decoded.exp - now < FOUR_HOUR) {
+    if (decoded.exp - now < JwtConfig.refreshThreshold) {
       const newToken = JwtUtils.generateToken(userDTO);
       JwtUtils.setCookie(ctx, newToken);
     }
