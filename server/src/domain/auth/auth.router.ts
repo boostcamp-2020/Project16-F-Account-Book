@@ -40,10 +40,10 @@ class AuthRouter extends Router {
       if (error || !code) throw new Error(ACCESS_DENIED);
 
       const oAuthClient = new OAuthClient(provider);
-      const { profile, token } = await oAuthClient.authorize(code, state);
+      const { profile } = await oAuthClient.authorize(code, state);
 
-      const uid = await this.userService.getOrCreateUid(profile);
-      const jwtToken = JwtUtils.generateToken(uid);
+      const user = await this.userService.getOrCreateUser(profile);
+      const jwtToken = JwtUtils.generateToken(user);
 
       ctx.cookies.set('jwt', jwtToken, {
         maxAge: JwtConfig.cookieExpiresIn,

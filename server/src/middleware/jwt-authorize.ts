@@ -19,12 +19,14 @@ const jwtAuthorize = async (ctx: Context, next: Next): Promise<void> => {
 
     if (!user) throw new Error('no user');
 
-    ctx.state.user = new UserDTO(user);
+    const userDTO = new UserDTO(user);
+    ctx.state.user = new UserDTO(userDTO);
 
-    const now: number = Math.floor(Date.now() / 1000);
+    const now: number = new Date().getTime();
+    const FOUR_HOUR = 1000 * 60 * 60 * 4;
 
-    if (decoded.exp - now < 60 * 60 * 4) {
-      const newToken = JwtUtils.generateToken(decoded.uid);
+    if (decoded.exp - now < FOUR_HOUR) {
+      const newToken = JwtUtils.generateToken(userDTO);
       ctx.cookies.set('jwt', newToken, {
         maxAge: Number(JwtConfig.cookieExpiresIn),
         httpOnly: true,

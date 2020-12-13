@@ -1,6 +1,7 @@
 import SocialUserDTO from '@/lib/oauth-client/userinfo/default';
 import UserEntity from '@/entity/user.entity';
 import { Repository } from 'typeorm';
+import UserDTO from '../auth/types/user-dto';
 
 export default class UserService {
   private userRepository: Repository<UserEntity>;
@@ -9,13 +10,13 @@ export default class UserService {
     this.userRepository = userRepository;
   }
 
-  public async getUserById(id: number): Promise<UserEntity | undefined> {
+  public async getUserById(id: number): Promise<UserDTO | undefined> {
     const user = await this.userRepository.findOne({ where: { uid: id } });
 
-    return user;
+    return user ? new UserDTO(user) : undefined;
   }
 
-  public async getOrCreateUid(data: SocialUserDTO): Promise<number> {
+  public async getOrCreateUser(data: SocialUserDTO): Promise<UserDTO> {
     let user = await this.userRepository.findOne({
       where: { socialId: data.socialId, socialType: data.socialType },
     });
@@ -24,10 +25,10 @@ export default class UserService {
       user = await this.createNewUser(data);
     }
 
-    return user.uid;
+    return new UserDTO(user);
   }
 
-  public async createNewUser(data: SocialUserDTO): Promise<UserEntity> {
+  public async createNewUser(data: SocialUserDTO): Promise<UserDTO> {
     const newUser = this.userRepository.create({
       name: data.name,
       socialId: data.socialId,
@@ -35,6 +36,6 @@ export default class UserService {
     });
     const savedUser = await this.userRepository.save(newUser);
 
-    return savedUser;
+    return new UserDTO(savedUser);
   }
 }

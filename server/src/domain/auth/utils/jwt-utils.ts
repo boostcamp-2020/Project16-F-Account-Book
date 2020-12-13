@@ -1,11 +1,14 @@
 import jwt from 'jsonwebtoken';
 import { JwtConfig } from '@/config/index';
 import decodedJWT from '@/domain/auth/types/decoded-jwt';
+import UserDTO from '@/domain/auth/types/user-dto';
 
-const generateToken = (uid: number): string => {
+const generateToken = ({ uid, socialId, socialType }: UserDTO): string => {
   const token = jwt.sign(
     {
       uid,
+      socialId,
+      socialType,
     },
     JwtConfig.tokenSecret,
     {
