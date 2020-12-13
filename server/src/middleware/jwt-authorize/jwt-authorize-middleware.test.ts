@@ -6,8 +6,16 @@ import UnauthorizedError from '@/common/error/unauthorized';
 import { fail } from 'assert';
 import JwtAuthorizeMiddleware from '.';
 
+const baseMockJwtConfig = {
+  tokenSecret: 'token-secret',
+  tokenExpiresIn: '1d',
+  refreshThreshold: 14400000,
+  cookieExpiresIn: 86400000,
+};
+
 describe('Jwt Authorize Middleware', () => {
   it('토큰이 유효하면 context.state에 user가 등록된다', async () => {
+    const jwtUtils = new JwtUtils(baseMockJwtConfig);
     const userRepository = UserRepository.getUserRepository();
     const user = await userRepository.save({
       socialId: '123456789',
@@ -15,7 +23,7 @@ describe('Jwt Authorize Middleware', () => {
       name: 'TestUser',
     });
     const userDTO = new UserDTO(user);
-    const token = JwtUtils.generateToken(userDTO);
+    const token = jwtUtils.generateToken(userDTO);
     const cookies = { jwt: token };
     const ctx = createMockContext({ cookies });
 
@@ -27,6 +35,7 @@ describe('Jwt Authorize Middleware', () => {
   });
 
   it('등록된 유저가 아니면 UnauthorizedError가 던져진다', async () => {
+    const jwtUtils = new JwtUtils(baseMockJwtConfig);
     const userDTO = new UserDTO({
       uid: 1,
       socialId: '123456789',
@@ -35,7 +44,7 @@ describe('Jwt Authorize Middleware', () => {
       updateAt: undefined,
       createAt: new Date(),
     });
-    const token = JwtUtils.generateToken(userDTO);
+    const token = jwtUtils.generateToken(userDTO);
     const cookies = { jwt: token };
     const ctx = createMockContext({ cookies });
 

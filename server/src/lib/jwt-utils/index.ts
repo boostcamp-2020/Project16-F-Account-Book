@@ -1,34 +1,44 @@
 import jwt from 'jsonwebtoken';
 import { Context } from 'koa';
-import { JwtConfig } from '@/config/index';
 import decodedJWT from '@/domain/auth/types/decoded-jwt';
 import UserDTO from '@/domain/auth/types/user-dto';
 
-const generateToken = ({ uid, socialId, socialType }: UserDTO): string => {
-  const token = jwt.sign(
-    {
-      uid,
-      socialId,
-      socialType,
-    },
-    JwtConfig.tokenSecret,
-    {
-      expiresIn: JwtConfig.tokenExpiresIn,
-    },
-  );
-  return token;
-};
+export default class JwtUtils {
+  private config;
 
-const verifyToken = (token: string): decodedJWT => {
-  const decodedToken = jwt.verify(token, JwtConfig.tokenSecret) as decodedJWT;
-  return decodedToken;
-};
+  constructor(config: {
+    tokenSecret: string;
+    tokenExpiresIn: string;
+    refreshThreshold: number;
+    cookieExpiresIn: number;
+  }) {
+    this.config = config;
+  }
 
-const setCookie = (ctx: Context, token: string): void => {
-  ctx.cookies.set('jwt', token, {
-    maxAge: Number(JwtConfig.cookieExpiresIn),
-    httpOnly: true,
-  });
-};
+  generateToken = ({ uid, socialId, socialType }: UserDTO): string => {
+    const token = jwt.sign(
+      {
+        uid,
+        socialId,
+        socialType,
+      },
+      this.config.tokenSecret,
+      {
+        expiresIn: this.config.tokenExpiresIn,
+      },
+    );
+    return token;
+  };
 
-export default { generateToken, verifyToken, setCookie };
+  verifyToken = (token: string): decodedJWT => {
+    const decodedToken = jwt.verify(token, this.config.tokenSecret) as decodedJWT;
+    return decodedToken;
+  };
+
+  setCookie = (ctx: Context, token: string): void => {
+    ctx.cookies.set('jwt', token, {
+      maxAge: Number(this.config.cookieExpiresIn),
+      httpOnly: true,
+    });
+  };
+}

@@ -7,6 +7,7 @@ import jwtAuthorize from '@/middleware/jwt-authorize';
 import OAuthClient from '@/lib/oauth-client';
 import BadRequest from '@/common/error/bad-request';
 import JwtUtils from '@/lib/jwt-utils';
+import { JwtConfig } from '@/config';
 
 class AuthRouter extends Router {
   private userService;
@@ -34,6 +35,7 @@ class AuthRouter extends Router {
     });
 
     this.get('/callback/:provider', async (ctx: Context) => {
+      const jwtUtils = new JwtUtils(JwtConfig);
       const { provider } = ctx.params;
       const { code, state, error } = ctx.request.query;
       if (error || !code) throw new BadRequest('Bad request');
@@ -42,9 +44,9 @@ class AuthRouter extends Router {
       const { profile } = await oAuthClient.authorize(code, state);
 
       const user = await this.userService.getOrCreateUser(profile);
-      const jwtToken = JwtUtils.generateToken(user);
+      const jwtToken = jwtUtils.generateToken(user);
 
-      JwtUtils.setCookie(ctx, jwtToken);
+      jwtUtils.setCookie(ctx, jwtToken);
 
       const clientUri = process.env.CLIENT_URI as string;
       ctx.redirect(clientUri);
