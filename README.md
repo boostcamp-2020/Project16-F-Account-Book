@@ -1,7 +1,9 @@
 # Project16-F-Account-Book ([Link](http://tess.kro.kr))
 
+<br>
 
-![Logo](https://user-images.githubusercontent.com/17294694/101917945-1c7a8e00-3c0c-11eb-828d-03e127a4d883.png)
+![Logo](https://user-images.githubusercontent.com/17294694/102017772-3eab1200-3dac-11eb-8e95-8435e44eb16a.png)
+
 
 
 <br>
