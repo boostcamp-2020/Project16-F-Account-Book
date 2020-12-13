@@ -30,6 +30,7 @@
   "license": "ISC",
   "dependencies": {
     "@koa/cors": "^3.1.0",
+    "@shopify/jest-koa-mocks": "^2.2.4",
     "axios": "^0.21.0",
     "dotenv": "^8.2.0",
     "jsonwebtoken": "^8.5.1",

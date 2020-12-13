@@ -6,7 +6,7 @@ import UserService from '@/domain/user/user.service';
 import jwtAuthorize from '@/middleware/jwt-authorize';
 import OAuthClient from '@/lib/oauth-client';
 import BadRequest from '@/common/error/bad-request';
-import JwtUtils from './utils/jwt-utils';
+import JwtUtils from '@/lib/jwt-utils';
 
 class AuthRouter extends Router {
   private userService;

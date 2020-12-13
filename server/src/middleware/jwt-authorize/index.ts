@@ -1,8 +1,7 @@
 import { Context, Next } from 'koa';
-import { getRepository } from 'typeorm';
 import { JwtConfig } from '@/config';
-import JwtUtils from '@/domain/auth/utils/jwt-utils';
-import UserEntity from '@/entity/user.entity';
+import JwtUtils from '@/lib/jwt-utils';
+import UserRepository from '@/domain/user/user.repository';
 import UserDTO from '@/domain/auth/types/user-dto';
 import UnauthorizedError from '@/common/error/unauthorized';
 
@@ -13,7 +12,7 @@ const jwtAuthorize = async (ctx: Context, next: Next): Promise<void> => {
   }
   try {
     const { uid, socialId, socialType, exp } = JwtUtils.verifyToken(token);
-    const userRepository = getRepository(UserEntity);
+    const userRepository = UserRepository.getUserRepository();
     const user = await userRepository.findOne({ where: { uid, socialId, socialType } });
     if (!user) throw new Error('Not found user');
 
