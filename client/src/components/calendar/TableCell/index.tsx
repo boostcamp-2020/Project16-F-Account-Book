@@ -14,10 +14,10 @@ const getRem = (n: number): string => {
   return rem;
 };
 
-function TableCell({ day, totalInOut }: TableCellTypes): JSX.Element {
+const TableCell = ({ day, totalInOut }: TableCellTypes): JSX.Element => {
   const { calendarDaySelector } = useSelector((state: RootState) => state);
   const isBold = (): 'isBold' | '' => {
-    if (Number(calendarDaySelector.day) === Number(day) && day !== ' ') return 'isBold';
+    if (Number(calendarDaySelector.day) === Number(day)) return 'isBold';
     return '';
   };
   const dispatch = useDispatch();
@@ -63,6 +63,6 @@ function TableCell({ day, totalInOut }: TableCellTypes): JSX.Element {
       </S.CellButton>
     </>
   );
-}
+};
 
 export default TableCell;

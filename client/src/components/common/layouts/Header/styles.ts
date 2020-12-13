@@ -12,22 +12,18 @@ const HeaderDiv = styled.div`
 `;
 
 const HeaderContentDiv = styled.div`
-  text-align: center;
+  display: flex;
   height: 40px;
+  align-items: center;
 `;
 
 const HeaderLogo = styled.div`
+  flex: 1 1 auto;
   display: inline-block;
-  margin-top: 5px;
-  margin-right: -48px;
 `;
 
 const DropDiv = styled.div`
-  float: right;
-  margin-top: 3px;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
+  flex: 0 0 auto;
 `;
 
 const Item = styled.li`

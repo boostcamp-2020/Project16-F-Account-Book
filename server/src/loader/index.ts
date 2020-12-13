@@ -1,5 +1,4 @@
-import Koa, { Next } from 'koa';
-import { Context } from 'vm';
+import Koa, { Context, Next } from 'koa';
 import Router from 'koa-router';
 import morgan from 'koa-morgan';
 import cors from '@koa/cors';
@@ -23,9 +22,9 @@ export default async (app: Koa<Koa.DefaultState, Koa.DefaultContext>): Promise<v
     try {
       await next();
     } catch (err) {
-      ctx.status = 400;
+      ctx.status = ctx.status ? ctx.status : 400;
       ctx.body = `message: ${err.message}`;
-      console.log('Error handler:', err.message);
+      console.log('Error :', err.message);
     }
   });
   app.use(bodyParser());
