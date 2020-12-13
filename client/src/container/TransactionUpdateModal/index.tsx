@@ -16,11 +16,11 @@ import TransactionRequestDTO from '@/commons/dto/transaction-request';
 import { deleteTransactionThunk, updateTransactionThunk } from '@/modules/transaction';
 import * as S from './styles';
 
-const MODALLSITARR = ['tradeAt', 'description', 'amount', 'pid', 'cid', 'isIncome'];
+const MODAL_LSIT_ARR = ['tradeAt', 'description', 'amount', 'pid', 'cid', 'isIncome'];
 
 const TransactionUpdateModal = (): JSX.Element => {
   const [isIncome, setIsIncome] = useState(false);
-  const [validation, setValidation] = useState(new Set(MODALLSITARR));
+  const [validation, setValidation] = useState(new Set(MODAL_LSIT_ARR));
   const { payment, category } = useSelector((state: RootState) => state);
   const { toggle, data } = useSelector((state: RootState) => state.updateModal);
   const categoryList = category.data.map((c) => new CategoryDTO(c));
@@ -28,7 +28,7 @@ const TransactionUpdateModal = (): JSX.Element => {
   const dispatch = useDispatch();
   const toggleModal = useCallback(() => {
     dispatch(toggleModalOff());
-    setValidation(new Set(MODALLSITARR));
+    setValidation(new Set(MODAL_LSIT_ARR));
   }, [dispatch]);
 
   const onChangeReducer = (state: UpdateTransactionRequest, action: UpdateTransactionRequest) => {

@@ -17,7 +17,6 @@ import DateUtils from '@/libs/dateUtils';
 import ModalInput from '@/components/transaction/ModalInput';
 import ModalHeader from '@/components/transaction/ModalHeader';
 import checkValidation from '@/libs/checkValidation';
-import { pid } from 'process';
 import * as S from './styles';
 import { TransactionModalProps } from './types';
 
