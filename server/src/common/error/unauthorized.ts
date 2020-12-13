@@ -1,4 +1,4 @@
-export default class AccessDeniedError extends Error {
+export default class UnauthorizedError extends Error {
   status;
 
   constructor(message: string) {
