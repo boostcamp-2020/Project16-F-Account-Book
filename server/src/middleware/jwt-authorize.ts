@@ -12,9 +12,9 @@ const jwtAuthorize = async (ctx: Context, next: Next): Promise<void> => {
     throw new UnauthorizedError('Request need authorization');
   }
   try {
-    const decoded = JwtUtils.verifyToken(token);
+    const { uid, socialId, socialType, exp } = JwtUtils.verifyToken(token);
     const userRepository = getRepository(UserEntity);
-    const user = await userRepository.findOne({ where: { uid: decoded.uid } });
+    const user = await userRepository.findOne({ where: { uid, socialId, socialType } });
     if (!user) throw new Error('Not found user');
 
     const userDTO = new UserDTO(user);
@@ -22,7 +22,7 @@ const jwtAuthorize = async (ctx: Context, next: Next): Promise<void> => {
 
     const now: number = new Date().getTime();
 
-    if (decoded.exp - now < JwtConfig.refreshThreshold) {
+    if (exp - now < JwtConfig.refreshThreshold) {
       const newToken = JwtUtils.generateToken(userDTO);
       JwtUtils.setCookie(ctx, newToken);
     }
