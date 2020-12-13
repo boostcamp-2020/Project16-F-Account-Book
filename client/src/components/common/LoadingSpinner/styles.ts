@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 
 const StyledLoadingSpinner = styled.div`
+  position: relative;
   display: flex;
-  height: 100%;
-  width: 100%;
+  min-height: 100vh;
+  padding-top: calc(51px + 1rem);
+  padding-bottom: 150px;
   justify-content: center;
   align-items: center;
   .img {
