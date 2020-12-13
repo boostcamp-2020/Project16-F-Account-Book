@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import Logo from '@components/common/Logo';
+import Logo from '@/components/common/Logo';
 import Dropdown from '@/components/common/Dropdown';
 import authorizationAPI from '@/libs/api/Authorization';
 import CircleUserSVG from '@/assets/svg/CircleUser.svg';
@@ -31,7 +31,7 @@ const Header = (): JSX.Element => {
       <S.HeaderContentDiv>
         <S.HeaderLogo>
           <Link to="/dashboard">
-            <Logo height="35px" />
+            <Logo height="20px" />
           </Link>
         </S.HeaderLogo>
         <S.DropDiv>
