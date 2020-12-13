@@ -67,17 +67,19 @@ const CategoryManageContainer = ({ isIncome }: CategoryManageContainerProps): JS
           border
         />
       )}
-      <CategoryListContainer>
-        {categoryList.map((category) => (
-          <ManageItem
-            item={category}
-            deleteItem={deleteCategory}
-            updateItem={updateCategory}
-            onChangeInput={onChangeCategoryName}
-            key={`m-category${category.id}`}
-          />
-        ))}
-      </CategoryListContainer>
+      {categoryList.length !== 0 && (
+        <CategoryListContainer>
+          {categoryList.map((category) => (
+            <ManageItem
+              item={category}
+              deleteItem={deleteCategory}
+              updateItem={updateCategory}
+              onChangeInput={onChangeCategoryName}
+              key={`m-category${category.id}`}
+            />
+          ))}
+        </CategoryListContainer>
+      )}
     </>
   );
 };

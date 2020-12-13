@@ -3,7 +3,7 @@ import NumberUtils from '@libs/numberUtils';
 import StyledAmountText from './styles';
 import { AmountTextProps } from './types';
 
-function AmountText({ isIncome, size = 'md', amount }: AmountTextProps): JSX.Element {
+const AmountText = ({ isIncome, size = 'md', amount }: AmountTextProps): JSX.Element => {
   return (
     <StyledAmountText isIncome={isIncome} size={size}>
       {isIncome
@@ -11,6 +11,6 @@ function AmountText({ isIncome, size = 'md', amount }: AmountTextProps): JSX.Ele
         : `-${NumberUtils.numberWithCommas(amount)}`}
     </StyledAmountText>
   );
-}
+};
 
 export default AmountText;
