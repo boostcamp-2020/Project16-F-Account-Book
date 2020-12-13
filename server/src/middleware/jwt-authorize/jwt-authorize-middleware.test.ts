@@ -1,7 +1,7 @@
 import { createMockContext } from '@shopify/jest-koa-mocks';
 import JwtUtils from '@/lib/jwt-utils';
 import UserRepository from '@/domain/user/user.repository';
-import UserDTO from '@/domain/auth/types/user-dto';
+import UserDTO from '@/domain/user/types/user-dto';
 import UnauthorizedError from '@/common/error/unauthorized';
 import { fail } from 'assert';
 import { JwtConfig } from '@/config';

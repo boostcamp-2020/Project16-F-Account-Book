@@ -1,7 +1,7 @@
 import SocialUserDTO from '@/lib/oauth-client/userinfo/default';
 import UserEntity from '@/entity/user.entity';
 import { Repository } from 'typeorm';
-import UserDTO from '../auth/types/user-dto';
+import UserDTO from './types/user-dto';
 
 export default class UserService {
   private userRepository: Repository<UserEntity>;

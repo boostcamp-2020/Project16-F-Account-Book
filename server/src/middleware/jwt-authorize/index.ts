@@ -2,7 +2,7 @@ import { Context, Next } from 'koa';
 import { JwtConfig } from '@/config';
 import JwtUtils from '@/lib/jwt-utils';
 import UserRepository from '@/domain/user/user.repository';
-import UserDTO from '@/domain/auth/types/user-dto';
+import UserDTO from '@/domain/user/types/user-dto';
 import UnauthorizedError from '@/common/error/unauthorized';
 
 const jwtAuthorize = async (ctx: Context, next: Next): Promise<void> => {

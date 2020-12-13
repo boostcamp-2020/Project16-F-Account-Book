@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { Context } from 'koa';
 import decodedJWT from '@/domain/auth/types/decoded-jwt';
-import UserDTO from '@/domain/auth/types/user-dto';
+import UserDTO from '@/domain/user/types/user-dto';
 
 export default class JwtUtils {
   private config;
