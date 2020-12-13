@@ -1,6 +1,7 @@
+import DatabaseError from '@/common/error/database';
+import NotFoundError from '@/common/error/not-found';
 import PaymentEntity from '@/entity/payment.entity';
 import { Repository } from 'typeorm';
-import { DATABASE_ERROR, NOT_FOUND_ERROR } from '@/common/error';
 
 export default class PaymentService {
   private paymentRepository: Repository<PaymentEntity>;
@@ -14,7 +15,7 @@ export default class PaymentService {
     const newPayment = await this.paymentRepository.save(payment);
 
     if (!payment) {
-      throw DATABASE_ERROR;
+      throw new DatabaseError('Fail to create new payment');
     }
     return newPayment;
   }
@@ -31,10 +32,15 @@ export default class PaymentService {
     const payment = await this.paymentRepository.findOne({ where: { pid, uid } });
 
     if (!payment) {
-      throw NOT_FOUND_ERROR;
+      throw new NotFoundError('Requested payment resource does not exist');
     }
     const mergedPayment = await this.paymentRepository.merge(payment, { name });
     const updatedPayment = await this.paymentRepository.save(mergedPayment);
+
+    if (!updatedPayment) {
+      throw new DatabaseError('Fail to updated payment');
+    }
+
     return updatedPayment;
   }
 
@@ -42,7 +48,7 @@ export default class PaymentService {
     const payment = await this.paymentRepository.findOne({ where: { pid, uid } });
 
     if (!payment) {
-      throw NOT_FOUND_ERROR;
+      throw new NotFoundError('Requested payment resource does not exist');
     }
     await this.paymentRepository.softDelete(payment);
     return payment;

@@ -1,6 +1,7 @@
+import DatabaseError from '@/common/error/database';
+import NotFoundError from '@/common/error/not-found';
 import CategoryEntity from '@/entity/category.entity';
 import { Repository } from 'typeorm';
-import { DATABASE_ERROR, NOT_FOUND_ERROR } from '@/common/error';
 
 export default class CategoryService {
   private categoryRepository: Repository<CategoryEntity>;
@@ -18,7 +19,7 @@ export default class CategoryService {
     const newCategory = await this.categoryRepository.save(category);
 
     if (!newCategory) {
-      throw DATABASE_ERROR;
+      throw new DatabaseError('Fail to create new category');
     }
     return newCategory;
   }
@@ -40,10 +41,15 @@ export default class CategoryService {
     const category = await this.categoryRepository.findOne({ where: { cid, uid } });
 
     if (!category) {
-      throw NOT_FOUND_ERROR;
+      throw new NotFoundError('Requested category resource does not exist');
     }
     const mergedCategory = this.categoryRepository.merge(category, { name, isIncome });
     const updatedCategory = await this.categoryRepository.save(mergedCategory);
+
+    if (!updatedCategory) {
+      throw new DatabaseError('Fail to update category');
+    }
+
     return updatedCategory;
   }
 
@@ -51,7 +57,7 @@ export default class CategoryService {
     const category = await this.categoryRepository.findOne({ where: { cid, uid } });
 
     if (!category) {
-      throw NOT_FOUND_ERROR;
+      throw new NotFoundError('Requested category resource does not exist');
     }
     await this.categoryRepository.softDelete(category);
     return category;

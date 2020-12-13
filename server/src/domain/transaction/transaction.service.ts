@@ -2,8 +2,9 @@
 import TranscationEntity from '@/entity/transaction.entity';
 import TransactionRepository from '@/domain/transaction/transaction.repository';
 import { Between } from 'typeorm';
-import { BAD_REQUEST, DATABASE_ERROR, NOT_FOUND_ERROR } from '@/common/error';
 import { Transactional } from 'typeorm-transactional-cls-hooked';
+import DatabaseError from '@/common/error/database';
+import NotFoundError from '@/common/error/not-found';
 import {
   MonthlyTransactionDetailsQueryParams,
   TransactionDetail,
@@ -42,7 +43,7 @@ export default class TransactionService {
       relations: ['payment', 'category'],
     });
     if (!newTransaction) {
-      throw DATABASE_ERROR;
+      throw new DatabaseError('Fail to create new transaction');
     }
     return newTransaction;
   }
@@ -57,7 +58,7 @@ export default class TransactionService {
     const target = await this.transactionRepository.findOne({ where: { tid, uid } });
 
     if (!target) {
-      throw NOT_FOUND_ERROR;
+      throw new NotFoundError('Requested transaction resource does not exist');
     }
     const mergedTransaction = this.transactionRepository.merge(target, {
       amount,
@@ -73,7 +74,7 @@ export default class TransactionService {
       relations: ['payment', 'category'],
     });
     if (!updatedTransaction) {
-      throw DATABASE_ERROR;
+      throw new DatabaseError('Fail to update transaction');
     }
     return updatedTransaction;
   }
@@ -83,7 +84,7 @@ export default class TransactionService {
     const transaction = await this.transactionRepository.findOne({ where: { tid, uid } });
 
     if (!transaction) {
-      throw NOT_FOUND_ERROR;
+      throw new NotFoundError('Requested transaction resource does not exist');
     }
     await this.transactionRepository.delete(transaction);
     return transaction;

@@ -4,12 +4,12 @@ import JwtUtils from '@/domain/auth/utils/jwt-utils';
 import { JwtConfig } from '@config/index';
 import UserEntity from '@/entity/user.entity';
 import UserDTO from '@/domain/auth/types/user-dto';
-import { ACCESS_DENIED, FORBIDDEN } from '@/common/error';
+import UnauthorizedError from '@/common/error/unauthorized';
 
 const jwtAuthorize = async (ctx: Context, next: Next): Promise<void> => {
   const token = ctx.cookies.get('jwt');
   if (!token) {
-    throw FORBIDDEN;
+    throw new UnauthorizedError('Request need authorization');
   }
   try {
     const decoded = JwtUtils.verifyToken(token);
@@ -26,7 +26,7 @@ const jwtAuthorize = async (ctx: Context, next: Next): Promise<void> => {
       });
     }
   } catch (e) {
-    throw ACCESS_DENIED;
+    throw new UnauthorizedError('Invalid authorization token');
   }
   await next();
 };

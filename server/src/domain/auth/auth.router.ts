@@ -1,4 +1,3 @@
-import { ACCESS_DENIED } from 'common/error';
 import Router from 'koa-router';
 import { Context } from 'koa';
 import userRepository from '@/domain/user/user.repository';
@@ -7,6 +6,7 @@ import { JwtConfig } from '@/config/index';
 import UserService from '@/domain/user/user.service';
 import jwtAuthorize from '@/middleware/jwt-authorize';
 import OAuthClient from '@/lib/oauth-client';
+import BadRequest from '@/common/error/bad-request';
 import JwtUtils from './utils/jwt-utils';
 
 class AuthRouter extends Router {
@@ -37,7 +37,7 @@ class AuthRouter extends Router {
     this.get('/callback/:provider', async (ctx: Context) => {
       const { provider } = ctx.params;
       const { code, state, error } = ctx.request.query;
-      if (error || !code) throw ACCESS_DENIED;
+      if (error || !code) throw new BadRequest('Bad request');
 
       const oAuthClient = new OAuthClient(provider);
       const { profile } = await oAuthClient.authorize(code, state);
