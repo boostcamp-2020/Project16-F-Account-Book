@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import { Context } from 'koa';
 import { JwtConfig } from '@/config/index';
 import decodedJWT from '@/domain/auth/types/decoded-jwt';
 import UserDTO from '@/domain/auth/types/user-dto';
@@ -23,4 +24,11 @@ const verifyToken = (token: string): decodedJWT => {
   return decodedToken;
 };
 
-export default { generateToken, verifyToken };
+const setCookie = (ctx: Context, token: string): void => {
+  ctx.cookies.set('jwt', token, {
+    maxAge: Number(JwtConfig.cookieExpiresIn),
+    httpOnly: true,
+  });
+};
+
+export default { generateToken, verifyToken, setCookie };

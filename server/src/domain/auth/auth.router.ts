@@ -45,10 +45,7 @@ class AuthRouter extends Router {
       const user = await this.userService.getOrCreateUser(profile);
       const jwtToken = JwtUtils.generateToken(user);
 
-      ctx.cookies.set('jwt', jwtToken, {
-        maxAge: JwtConfig.cookieExpiresIn,
-        httpOnly: true,
-      });
+      JwtUtils.setCookie(ctx, jwtToken);
 
       const clientUri = process.env.CLIENT_URI as string;
       ctx.redirect(clientUri);

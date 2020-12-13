@@ -1,8 +1,6 @@
-import { Next } from 'koa';
-import { Context } from 'vm';
+import { Next, Context } from 'koa';
 import { getRepository } from 'typeorm';
 import JwtUtils from '@/domain/auth/utils/jwt-utils';
-import { JwtConfig } from '@config/index';
 import UserEntity from '@/entity/user.entity';
 import UserDTO from '@/domain/auth/types/user-dto';
 
@@ -27,10 +25,7 @@ const jwtAuthorize = async (ctx: Context, next: Next): Promise<void> => {
 
     if (decoded.exp - now < FOUR_HOUR) {
       const newToken = JwtUtils.generateToken(userDTO);
-      ctx.cookies.set('jwt', newToken, {
-        maxAge: Number(JwtConfig.cookieExpiresIn),
-        httpOnly: true,
-      });
+      JwtUtils.setCookie(ctx, newToken);
     }
 
     await next();
