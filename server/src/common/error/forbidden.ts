@@ -1,4 +1,4 @@
-export default class ForbideenError extends Error {
+export default class ForbiddenError extends Error {
   status;
 
   constructor(message: string) {
