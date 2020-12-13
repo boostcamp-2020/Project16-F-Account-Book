@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/modules';
 import { changeDay } from '@/modules/calendarDaySelector/action';
@@ -34,6 +34,9 @@ function TableCell({ day, totalInOut }: TableCellTypes): JSX.Element {
     }
     dispatch(changeDay({ day: value }));
   };
+  useEffect(() => {
+    dispatch(changeDay({ day: 0 }));
+  }, []);
   return (
     <>
       <S.CellButton onClick={onClick} key={day} className={(isBold(), isCursor())}>
