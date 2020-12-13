@@ -26,7 +26,7 @@ const LoginPage = (props: RouteComponentProps): JSX.Element => {
   return (
     <S.Box>
       <S.LogoBox>
-        <Logo height="150px" />
+        <Logo height="95px" />
       </S.LogoBox>
       <LoginButton />
     </S.Box>

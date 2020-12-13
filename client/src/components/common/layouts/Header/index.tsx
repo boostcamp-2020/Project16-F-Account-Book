@@ -31,7 +31,7 @@ const Header = (): JSX.Element => {
       <S.HeaderContentDiv>
         <S.HeaderLogo>
           <Link to="/dashboard">
-            <Logo height="35px" />
+            <Logo height="20px" />
           </Link>
         </S.HeaderLogo>
         <S.DropDiv>
