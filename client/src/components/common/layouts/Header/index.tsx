@@ -11,7 +11,7 @@ import * as S from './styles';
 const HeaderDropdownIcon = (
   <img src={CircleUserSVG} alt="settings-button" width="24px" height="24px" />
 );
-function Header(): JSX.Element {
+const Header = (): JSX.Element => {
   const list = ['결제수단 관리', '카테고리 관리'];
   const linkPageList = ['manage-payment', 'manage-category'];
   const dropdonwList = list.map((v: string, i: number) => (
@@ -45,6 +45,6 @@ function Header(): JSX.Element {
       </S.HeaderContentDiv>
     </S.HeaderDiv>
   );
-}
+};
 
 export default React.memo(Header);

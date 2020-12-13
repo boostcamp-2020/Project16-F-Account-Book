@@ -2,7 +2,7 @@ import React from 'react';
 import * as S from './styles';
 import { ModalRadioButtonProps } from './types';
 
-function ModalRadioButton({ setIsIncome, onChange, value }: ModalRadioButtonProps): JSX.Element {
+const ModalRadioButton = ({ setIsIncome, onChange, value }: ModalRadioButtonProps): JSX.Element => {
   const onChangeRadioButton = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value: targetValue } = event.target;
     const isIncome = targetValue === 'true';
@@ -37,6 +37,6 @@ function ModalRadioButton({ setIsIncome, onChange, value }: ModalRadioButtonProp
       </S.RadioButtonWrapper>
     </S.RadioButtonContainer>
   );
-}
+};
 
 export default ModalRadioButton;

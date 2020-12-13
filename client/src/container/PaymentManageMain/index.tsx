@@ -63,17 +63,19 @@ const PaymentManageContainer = (): JSX.Element => {
           border
         />
       )}
-      <S.ManageListContainer>
-        {paymentList.map((payment) => (
-          <ManageItem
-            item={payment}
-            deleteItem={deletePayment}
-            updateItem={updatePayment}
-            onChangeInput={onChangePaymentName}
-            key={`m-payment${payment.id}`}
-          />
-        ))}
-      </S.ManageListContainer>
+      {paymentList.length !== 0 && (
+        <S.ManageListContainer>
+          {paymentList.map((payment) => (
+            <ManageItem
+              item={payment}
+              deleteItem={deletePayment}
+              updateItem={updatePayment}
+              onChangeInput={onChangePaymentName}
+              key={`m-payment${payment.id}`}
+            />
+          ))}
+        </S.ManageListContainer>
+      )}
     </>
   );
 };
