@@ -26,7 +26,7 @@ const jwtAuthorize = async (ctx: Context, next: Next): Promise<void> => {
       });
     }
   } catch (e) {
-    throw new UnauthorizedError('Invalid authorization token');
+    throw new UnauthorizedError('Invalid authentication token');
   }
   await next();
 };
