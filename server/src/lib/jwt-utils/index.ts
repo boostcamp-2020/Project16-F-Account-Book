@@ -6,12 +6,7 @@ import UserDTO from '@/domain/auth/types/user-dto';
 export default class JwtUtils {
   private config;
 
-  constructor(config: {
-    tokenSecret: string;
-    tokenExpiresIn: string;
-    refreshThreshold: number;
-    cookieExpiresIn: number;
-  }) {
+  constructor(config: { tokenSecret: string; tokenExpiresIn: number; refreshThreshold: number }) {
     this.config = config;
   }
 
@@ -37,7 +32,7 @@ export default class JwtUtils {
 
   setCookie = (ctx: Context, token: string): void => {
     ctx.cookies.set('jwt', token, {
-      maxAge: Number(this.config.cookieExpiresIn),
+      maxAge: this.config.tokenExpiresIn * 1000,
       httpOnly: true,
     });
   };

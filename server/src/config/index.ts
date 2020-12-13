@@ -54,7 +54,6 @@ export const OAuthConfig = {
 
 export const JwtConfig = {
   tokenSecret: process.env.JWT_SECRET || 'token-secret',
-  tokenExpiresIn: process.env.JWT_TOKEN_EXPIRES_IN || '1d',
-  refreshThreshold: Number(process.env.JWT_TOKEN_REFERSH_THRESHOLD || 14400000),
-  cookieExpiresIn: Number(process.env.JWT_COOKIE_EXPIRES_IN || 86400000),
+  tokenExpiresIn: Number(process.env.JWT_TOKEN_EXPIRES_IN || 86400),
+  refreshThreshold: Number(process.env.JWT_TOKEN_REFERSH_THRESHOLD || 14400),
 };

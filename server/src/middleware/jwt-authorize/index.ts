@@ -20,9 +20,8 @@ const jwtAuthorize = async (ctx: Context, next: Next): Promise<void> => {
     const userDTO = new UserDTO(user);
     ctx.state.user = userDTO;
 
-    const now: number = new Date().getTime();
-
-    if (exp - now < JwtConfig.refreshThreshold) {
+    const nowToSec: number = new Date().getTime() / 1000;
+    if (exp - nowToSec < JwtConfig.refreshThreshold) {
       const newToken = jwtUtils.generateToken(userDTO);
       jwtUtils.setCookie(ctx, newToken);
     }
