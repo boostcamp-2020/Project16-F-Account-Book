@@ -29,7 +29,8 @@ describe('TransactionService Tests', () => {
       });
       const user = {
         uid: 1,
-        name: 'testUser',
+        name: 'user1',
+        socialId: 'user1-123456789',
         socialType: 'google',
         updateAt: new Date('2020-05-12'),
         createAt: new Date('2020-05-12'),
@@ -61,7 +62,8 @@ describe('TransactionService Tests', () => {
       const registeredAt = new Date('2020-03-15');
       const user = {
         uid: 1,
-        name: 'testUser',
+        name: 'user1',
+        socialId: 'user1-123456789',
         socialType: 'google',
         updateAt: registeredAt,
         createAt: registeredAt,
