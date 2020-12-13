@@ -10,6 +10,11 @@ const GlobalStyled = createGlobalStyle`
     color: #363B40;
     height: 100%;
 
+    ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; 
+  }
+
     @media (max-width: 575.98px) { 
       font-size: 14px;
     }
