@@ -2,7 +2,6 @@ import Router from 'koa-router';
 import { Context } from 'koa';
 import userRepository from '@/domain/user/user.repository';
 import { v4 } from 'uuid';
-import { JwtConfig } from '@/config/index';
 import UserService from '@/domain/user/user.service';
 import jwtAuthorize from '@/middleware/jwt-authorize';
 import OAuthClient from '@/lib/oauth-client';
