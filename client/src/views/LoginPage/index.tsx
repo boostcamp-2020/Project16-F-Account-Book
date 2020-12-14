@@ -5,7 +5,7 @@ import Logo from '@/components/common/Logo';
 import LoginButton from '@/container/LoginButton';
 import { useDispatch } from 'react-redux';
 import { login } from '@/modules/authorization/actions';
-import { Box, LogoBox } from './styles';
+import * as S from './styles';
 
 const LoginPage = (props: RouteComponentProps): JSX.Element => {
   const dispatch = useDispatch();
@@ -22,12 +22,12 @@ const LoginPage = (props: RouteComponentProps): JSX.Element => {
     checkLogin();
   }, [props]);
   return (
-    <Box>
-      <LogoBox>
-        <Logo height="150px" />
-      </LogoBox>
+    <S.Box>
+      <S.LogoBox>
+        <Logo height="95px" />
+      </S.LogoBox>
       <LoginButton />
-    </Box>
+    </S.Box>
   );
 };
 

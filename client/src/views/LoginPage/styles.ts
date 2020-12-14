@@ -12,4 +12,5 @@ export const Box = styled.div`
 
 export const LogoBox = styled.div`
   text-align: center;
+  margin-left: -0.8rem;
 `;

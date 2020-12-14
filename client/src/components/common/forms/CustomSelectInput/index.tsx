@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { SelectInputProps } from './types';
 import * as S from './style';
 
-function CustomSelectInput(props: SelectInputProps): JSX.Element {
+const CustomSelectInput = (props: SelectInputProps): JSX.Element => {
   const { placeholder, children, name, onChange, value } = props;
   const initialValue = value?.id || 0;
   const [inputValue, setInputValue] = useState(initialValue);
@@ -39,6 +39,6 @@ function CustomSelectInput(props: SelectInputProps): JSX.Element {
       ))}
     </S.SelectInput>
   );
-}
+};
 
 export default CustomSelectInput;
