@@ -14,21 +14,25 @@ const getRem = (n: number): string => {
   return rem;
 };
 
-function TableCell({ day, totalInOut }: TableCellTypes): JSX.Element {
+const TableCell = ({ day, totalInOut }: TableCellTypes): JSX.Element => {
+  const dayToNumber = Number(day);
   const { calendarDaySelector } = useSelector((state: RootState) => state);
   const isBold = (): 'isBold' | '' => {
-    if (Number(calendarDaySelector.day) === Number(day) && day !== ' ') return 'isBold';
+    if (calendarDaySelector.day === dayToNumber) return 'isBold';
     return '';
   };
   const isCursor = (): 'isCursor' | '' => {
-    if (Number(day)) return 'isCursor';
+    if (dayToNumber) return 'isCursor';
     return '';
   };
   const dispatch = useDispatch();
 
-  const onClick = (e: any) => {
-    const value = e.currentTarget.innerText.split('\n')[0];
-    if (value === calendarDaySelector.day || Number(day[0]) === 0) {
+  const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const value = Number(e.currentTarget.innerText.split('\n')[0]);
+    if (!value) {
+      return;
+    }
+    if (value === calendarDaySelector.day) {
       dispatch(changeDay({ day: 0 }));
       return;
     }
@@ -70,6 +74,6 @@ function TableCell({ day, totalInOut }: TableCellTypes): JSX.Element {
       </S.CellButton>
     </>
   );
-}
+};
 
 export default TableCell;
