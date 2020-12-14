@@ -43,6 +43,14 @@ const GlobalStyled = createGlobalStyle`
   button {
     cursor: pointer;
   }
+
+  div {
+    -ms-user-select: none; 
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
 `;
 
 export default GlobalStyled;
