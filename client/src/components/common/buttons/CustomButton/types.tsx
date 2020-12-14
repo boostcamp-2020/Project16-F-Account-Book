@@ -4,6 +4,7 @@ export type CustomButtonProps = {
   children: React.ReactNode;
   size?: 'sm' | 'md';
   onClickEvent?: any;
+  validation: boolean;
 };
 
 export type ButtonProps = {
