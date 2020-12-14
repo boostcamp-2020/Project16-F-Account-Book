@@ -1,5 +1,4 @@
 import React from 'react';
-import { Reset } from 'styled-reset';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import DashBoardPage from '@/views/DashBoardPage';
 import LoginPage from '@/views/LoginPage';
@@ -10,11 +9,11 @@ import AggregateCategoryPage from '@/views/AggregateCategoryPage';
 import GlobalStyled from './GlobalStyled';
 import CategoryManagePage from './views/CategoryManagePage';
 import AggregatePeriodPage from './views/AggregatePeriodPage';
+import './App.css';
 
 function App(): JSX.Element {
   return (
     <>
-      <Reset />
       <GlobalStyled />
       <Switch>
         <Route path="/login" component={LoginPage} />

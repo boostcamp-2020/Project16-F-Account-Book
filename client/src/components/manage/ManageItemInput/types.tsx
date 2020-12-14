@@ -4,6 +4,7 @@ export type ManageItemInputProps = {
   saveHandler?: (e: React.MouseEvent<HTMLElement>) => void;
   onChangeInput?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   border: boolean;
+  isValid?: boolean;
 };
 
 export type ManageItemInputContainerProps = {

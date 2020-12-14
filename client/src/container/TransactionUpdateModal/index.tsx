@@ -2,7 +2,7 @@ import Modal from '@/components/common/Modal';
 import ModalHeader from '@/components/transaction/ModalHeader';
 import { RootState } from '@/modules';
 import { toggleModalOff } from '@/modules/updateModal';
-import React, { useCallback, useState, useReducer, useEffect } from 'react';
+import React, { useCallback, useState, useReducer, useEffect, useMemo } from 'react';
 import CategoryDTO from '@/commons/dto/category';
 import PaymentDTO from '@/commons/dto/payment';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,20 +16,20 @@ import TransactionRequestDTO from '@/commons/dto/transaction-request';
 import { deleteTransactionThunk, updateTransactionThunk } from '@/modules/transaction';
 import * as S from './styles';
 
-const MODAL_LSIT_ARR = ['tradeAt', 'description', 'amount', 'pid', 'cid', 'isIncome'];
+const MODAL_LIST_ARR = ['tradeAt', 'description', 'amount', 'pid', 'cid', 'isIncome'];
 
 const TransactionUpdateModal = (): JSX.Element => {
   const [isIncome, setIsIncome] = useState(false);
-  const [validation, setValidation] = useState(new Set(MODAL_LSIT_ARR));
+  const [validation, setValidation] = useState(new Set(MODAL_LIST_ARR));
   const { payment, category } = useSelector((state: RootState) => state);
   const { toggle, data } = useSelector((state: RootState) => state.updateModal);
-  const categoryList = category.data.map((c) => new CategoryDTO(c));
-  const paymentList = payment.data.map((p) => new PaymentDTO(p));
+  const categoryList = useMemo(() => category.data.map((c) => new CategoryDTO(c)), [category]);
+  const paymentList = useMemo(() => payment.data.map((p) => new PaymentDTO(p)), [payment]);
   const dispatch = useDispatch();
   const toggleModal = useCallback(() => {
     dispatch(toggleModalOff());
-    setValidation(new Set(MODAL_LSIT_ARR));
-  }, [dispatch]);
+    setValidation(new Set(MODAL_LIST_ARR));
+  }, []);
 
   const onChangeReducer = (state: UpdateTransactionRequest, action: UpdateTransactionRequest) => {
     return action;
@@ -72,17 +72,17 @@ const TransactionUpdateModal = (): JSX.Element => {
     const newTransactionDTO = new TransactionRequestDTO(updatedTransaction);
     dispatch(updateTransactionThunk(newTransactionDTO));
     dispatch(toggleModalOff());
-  }, [dispatch, updatedTransaction, data]);
+  }, [updatedTransaction, data]);
 
   const deleteTransaction = useCallback(() => {
+    if (!data) return;
     if (window.confirm('삭제 하시겠습니까?')) {
-      if (!data) return;
       dispatch(deleteTransactionThunk(data.tid));
       dispatch(toggleModalOff());
     } else {
       toggleModalOff();
     }
-  }, [dispatch, data]);
+  }, [data]);
 
   return (
     <>
@@ -137,11 +137,13 @@ const TransactionUpdateModal = (): JSX.Element => {
             <CustomButton color="white" onClickEvent={deleteTransaction}>
               삭제
             </CustomButton>
-            {validation.size > 5 && (
-              <CustomButton color="blue" onClickEvent={updateTransaction}>
-                저장
-              </CustomButton>
-            )}
+            <CustomButton
+              isValid={validation.size > 5}
+              color="blue"
+              onClickEvent={updateTransaction}
+            >
+              저장
+            </CustomButton>
           </S.ModalFooter>
         </Modal>
       )}
