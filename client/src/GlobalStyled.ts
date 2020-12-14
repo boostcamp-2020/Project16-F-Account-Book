@@ -1,6 +1,9 @@
 import { createGlobalStyle } from 'styled-components';
+import reset from 'styled-reset';
 
 const GlobalStyled = createGlobalStyle`
+  ${reset}
+
   * {
     box-sizing: border-box;
   }
@@ -9,6 +12,8 @@ const GlobalStyled = createGlobalStyle`
     font-size: 16px;
     color: #363B40;
     height: 100%;
+
+    font-family: 'Noto Sans KR', sans-serif;
 
     @media (max-width: 575.98px) { 
       font-size: 14px;
