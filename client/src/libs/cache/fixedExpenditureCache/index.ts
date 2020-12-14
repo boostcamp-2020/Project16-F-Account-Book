@@ -6,20 +6,20 @@ const cache: Map<string, FixedExpenditure> = new Map();
 
 const set = ({
   date,
-  fixedExpenditures,
+  fixedExpenditure,
 }: {
   date: YearMonthModel;
-  fixedExpenditures: FixedExpenditure;
+  fixedExpenditure: FixedExpenditure;
 }): void => {
   const dateKey = CacheUtils.makeDateKey(date);
-  cache.set(dateKey, fixedExpenditures);
+  cache.set(dateKey, fixedExpenditure);
 };
 
 const get = (date: YearMonthModel): FixedExpenditure | undefined => {
   const dateKey = CacheUtils.makeDateKey(date);
-  const fixedExpenditures = cache.get(dateKey);
-  if (fixedExpenditures) {
-    return { ...fixedExpenditures };
+  const fixedExpenditure = cache.get(dateKey);
+  if (fixedExpenditure) {
+    return { ...fixedExpenditure };
   }
   return undefined;
 };
