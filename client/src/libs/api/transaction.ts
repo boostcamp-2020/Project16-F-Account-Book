@@ -3,6 +3,7 @@ import endpoints from '@/libs/endpoints';
 import { MonthTransactionsResponse, TransactionModel } from '@/commons/types/transaction';
 import TransactionRequestDTO from '@/commons/dto/transaction-request';
 import transactionCache from '@/libs/cache/transactionCache';
+import fixedExpenditureCache from '@/libs/cache/fixedExpenditureCache';
 import DateUtils from '@/libs/dateUtils';
 
 const transactionAPI = {
@@ -30,6 +31,7 @@ const transactionAPI = {
     });
     const { year, month } = DateUtils.parseDate(newTransaction.tradeAt);
     transactionCache.clear({ year, month });
+    fixedExpenditureCache.clear({ year, month });
     return newTransaction;
   },
 
@@ -42,6 +44,7 @@ const transactionAPI = {
     );
     const { year, month } = DateUtils.parseDate(updatedTransaction.tradeAt);
     transactionCache.clear({ year, month });
+    fixedExpenditureCache.clear({ year, month });
     return updatedTransaction;
   },
 
@@ -51,6 +54,7 @@ const transactionAPI = {
     );
     const { year, month } = DateUtils.parseDate(deletedTransaction.tradeAt);
     transactionCache.clear({ year, month });
+    fixedExpenditureCache.clear({ year, month });
     return deletedTransaction;
   },
 };
