@@ -12,7 +12,7 @@ export type AggregateList = {
   dataArray: CategoryData[];
 };
 
-export type AggregateData = {
+export type AggregateCategoryData = {
   income: AggregateList[];
   expenditure: AggregateList[];
 };
@@ -29,4 +29,15 @@ export type AggregateCategoryItemPropType = {
 
 export type AggregateCategoryDayPropType = {
   day: Date;
+};
+
+export type OverspendingIndexDetail = {
+  overspendingIndex: number;
+  averageIncome: number;
+  expenditureThisMonth: number;
+};
+
+export type MostSpendingCategory = {
+  name: string;
+  aggregate: string;
 };
