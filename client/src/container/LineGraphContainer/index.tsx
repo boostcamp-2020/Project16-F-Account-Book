@@ -1,3 +1,4 @@
+import LoadingSpinner from '@/components/common/LoadingSpinner';
 import LineGraph from '@/components/transaction/LineGraph';
 import { RootState } from '@/modules';
 import React from 'react';
@@ -10,7 +11,9 @@ const LineGraphContainer = (): JSX.Element => {
   const { transaction } = useSelector((state: RootState) => state);
   return (
     <>
-      {transaction && (
+      {transaction.loading ? (
+        <LoadingSpinner />
+      ) : (
         <>
           <SelectMonth />
           {transaction.aggregationByDate.length === 0 ? (

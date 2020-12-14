@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import MainLayout from '@/components/common/layouts/MainLayout';
+import MainLayout from '@/views/layouts/MainLayout';
 import Calendar from '@container/Calendar';
 import TransactionUpdateModal from '@/container/TransactionUpdateModal';
 import TransactionModal from '@container/TransactionModal';

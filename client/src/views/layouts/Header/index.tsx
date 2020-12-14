@@ -21,9 +21,9 @@ const Header = (): JSX.Element => {
   ));
   const dispatch = useDispatch();
   const history = useHistory();
-  const onClick = async () => {
+  const doLogout = async () => {
     await authorizationAPI.logout();
-    history.push('/');
+    history.push('/login');
     dispatch(logout({ createAt: null }));
   };
   return (
@@ -37,7 +37,7 @@ const Header = (): JSX.Element => {
         <S.DropDiv>
           <Dropdown icon={HeaderDropdownIcon} isRight>
             {dropdonwList}
-            <S.Item onClick={onClick} key="headerLogout">
+            <S.Item onClick={doLogout} key="headerLogout">
               로그아웃
             </S.Item>
           </Dropdown>

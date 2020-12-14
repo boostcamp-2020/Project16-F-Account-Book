@@ -1,5 +1,5 @@
 import React from 'react';
-import MainLayout from '@/components/common/layouts/MainLayout';
+import MainLayout from '@/views/layouts/MainLayout';
 import DetailedFixedExpenditure from '@/container/DetailedFixedExpenditure';
 
 const DetailedFixedExpenditurePage = (): JSX.Element => {
