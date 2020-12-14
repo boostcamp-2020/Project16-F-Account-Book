@@ -1,4 +1,4 @@
-import MainLayout from '@/components/common/layouts/MainLayout';
+import MainLayout from '@/views/layouts/MainLayout';
 import PaymentManageContainer from '@/container/PaymentManageMain';
 import React from 'react';
 

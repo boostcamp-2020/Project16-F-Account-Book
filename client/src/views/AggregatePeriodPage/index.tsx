@@ -1,4 +1,4 @@
-import MainLayout from '@/components/common/layouts/MainLayout';
+import MainLayout from '@/views/layouts/MainLayout';
 import LineGraphContainer from '@/container/LineGraphContainer';
 import React from 'react';
 

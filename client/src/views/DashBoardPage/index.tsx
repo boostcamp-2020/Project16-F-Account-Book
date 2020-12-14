@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import TransactionModal from '@container/TransactionModal';
 import ModalToggleButton from '@components/common/buttons/ModalToggleButton';
-import MainLayout from '@/components/common/layouts/MainLayout';
+import MainLayout from '@/views/layouts/MainLayout';
 import DashboardContainer from '@/container/DashboardContainer';
 
 const DashBoardPage = (): JSX.Element => {
