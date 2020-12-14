@@ -1,11 +1,16 @@
 import ManageHeader from '@/components/manage/ManageHeader';
 import { RootState } from '@/modules';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ManageItem from '@/components/manage/ManageItem';
 import PaymentDTO from '@/commons/dto/payment';
 import ManageItemInput from '@/components/manage/ManageItemInput';
-import { deletePaymentThunk, postPaymentThunk, updatePaymentThunk } from '@/modules/payment';
+import {
+  deletePaymentThunk,
+  getPaymentThunk,
+  postPaymentThunk,
+  updatePaymentThunk,
+} from '@/modules/payment';
 import PaymentRequestDTO from '@/commons/dto/payment-request';
 import { PaymentRequest } from '@/commons/types/payment';
 import * as S from './styles';
@@ -16,6 +21,14 @@ const PaymentManageContainer = (): JSX.Element => {
   const [paymentData, setPaymentData] = useState({} as PaymentRequest);
   const [addPayment, setAddPayment] = useState(false);
   const dispatch = useDispatch();
+
+  const getPaymentList = useCallback(() => {
+    dispatch(getPaymentThunk());
+  }, []);
+
+  useEffect(() => {
+    getPaymentList();
+  }, []);
 
   const toggleAddPayment = useCallback(() => {
     setAddPayment(!addPayment);
