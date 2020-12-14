@@ -3,6 +3,7 @@ import CategoryRequestDTO from '@/commons/dto/category-request';
 import { CategoryRequest } from '@/commons/types/category';
 import ManageHeader from '@/components/manage/ManageHeader';
 import ManageItem from '@/components/manage/ManageItem';
+import checkOverlap from '@/libs/checkOverlap';
 import ManageItemInput from '@/components/manage/ManageItemInput';
 import { RootState } from '@/modules';
 import { deleteCategoryThunk, postCategoryThunk, updateCategoryThunk } from '@/modules/category';
