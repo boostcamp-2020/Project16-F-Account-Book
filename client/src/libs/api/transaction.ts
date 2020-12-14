@@ -4,16 +4,23 @@ import { MonthTransactionsResponse, TransactionModel } from '@/commons/types/tra
 import TransactionRequestDTO from '@/commons/dto/transaction-request';
 import transactionCache from '@/libs/cache/transactionCache';
 import fixedExpenditureCache from '@/libs/cache/fixedExpenditureCache';
+import MostSpendingCategoryCache from '@/libs/cache/mostSpendingCategoryCache';
+import OverspendingIndexCache from '@/libs/cache/overspendingIndexCache';
 import DateUtils from '@/libs/dateUtils';
+import { YearMonthModel } from '@/commons/types/date';
+
+const clearCache = (date: YearMonthModel) => {
+  transactionCache.clear(date);
+  fixedExpenditureCache.clear(date);
+  MostSpendingCategoryCache.clear(date);
+  OverspendingIndexCache.clear(date);
+};
 
 const transactionAPI = {
   getMonthlyTransaction: async ({
     year,
     month,
-  }: {
-    year: number;
-    month: number;
-  }): Promise<MonthTransactionsResponse> => {
+  }: YearMonthModel): Promise<MonthTransactionsResponse> => {
     const cachedData = transactionCache.get({ year, month });
     if (cachedData) {
       return cachedData;
@@ -30,8 +37,7 @@ const transactionAPI = {
       ...data,
     });
     const { year, month } = DateUtils.parseDate(newTransaction.tradeAt);
-    transactionCache.clear({ year, month });
-    fixedExpenditureCache.clear({ year, month });
+    clearCache({ year, month });
     return newTransaction;
   },
 
@@ -43,8 +49,7 @@ const transactionAPI = {
       },
     );
     const { year, month } = DateUtils.parseDate(updatedTransaction.tradeAt);
-    transactionCache.clear({ year, month });
-    fixedExpenditureCache.clear({ year, month });
+    clearCache({ year, month });
     return updatedTransaction;
   },
 
@@ -53,8 +58,7 @@ const transactionAPI = {
       `${endpoints.TRANSACTION_API}/${tid}`,
     );
     const { year, month } = DateUtils.parseDate(deletedTransaction.tradeAt);
-    transactionCache.clear({ year, month });
-    fixedExpenditureCache.clear({ year, month });
+    clearCache({ year, month });
     return deletedTransaction;
   },
 };

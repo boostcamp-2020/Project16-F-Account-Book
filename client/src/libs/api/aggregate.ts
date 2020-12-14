@@ -5,20 +5,32 @@ import {
   MostSpendingCategory,
   OverspendingIndexDetail,
 } from '@/commons/types/aggregate';
+import MostSpendingCategoryCache from '@/libs/cache/mostSpendingCategoryCache';
+import OverspendingIndexCache from '@/libs/cache/overspendingIndexCache';
 
 const aggregateAPI = {
   getOverspendingIndex: async (year: number, month: number): Promise<OverspendingIndexDetail> => {
-    const response = await axios.get(endpoints.GET_OVERSPENDING_INDEX_API, {
+    const cachedData = OverspendingIndexCache.get({ year, month });
+    if (cachedData) {
+      return cachedData;
+    }
+    const overspendingIndexDetail = await axios.get(endpoints.GET_OVERSPENDING_INDEX_API, {
       params: { year, month },
     });
-    return response;
+    OverspendingIndexCache.set({ date: { year, month }, overspendingIndexDetail });
+    return overspendingIndexDetail;
   },
 
   getMostSpendingCategory: async (year: number, month: number): Promise<MostSpendingCategory> => {
-    const response = await axios.get(endpoints.GET_MOST_SPENDING_CATEGORY_API, {
+    const cachedData = MostSpendingCategoryCache.get({ year, month });
+    if (cachedData) {
+      return cachedData;
+    }
+    const mostSpendingCategory = await axios.get(endpoints.GET_MOST_SPENDING_CATEGORY_API, {
       params: { year, month },
     });
-    return response;
+    MostSpendingCategoryCache.set({ date: { year, month }, mostSpendingCategory });
+    return mostSpendingCategory;
   },
 
   getAggregateCategory: async (
