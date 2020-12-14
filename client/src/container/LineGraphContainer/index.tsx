@@ -11,11 +11,11 @@ const LineGraphContainer = (): JSX.Element => {
   const { transaction } = useSelector((state: RootState) => state);
   return (
     <>
+      <SelectMonth />
       {transaction.loading ? (
         <LoadingSpinner />
       ) : (
         <>
-          <SelectMonth />
           {transaction.aggregationByDate.length === 0 ? (
             <EmptyStateComponent />
           ) : (
