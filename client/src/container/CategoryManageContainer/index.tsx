@@ -6,8 +6,13 @@ import ManageItem from '@/components/manage/ManageItem';
 import checkOverlap from '@/libs/checkOverlap';
 import ManageItemInput from '@/components/manage/ManageItemInput';
 import { RootState } from '@/modules';
-import { deleteCategoryThunk, postCategoryThunk, updateCategoryThunk } from '@/modules/category';
-import React, { useCallback, useState } from 'react';
+import {
+  deleteCategoryThunk,
+  getCategoryThunk,
+  postCategoryThunk,
+  updateCategoryThunk,
+} from '@/modules/category';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CategoryManageContainerProps } from './types';
 import CategoryListContainer from './styles';
@@ -23,16 +28,21 @@ const CategoryManageContainer = ({ isIncome }: CategoryManageContainerProps): JS
 
   const dispatch = useDispatch();
 
+  const getCategoryList = useCallback(() => {
+    dispatch(getCategoryThunk());
+  }, []);
+
+  useEffect(() => {
+    getCategoryList();
+  }, []);
+
   const toggleAddCategory = useCallback(() => {
     setAddCategory(!addCategory);
   }, [addCategory]);
 
-  const deleteCategory = useCallback(
-    (cid) => {
-      dispatch(deleteCategoryThunk(cid));
-    },
-    [dispatch],
-  );
+  const deleteCategory = useCallback((cid) => {
+    dispatch(deleteCategoryThunk(cid));
+  }, []);
 
   const onChangeCategoryName = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,13 +52,11 @@ const CategoryManageContainer = ({ isIncome }: CategoryManageContainerProps): JS
   );
 
   const postNewCategory = useCallback(() => {
-    if (checkValidation) {
-      const newCategory = new CategoryRequestDTO(categoryData);
-      dispatch(postCategoryThunk(newCategory));
-      toggleAddCategory();
-      setCategoryData({ isIncome } as CategoryRequest);
-    }
-  }, [dispatch, categoryData, isIncome]);
+    const newCategory = new CategoryRequestDTO(categoryData);
+    dispatch(postCategoryThunk(newCategory));
+    toggleAddCategory();
+    setCategoryData({ isIncome } as CategoryRequest);
+  }, [categoryData, isIncome]);
 
   const updateCategory = useCallback(
     (cid) => {
@@ -58,7 +66,7 @@ const CategoryManageContainer = ({ isIncome }: CategoryManageContainerProps): JS
         setCategoryData({ isIncome } as CategoryRequest);
       }
     },
-    [dispatch, categoryData],
+    [categoryData],
   );
 
   return (

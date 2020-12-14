@@ -64,7 +64,8 @@ const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Ele
     const newTransactionDTO = new TransactionRequestDTO(newTransaction);
     dispatch(postTransactionThunk(newTransactionDTO));
     toggleModal();
-  }, [dispatch, newTransaction]);
+  }, [newTransaction]);
+
 
   const parseClipboardText = useCallback(() => {
     navigator.clipboard.readText().then((clipText) => {

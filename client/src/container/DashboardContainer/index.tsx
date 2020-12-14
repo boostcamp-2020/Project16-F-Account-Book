@@ -20,7 +20,7 @@ const DashboardContainer = (): JSX.Element => {
   const dispatch = useDispatch();
   const getMonthlyTransactions = useCallback(() => {
     dispatch(getMonthlyTransactionThunk(datePicker));
-  }, [dispatch, datePicker]);
+  }, [datePicker]);
   const [overspendingIndexState, setOverspendingIndexState] = useState({
     overspendingIndex: 0,
     averageIncome: 0,
