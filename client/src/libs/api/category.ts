@@ -2,7 +2,7 @@ import CategoryRequestDTO from '@/commons/dto/category-request';
 import axios from '@/libs/axios';
 import endpoints from '@/libs/endpoints';
 import { CategoryModel } from '@/commons/types/category';
-import cache from '@/libs/cache/categoryCahce';
+import cache from '@/libs/cache/categoryCache';
 
 const categoryAPI = {
   getCategory: async (): Promise<CategoryModel[]> => {
