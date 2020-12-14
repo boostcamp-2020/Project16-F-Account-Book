@@ -1,8 +1,8 @@
 import categoryCache from '.';
 
 const mockResponse = [
-  { id: 1, name: '식비', isIncome: false, uid: 1 },
-  { id: 2, name: '교통', isIncome: false, uid: 1 },
+  { cid: 1, name: '식비', isIncome: false, uid: 1 },
+  { cid: 2, name: '교통', isIncome: false, uid: 1 },
 ];
 
 afterEach(() => {

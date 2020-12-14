@@ -1,12 +1,12 @@
-import CategoryDTO from '@/commons/dto/category';
+import { CategoryModel } from '@/commons/types/category';
 
-const cache: CategoryDTO[] = [];
+const cache: CategoryModel[] = [];
 
-const set = (categories: CategoryDTO[]): void => {
+const set = (categories: CategoryModel[]): void => {
   cache.push(...Array.from(categories));
 };
 
-const get = (): CategoryDTO[] => {
+const get = (): CategoryModel[] => {
   return [...Array.from(cache)];
 };
 
