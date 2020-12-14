@@ -16,12 +16,9 @@ const TransactionSelectList = (): JSX.Element => {
   ) as TransactionModel[];
   const dispatch = useDispatch();
 
-  const toggleModal = useCallback(
-    (t: TransactionModel) => {
-      dispatch(toggleModalOn(t));
-    },
-    [dispatch],
-  );
+  const toggleModal = useCallback((t: TransactionModel) => {
+    dispatch(toggleModalOn(t));
+  }, []);
   return (
     <>
       <S.DateContainer>

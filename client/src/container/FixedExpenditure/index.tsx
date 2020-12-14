@@ -15,7 +15,7 @@ const FixedExpenditure = (): JSX.Element => {
 
   const getFixedExpenditure = useCallback(() => {
     dispatch(getFixedExpenditureThunk(datePicker.year, datePicker.month));
-  }, [dispatch, datePicker]);
+  }, [datePicker]);
 
   const getAmount = useCallback(
     (type: string) => {
@@ -41,7 +41,7 @@ const FixedExpenditure = (): JSX.Element => {
 
   useEffect(() => {
     getFixedExpenditure();
-  }, [dispatch, datePicker, transaction]);
+  }, [datePicker, transaction]);
   return (
     <>
       {fixedExpenditure.loading ? (

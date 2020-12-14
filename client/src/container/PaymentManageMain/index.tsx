@@ -1,11 +1,16 @@
 import ManageHeader from '@/components/manage/ManageHeader';
 import { RootState } from '@/modules';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ManageItem from '@/components/manage/ManageItem';
 import PaymentDTO from '@/commons/dto/payment';
 import ManageItemInput from '@/components/manage/ManageItemInput';
-import { deletePaymentThunk, postPaymentThunk, updatePaymentThunk } from '@/modules/payment';
+import {
+  deletePaymentThunk,
+  getPaymentThunk,
+  postPaymentThunk,
+  updatePaymentThunk,
+} from '@/modules/payment';
 import PaymentRequestDTO from '@/commons/dto/payment-request';
 import { PaymentRequest } from '@/commons/types/payment';
 import checkOverlap from '@/libs/checkOverlap';
@@ -19,16 +24,21 @@ const PaymentManageContainer = (): JSX.Element => {
   const dispatch = useDispatch();
   const checkValidation = checkOverlap(paymentData.name, paymentList);
 
+  const getPaymentList = useCallback(() => {
+    dispatch(getPaymentThunk());
+  }, []);
+
+  useEffect(() => {
+    getPaymentList();
+  }, []);
+
   const toggleAddPayment = useCallback(() => {
     setAddPayment(!addPayment);
   }, [addPayment]);
 
-  const deletePayment = useCallback(
-    (pid) => {
-      dispatch(deletePaymentThunk(pid));
-    },
-    [dispatch],
-  );
+  const deletePayment = useCallback((pid) => {
+    dispatch(deletePaymentThunk(pid));
+  }, []);
 
   const onChangePaymentName = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,13 +48,11 @@ const PaymentManageContainer = (): JSX.Element => {
   );
 
   const postNewPayment = useCallback(() => {
-    if (checkValidation) {
-      const newPayment = new PaymentRequestDTO(paymentData);
-      dispatch(postPaymentThunk(newPayment));
-      toggleAddPayment();
-      setPaymentData({} as PaymentRequest);
-    }
-  }, [dispatch, paymentData]);
+    const newPayment = new PaymentRequestDTO(paymentData);
+    dispatch(postPaymentThunk(newPayment));
+    toggleAddPayment();
+    setPaymentData({} as PaymentRequest);
+  }, [paymentData]);
 
   const updatePayment = useCallback(
     (pid) => {
@@ -54,7 +62,7 @@ const PaymentManageContainer = (): JSX.Element => {
         setPaymentData({} as PaymentRequest);
       }
     },
-    [dispatch, paymentData],
+    [paymentData],
   );
 
   return (
