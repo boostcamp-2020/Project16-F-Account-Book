@@ -3,10 +3,10 @@ import * as S from './styles';
 import { CustomButtonProps } from './types';
 
 const CustomButton = (props: CustomButtonProps): JSX.Element => {
-  const { image, children, color, size, onClickEvent, validation } = props;
+  const { image, children, color, size, onClickEvent, isValid } = props;
 
   return (
-    <S.Button disabled={validation} onClick={onClickEvent} color={color} size={size}>
+    <S.Button disabled={isValid} onClick={onClickEvent} color={color} size={size}>
       {image ? (
         <>
           <S.ButtonImg />

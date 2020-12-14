@@ -10,6 +10,7 @@ const ManageItemInput = ({
   saveHandler,
   onChangeInput,
   border,
+  isValid,
 }: ManageItemInputProps): JSX.Element => {
   const inputComponent = useRef<HTMLInputElement>(null);
   useEffect(() => {
@@ -31,7 +32,7 @@ const ManageItemInput = ({
         <CustomButton color="white" size="sm" onClickEvent={cancelHandler}>
           취소
         </CustomButton>
-        <CustomButton color="blue" size="sm" onClickEvent={saveHandler}>
+        <CustomButton isValid={isValid} color="blue" size="sm" onClickEvent={saveHandler}>
           저장
         </CustomButton>
       </S.ManageButtonContainer>
