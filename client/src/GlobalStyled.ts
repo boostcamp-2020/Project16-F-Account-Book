@@ -15,6 +15,11 @@ const GlobalStyled = createGlobalStyle`
 
     font-family: 'Noto Sans KR', sans-serif;
 
+    ::-webkit-scrollbar {
+      width: 0px;
+      background: transparent; 
+    }
+    
     @media (max-width: 575.98px) { 
       font-size: 14px;
     }

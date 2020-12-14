@@ -16,15 +16,15 @@ function App(): JSX.Element {
     <>
       <GlobalStyled />
       <Switch>
-        <Route path="/" component={LoginPage} exact />
-        <Route path="/dashboard" component={DashBoardPage} />
+        <Route path="/login" component={LoginPage} />
         <Route path="/calendar" component={CalendarPage} />
         <Route path="/detailed-fixed-expenditure" component={DetailedFixedExpenditurePage} />
         <Route path="/manage-payment" component={PaymentManagePage} />
         <Route path="/manage-category" component={CategoryManagePage} />
         <Route path="/aggregate-category" component={AggregateCategoryPage} />
         <Route path="/aggregate-period" component={AggregatePeriodPage} />
-        <Redirect from="*" to="/dashboard" />
+        <Route path="/" component={DashBoardPage} />
+        <Redirect from="*" to="/" />
       </Switch>
     </>
   );
