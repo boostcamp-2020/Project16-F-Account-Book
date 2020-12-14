@@ -3,6 +3,7 @@ import CategoryRequestDTO from '@/commons/dto/category-request';
 import { CategoryRequest } from '@/commons/types/category';
 import ManageHeader from '@/components/manage/ManageHeader';
 import ManageItem from '@/components/manage/ManageItem';
+import checkOverlap from '@/libs/checkOverlap';
 import ManageItemInput from '@/components/manage/ManageItemInput';
 import { RootState } from '@/modules';
 import {
@@ -23,6 +24,7 @@ const CategoryManageContainer = ({ isIncome }: CategoryManageContainerProps): JS
     .map((category) => new CategoryDTO(category));
   const [categoryData, setCategoryData] = useState({ isIncome } as CategoryRequest);
   const [addCategory, setAddCategory] = useState(false);
+  const checkValidation = checkOverlap(categoryData.name, categoryList);
 
   const dispatch = useDispatch();
 
@@ -58,9 +60,11 @@ const CategoryManageContainer = ({ isIncome }: CategoryManageContainerProps): JS
 
   const updateCategory = useCallback(
     (cid) => {
-      const updateCategoryData = new CategoryRequestDTO({ cid, ...categoryData });
-      dispatch(updateCategoryThunk(updateCategoryData));
-      setCategoryData({ isIncome } as CategoryRequest);
+      if (checkValidation) {
+        const updateCategoryData = new CategoryRequestDTO({ cid, ...categoryData });
+        dispatch(updateCategoryThunk(updateCategoryData));
+        setCategoryData({ isIncome } as CategoryRequest);
+      }
     },
     [categoryData],
   );
@@ -75,6 +79,7 @@ const CategoryManageContainer = ({ isIncome }: CategoryManageContainerProps): JS
           saveHandler={postNewCategory}
           onChangeInput={onChangeCategoryName}
           border
+          isValid={checkValidation}
         />
       )}
       {categoryList.length !== 0 && (

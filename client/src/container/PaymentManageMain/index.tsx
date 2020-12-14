@@ -13,6 +13,7 @@ import {
 } from '@/modules/payment';
 import PaymentRequestDTO from '@/commons/dto/payment-request';
 import { PaymentRequest } from '@/commons/types/payment';
+import checkOverlap from '@/libs/checkOverlap';
 import * as S from './styles';
 
 const PaymentManageContainer = (): JSX.Element => {
@@ -21,6 +22,7 @@ const PaymentManageContainer = (): JSX.Element => {
   const [paymentData, setPaymentData] = useState({} as PaymentRequest);
   const [addPayment, setAddPayment] = useState(false);
   const dispatch = useDispatch();
+  const checkValidation = checkOverlap(paymentData.name, paymentList);
 
   const getPaymentList = useCallback(() => {
     dispatch(getPaymentThunk());
@@ -54,9 +56,11 @@ const PaymentManageContainer = (): JSX.Element => {
 
   const updatePayment = useCallback(
     (pid) => {
-      const updatePaymentData = new PaymentRequestDTO({ pid, ...paymentData });
-      dispatch(updatePaymentThunk(updatePaymentData));
-      setPaymentData({} as PaymentRequest);
+      if (checkValidation) {
+        const updatePaymentData = new PaymentRequestDTO({ pid, ...paymentData });
+        dispatch(updatePaymentThunk(updatePaymentData));
+        setPaymentData({} as PaymentRequest);
+      }
     },
     [paymentData],
   );
@@ -70,6 +74,7 @@ const PaymentManageContainer = (): JSX.Element => {
           cancelHandler={toggleAddPayment}
           saveHandler={postNewPayment}
           onChangeInput={onChangePaymentName}
+          isValid={checkValidation}
           border
         />
       )}
