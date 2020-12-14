@@ -24,6 +24,11 @@ const GlobalStyled = createGlobalStyle`
       font-size: 14px;
     }
   }
+  button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
 
   a {
     &:link {

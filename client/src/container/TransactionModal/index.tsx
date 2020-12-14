@@ -30,15 +30,15 @@ const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Ele
 
   const getCategoryList = useCallback(() => {
     dispatch(getCategoryThunk());
-  }, [dispatch]);
+  }, []);
   const getPaymentList = useCallback(() => {
     dispatch(getPaymentThunk());
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     getCategoryList();
     getPaymentList();
-  }, [dispatch]);
+  }, []);
 
   const onChangeReducer = (state: PostTransactionRequest, action: PostTransactionRequest) => {
     return action;
@@ -59,15 +59,11 @@ const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Ele
       setValidation(new Set([...validation]));
     }
   };
-  const toggleModalOption = () => {
-    toggleModal();
-    setValidation(new Set(['isIncome']));
-  };
 
   const postNewTransaction = useCallback(() => {
     const newTransactionDTO = new TransactionRequestDTO(newTransaction);
     dispatch(postTransactionThunk(newTransactionDTO));
-    toggleModalOption();
+    toggleModal();
   }, [dispatch, newTransaction]);
 
   const parseClipboardText = useCallback(() => {
@@ -100,8 +96,8 @@ const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Ele
   return (
     <>
       {paymentList && categoryList && (
-        <Modal show={show} toggleModal={toggleModalOption}>
-          <ModalHeader text="가계부 등록" toggleModal={toggleModalOption} />
+        <Modal show={show} toggleModal={toggleModal}>
+          <ModalHeader text="가계부 등록" toggleModal={toggleModal} />
           <S.ModalBody>
             <ModalRadioButton
               setIsIncome={setIsIncome}
@@ -140,11 +136,13 @@ const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Ele
             <CustomButton color="white" onClickEvent={parseClipboardText}>
               복사
             </CustomButton>
-            {validation.size > 5 && (
-              <CustomButton color="blue" onClickEvent={postNewTransaction}>
-                저장
-              </CustomButton>
-            )}
+            <CustomButton
+              isValid={validation.size > 5}
+              color="blue"
+              onClickEvent={postNewTransaction}
+            >
+              저장
+            </CustomButton>
           </S.ModalFooter>
         </Modal>
       )}
