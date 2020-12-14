@@ -7,12 +7,3 @@ const checkOverlap = (target: string, dataList: Array<CategoryDTO | PaymentDTO>)
 };
 
 export default checkOverlap;
-
-// if (dataList.length > 0) {
-//     const nameList: string[] = dataList.map((value: CategoryDTO | PaymentDTO) =>
-//       value.name === target;
-//     );
-//     return !nameList.includes(target.replaceAll(' ', ''));
-//   }
-//   return true;
-//   retr
