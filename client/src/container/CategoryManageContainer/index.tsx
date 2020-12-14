@@ -70,7 +70,7 @@ const CategoryManageContainer = ({ isIncome }: CategoryManageContainerProps): JS
           saveHandler={postNewCategory}
           onChangeInput={onChangeCategoryName}
           border
-          overlap={checkValidation}
+          isValid={checkValidation}
         />
       )}
       {categoryList.length !== 0 && (
