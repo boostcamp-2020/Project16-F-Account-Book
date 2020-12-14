@@ -12,7 +12,7 @@ const CalendarPage = (): JSX.Element => {
     <MainLayout>
       <Calendar />
       <ModalToggleButton setToggle={toggleModal} />
-      <TransactionModal show={showModal} toggleModal={toggleModal} />
+      {showModal && <TransactionModal show={showModal} toggleModal={toggleModal} />}
       <TransactionUpdateModal />
     </MainLayout>
   );
