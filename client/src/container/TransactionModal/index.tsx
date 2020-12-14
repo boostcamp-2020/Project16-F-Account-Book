@@ -30,15 +30,15 @@ const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Ele
 
   const getCategoryList = useCallback(() => {
     dispatch(getCategoryThunk());
-  }, [dispatch]);
+  }, []);
   const getPaymentList = useCallback(() => {
     dispatch(getPaymentThunk());
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     getCategoryList();
     getPaymentList();
-  }, [dispatch]);
+  }, []);
 
   const onChangeReducer = (state: PostTransactionRequest, action: PostTransactionRequest) => {
     return action;
@@ -68,7 +68,7 @@ const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Ele
     const newTransactionDTO = new TransactionRequestDTO(newTransaction);
     dispatch(postTransactionThunk(newTransactionDTO));
     toggleModalOption();
-  }, [dispatch, newTransaction]);
+  }, [newTransaction]);
 
   const parseClipboardText = useCallback(() => {
     navigator.clipboard.readText().then((clipText) => {

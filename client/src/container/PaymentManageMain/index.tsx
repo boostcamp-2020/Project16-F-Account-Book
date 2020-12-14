@@ -34,12 +34,9 @@ const PaymentManageContainer = (): JSX.Element => {
     setAddPayment(!addPayment);
   }, [addPayment]);
 
-  const deletePayment = useCallback(
-    (pid) => {
-      dispatch(deletePaymentThunk(pid));
-    },
-    [dispatch],
-  );
+  const deletePayment = useCallback((pid) => {
+    dispatch(deletePaymentThunk(pid));
+  }, []);
 
   const onChangePaymentName = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,7 +50,7 @@ const PaymentManageContainer = (): JSX.Element => {
     dispatch(postPaymentThunk(newPayment));
     toggleAddPayment();
     setPaymentData({} as PaymentRequest);
-  }, [dispatch, paymentData]);
+  }, [paymentData]);
 
   const updatePayment = useCallback(
     (pid) => {
@@ -61,7 +58,7 @@ const PaymentManageContainer = (): JSX.Element => {
       dispatch(updatePaymentThunk(updatePaymentData));
       setPaymentData({} as PaymentRequest);
     },
-    [dispatch, paymentData],
+    [paymentData],
   );
 
   return (

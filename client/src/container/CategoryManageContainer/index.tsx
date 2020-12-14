@@ -38,12 +38,9 @@ const CategoryManageContainer = ({ isIncome }: CategoryManageContainerProps): JS
     setAddCategory(!addCategory);
   }, [addCategory]);
 
-  const deleteCategory = useCallback(
-    (cid) => {
-      dispatch(deleteCategoryThunk(cid));
-    },
-    [dispatch],
-  );
+  const deleteCategory = useCallback((cid) => {
+    dispatch(deleteCategoryThunk(cid));
+  }, []);
 
   const onChangeCategoryName = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,7 +54,7 @@ const CategoryManageContainer = ({ isIncome }: CategoryManageContainerProps): JS
     dispatch(postCategoryThunk(newCategory));
     toggleAddCategory();
     setCategoryData({ isIncome } as CategoryRequest);
-  }, [dispatch, categoryData, isIncome]);
+  }, [categoryData, isIncome]);
 
   const updateCategory = useCallback(
     (cid) => {
@@ -65,7 +62,7 @@ const CategoryManageContainer = ({ isIncome }: CategoryManageContainerProps): JS
       dispatch(updateCategoryThunk(updateCategoryData));
       setCategoryData({ isIncome } as CategoryRequest);
     },
-    [dispatch, categoryData],
+    [categoryData],
   );
 
   return (

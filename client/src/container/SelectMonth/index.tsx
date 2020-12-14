@@ -26,7 +26,7 @@ export default function SelectMonth(): JSX.Element {
 
   const getMonthlyTransactions = useCallback(() => {
     dispatch(getMonthlyTransactionThunk(datePicker));
-  }, [dispatch, datePicker]);
+  }, [datePicker]);
 
   useEffect(() => {
     getMonthlyTransactions();

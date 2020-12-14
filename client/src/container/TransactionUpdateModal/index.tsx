@@ -29,7 +29,7 @@ const TransactionUpdateModal = (): JSX.Element => {
   const toggleModal = useCallback(() => {
     dispatch(toggleModalOff());
     setValidation(new Set(MODAL_LSIT_ARR));
-  }, [dispatch]);
+  }, []);
 
   const onChangeReducer = (state: UpdateTransactionRequest, action: UpdateTransactionRequest) => {
     return action;
@@ -72,7 +72,7 @@ const TransactionUpdateModal = (): JSX.Element => {
     const newTransactionDTO = new TransactionRequestDTO(updatedTransaction);
     dispatch(updateTransactionThunk(newTransactionDTO));
     dispatch(toggleModalOff());
-  }, [dispatch, updatedTransaction, data]);
+  }, [updatedTransaction, data]);
 
   const deleteTransaction = useCallback(() => {
     if (window.confirm('삭제 하시겠습니까?')) {
@@ -82,7 +82,7 @@ const TransactionUpdateModal = (): JSX.Element => {
     } else {
       toggleModalOff();
     }
-  }, [dispatch, data]);
+  }, [data]);
 
   return (
     <>
