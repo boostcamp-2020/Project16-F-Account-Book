@@ -1,7 +1,9 @@
 # Project16-F-Account-Book ([Link](http://tess.kro.kr))
 
+<br>
 
-![Logo](https://user-images.githubusercontent.com/17294694/101917945-1c7a8e00-3c0c-11eb-828d-03e127a4d883.png)
+![Logo](https://user-images.githubusercontent.com/17294694/102017772-3eab1200-3dac-11eb-8e95-8435e44eb16a.png)
+
 
 
 <br>
@@ -130,25 +132,33 @@ cp server/.dummy.env server/.env
 ```
 
 **환경변수**
-```
-TYPEORM_CONNECTION : 연동할 DB 타입              ex) mysql
-TYPEORM_HOST : 연결할 DB Host                   
-TYPEORM_PORT : 연결할 DB Port                   
-TYPEORM_USERNAME : DB연결에 사용할 계정
-TYPEORM_PASSWORD : 계정 패스워드
-TYPEORM_DATABASE : 연결할 Database              
-TYPEORM_SYNCHRONIZE : 엔티티와 테이블 sync 설정    ex) true
-TYPEORM_LOGGING : Logging 설정                 ex) true
+```bash
+TYPEORM_CONNECTION= #DB 타입(mysql)
+TYPEORM_HOST= #DB HOST
+TYPEORM_PORT= #DB PORT
+TYPEORM_USERNAME= #DB 계정
+TYPEORM_PASSWORD= #DB PASSWORD
+TYPEORM_DATABASE= #DB 이름
+TYPEORM_SYNCHRONIZE= #엔티티와 테이블 sync 여부 
+TYPEORM_LOGGING= #쿼리 실행 로깅 여부 
 
-CLIENT_URI : 프론트엔드 URI                      ex) http://localhost:3000
+CLIENT_URI= #클라이언트 URI 
 
-JWT_SECRET : 토큰 생성에 사용할 Secret
-JWT_TOKEN_EXPIRES_IN : 토큰의 유효기간              ex) 1d
-JWT_COOKIE_EXPIRES_IN : 인증 쿠키의 유효기간 (ms)    ex) 86400000
+JWT_SECRET= #토큰 Secret
+JWT_TOKEN_EXPIRES_IN= #토큰 유효시간 (seconds)
+JWT_TOKEN_REFERSH_THRESHOLD= #토큰이 재발급되는 남은시간 (seconds)
 
-XXX_CLIENT_ID : 개발자 센터에서 발급받은 client id 
-XXX_CLIENT_SECRET : 개발자 센터에서 발급받은 client secret
-XXX_CALLBACK_URI : 개발자 센터에서 설정한 callback uri      ex) http://localhost:4000/api/auth/callback/xxx (xxx = kakao | naver | google)
+KAKAO_CLIENT_ID= #발급받은 CLIENT ID
+KAKAO_CLIENT_SECRET= #발급받은 CLIENT SECRET
+KAKAO_CALLBACK_URI= #개발자센터에 설정한 콜백 URI 
+
+NAVER_CLIENT_ID= 
+NAVER_CLIENT_SECRET= 
+NAVER_CALLBACK_URI= 
+
+GOOGLE_CLIENT_ID= 
+GOOGLE_CLIENT_SECRET= 
+GOOGLE_CALLBACK_URI= 
 ```
 
 ### 프로젝트 실행

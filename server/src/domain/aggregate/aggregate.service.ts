@@ -1,6 +1,6 @@
 import TransactionRepository from '@/domain/transaction/transaction.repository';
 import DateUtils from '@/lib/date-utils';
-import UserDTO from '@/domain/auth/types/user-dto';
+import UserDTO from '@/domain/user/types/user-dto';
 import { AggregateData, AggregateValue, AggregateResponse, MaxCategory } from './types';
 
 export default class AggregateService {
