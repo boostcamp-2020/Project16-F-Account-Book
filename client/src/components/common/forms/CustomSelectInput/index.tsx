@@ -19,8 +19,8 @@ const CustomSelectInput = (props: SelectInputProps): JSX.Element => {
   useEffect(() => {
     if (!value) return;
     const matchedValue = getMatchedOptionValue();
-    setInputValue(matchedValue);
-  }, [value]);
+    if (matchedValue) setInputValue(matchedValue);
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setInputValue(Number(e.target.value));
