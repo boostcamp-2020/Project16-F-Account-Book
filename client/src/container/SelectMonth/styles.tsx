@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const MonthDiv = styled.div`
+export const MonthDiv = styled.div`
   display: inline-flex;
   width: 100%;
   justify-content: center;
@@ -9,8 +9,12 @@ const MonthDiv = styled.div`
   margin-bottom: 10px;
 `;
 
-const ArrowDiv = styled.div`
+export const ArrowDiv = styled.div`
   cursor: pointer;
+`;
+
+export const MonthText = styled.div`
+  width: 100px;
+  text-align: center;
   margin: 0px 10px;
 `;
-export { ArrowDiv, MonthDiv };
