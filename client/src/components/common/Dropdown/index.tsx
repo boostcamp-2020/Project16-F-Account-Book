@@ -10,7 +10,7 @@ const Dropdown = ({ icon, isRight, children }: DropdownType): JSX.Element => {
     setDisplay(!isShow);
   };
   return (
-    <>
+    <S.Dropdown>
       <S.IconDiv onClick={toggleDropdown}>{icon}</S.IconDiv>
       {isShow && (
         <>
@@ -20,7 +20,7 @@ const Dropdown = ({ icon, isRight, children }: DropdownType): JSX.Element => {
           </S.MenuItem>
         </>
       )}
-    </>
+    </S.Dropdown>
   );
 };
 
