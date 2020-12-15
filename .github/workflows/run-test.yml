@@ -32,11 +32,10 @@ jobs:
       - name: Install packages
         run: yarn install
       - name: Run linters
-        uses: wearerequired/lint-action@v1
-        with:
-          github_token: ${{ secrets.github_token }}
-          eslint: true
-          auto_fix: true
+        run: |
+          yarn lint:fix
+          git add .
+          git diff --staged --quiet || git commit -m "fix: Code style with GitHub Action"
       - name: Run tests
         env:
           TYPEORM_CONNECTION: mysql
@@ -48,4 +47,3 @@ jobs:
           TYPEORM_SYNCHRONIZE: true
           TYPEORM_LOGGING: false
         run: yarn test
-        
