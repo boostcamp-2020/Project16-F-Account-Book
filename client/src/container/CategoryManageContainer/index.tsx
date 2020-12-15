@@ -3,10 +3,16 @@ import CategoryRequestDTO from '@/commons/dto/category-request';
 import { CategoryRequest } from '@/commons/types/category';
 import ManageHeader from '@/components/manage/ManageHeader';
 import ManageItem from '@/components/manage/ManageItem';
+import checkOverlap from '@/libs/checkOverlap';
 import ManageItemInput from '@/components/manage/ManageItemInput';
 import { RootState } from '@/modules';
-import { deleteCategoryThunk, postCategoryThunk, updateCategoryThunk } from '@/modules/category';
-import React, { useCallback, useState } from 'react';
+import {
+  deleteCategoryThunk,
+  getCategoryThunk,
+  postCategoryThunk,
+  updateCategoryThunk,
+} from '@/modules/category';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CategoryManageContainerProps } from './types';
 import CategoryListContainer from './styles';
@@ -18,19 +24,25 @@ const CategoryManageContainer = ({ isIncome }: CategoryManageContainerProps): JS
     .map((category) => new CategoryDTO(category));
   const [categoryData, setCategoryData] = useState({ isIncome } as CategoryRequest);
   const [addCategory, setAddCategory] = useState(false);
+  const checkValidation = checkOverlap(categoryData.name, categoryList);
 
   const dispatch = useDispatch();
+
+  const getCategoryList = useCallback(() => {
+    dispatch(getCategoryThunk());
+  }, []);
+
+  useEffect(() => {
+    getCategoryList();
+  }, []);
 
   const toggleAddCategory = useCallback(() => {
     setAddCategory(!addCategory);
   }, [addCategory]);
 
-  const deleteCategory = useCallback(
-    (cid) => {
-      dispatch(deleteCategoryThunk(cid));
-    },
-    [dispatch],
-  );
+  const deleteCategory = useCallback((cid) => {
+    dispatch(deleteCategoryThunk(cid));
+  }, []);
 
   const onChangeCategoryName = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,15 +56,17 @@ const CategoryManageContainer = ({ isIncome }: CategoryManageContainerProps): JS
     dispatch(postCategoryThunk(newCategory));
     toggleAddCategory();
     setCategoryData({ isIncome } as CategoryRequest);
-  }, [dispatch, categoryData]);
+  }, [categoryData, isIncome]);
 
   const updateCategory = useCallback(
     (cid) => {
-      const updateCategoryData = new CategoryRequestDTO({ cid, ...categoryData });
-      dispatch(updateCategoryThunk(updateCategoryData));
-      setCategoryData({ isIncome } as CategoryRequest);
+      if (checkValidation) {
+        const updateCategoryData = new CategoryRequestDTO({ cid, ...categoryData });
+        dispatch(updateCategoryThunk(updateCategoryData));
+        setCategoryData({ isIncome } as CategoryRequest);
+      }
     },
-    [dispatch, categoryData],
+    [categoryData],
   );
 
   return (
@@ -65,19 +79,22 @@ const CategoryManageContainer = ({ isIncome }: CategoryManageContainerProps): JS
           saveHandler={postNewCategory}
           onChangeInput={onChangeCategoryName}
           border
+          isValid={checkValidation}
         />
       )}
-      <CategoryListContainer>
-        {categoryList.map((category) => (
-          <ManageItem
-            item={category}
-            deleteItem={deleteCategory}
-            updateItem={updateCategory}
-            onChangeInput={onChangeCategoryName}
-            key={`m-category${category.id}`}
-          />
-        ))}
-      </CategoryListContainer>
+      {categoryList.length !== 0 && (
+        <CategoryListContainer>
+          {categoryList.map((category) => (
+            <ManageItem
+              item={category}
+              deleteItem={deleteCategory}
+              updateItem={updateCategory}
+              onChangeInput={onChangeCategoryName}
+              key={`m-category${category.id}`}
+            />
+          ))}
+        </CategoryListContainer>
+      )}
     </>
   );
 };

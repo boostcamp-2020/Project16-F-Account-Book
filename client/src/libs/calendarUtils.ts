@@ -14,12 +14,12 @@ const getDayMatrix = (year: number, month: number): string[][] => {
 
   const startDay = date.startOf('month').day();
   const remain = (startDay + endOfMonth) % 7;
-  const dataArr: any = [
+  const dataArr = [
     ...' '.repeat(startDay).split(''),
     ...Array.from({ length: endOfMonth - startOfMonth + 1 }, (v, i) => String(i + 1)),
-    7 - remain === 7 ? [] : ' '.repeat(7 - remain).split(''),
+    ...(7 - remain === 7 ? [] : ' '.repeat(7 - remain).split('')),
   ];
-  const resultMatrix: any = (): string[][] => {
+  const resultMatrix = (): string[][] => {
     const result = [];
     let i = 0;
     while (i < dataArr.length / weekSlice) {

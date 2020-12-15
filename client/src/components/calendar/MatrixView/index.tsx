@@ -2,7 +2,7 @@ import React from 'react';
 import { MatrixViewTypes } from './types';
 import * as S from './styles';
 
-function MatrixView({ matrix, headers, cell }: MatrixViewTypes): JSX.Element {
+const MatrixView = ({ matrix, headers, cell }: MatrixViewTypes): JSX.Element => {
   return (
     <S.Matrix>
       <S.Table>
@@ -23,6 +23,6 @@ function MatrixView({ matrix, headers, cell }: MatrixViewTypes): JSX.Element {
       </S.Table>
     </S.Matrix>
   );
-}
+};
 
 export default MatrixView;

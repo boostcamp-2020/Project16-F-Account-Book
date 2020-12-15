@@ -4,6 +4,7 @@ export default class UserDTO {
   constructor(user: UserEntity) {
     this.uid = user.uid;
     this.name = user.name;
+    this.socialId = user.socialId;
     this.socialType = user.socialType;
     this.updateAt = user.updateAt;
     this.createAt = user.createAt;
@@ -12,6 +13,8 @@ export default class UserDTO {
   uid: number;
 
   name: string;
+
+  socialId: string;
 
   socialType: string;
 

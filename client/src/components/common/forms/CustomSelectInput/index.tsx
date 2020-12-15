@@ -2,11 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import { SelectInputProps } from './types';
 import * as S from './style';
 
-function CustomSelectInput(props: SelectInputProps): JSX.Element {
+const CustomSelectInput = (props: SelectInputProps): JSX.Element => {
   const { placeholder, children, name, onChange, value } = props;
   const initialValue = value?.id || 0;
   const [inputValue, setInputValue] = useState(initialValue);
-
   const selectInput = useRef<HTMLSelectElement>(null);
 
   const getMatchedOptionValue = () => {
@@ -21,7 +20,7 @@ function CustomSelectInput(props: SelectInputProps): JSX.Element {
     if (!value) return;
     const matchedValue = getMatchedOptionValue();
     if (matchedValue) setInputValue(matchedValue);
-  }, [value]);
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setInputValue(Number(e.target.value));
@@ -40,6 +39,6 @@ function CustomSelectInput(props: SelectInputProps): JSX.Element {
       ))}
     </S.SelectInput>
   );
-}
+};
 
 export default CustomSelectInput;

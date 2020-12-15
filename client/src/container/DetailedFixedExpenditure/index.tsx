@@ -13,7 +13,7 @@ const DetailedFixedExpenditure = (): JSX.Element => {
 
   const getFixedExpenditure = useCallback(() => {
     dispatch(getFixedExpenditureThunk(datePicker.year, datePicker.month));
-  }, [dispatch, datePicker]);
+  }, [datePicker]);
 
   const getAmount = useCallback(
     (type: string) => {
@@ -43,14 +43,14 @@ const DetailedFixedExpenditure = (): JSX.Element => {
 
   useEffect(() => {
     getFixedExpenditure();
-  }, [dispatch, datePicker]);
+  }, [datePicker]);
   return (
     <>
       <S.Box>
         <S.Title>고정적인 지출</S.Title>
         <S.Amount>총 {getAmount('both')} 원</S.Amount>
       </S.Box>
-      {fixedExpenditure.data.paid.length !== 0 ? (
+      {fixedExpenditure.data.paid.length !== 0 && (
         <S.Box>
           <S.Category color="#E73636">지출 완료</S.Category>
           {fixedExpenditure.data.paid.map((fixedItem) => (
@@ -63,10 +63,8 @@ const DetailedFixedExpenditure = (): JSX.Element => {
             <p>{getAmount('paid')}원</p>
           </S.AmountBox>
         </S.Box>
-      ) : (
-        <></>
       )}
-      {fixedExpenditure.data.estimated.length !== 0 ? (
+      {fixedExpenditure.data.estimated.length !== 0 && (
         <S.Box>
           <S.Category color="#0e7ee0">지출 예정</S.Category>
           {fixedExpenditure.data.estimated.map((fixedItem) => (
@@ -79,8 +77,6 @@ const DetailedFixedExpenditure = (): JSX.Element => {
             <p>{getAmount('estimated')}원</p>
           </S.AmountBox>
         </S.Box>
-      ) : (
-        <></>
       )}
     </>
   );

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/modules';
 import { changeDate } from '@modules/datePicker/actions';
 import { changeDay } from '@/modules/calendarDaySelector/action';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import * as S from './styles';
 
 export default function SelectMonth(): JSX.Element {
@@ -26,7 +27,7 @@ export default function SelectMonth(): JSX.Element {
 
   const getMonthlyTransactions = useCallback(() => {
     dispatch(getMonthlyTransactionThunk(datePicker));
-  }, [dispatch, datePicker]);
+  }, [datePicker]);
 
   useEffect(() => {
     getMonthlyTransactions();
@@ -35,9 +36,13 @@ export default function SelectMonth(): JSX.Element {
   return (
     <>
       <S.MonthDiv>
-        <S.ArrowDiv onClick={() => onChangeLeftMonth()}>{'<'}</S.ArrowDiv>
-        {`${datePicker.year}-${datePicker.month}`}
-        <S.ArrowDiv onClick={() => onChangeRightMonth()}>{'>'}</S.ArrowDiv>
+        <S.ArrowDiv onClick={() => onChangeLeftMonth()}>
+          <IoIosArrowBack />
+        </S.ArrowDiv>
+        <S.MonthText>{`${datePicker.year}-${datePicker.month}`}</S.MonthText>
+        <S.ArrowDiv onClick={() => onChangeRightMonth()}>
+          <IoIosArrowForward />
+        </S.ArrowDiv>
       </S.MonthDiv>
     </>
   );

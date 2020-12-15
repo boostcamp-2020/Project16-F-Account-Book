@@ -9,6 +9,7 @@
     "precommit": "run-p precommit:client precommit:server",
     "precommit:client": "yarn workspace client precommit",
     "precommit:server": "yarn workspace server precommit",
+    "dev": "run-p dev:client dev:server",
     "dev:client": "yarn workspace client start",
     "dev:server": "yarn workspace server dev",
     "test": "run-p test:server test:client",

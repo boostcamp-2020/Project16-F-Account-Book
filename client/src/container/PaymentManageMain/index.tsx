@@ -1,13 +1,19 @@
 import ManageHeader from '@/components/manage/ManageHeader';
 import { RootState } from '@/modules';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ManageItem from '@/components/manage/ManageItem';
 import PaymentDTO from '@/commons/dto/payment';
 import ManageItemInput from '@/components/manage/ManageItemInput';
-import { deletePaymentThunk, postPaymentThunk, updatePaymentThunk } from '@/modules/payment';
+import {
+  deletePaymentThunk,
+  getPaymentThunk,
+  postPaymentThunk,
+  updatePaymentThunk,
+} from '@/modules/payment';
 import PaymentRequestDTO from '@/commons/dto/payment-request';
 import { PaymentRequest } from '@/commons/types/payment';
+import checkOverlap from '@/libs/checkOverlap';
 import * as S from './styles';
 
 const PaymentManageContainer = (): JSX.Element => {
@@ -16,17 +22,23 @@ const PaymentManageContainer = (): JSX.Element => {
   const [paymentData, setPaymentData] = useState({} as PaymentRequest);
   const [addPayment, setAddPayment] = useState(false);
   const dispatch = useDispatch();
+  const checkValidation = checkOverlap(paymentData.name, paymentList);
+
+  const getPaymentList = useCallback(() => {
+    dispatch(getPaymentThunk());
+  }, []);
+
+  useEffect(() => {
+    getPaymentList();
+  }, []);
 
   const toggleAddPayment = useCallback(() => {
     setAddPayment(!addPayment);
   }, [addPayment]);
 
-  const deletePayment = useCallback(
-    (pid) => {
-      dispatch(deletePaymentThunk(pid));
-    },
-    [dispatch],
-  );
+  const deletePayment = useCallback((pid) => {
+    dispatch(deletePaymentThunk(pid));
+  }, []);
 
   const onChangePaymentName = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,15 +52,17 @@ const PaymentManageContainer = (): JSX.Element => {
     dispatch(postPaymentThunk(newPayment));
     toggleAddPayment();
     setPaymentData({} as PaymentRequest);
-  }, [dispatch, paymentData]);
+  }, [paymentData]);
 
   const updatePayment = useCallback(
     (pid) => {
-      const updatePaymentData = new PaymentRequestDTO({ pid, ...paymentData });
-      dispatch(updatePaymentThunk(updatePaymentData));
-      setPaymentData({} as PaymentRequest);
+      if (checkValidation) {
+        const updatePaymentData = new PaymentRequestDTO({ pid, ...paymentData });
+        dispatch(updatePaymentThunk(updatePaymentData));
+        setPaymentData({} as PaymentRequest);
+      }
     },
-    [dispatch, paymentData],
+    [paymentData],
   );
 
   return (
@@ -60,20 +74,23 @@ const PaymentManageContainer = (): JSX.Element => {
           cancelHandler={toggleAddPayment}
           saveHandler={postNewPayment}
           onChangeInput={onChangePaymentName}
+          isValid={checkValidation}
           border
         />
       )}
-      <S.ManageListContainer>
-        {paymentList.map((payment) => (
-          <ManageItem
-            item={payment}
-            deleteItem={deletePayment}
-            updateItem={updatePayment}
-            onChangeInput={onChangePaymentName}
-            key={`m-payment${payment.id}`}
-          />
-        ))}
-      </S.ManageListContainer>
+      {paymentList.length !== 0 && (
+        <S.ManageListContainer>
+          {paymentList.map((payment) => (
+            <ManageItem
+              item={payment}
+              deleteItem={deletePayment}
+              updateItem={updatePayment}
+              onChangeInput={onChangePaymentName}
+              key={`m-payment${payment.id}`}
+            />
+          ))}
+        </S.ManageListContainer>
+      )}
     </>
   );
 };

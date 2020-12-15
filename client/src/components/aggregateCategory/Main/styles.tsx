@@ -23,3 +23,7 @@ export const Chart = styled.div`
   margin: 1.4rem 0 1.4rem 0;
   box-sizing: border-box;
 `;
+
+export const EmptyStateBox = styled.div`
+  margin-top: 2rem;
+`;

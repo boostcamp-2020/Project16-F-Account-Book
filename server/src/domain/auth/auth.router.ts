@@ -1,13 +1,13 @@
-import { ACCESS_DENIED } from 'common/error';
 import Router from 'koa-router';
 import { Context } from 'koa';
 import userRepository from '@/domain/user/user.repository';
 import { v4 } from 'uuid';
-import { JwtConfig } from '@/config/index';
 import UserService from '@/domain/user/user.service';
 import jwtAuthorize from '@/middleware/jwt-authorize';
 import OAuthClient from '@/lib/oauth-client';
-import JwtUtils from './utils/jwt-utils';
+import BadRequest from '@/common/error/bad-request';
+import JwtUtils from '@/lib/jwt-utils';
+import { JwtConfig } from '@/config';
 
 class AuthRouter extends Router {
   private userService;
@@ -35,20 +35,18 @@ class AuthRouter extends Router {
     });
 
     this.get('/callback/:provider', async (ctx: Context) => {
+      const jwtUtils = new JwtUtils(JwtConfig);
       const { provider } = ctx.params;
       const { code, state, error } = ctx.request.query;
-      if (error || !code) throw new Error(ACCESS_DENIED);
+      if (error || !code) throw new BadRequest('Bad request');
 
       const oAuthClient = new OAuthClient(provider);
-      const { profile, token } = await oAuthClient.authorize(code, state);
+      const { profile } = await oAuthClient.authorize(code, state);
 
-      const uid = await this.userService.getOrCreateUid(profile);
-      const jwtToken = JwtUtils.generateToken(uid);
+      const user = await this.userService.getOrCreateUser(profile);
+      const jwtToken = jwtUtils.generateToken(user);
 
-      ctx.cookies.set('jwt', jwtToken, {
-        maxAge: JwtConfig.cookieExpiresIn,
-        httpOnly: true,
-      });
+      jwtUtils.setCookie(ctx, jwtToken);
 
       const clientUri = process.env.CLIENT_URI as string;
       ctx.redirect(clientUri);

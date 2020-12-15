@@ -16,12 +16,13 @@ import SMSParser from '@/libs/smsParser/parser';
 import DateUtils from '@/libs/dateUtils';
 import ModalInput from '@/components/transaction/ModalInput';
 import ModalHeader from '@/components/transaction/ModalHeader';
+import checkValidation from '@/libs/checkValidation';
 import * as S from './styles';
 import { TransactionModalProps } from './types';
 
 const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Element => {
   const [isIncome, setIsIncome] = useState(false);
-
+  const [validation, setValidation] = useState(new Set(['isIncome']));
   const { payment, category } = useSelector((state: RootState) => state);
   const categoryList = category.data.map((c) => new CategoryDTO(c));
   const paymentList = payment.data.map((p) => new PaymentDTO(p));
@@ -29,30 +30,42 @@ const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Ele
 
   const getCategoryList = useCallback(() => {
     dispatch(getCategoryThunk());
-  }, [dispatch]);
+  }, []);
   const getPaymentList = useCallback(() => {
     dispatch(getPaymentThunk());
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     getCategoryList();
     getPaymentList();
-  }, [dispatch]);
+  }, []);
 
   const onChangeReducer = (state: PostTransactionRequest, action: PostTransactionRequest) => {
     return action;
   };
-
   const [newTransaction, infoDispatch] = useReducer(onChangeReducer, {} as PostTransactionRequest);
+
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    infoDispatch({ ...newTransaction, [e.target.name]: e.target.value });
+    if (checkValidation(e.target.name, e.target.value)) {
+      infoDispatch({ ...newTransaction, [e.target.name]: e.target.value });
+      validation.add(e.target.name);
+      setValidation(new Set([...validation]));
+    } else {
+      validation.delete(e.target.name);
+      setValidation(new Set([...validation]));
+    }
+    if ((e.target.name === 'description' || e.target.name === 'amount') && e.target.value === '') {
+      validation.delete(e.target.name);
+      setValidation(new Set([...validation]));
+    }
   };
 
   const postNewTransaction = useCallback(() => {
     const newTransactionDTO = new TransactionRequestDTO(newTransaction);
     dispatch(postTransactionThunk(newTransactionDTO));
     toggleModal();
-  }, [dispatch, newTransaction]);
+  }, [newTransaction]);
+
 
   const parseClipboardText = useCallback(() => {
     navigator.clipboard.readText().then((clipText) => {
@@ -124,7 +137,11 @@ const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Ele
             <CustomButton color="white" onClickEvent={parseClipboardText}>
               복사
             </CustomButton>
-            <CustomButton color="blue" onClickEvent={postNewTransaction}>
+            <CustomButton
+              isValid={validation.size > 5}
+              color="blue"
+              onClickEvent={postNewTransaction}
+            >
               저장
             </CustomButton>
           </S.ModalFooter>

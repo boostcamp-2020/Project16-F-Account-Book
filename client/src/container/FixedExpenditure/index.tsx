@@ -6,15 +6,16 @@ import { RootState } from '@/modules';
 import { Link } from 'react-router-dom';
 import { GoCalendar } from 'react-icons/go';
 import numberUtils from '@libs/numberUtils';
+import LoadingSpinner from '@/components/common/LoadingSpinner';
 import * as S from './styles';
 
 const FixedExpenditure = (): JSX.Element => {
-  const { datePicker, fixedExpenditure } = useSelector((state: RootState) => state);
+  const { datePicker, fixedExpenditure, transaction } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
 
   const getFixedExpenditure = useCallback(() => {
     dispatch(getFixedExpenditureThunk(datePicker.year, datePicker.month));
-  }, [dispatch, datePicker]);
+  }, [datePicker]);
 
   const getAmount = useCallback(
     (type: string) => {
@@ -40,32 +41,36 @@ const FixedExpenditure = (): JSX.Element => {
 
   useEffect(() => {
     getFixedExpenditure();
-  }, [dispatch, datePicker]);
+  }, [datePicker, transaction]);
   return (
     <>
-      <S.Box>
-        <S.HeaderBox>
-          <S.HeaderTitle>
-            <p>예정된 고정지출이</p>
-            <p>{fixedExpenditure.data.estimated.length}개 있어요</p>
-          </S.HeaderTitle>
-          <Link to="/detailed-fixed-expenditure">자세히 보기</Link>
-        </S.HeaderBox>
-        <S.SumBox>
-          <GoCalendar color="red" />
-          <S.TextBox>
-            <S.SumTitle>완료된 고정 지출</S.SumTitle>
-            <S.Amount>{getAmount('paid')}원</S.Amount>
-          </S.TextBox>
-        </S.SumBox>
-        <S.SumBox>
-          <GoCalendar color="#0e7ee0" />
-          <S.TextBox>
-            <S.SumTitle>예정된 고정 지출</S.SumTitle>
-            <S.Amount>{getAmount('estimated')}원</S.Amount>
-          </S.TextBox>
-        </S.SumBox>
-      </S.Box>
+      {fixedExpenditure.loading ? (
+        <LoadingSpinner />
+      ) : (
+        <S.Box>
+          <S.HeaderBox>
+            <S.HeaderTitle>
+              <p>예정된 고정지출이</p>
+              <p>{fixedExpenditure.data.estimated.length}개 있어요</p>
+            </S.HeaderTitle>
+            <Link to="/detailed-fixed-expenditure">자세히 보기</Link>
+          </S.HeaderBox>
+          <S.SumBox>
+            <GoCalendar color="red" />
+            <S.TextBox>
+              <S.SumTitle>완료된 고정 지출</S.SumTitle>
+              <S.Amount>{getAmount('paid')}원</S.Amount>
+            </S.TextBox>
+          </S.SumBox>
+          <S.SumBox>
+            <GoCalendar color="#0e7ee0" />
+            <S.TextBox>
+              <S.SumTitle>예정된 고정 지출</S.SumTitle>
+              <S.Amount>{getAmount('estimated')}원</S.Amount>
+            </S.TextBox>
+          </S.SumBox>
+        </S.Box>
+      )}
     </>
   );
 };

@@ -11,12 +11,9 @@ import { TransactionListContainerProps } from './types';
 const TransactionListContainer = ({ editable }: TransactionListContainerProps): JSX.Element => {
   const { transaction } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
-  const toggleModal = useCallback(
-    (t: TransactionModel) => {
-      dispatch(toggleModalOn(t));
-    },
-    [dispatch],
-  );
+  const toggleModal = useCallback((t: TransactionModel) => {
+    dispatch(toggleModalOn(t));
+  }, []);
 
   return (
     <>

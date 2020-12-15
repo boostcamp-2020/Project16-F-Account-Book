@@ -2,8 +2,9 @@
 import TranscationEntity from '@/entity/transaction.entity';
 import TransactionRepository from '@/domain/transaction/transaction.repository';
 import { Between } from 'typeorm';
-import { BAD_REQUEST, DATABASE_ERROR } from '@/common/error';
 import { Transactional } from 'typeorm-transactional-cls-hooked';
+import DatabaseError from '@/common/error/database';
+import NotFoundError from '@/common/error/not-found';
 import {
   MonthlyTransactionDetailsQueryParams,
   TransactionDetail,
@@ -42,7 +43,7 @@ export default class TransactionService {
       relations: ['payment', 'category'],
     });
     if (!newTransaction) {
-      throw new Error(DATABASE_ERROR);
+      throw new DatabaseError('Fail to create new transaction');
     }
     return newTransaction;
   }
@@ -55,7 +56,10 @@ export default class TransactionService {
   ): Promise<TransactionDetail> {
     const { amount, tradeAt, description, isIncome, cid, pid } = data;
     const target = await this.transactionRepository.findOne({ where: { tid, uid } });
-    if (!target) throw new Error(BAD_REQUEST);
+
+    if (!target) {
+      throw new NotFoundError('Requested transaction resource does not exist');
+    }
     const mergedTransaction = this.transactionRepository.merge(target, {
       amount,
       tradeAt,
@@ -70,7 +74,7 @@ export default class TransactionService {
       relations: ['payment', 'category'],
     });
     if (!updatedTransaction) {
-      throw new Error(DATABASE_ERROR);
+      throw new DatabaseError('Fail to update transaction');
     }
     return updatedTransaction;
   }
@@ -78,7 +82,10 @@ export default class TransactionService {
   @Transactional()
   public async deleteTransaction(tid: number, uid: number): Promise<TransactionDetail> {
     const transaction = await this.transactionRepository.findOne({ where: { tid, uid } });
-    if (!transaction) throw new Error(BAD_REQUEST);
+
+    if (!transaction) {
+      throw new NotFoundError('Requested transaction resource does not exist');
+    }
     await this.transactionRepository.delete(transaction);
     return transaction;
   }

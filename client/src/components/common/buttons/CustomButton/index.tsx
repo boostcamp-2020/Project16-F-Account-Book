@@ -2,11 +2,11 @@ import React from 'react';
 import * as S from './styles';
 import { CustomButtonProps } from './types';
 
-function CustomButton(props: CustomButtonProps): JSX.Element {
-  const { image, children, color, size, onClickEvent } = props;
+const CustomButton = (props: CustomButtonProps): JSX.Element => {
+  const { image, children, color, size, onClickEvent, isValid } = props;
 
   return (
-    <S.Button onClick={onClickEvent} color={color} size={size}>
+    <S.Button disabled={!isValid} onClick={onClickEvent} color={color} size={size}>
       {image ? (
         <>
           <S.ButtonImg />
@@ -17,6 +17,6 @@ function CustomButton(props: CustomButtonProps): JSX.Element {
       )}
     </S.Button>
   );
-}
+};
 
 export default CustomButton;

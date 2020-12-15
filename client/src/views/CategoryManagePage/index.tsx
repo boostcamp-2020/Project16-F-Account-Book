@@ -1,4 +1,4 @@
-import MainLayout from '@/components/common/layouts/MainLayout';
+import MainLayout from '@/views/layouts/MainLayout';
 import CategoryManageMain from '@/container/CategoryManageMain';
 import React from 'react';
 

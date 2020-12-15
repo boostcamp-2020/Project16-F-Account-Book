@@ -10,7 +10,7 @@
     "lint:fix": "eslint --fix src/**/*.ts",
     "dev": "nodemon",
     "build": "NODE_ENV=production ttsc",
-    "test": "NODE_ENV=test jest",
+    "test": "NODE_ENV=test jest --runInBand",
     "seed:up": "ts-node -r tsconfig-paths/register src/seed/up.ts",
     "seed:clear": "ts-node -r tsconfig-paths/register src/seed/clear.ts"
   },
@@ -30,6 +30,7 @@
   "license": "ISC",
   "dependencies": {
     "@koa/cors": "^3.1.0",
+    "@shopify/jest-koa-mocks": "^2.2.4",
     "axios": "^0.21.0",
     "dotenv": "^8.2.0",
     "jsonwebtoken": "^8.5.1",
@@ -39,7 +40,7 @@
     "koa-router": "^10.0.0",
     "mysql2": "^2.2.5",
     "typeorm": "^0.2.29",
-    "typeorm-transactional-cls-hooked": "^0.1.17",
+    "typeorm-transactional-cls-hooked": "^0.1.19",
     "uuid": "^8.3.1"
   },
   "devDependencies": {

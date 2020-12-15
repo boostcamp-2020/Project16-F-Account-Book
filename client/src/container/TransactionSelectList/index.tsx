@@ -1,6 +1,7 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/modules/index';
+import { toggleModalOn } from '@/modules/updateModal';
 import TransactionListItem from '@/components/transaction/ListItem';
 import { TransactionListItemWrapper } from '@/container/TransactionList/styles';
 import { TransactionModel } from '@/commons/types/transaction';
@@ -13,7 +14,11 @@ const TransactionSelectList = (): JSX.Element => {
   const transactionList = transactionData.get(
     Number(calendarDaySelector.day),
   ) as TransactionModel[];
+  const dispatch = useDispatch();
 
+  const toggleModal = useCallback((t: TransactionModel) => {
+    dispatch(toggleModalOn(t));
+  }, []);
   return (
     <>
       <S.DateContainer>
@@ -22,8 +27,12 @@ const TransactionSelectList = (): JSX.Element => {
           transactionList.map((transactionDay) => (
             <TransactionListItemWrapper>
               <TransactionListItem
+                toggleUpdateModal={() => {
+                  toggleModal(transactionDay);
+                }}
                 key={`transaction_${transactionDay.tid}`}
                 transaction={transactionDay}
+                editable
               />
             </TransactionListItemWrapper>
           ))
