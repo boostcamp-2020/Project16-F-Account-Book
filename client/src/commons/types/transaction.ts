@@ -1,5 +1,4 @@
 import { YearMonthModel } from '@/commons/types/date';
-import { Interface } from 'readline';
 
 export type TransactionModel = {
   tid: number;

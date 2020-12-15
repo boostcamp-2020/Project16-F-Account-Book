@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import AggregateCategoryItem from '@/components/aggregateCategory/Item';
-import { AggregateCategoryPropType } from '@/commons/types/aggregateCategory';
+import { AggregateCategoryPropType } from '@/commons/types/aggregate';
 import { Doughnut } from 'react-chartjs-2';
 import EmptyStateComponent from '@/components/transaction/EmptyState';
 import * as S from './styles';
