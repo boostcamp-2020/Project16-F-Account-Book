@@ -1,5 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
-import { getMonthlyTransactionThunk } from '@/modules/transaction';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/modules';
 import { changeDate } from '@modules/datePicker/actions';
@@ -11,26 +10,19 @@ export default function SelectMonth(): JSX.Element {
   const { datePicker } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
 
-  const onChangeLeftMonth = () => {
+  const onChangeLeftMonth = useCallback(() => {
     if (datePicker.month > 1)
       dispatch(changeDate({ year: datePicker.year, month: datePicker.month - 1 }));
     else dispatch(changeDate({ year: datePicker.year - 1, month: 12 }));
 
     dispatch(changeDay({ day: 0 }));
-  };
-  const onChangeRightMonth = () => {
+  }, [datePicker]);
+
+  const onChangeRightMonth = useCallback(() => {
     if (datePicker.month < 12)
       dispatch(changeDate({ year: datePicker.year, month: datePicker.month + 1 }));
     else dispatch(changeDate({ year: datePicker.year + 1, month: 1 }));
     dispatch(changeDay({ day: 0 }));
-  };
-
-  const getMonthlyTransactions = useCallback(() => {
-    dispatch(getMonthlyTransactionThunk(datePicker));
-  }, [datePicker]);
-
-  useEffect(() => {
-    getMonthlyTransactions();
   }, [datePicker]);
 
   return (

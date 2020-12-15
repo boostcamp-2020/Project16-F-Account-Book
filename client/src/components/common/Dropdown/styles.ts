@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+const Dropdown = styled.div`
+  position: relative;
+`;
+
 const MenuItem = styled.div`
   background-color: white;
   z-index: 1100;
@@ -33,4 +37,4 @@ const CloseDiv = styled.div`
   opctiy: 0;
 `;
 
-export { MenuItem, IconDiv, CloseDiv };
+export { Dropdown, MenuItem, IconDiv, CloseDiv };

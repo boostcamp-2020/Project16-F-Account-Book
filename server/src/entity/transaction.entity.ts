@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import CategoryEntity from './category.entity';
 import PaymentEntity from './payment.entity';
 import UserEntity from './user.entity';
@@ -14,6 +14,7 @@ type ConstructorProps = {
 };
 
 @Entity('Transaction')
+@Index(['uid', 'tradeAt', 'description'])
 export default class TranscationEntity {
   @PrimaryGeneratedColumn({ type: 'int' })
   tid!: number;

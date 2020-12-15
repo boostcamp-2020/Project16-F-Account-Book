@@ -9,9 +9,9 @@ clientRepoName="${DOCKER_USER}/accountbook-client"
 
 docker login --username $DOCKER_USER --password $DOCKER_PASSWORD || exit 1
 
-yarn install && yarn build
+yarn install && yarn build || exit 1
 
-docker-compose -f docker-compose.build.yml build --parallel
+docker-compose -f docker-compose.build.yml build --parallel || exit 1
 
 if [ ${tags[0]} != "pre-release" ]
 then 
