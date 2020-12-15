@@ -16,7 +16,7 @@ import SMSParser from '@/libs/smsParser/parser';
 import DateUtils from '@/libs/dateUtils';
 import ModalInput from '@/components/transaction/ModalInput';
 import ModalHeader from '@/components/transaction/ModalHeader';
-import checkValidation from '@/libs/checkValidation';
+import { checkValidation, checkEmpty } from '@/libs/checkValidation';
 import * as S from './styles';
 import { TransactionModalProps } from './types';
 
@@ -49,14 +49,14 @@ const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Ele
     if (checkValidation(e.target.name, e.target.value)) {
       infoDispatch({ ...newTransaction, [e.target.name]: e.target.value });
       validation.add(e.target.name);
-      setValidation(new Set([...validation]));
+      setValidation(validation);
     } else {
       validation.delete(e.target.name);
-      setValidation(new Set([...validation]));
+      setValidation(validation);
     }
     if ((e.target.name === 'description' || e.target.name === 'amount') && e.target.value === '') {
       validation.delete(e.target.name);
-      setValidation(new Set([...validation]));
+      setValidation(validation);
     }
   };
 
@@ -77,6 +77,10 @@ const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Ele
           amount: `${parsedText.amount}`,
           description: clipText,
         });
+        checkEmpty(['', `${parsedText.amount}`, clipText, 'false']).map((addList) =>
+          validation.add(addList),
+        );
+        setValidation(validation);
         setIsIncome(false);
       } else {
         const { year: thisYear } = DateUtils.parseDate(new Date());
@@ -89,10 +93,16 @@ const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Ele
           isIncome: `${parsedText.isDeposit}`,
         });
         setIsIncome(parsedText.isDeposit);
+        checkEmpty([
+          formattedDate,
+          `${parsedText.amount}`,
+          clipText,
+          `${parsedText.isDeposit}`,
+        ]).map((addList) => validation.add(addList));
+        setValidation(validation);
       }
     });
   }, []);
-
   return (
     <>
       {paymentList && categoryList && (
