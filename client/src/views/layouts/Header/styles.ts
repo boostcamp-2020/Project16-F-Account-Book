@@ -12,9 +12,12 @@ const HeaderDiv = styled.div`
 `;
 
 const HeaderContentDiv = styled.div`
+  width: 100%;
+  max-width: 738px;
   display: flex;
   height: 40px;
   align-items: center;
+  margin: 0 auto;
 `;
 
 const HeaderLogo = styled.div`
