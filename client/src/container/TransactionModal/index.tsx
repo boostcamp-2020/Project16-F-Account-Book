@@ -16,7 +16,7 @@ import SMSParser from '@/libs/smsParser/parser';
 import DateUtils from '@/libs/dateUtils';
 import ModalInput from '@/components/transaction/ModalInput';
 import ModalHeader from '@/components/transaction/ModalHeader';
-import checkValidation from '@/libs/checkValidation';
+import { checkValidation, checkEmpty } from '@/libs/checkValidation';
 import * as S from './styles';
 import { TransactionModalProps } from './types';
 
@@ -66,7 +66,6 @@ const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Ele
     toggleModal();
   }, [newTransaction]);
 
-
   const parseClipboardText = useCallback(() => {
     navigator.clipboard.readText().then((clipText) => {
       const parsedText = SMSParser.parse(clipText);
@@ -78,6 +77,10 @@ const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Ele
           amount: `${parsedText.amount}`,
           description: clipText,
         });
+        checkEmpty(['', `${parsedText.amount}`, clipText, 'false']).map((addList) =>
+          validation.add(addList),
+        );
+        setValidation(new Set([...validation]));
         setIsIncome(false);
       } else {
         const { year: thisYear } = DateUtils.parseDate(new Date());
@@ -90,10 +93,16 @@ const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Ele
           isIncome: `${parsedText.isDeposit}`,
         });
         setIsIncome(parsedText.isDeposit);
+        checkEmpty([
+          formattedDate,
+          `${parsedText.amount}`,
+          clipText,
+          `${parsedText.isDeposit}`,
+        ]).map((addList) => validation.add(addList));
+        setValidation(new Set([...validation]));
       }
     });
   }, []);
-
   return (
     <>
       {paymentList && categoryList && (

@@ -11,7 +11,7 @@ import { UpdateTransactionRequest } from '@/commons/types/transaction';
 import ModalInput from '@/components/transaction/ModalInput';
 import CustomSelectInput from '@/components/common/forms/CustomSelectInput';
 import CustomButton from '@/components/common/buttons/CustomButton';
-import checkValidation from '@/libs/checkValidation';
+import { checkValidation } from '@/libs/checkValidation';
 import TransactionRequestDTO from '@/commons/dto/transaction-request';
 import { deleteTransactionThunk, updateTransactionThunk } from '@/modules/transaction';
 import * as S from './styles';
