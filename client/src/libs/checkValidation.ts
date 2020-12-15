@@ -5,7 +5,7 @@ const checkValidation = (name: string, target: string): boolean => {
   return true;
 };
 
-const checkEmpty = (TransactionList: string[]) => {
+const checkEmpty = (TransactionList: string[]): string[] => {
   const keyList = ['tradeAt', 'amount', 'description', 'isIncome'];
   return keyList.filter((key, i) => {
     if (TransactionList[i] === '' || TransactionList[i] === '0') return false;
