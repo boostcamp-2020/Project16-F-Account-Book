@@ -2,7 +2,6 @@ import React, { useCallback, useEffect } from 'react';
 import { RootState } from '@/modules';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAggregateCategoryThunk } from '@/modules/aggregateCategory';
-import dateUtils from '@/libs/dateUtils';
 import TabMenu from '@/components/common/TabMenu';
 import AggregateCategoryMain from '@/components/aggregateCategory/Main';
 
@@ -11,8 +10,7 @@ const AggregateCategory = (): JSX.Element => {
   const dispatch = useDispatch();
 
   const getAggregateCategory = useCallback(() => {
-    const { startDate, endDate } = dateUtils.getStartEndDate(datePicker.year, datePicker.month);
-    dispatch(getAggregateCategoryThunk(startDate, endDate));
+    dispatch(getAggregateCategoryThunk(datePicker.year, datePicker.month));
   }, [datePicker]);
 
   useEffect(() => {

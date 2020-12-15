@@ -7,6 +7,7 @@ import {
 } from '@/commons/types/aggregate';
 import MostSpendingCategoryCache from '@/libs/cache/mostSpendingCategoryCache';
 import OverspendingIndexCache from '@/libs/cache/overspendingIndexCache';
+import AggregateCategoryCache from '@/libs/cache/aggregateCategoryCache';
 
 const aggregateAPI = {
   getOverspendingIndex: async (year: number, month: number): Promise<OverspendingIndexDetail> => {
@@ -33,17 +34,22 @@ const aggregateAPI = {
     return mostSpendingCategory;
   },
 
-  getAggregateCategory: async (
-    startDate: string,
-    endDate: string,
-  ): Promise<AggregateCategoryData> => {
-    const aggregateCategory = await axios.get<AggregateCategoryData>(
+  getAggregateCategory: async (year: number, month: number): Promise<AggregateCategoryData> => {
+    const cachedData = AggregateCategoryCache.get({ year, month });
+    if (cachedData) {
+      return cachedData;
+    }
+    const aggregateCategoryData = await axios.get<AggregateCategoryData>(
       endpoints.AGGREGATE_CATEGORY_API,
       {
-        params: { start: startDate, end: endDate },
+        params: { year, month },
       },
     );
-    return aggregateCategory;
+    AggregateCategoryCache.set({
+      date: { year, month },
+      aggregateCategoryData,
+    });
+    return aggregateCategoryData;
   },
 };
 

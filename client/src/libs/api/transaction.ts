@@ -6,6 +6,7 @@ import transactionCache from '@/libs/cache/transactionCache';
 import fixedExpenditureCache from '@/libs/cache/fixedExpenditureCache';
 import MostSpendingCategoryCache from '@/libs/cache/mostSpendingCategoryCache';
 import OverspendingIndexCache from '@/libs/cache/overspendingIndexCache';
+import AggregateCategoryCache from '@/libs/cache/aggregateCategoryCache';
 import DateUtils from '@/libs/dateUtils';
 import { YearMonthModel } from '@/commons/types/date';
 
@@ -14,6 +15,7 @@ const clearCache = (date: YearMonthModel) => {
   fixedExpenditureCache.clear(date);
   MostSpendingCategoryCache.clear(date);
   OverspendingIndexCache.clear(date);
+  AggregateCategoryCache.clear(date);
 };
 
 const transactionAPI = {
