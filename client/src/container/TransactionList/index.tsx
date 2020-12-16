@@ -14,9 +14,8 @@ const TransactionListContainer = ({ editable }: TransactionListContainerProps): 
   const toggleModal = useCallback((t: TransactionModel) => {
     dispatch(toggleModalOn(t));
   }, []);
-
-  const target = useRef<HTMLDivElement>(null);
   const length = useRef(1);
+  const target = useRef<HTMLDivElement>(null);
   const [renderedTransaction, setRenderedTransaction] = useState(
     [] as [number, TransactionModel[]][],
   );
@@ -31,6 +30,7 @@ const TransactionListContainer = ({ editable }: TransactionListContainerProps): 
   };
 
   useEffect(() => {
+    length.current = 1;
     if (transaction.transactionDetailsByDate.length < 5) {
       setRenderedTransaction(transaction.transactionDetailsByDate);
     } else {
