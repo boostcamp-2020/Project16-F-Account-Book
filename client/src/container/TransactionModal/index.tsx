@@ -66,7 +66,6 @@ const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Ele
     toggleModal();
   }, [newTransaction]);
 
-
   const parseClipboardText = useCallback(() => {
     navigator.clipboard.readText().then((clipText) => {
       const parsedText = SMSParser.parse(clipText);
