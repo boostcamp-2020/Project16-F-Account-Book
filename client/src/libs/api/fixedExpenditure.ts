@@ -1,5 +1,5 @@
 import axios from '@/libs/axios';
-import endpoints from '@/libs/endpoints';
+import endpoints from '@/commons/endpoints';
 import { FixedExpenditure } from '@/commons/types/fixedExpenditure';
 import cache from '@/libs/cache/fixedExpenditureCache';
 

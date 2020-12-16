@@ -1,5 +1,5 @@
 import React from 'react';
-import endpoints from '@/libs/endpoints';
+import endpoints from '@/commons/endpoints';
 import LoginButtonResourceFactory from './buttonResourceFactory';
 import { PropsType } from './types';
 

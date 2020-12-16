@@ -46,7 +46,9 @@ const DashboardContainer = (): JSX.Element => {
   }, [datePicker]);
 
   useEffect(() => {
-    updateAggregateStatus();
+    if (!transactionState.loading) {
+      updateAggregateStatus();
+    }
   }, [transactionState]);
 
   const getSpendingStatus = useCallback(

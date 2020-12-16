@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
       - uses: actions/setup-node@v1
         with:
@@ -24,7 +24,7 @@ jobs:
           ./scripts/build.sh "$RELEASE_VERSION" "$DOCKER_USER" "$DOCKER_PASSWORD"
   deploy:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
       - uses: appleboy/ssh-action@master
         with:

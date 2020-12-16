@@ -1,5 +1,5 @@
 import axios from '@/libs/axios';
-import endplints from '@/libs/endpoints';
+import endplints from '@/commons/endpoints';
 
 const authorizationAPI = {
   isLogin: async (): Promise<Date> => {

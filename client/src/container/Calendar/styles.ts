@@ -19,7 +19,7 @@ const TransactionDiv = styled.div`
 `;
 
 const CalendarPageDiv = styled.div`
-  hight: 100%;
+  height: 100%;
   width: 100%;
 `;
 
@@ -31,6 +31,7 @@ const WarpCalendarDiv = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+  overflow-y: scroll;
 `;
 const InOutDiv = styled.div`
   display: block;
