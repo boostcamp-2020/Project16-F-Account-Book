@@ -1,6 +1,7 @@
 import { YearMonthModel } from '@/commons/types/date';
 import { AggregateCategoryData } from '@/commons/types/aggregate';
 import CacheUtils from '@/libs/cache/cacheUtils';
+import constant from '@/libs/cache/constant';
 
 const cache: Map<string, AggregateCategoryData> = new Map();
 
@@ -12,6 +13,10 @@ const set = ({
   aggregateCategoryData: AggregateCategoryData;
 }): void => {
   const dateKey = CacheUtils.makeDateKey(date);
+  if (cache.size === constant.CACHE_MAX_SIZE) {
+    const deleteKey = CacheUtils.getFarthestDateKey(dateKey, [...cache.keys()]);
+    cache.delete(deleteKey);
+  }
   cache.set(dateKey, aggregateCategoryData);
 };
 
