@@ -1,4 +1,5 @@
 export type TableCellTypes = {
   day: string;
-  totalInOut: any;
+  selectDay: number;
+  dailyTotal: { totalIn: number; totalOut: number } | undefined;
 };

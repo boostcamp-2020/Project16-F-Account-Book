@@ -1,5 +1,5 @@
 import { YearMonthModel } from '@/commons/types/date';
-import dateUtils from '../dateUtils';
+import dateUtils from '@/libs/dateUtils';
 
 const makeDateKey = ({ year, month }: YearMonthModel): string =>
   `${year}-${month < 10 ? `0${month}` : month}`;

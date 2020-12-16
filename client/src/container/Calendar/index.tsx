@@ -5,17 +5,13 @@ import SelectMonth from '@/container/SelectMonth';
 import TransactionListContainer from '@/container/TransactionList';
 import TransactionSelectList from '@/container/TransactionSelectList';
 import AmountText from '@/components/transaction/AmountText';
-import ViewCalendar from '@components/calendar/CalendarView';
+import MatrixView from '@/components/calendar/MatrixView';
 import { getMonthlyTransactionThunk } from '@/modules/transaction';
+import { changeDay } from '@/modules/calendarDaySelector';
 import * as S from './styles';
 
 const Calendar = (): JSX.Element => {
   const { datePicker, transaction, calendarDaySelector } = useSelector((state: RootState) => state);
-  const dailyTotalInOut = new Map();
-  transaction.aggregationByDate.map((dayData) =>
-    dailyTotalInOut.set(String(dayData[0]), dayData[1]),
-  );
-
   const dispatch = useDispatch();
 
   const getMonthlyTransactions = useCallback(() => {
@@ -24,6 +20,9 @@ const Calendar = (): JSX.Element => {
 
   useEffect(() => {
     getMonthlyTransactions();
+    return () => {
+      dispatch(changeDay({ day: 0 }));
+    };
   }, [datePicker]);
 
   return (
@@ -39,12 +38,7 @@ const Calendar = (): JSX.Element => {
           </S.InOutDiv>
         </S.HeaderDiv>
         <S.CalendarDiv>
-          <ViewCalendar
-            totalInOut={dailyTotalInOut}
-            lang="ko"
-            year={datePicker.year}
-            month={datePicker.month}
-          />
+          <MatrixView year={datePicker.year} month={datePicker.month} />
         </S.CalendarDiv>
         {calendarDaySelector.day === 0 ? (
           <TransactionListContainer editable />
@@ -55,4 +49,4 @@ const Calendar = (): JSX.Element => {
     </S.WarpCalendarDiv>
   );
 };
-export default Calendar;
+export default React.memo(Calendar);

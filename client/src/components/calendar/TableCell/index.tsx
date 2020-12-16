@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/modules';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { changeDay } from '@/modules/calendarDaySelector/action';
 import AmountText from '@/components/transaction/AmountText';
 import * as S from './styles';
@@ -14,66 +13,43 @@ const getRem = (n: number): string => {
   return rem;
 };
 
-const TableCell = ({ day, totalInOut }: TableCellTypes): JSX.Element => {
-  const dayToNumber = Number(day);
-  const { calendarDaySelector } = useSelector((state: RootState) => state);
-  const isBold = (): 'isBold' | '' => {
-    if (calendarDaySelector.day === dayToNumber) return 'isBold';
-    return '';
-  };
-  const isCursor = (): 'isCursor' | '' => {
-    if (dayToNumber) return 'isCursor';
-    return '';
-  };
+const TableCell = ({ day, selectDay, dailyTotal }: TableCellTypes): JSX.Element => {
   const dispatch = useDispatch();
 
   const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const value = Number(e.currentTarget.innerText.split('\n')[0]);
-    if (!value) {
+    if (!dailyTotal) {
       return;
     }
-    if (value === calendarDaySelector.day) {
+    if (value === selectDay) {
       dispatch(changeDay({ day: 0 }));
       return;
     }
     dispatch(changeDay({ day: value }));
   };
-  useEffect(() => {
-    dispatch(changeDay({ day: 0 }));
-  }, []);
   return (
-    <>
-      <S.CellButton onClick={onClick} key={day} className={(isBold(), isCursor())}>
-        <div>{day}</div>
-        <S.TotalIn>
-          {totalInOut.get(day) && totalInOut.get(day).totalIn > 0 ? (
-            <div>
-              <AmountText
-                isIncome
-                amount={totalInOut.get(day).totalIn}
-                size={getRem(totalInOut.get(day).totalIn)}
-              />
-            </div>
-          ) : (
-            ''
-          )}
-        </S.TotalIn>
-        <S.TotalOut>
-          {totalInOut.get(day) && totalInOut.get(day).totalOut > 0 ? (
-            <div>
-              <AmountText
-                isIncome={false}
-                amount={totalInOut.get(day).totalOut}
-                size={getRem(totalInOut.get(day).totalOut)}
-              />
-            </div>
-          ) : (
-            ''
-          )}
-        </S.TotalOut>
-      </S.CellButton>
-    </>
+    <S.CellButton
+      onClick={onClick}
+      key={day}
+      className={`${dailyTotal ? 'isCursor' : ''}  ${selectDay === Number(day) ? 'isBold' : ''}`}
+    >
+      {day}
+      <S.TotalIn>
+        {dailyTotal && dailyTotal.totalIn > 0 && (
+          <AmountText isIncome amount={dailyTotal.totalIn} size={getRem(dailyTotal.totalIn)} />
+        )}
+      </S.TotalIn>
+      <S.TotalOut>
+        {dailyTotal && dailyTotal.totalOut > 0 && (
+          <AmountText
+            isIncome={false}
+            amount={dailyTotal.totalOut}
+            size={getRem(dailyTotal.totalOut)}
+          />
+        )}
+      </S.TotalOut>
+    </S.CellButton>
   );
 };
 
-export default TableCell;
+export default React.memo(TableCell);
