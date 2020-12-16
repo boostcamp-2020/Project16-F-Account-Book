@@ -12,11 +12,6 @@ import * as S from './styles';
 
 const Calendar = (): JSX.Element => {
   const { datePicker, transaction, calendarDaySelector } = useSelector((state: RootState) => state);
-  const dailyTotalInOut: Map<string, number | { totalIn: number; totalOut: number }> = new Map();
-  transaction.aggregationByDate.map((dayData) =>
-    dailyTotalInOut.set(String(dayData[0]), dayData[1]),
-  );
-
   const dispatch = useDispatch();
 
   const getMonthlyTransactions = useCallback(() => {
@@ -43,11 +38,7 @@ const Calendar = (): JSX.Element => {
           </S.InOutDiv>
         </S.HeaderDiv>
         <S.CalendarDiv>
-          <MatrixView
-            totalInOut={dailyTotalInOut}
-            year={datePicker.year}
-            month={datePicker.month}
-          />
+          <MatrixView year={datePicker.year} month={datePicker.month} />
         </S.CalendarDiv>
         {calendarDaySelector.day === 0 ? (
           <TransactionListContainer editable />
@@ -58,4 +49,4 @@ const Calendar = (): JSX.Element => {
     </S.WarpCalendarDiv>
   );
 };
-export default Calendar;
+export default React.memo(Calendar);

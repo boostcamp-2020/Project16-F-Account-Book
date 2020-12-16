@@ -1,6 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/modules';
+import { useDispatch } from 'react-redux';
 import { changeDay } from '@/modules/calendarDaySelector/action';
 import AmountText from '@/components/transaction/AmountText';
 import * as S from './styles';
@@ -13,44 +12,44 @@ const getRem = (n: number): string => {
   if (len > 6) rem = '0.1rem';
   return rem;
 };
-const TableCell = React.memo(
-  ({ day, totalInOut }: TableCellTypes): JSX.Element => {
-    const { calendarDaySelector } = useSelector((state: RootState) => state);
-    const { totalIn, totalOut } = totalInOut.get(day) ? totalInOut.get(day) : [false, false];
 
-    const dispatch = useDispatch();
+const TableCell = ({ day, selectDay, dailyTotal }: TableCellTypes): JSX.Element => {
+  const dispatch = useDispatch();
 
-    const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
-      const value = Number(e.currentTarget.innerText.split('\n')[0]);
-      if (!totalInOut.get(String(value))) {
-        return;
-      }
-      if (value === calendarDaySelector.day) {
-        dispatch(changeDay({ day: 0 }));
-        return;
-      }
-      dispatch(changeDay({ day: value }));
-    };
-    return (
-      <S.CellButton
-        onClick={onClick}
-        key={day}
-        className={`${totalInOut.get(day) ? 'isCursor' : ''}  ${
-          calendarDaySelector.day === Number(day) ? 'isBold' : ''
-        }`}
-      >
-        {day}
-        <S.TotalIn>
-          {totalIn > 0 && <AmountText isIncome amount={totalIn} size={getRem(totalIn)} />}
-        </S.TotalIn>
-        <S.TotalOut>
-          {totalOut > 0 && (
-            <AmountText isIncome={false} amount={totalOut} size={getRem(totalOut)} />
-          )}
-        </S.TotalOut>
-      </S.CellButton>
-    );
-  },
-);
+  const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const value = Number(e.currentTarget.innerText.split('\n')[0]);
+    if (!dailyTotal) {
+      return;
+    }
+    if (value === selectDay) {
+      dispatch(changeDay({ day: 0 }));
+      return;
+    }
+    dispatch(changeDay({ day: value }));
+  };
+  return (
+    <S.CellButton
+      onClick={onClick}
+      key={day}
+      className={`${dailyTotal ? 'isCursor' : ''}  ${selectDay === Number(day) ? 'isBold' : ''}`}
+    >
+      {day}
+      <S.TotalIn>
+        {dailyTotal && dailyTotal.totalIn > 0 && (
+          <AmountText isIncome amount={dailyTotal.totalIn} size={getRem(dailyTotal.totalIn)} />
+        )}
+      </S.TotalIn>
+      <S.TotalOut>
+        {dailyTotal && dailyTotal.totalOut > 0 && (
+          <AmountText
+            isIncome={false}
+            amount={dailyTotal.totalOut}
+            size={getRem(dailyTotal.totalOut)}
+          />
+        )}
+      </S.TotalOut>
+    </S.CellButton>
+  );
+};
 
-export default TableCell;
+export default React.memo(TableCell);
