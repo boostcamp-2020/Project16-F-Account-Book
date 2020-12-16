@@ -1,5 +1,5 @@
 export type MatrixViewTypes = {
-  matrix: string[][];
-  headers: string[];
-  cell: (value: string, key: number) => JSX.Element;
+  totalInOut: Map<string, number | { totalIn: number; totalOut: number }>;
+  year: number;
+  month: number;
 };

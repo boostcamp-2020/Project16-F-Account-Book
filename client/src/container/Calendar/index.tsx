@@ -5,13 +5,13 @@ import SelectMonth from '@/container/SelectMonth';
 import TransactionListContainer from '@/container/TransactionList';
 import TransactionSelectList from '@/container/TransactionSelectList';
 import AmountText from '@/components/transaction/AmountText';
-import ViewCalendar from '@components/calendar/CalendarView';
+import MatrixView from '@/components/calendar/MatrixView';
 import { getMonthlyTransactionThunk } from '@/modules/transaction';
 import * as S from './styles';
 
 const Calendar = (): JSX.Element => {
   const { datePicker, transaction, calendarDaySelector } = useSelector((state: RootState) => state);
-  const dailyTotalInOut = new Map();
+  const dailyTotalInOut: Map<string, number | { totalIn: number; totalOut: number }> = new Map();
   transaction.aggregationByDate.map((dayData) =>
     dailyTotalInOut.set(String(dayData[0]), dayData[1]),
   );
@@ -39,9 +39,8 @@ const Calendar = (): JSX.Element => {
           </S.InOutDiv>
         </S.HeaderDiv>
         <S.CalendarDiv>
-          <ViewCalendar
+          <MatrixView
             totalInOut={dailyTotalInOut}
-            lang="ko"
             year={datePicker.year}
             month={datePicker.month}
           />

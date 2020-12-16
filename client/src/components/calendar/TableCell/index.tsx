@@ -13,23 +13,18 @@ const getRem = (n: number): string => {
   if (len > 6) rem = '0.1rem';
   return rem;
 };
-
 const TableCell = ({ day, totalInOut }: TableCellTypes): JSX.Element => {
-  const dayToNumber = Number(day);
   const { calendarDaySelector } = useSelector((state: RootState) => state);
-  const isBold = (): 'isBold' | '' => {
-    if (calendarDaySelector.day === dayToNumber) return 'isBold';
-    return '';
-  };
-  const isCursor = (): 'isCursor' | '' => {
-    if (dayToNumber) return 'isCursor';
-    return '';
-  };
+  const { totalIn, totalOut } = totalInOut.get(day) ? totalInOut.get(day) : [false, false];
+
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(changeDay({ day: 0 }));
+  }, []);
 
   const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const value = Number(e.currentTarget.innerText.split('\n')[0]);
-    if (!value) {
+    if (!totalInOut.get(String(value))) {
       return;
     }
     if (value === calendarDaySelector.day) {
@@ -38,41 +33,22 @@ const TableCell = ({ day, totalInOut }: TableCellTypes): JSX.Element => {
     }
     dispatch(changeDay({ day: value }));
   };
-  useEffect(() => {
-    dispatch(changeDay({ day: 0 }));
-  }, []);
   return (
-    <>
-      <S.CellButton onClick={onClick} key={day} className={(isBold(), isCursor())}>
-        <div>{day}</div>
-        <S.TotalIn>
-          {totalInOut.get(day) && totalInOut.get(day).totalIn > 0 ? (
-            <div>
-              <AmountText
-                isIncome
-                amount={totalInOut.get(day).totalIn}
-                size={getRem(totalInOut.get(day).totalIn)}
-              />
-            </div>
-          ) : (
-            ''
-          )}
-        </S.TotalIn>
-        <S.TotalOut>
-          {totalInOut.get(day) && totalInOut.get(day).totalOut > 0 ? (
-            <div>
-              <AmountText
-                isIncome={false}
-                amount={totalInOut.get(day).totalOut}
-                size={getRem(totalInOut.get(day).totalOut)}
-              />
-            </div>
-          ) : (
-            ''
-          )}
-        </S.TotalOut>
-      </S.CellButton>
-    </>
+    <S.CellButton
+      onClick={onClick}
+      key={day}
+      className={`${totalInOut.get(day) ? 'isCursor' : ''}  ${
+        calendarDaySelector.day === Number(day) ? 'isBold' : ''
+      }`}
+    >
+      {day}
+      <S.TotalIn>
+        {totalIn > 0 && <AmountText isIncome amount={totalIn} size={getRem(totalIn)} />}
+      </S.TotalIn>
+      <S.TotalOut>
+        {totalOut > 0 && <AmountText isIncome={false} amount={totalOut} size={getRem(totalOut)} />}
+      </S.TotalOut>
+    </S.CellButton>
   );
 };
 
