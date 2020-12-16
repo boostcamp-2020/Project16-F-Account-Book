@@ -1,4 +1,4 @@
-import { mockTransactions } from '@/libs/mockData';
+import { mockTransactions } from '@/commons/mockData';
 import reducer from './reducer';
 import * as TransactionActions from './actions';
 import aggregateTransactions from './aggregateUtil';

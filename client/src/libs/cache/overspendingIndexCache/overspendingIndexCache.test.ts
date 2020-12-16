@@ -1,11 +1,6 @@
 import { fail } from 'assert';
+import { mockOverspendingIndexDetail } from '@/commons/mockData';
 import overspendingIndexCache from '.';
-
-const mockOverspendingIndexDetail = {
-  overspendingIndex: 0.7,
-  averageIncome: 100,
-  expenditureThisMonth: 70,
-};
 
 it('응답데이터 캐싱 테스트', () => {
   const date = { year: 2020, month: 12 };

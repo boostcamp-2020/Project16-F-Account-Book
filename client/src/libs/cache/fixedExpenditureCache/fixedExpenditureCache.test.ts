@@ -1,30 +1,6 @@
 import { fail } from 'assert';
+import { mockFixedExpenditure } from '@/commons/mockData';
 import fixedExpenditureCache from '.';
-
-const mockFixedExpenditure = {
-  paid: [
-    {
-      fid: 1,
-      tradeAt: new Date(),
-      amount: 10000,
-      description: 'mockPaid1',
-    },
-    {
-      fid: 2,
-      tradeAt: new Date(),
-      amount: 20000,
-      description: 'mockPaid2',
-    },
-  ],
-  estimated: [
-    {
-      fid: 3,
-      tradeAt: new Date(),
-      amount: 10000,
-      description: 'mockEstimated1',
-    },
-  ],
-};
 
 it('응답데이터 캐싱 테스트', () => {
   const date = { year: 2020, month: 12 };

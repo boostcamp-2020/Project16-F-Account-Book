@@ -1,4 +1,4 @@
-import { mockTransactions } from '@/libs/mockData';
+import { mockTransactions } from '@/commons/mockData';
 import { fail } from 'assert';
 import transactionCache from '.';
 

@@ -1,10 +1,6 @@
 import { fail } from 'assert';
+import { mockMostSpendingCategory } from '@/commons/mockData';
 import mostSpendingCategoryCache from '.';
-
-const mockMostSpendingCategory = {
-  name: 'category',
-  aggregate: '20000',
-};
 
 it('응답데이터 캐싱 테스트', () => {
   const date = { year: 2020, month: 12 };
