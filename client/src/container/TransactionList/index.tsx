@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import TransactionListItem from '@/components/transaction/ListItem';
 import { RootState } from '@modules/index';
@@ -15,14 +15,55 @@ const TransactionListContainer = ({ editable }: TransactionListContainerProps): 
     dispatch(toggleModalOn(t));
   }, []);
 
+  const target = useRef<HTMLDivElement>(null);
+  const length = useRef(1);
+  const [renderedTransaction, setRenderedTransaction] = useState(
+    [] as [number, TransactionModel[]][],
+  );
+
+  const maxLength = transaction.aggregationByDate.length / 5;
+  const changeExtraTransaction = () => {
+    const newrenderedTransaction = renderedTransaction.concat(
+      transaction.transactionDetailsByDate.slice(5 * length.current, 5 * length.current + 5),
+    );
+    length.current += 1;
+    setRenderedTransaction(newrenderedTransaction);
+  };
+
+  useEffect(() => {
+    if (transaction.transactionDetailsByDate.length < 5) {
+      setRenderedTransaction(transaction.transactionDetailsByDate);
+    } else {
+      setRenderedTransaction(transaction.transactionDetailsByDate.slice(0, 5));
+    }
+  }, [transaction]);
+
+  const onIntersect: IntersectionObserverCallback = (entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting && length.current < maxLength) {
+        observer.unobserve(entry.target);
+        changeExtraTransaction();
+      }
+    });
+  };
+
+  useEffect(() => {
+    let observer: IntersectionObserver;
+    if (target.current) {
+      observer = new IntersectionObserver(onIntersect, { threshold: 0.5 });
+      observer.observe(target.current as Element);
+    }
+    return () => observer && observer.disconnect();
+  }, [transaction, renderedTransaction]);
+
   return (
     <>
       {transaction.transactionDetailsByDate.length !== 0 ? (
-        transaction.transactionDetailsByDate.map(([date, transactionDetails]) => (
-          <S.DateContainer key={`transaction_box_${date}`}>
+        renderedTransaction.map(([date, transactionDetails]) => (
+          <S.DateContainer key={`transaction_box_${date}`} ref={target}>
             <S.DateLabel>{date}일</S.DateLabel>
             {transactionDetails.map((transactionDetail) => (
-              <S.TransactionListItemWrapper>
+              <S.TransactionListItemWrapper key={`transaction_Wrap${transactionDetail.tid}`}>
                 <TransactionListItem
                   toggleUpdateModal={() => {
                     toggleModal(transactionDetail);
