@@ -49,4 +49,4 @@ const Calendar = (): JSX.Element => {
     </S.WarpCalendarDiv>
   );
 };
-export default React.memo(Calendar);
+export default Calendar;
