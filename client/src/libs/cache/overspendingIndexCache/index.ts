@@ -1,6 +1,7 @@
 import { YearMonthModel } from '@/commons/types/date';
 import { OverspendingIndexDetail } from '@/commons/types/aggregate';
 import CacheUtils from '@/libs/cache/cacheUtils';
+import constant from '@/libs/cache/constant';
 
 const cache: Map<string, OverspendingIndexDetail> = new Map();
 
@@ -12,6 +13,10 @@ const set = ({
   overspendingIndexDetail: OverspendingIndexDetail;
 }): void => {
   const dateKey = CacheUtils.makeDateKey(date);
+  if (cache.size === constant.CACHE_MAX_SIZE) {
+    const deleteKey = CacheUtils.getFurthermostDateKey(dateKey, [...cache.keys()]);
+    cache.delete(deleteKey);
+  }
   cache.set(dateKey, overspendingIndexDetail);
 };
 
