@@ -30,7 +30,7 @@ const TransactionSelectList = (): JSX.Element => {
                 toggleUpdateModal={() => {
                   toggleModal(transactionDay);
                 }}
-                key={`transaction_${transactionDay.tid}`}
+                key={`transactionSelect${transactionDay.tid}`}
                 transaction={transactionDay}
                 editable
               />
