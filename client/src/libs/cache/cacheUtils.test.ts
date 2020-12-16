@@ -15,7 +15,7 @@ it("mockKeySet에서 키 '2021-6'과 가장 먼 키는 '2020-6' 이다", () => {
     '2021-04',
     '2021-05',
   ];
-  expect(cacheUtils.getFurthermostDateKey('2021-6', mockKeySet)).toBe('2020-06');
+  expect(cacheUtils.getFarthestDateKey('2021-6', mockKeySet)).toBe('2020-06');
 });
 
 it("mockKeySet에서 키 '2019-12'와 가장 먼 키는 '2020-12' 이다", () => {
@@ -33,7 +33,7 @@ it("mockKeySet에서 키 '2019-12'와 가장 먼 키는 '2020-12' 이다", () =>
     '2020-02',
     '2020-01',
   ];
-  expect(cacheUtils.getFurthermostDateKey('2019-12', mockKeySet)).toBe('2020-12');
+  expect(cacheUtils.getFarthestDateKey('2019-12', mockKeySet)).toBe('2020-12');
 });
 
 it('현재키와 차이가 같은 키가 2개라면 더 과거 날짜를 가진 키가 선택된다', () => {
@@ -53,7 +53,7 @@ it('현재키와 차이가 같은 키가 2개라면 더 과거 날짜를 가진 
     '2020-02',
     '2020-01',
   ];
-  expect(cacheUtils.getFurthermostDateKey('2020-08', mockKeySet)).toBe('2020-01');
+  expect(cacheUtils.getFarthestDateKey('2020-08', mockKeySet)).toBe('2020-01');
 });
 
 it("mockKeySet에서 키 '2020-11'와 가장 먼 키는 '2019-11' 이다", () => {
@@ -72,7 +72,7 @@ it("mockKeySet에서 키 '2020-11'와 가장 먼 키는 '2019-11' 이다", () =>
     '2020-08',
     '2020-09',
   ];
-  expect(cacheUtils.getFurthermostDateKey('2020-11', mockKeySet)).toBe('2019-11');
+  expect(cacheUtils.getFarthestDateKey('2020-11', mockKeySet)).toBe('2019-11');
 });
 
 it("mockKeySet에서 키 '2021-11'와 가장 먼 키는 '2020-04' 이다", () => {
@@ -90,5 +90,5 @@ it("mockKeySet에서 키 '2021-11'와 가장 먼 키는 '2020-04' 이다", () =>
     '2020-05',
     '2020-04',
   ];
-  expect(cacheUtils.getFurthermostDateKey('2021-11', mockKeySet)).toBe('2020-04');
+  expect(cacheUtils.getFarthestDateKey('2021-11', mockKeySet)).toBe('2020-04');
 });

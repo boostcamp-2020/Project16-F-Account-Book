@@ -14,7 +14,7 @@ const set = ({
 }): void => {
   const dateKey = CacheUtils.makeDateKey(date);
   if (cache.size === constant.CACHE_MAX_SIZE) {
-    const deleteKey = CacheUtils.getFurthermostDateKey(dateKey, [...cache.keys()]);
+    const deleteKey = CacheUtils.getFarthestDateKey(dateKey, [...cache.keys()]);
     cache.delete(deleteKey);
   }
   cache.set(dateKey, mostSpendingCategory);

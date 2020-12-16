@@ -4,9 +4,9 @@ import dateUtils from '../dateUtils';
 const makeDateKey = ({ year, month }: YearMonthModel): string =>
   `${year}-${month < 10 ? `0${month}` : month}`;
 
-const getFurthermostDateKey = (currentKey: string, keySet: string[]): string => {
+const getFarthestDateKey = (currentKey: string, keySet: string[]): string => {
   const currentKeyToDateTime = new Date(currentKey).getTime();
-  let furthermostDateTime = currentKeyToDateTime;
+  let farthestDateTime = currentKeyToDateTime;
   let mostDiff = 0;
 
   keySet.forEach((compareKey) => {
@@ -14,17 +14,17 @@ const getFurthermostDateKey = (currentKey: string, keySet: string[]): string => 
     const diff = Math.abs(compareKeyToDateTime - currentKeyToDateTime);
 
     if (diff === mostDiff) {
-      furthermostDateTime = Math.min(furthermostDateTime, compareKeyToDateTime);
+      farthestDateTime = Math.min(farthestDateTime, compareKeyToDateTime);
     }
 
     if (diff > mostDiff) {
-      furthermostDateTime = compareKeyToDateTime;
+      farthestDateTime = compareKeyToDateTime;
       mostDiff = diff;
     }
   });
 
-  const { year, month } = dateUtils.parseDate(new Date(furthermostDateTime));
+  const { year, month } = dateUtils.parseDate(new Date(farthestDateTime));
   return makeDateKey({ year, month });
 };
 
-export default { makeDateKey, getFurthermostDateKey };
+export default { makeDateKey, getFarthestDateKey };
