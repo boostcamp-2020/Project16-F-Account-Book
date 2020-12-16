@@ -14,6 +14,8 @@ import CustomButton from '@/components/common/buttons/CustomButton';
 import { checkValidation } from '@/libs/checkValidation';
 import TransactionRequestDTO from '@/commons/dto/transaction-request';
 import { deleteTransactionThunk, updateTransactionThunk } from '@/modules/transaction';
+import { getCategoryThunk } from '@/modules/category';
+import { getPaymentThunk } from '@/modules/payment';
 import * as S from './styles';
 
 const MODAL_LIST_ARR = ['tradeAt', 'description', 'amount', 'pid', 'cid', 'isIncome'];
@@ -29,6 +31,18 @@ const TransactionUpdateModal = (): JSX.Element => {
   const toggleModal = useCallback(() => {
     dispatch(toggleModalOff());
     setValidation(new Set(MODAL_LIST_ARR));
+  }, []);
+
+  const getCategoryList = useCallback(() => {
+    dispatch(getCategoryThunk());
+  }, []);
+  const getPaymentList = useCallback(() => {
+    dispatch(getPaymentThunk());
+  }, []);
+
+  useEffect(() => {
+    getCategoryList();
+    getPaymentList();
   }, []);
 
   const onChangeReducer = (state: UpdateTransactionRequest, action: UpdateTransactionRequest) => {
