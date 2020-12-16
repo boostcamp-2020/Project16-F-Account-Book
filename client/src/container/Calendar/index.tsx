@@ -1,11 +1,12 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/modules/index';
 import SelectMonth from '@/container/SelectMonth';
 import TransactionListContainer from '@/container/TransactionList';
 import TransactionSelectList from '@/container/TransactionSelectList';
 import AmountText from '@/components/transaction/AmountText';
 import ViewCalendar from '@components/calendar/CalendarView';
+import { getMonthlyTransactionThunk } from '@/modules/transaction';
 import * as S from './styles';
 
 const Calendar = (): JSX.Element => {
@@ -14,6 +15,17 @@ const Calendar = (): JSX.Element => {
   transaction.aggregationByDate.map((dayData) =>
     dailyTotalInOut.set(String(dayData[0]), dayData[1]),
   );
+
+  const dispatch = useDispatch();
+
+  const getMonthlyTransactions = useCallback(() => {
+    dispatch(getMonthlyTransactionThunk(datePicker));
+  }, [datePicker]);
+
+  useEffect(() => {
+    getMonthlyTransactions();
+  }, [datePicker]);
+
   return (
     <S.WarpCalendarDiv>
       <S.CalendarPageDiv>

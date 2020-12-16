@@ -7,7 +7,7 @@
     "precommit": "lint-staged",
     "start": "node ./dist/index.js",
     "lint": "eslint src/**/*.ts",
-    "lint:fix": "eslint --fix src/**/*.ts",
+    "lint:fix": "eslint --fix \"src/**/*.ts\"",
     "dev": "nodemon",
     "build": "NODE_ENV=production ttsc",
     "test": "NODE_ENV=test jest --runInBand",

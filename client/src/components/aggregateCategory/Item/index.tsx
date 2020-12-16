@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import React, { useState, useCallback } from 'react';
-import { AggregateCategoryItemPropType } from '@/commons/types/aggregateCategory';
+import { AggregateCategoryItemPropType } from '@/commons/types/aggregate';
 import NumberUtils from '@/libs/numberUtils';
 import { FcCollapse, FcExpand } from 'react-icons/fc';
 import AggregateCategoryDay from '@/components/aggregateCategory/Day';

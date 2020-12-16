@@ -1,5 +1,5 @@
 import React from 'react';
-import { AggregateCategoryDayPropType } from '@/commons/types/aggregateCategory';
+import { AggregateCategoryDayPropType } from '@/commons/types/aggregate';
 import * as S from './styles';
 
 const AggregateCategoryDay = ({ day }: AggregateCategoryDayPropType): JSX.Element => {

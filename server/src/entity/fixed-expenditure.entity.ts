@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import UserEntity from './user.entity';
 
 type ConstructorProps = {
@@ -8,6 +8,7 @@ type ConstructorProps = {
   uid: number;
 };
 @Entity('FixedExpenditure')
+@Index(['uid', 'tradeAt', 'description'])
 export default class FixedExpenditureEntity {
   @PrimaryGeneratedColumn({ type: 'int' })
   fid!: number;
@@ -24,7 +25,7 @@ export default class FixedExpenditureEntity {
   @Column({ type: 'int' })
   uid!: number;
 
-  @ManyToOne(() => UserEntity, (user) => user.payments, {
+  @ManyToOne(() => UserEntity, (user) => user.fixedExpenditures, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })

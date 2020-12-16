@@ -31,8 +31,7 @@ const DashboardContainer = (): JSX.Element => {
     aggregate: '',
   });
 
-  useEffect(() => {
-    getMonthlyTransactions();
+  const updateAggregateStatus = useCallback(() => {
     Promise.all([
       aggregateAPI.getMostSpendingCategory(datePicker.year, datePicker.month),
       aggregateAPI.getOverspendingIndex(datePicker.year, datePicker.month),
@@ -41,6 +40,14 @@ const DashboardContainer = (): JSX.Element => {
       setOverspendingIndexState(overspendingIndex);
     });
   }, [datePicker]);
+
+  useEffect(() => {
+    getMonthlyTransactions();
+  }, [datePicker]);
+
+  useEffect(() => {
+    updateAggregateStatus();
+  }, [transactionState]);
 
   const getSpendingStatus = useCallback(
     (overspendingIndex: number): string => {

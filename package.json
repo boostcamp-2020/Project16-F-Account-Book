@@ -21,7 +21,10 @@
     "docker": "docker-compose -f docker-compose.dev.yml pull && docker-compose -f docker-compose.dev.yml up -d",
     "docker:server": "docker-compose -f docker-compose.dev.yml pull && docker-compose -f docker-compose.dev.yml up -d accountbook-server",
     "docker:client": "docker-compose -f docker-compose.dev.yml pull && docker-compose -f docker-compose.dev.yml up -d accountbook-client",
-    "docker:down": "docker-compose -f docker-compose.dev.yml down --remove-orphan"
+    "docker:down": "docker-compose -f docker-compose.dev.yml down --remove-orphan",
+    "lint:client": "yarn workspace client lint:fix",
+    "lint:server": "yarn workspace server lint:fix",
+    "lint": "run-p lint:client lint:server"
   },
   "husky": {
     "hooks": {

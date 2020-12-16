@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
       - name: Create MySQL Database
@@ -31,6 +31,13 @@ jobs:
           node-version: 12
       - name: Install packages
         run: yarn install
+      - name: Run linters
+        run: |
+          yarn lint
+          git add .
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+          git diff --staged --quiet || git commit -m "fix: Code style with GitHub Action"
       - name: Run tests
         env:
           TYPEORM_CONNECTION: mysql
