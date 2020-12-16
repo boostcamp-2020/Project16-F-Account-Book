@@ -40,7 +40,9 @@ const FixedExpenditure = (): JSX.Element => {
   );
 
   useEffect(() => {
-    getFixedExpenditure();
+    if (!transaction.loading) {
+      getFixedExpenditure();
+    }
   }, [datePicker, transaction]);
   return (
     <>
