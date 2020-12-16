@@ -10,7 +10,7 @@ import * as S from './styles';
 const MatrixView = ({ year, month }: MatrixViewTypes): JSX.Element => {
   const headers: string[] = getWeekDays('ko');
   const matrix: string[][] = getDayMatrix(year, month);
-  const { datePicker, calendarDaySelector, transaction } = useSelector((state: RootState) => state);
+  const { calendarDaySelector, transaction } = useSelector((state: RootState) => state);
   const [dailyTotal, setDailyTotal] = useState<Map<number, { totalIn: number; totalOut: number }>>(
     new Map(transaction.aggregationByDate),
   );
