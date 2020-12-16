@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/modules/index';
 import SelectMonth from '@/container/SelectMonth';
@@ -8,10 +8,18 @@ import AmountText from '@/components/transaction/AmountText';
 import MatrixView from '@/components/calendar/MatrixView';
 import { getMonthlyTransactionThunk } from '@/modules/transaction';
 import { changeDay } from '@/modules/calendarDaySelector';
+import getDayMatrix from '@/libs/calendarUtils';
+import { getWeekDays } from '@/libs/nationalCalendarUtils';
 import * as S from './styles';
 
 const Calendar = (): JSX.Element => {
   const { datePicker, transaction, calendarDaySelector } = useSelector((state: RootState) => state);
+  const headers: string[] = getWeekDays('ko');
+  const matrix: string[][] = getDayMatrix(datePicker.year, datePicker.month);
+  const [dailyTotal, setDailyTotal] = useState<Map<number, { totalIn: number; totalOut: number }>>(
+    new Map(transaction.aggregationByDate),
+  );
+
   const dispatch = useDispatch();
 
   const getMonthlyTransactions = useCallback(() => {
@@ -24,6 +32,10 @@ const Calendar = (): JSX.Element => {
       dispatch(changeDay({ day: 0 }));
     };
   }, [datePicker]);
+
+  useEffect(() => {
+    setDailyTotal(new Map(transaction.aggregationByDate));
+  }, [transaction.aggregationByDate]);
 
   return (
     <S.WarpCalendarDiv>
@@ -38,7 +50,12 @@ const Calendar = (): JSX.Element => {
           </S.InOutDiv>
         </S.HeaderDiv>
         <S.CalendarDiv>
-          <MatrixView year={datePicker.year} month={datePicker.month} />
+          <MatrixView
+            headers={headers}
+            matrix={matrix}
+            dailyTotal={dailyTotal}
+            selectDay={calendarDaySelector.day}
+          />
         </S.CalendarDiv>
         {calendarDaySelector.day === 0 ? (
           <TransactionListContainer editable />

@@ -1,31 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import TableCell from '@/components/calendar/TableCell';
-import { useSelector } from 'react-redux';
-import getDayMatrix from '@/libs/calendarUtils';
-import { RootState } from '@/modules';
-import { getWeekDays } from '@/libs/nationalCalendarUtils';
 import { MatrixViewTypes } from './types';
 import * as S from './styles';
 
-const MatrixView = ({ year, month }: MatrixViewTypes): JSX.Element => {
-  const headers: string[] = getWeekDays('ko');
-  const matrix: string[][] = getDayMatrix(year, month);
-  const { calendarDaySelector, transaction } = useSelector((state: RootState) => state);
-  const [dailyTotal, setDailyTotal] = useState<Map<number, { totalIn: number; totalOut: number }>>(
-    new Map(transaction.aggregationByDate),
-  );
-
+const MatrixView = ({ headers, matrix, selectDay, dailyTotal }: MatrixViewTypes): JSX.Element => {
   const getDailyTotal = (day: number) => {
     if (dailyTotal.has(day)) {
       return dailyTotal.get(day);
     }
     return undefined;
   };
-
-  useEffect(() => {
-    setDailyTotal(new Map(transaction.aggregationByDate));
-  }, [transaction.aggregationByDate]);
-
   return (
     <S.Matrix>
       <S.Table>
@@ -39,12 +23,12 @@ const MatrixView = ({ year, month }: MatrixViewTypes): JSX.Element => {
         <S.Tbody>
           {matrix.map((row, i: number) => (
             <S.DayTr key={`date${i.toString()}`}>
-              {row.map((day, j) => (
+              {row.map((v, j) => (
                 <TableCell
-                  day={day}
+                  day={v}
                   key={`table${i * matrix[i].length + j}`}
-                  dailyTotal={getDailyTotal(Number(day))}
-                  selectDay={calendarDaySelector.day}
+                  dailyTotal={getDailyTotal(Number(v))}
+                  selectDay={selectDay}
                 />
               ))}
             </S.DayTr>
