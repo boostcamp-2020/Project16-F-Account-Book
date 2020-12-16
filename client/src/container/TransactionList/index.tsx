@@ -30,11 +30,13 @@ const TransactionListContainer = ({ editable }: TransactionListContainerProps): 
   };
 
   useEffect(() => {
-    length.current = 1;
-    if (transaction.transactionDetailsByDate.length < 5) {
-      setRenderedTransaction(transaction.transactionDetailsByDate);
-    } else {
-      setRenderedTransaction(transaction.transactionDetailsByDate.slice(0, 5));
+    if (!transaction.loading) {
+      length.current = 1;
+      if (transaction.transactionDetailsByDate.length < 5) {
+        setRenderedTransaction(transaction.transactionDetailsByDate);
+      } else {
+        setRenderedTransaction(transaction.transactionDetailsByDate.slice(0, 5));
+      }
     }
   }, [transaction]);
 
@@ -49,9 +51,11 @@ const TransactionListContainer = ({ editable }: TransactionListContainerProps): 
 
   useEffect(() => {
     let observer: IntersectionObserver;
-    if (target.current) {
-      observer = new IntersectionObserver(onIntersect, { threshold: 0.5 });
-      observer.observe(target.current as Element);
+    if (!transaction.loading) {
+      if (target.current) {
+        observer = new IntersectionObserver(onIntersect, { threshold: 0.5 });
+        observer.observe(target.current as Element);
+      }
     }
     return () => observer && observer.disconnect();
   }, [transaction, renderedTransaction]);
