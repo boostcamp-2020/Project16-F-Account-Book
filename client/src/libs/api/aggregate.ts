@@ -1,5 +1,5 @@
 import axios from '@/libs/axios';
-import endpoints from '@/libs/endpoints';
+import endpoints from '@/commons/endpoints';
 import {
   AggregateCategoryData,
   MostSpendingCategory,

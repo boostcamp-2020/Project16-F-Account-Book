@@ -1,6 +1,6 @@
 import CategoryRequestDTO from '@/commons/dto/category-request';
 import axios from '@/libs/axios';
-import endpoints from '@/libs/endpoints';
+import endpoints from '@/commons/endpoints';
 import { CategoryModel } from '@/commons/types/category';
 import cache from '@/libs/cache/categoryCache';
 

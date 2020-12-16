@@ -25,7 +25,7 @@ const TransactionSelectList = (): JSX.Element => {
         <S.DateLabel>{calendarDaySelector.day}일</S.DateLabel>
         {transactionList ? (
           transactionList.map((transactionDay) => (
-            <TransactionListItemWrapper>
+            <TransactionListItemWrapper key={`transaction_Wrap${transactionDay.tid}`}>
               <TransactionListItem
                 toggleUpdateModal={() => {
                   toggleModal(transactionDay);
