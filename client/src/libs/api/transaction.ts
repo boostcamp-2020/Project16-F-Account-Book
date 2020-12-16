@@ -1,5 +1,5 @@
 import axios from '@/libs/axios';
-import endpoints from '@/libs/endpoints';
+import endpoints from '@/commons/endpoints';
 import { MonthTransactionsResponse, TransactionModel } from '@/commons/types/transaction';
 import TransactionRequestDTO from '@/commons/dto/transaction-request';
 import transactionCache from '@/libs/cache/transactionCache';
