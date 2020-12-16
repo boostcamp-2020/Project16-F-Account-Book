@@ -8,8 +8,9 @@ const StyledLoadingSpinner = styled.div`
   padding-bottom: 150px;
   justify-content: center;
   align-items: center;
-  .img {
-    height: 30%;
+
+  img {
+    height: 8rem;
   }
 `;
 
