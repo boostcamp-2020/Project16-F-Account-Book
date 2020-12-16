@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/modules';
 import { changeDay } from '@/modules/calendarDaySelector/action';
@@ -19,9 +19,6 @@ const TableCell = React.memo(
     const { totalIn, totalOut } = totalInOut.get(day) ? totalInOut.get(day) : [false, false];
 
     const dispatch = useDispatch();
-    useEffect(() => {
-      dispatch(changeDay({ day: 0 }));
-    }, []);
 
     const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
       const value = Number(e.currentTarget.innerText.split('\n')[0]);

@@ -7,6 +7,7 @@ import TransactionSelectList from '@/container/TransactionSelectList';
 import AmountText from '@/components/transaction/AmountText';
 import MatrixView from '@/components/calendar/MatrixView';
 import { getMonthlyTransactionThunk } from '@/modules/transaction';
+import { changeDay } from '@/modules/calendarDaySelector';
 import * as S from './styles';
 
 const Calendar = (): JSX.Element => {
@@ -24,6 +25,9 @@ const Calendar = (): JSX.Element => {
 
   useEffect(() => {
     getMonthlyTransactions();
+    return () => {
+      dispatch(changeDay({ day: 0 }));
+    };
   }, [datePicker]);
 
   return (
