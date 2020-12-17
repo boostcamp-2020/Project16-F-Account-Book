@@ -15,19 +15,19 @@ const MatrixView = ({ headers, matrix, selectDay, dailyTotal }: MatrixViewTypes)
       <S.Table>
         <S.Thead>
           <S.HeaderTr>
-            {headers.map((v, i) => (
-              <S.Th key={`day${i.toString()}`}>{v}</S.Th>
+            {headers.map((dayName, i) => (
+              <S.Th key={`day${i.toString()}`}>{dayName}</S.Th>
             ))}
           </S.HeaderTr>
         </S.Thead>
         <S.Tbody>
           {matrix.map((row, i: number) => (
             <S.DayTr key={`date${i.toString()}`}>
-              {row.map((v, j) => (
+              {row.map((day, j) => (
                 <TableCell
-                  day={v}
+                  day={day}
                   key={`table${i * matrix[i].length + j}`}
-                  dailyTotal={getDailyTotal(Number(v))}
+                  dailyTotal={getDailyTotal(Number(day))}
                   selectDay={selectDay}
                 />
               ))}
