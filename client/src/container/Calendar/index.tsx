@@ -11,11 +11,10 @@ import { changeDay } from '@/modules/calendarDaySelector';
 import getDayMatrix from '@/libs/calendarUtils';
 import * as S from './styles';
 
-const WEEK_DAYS = ['월', '화', '수', '목', '금', '토', '일'];
+const WEEK_DAYS: string[] = ['월', '화', '수', '목', '금', '토', '일'];
 
 const Calendar = (): JSX.Element => {
   const { datePicker, transaction, calendarDaySelector } = useSelector((state: RootState) => state);
-  const headers: string[] = WEEK_DAYS;
   const matrix: string[][] = getDayMatrix(datePicker.year, datePicker.month);
   const [dailyTotal, setDailyTotal] = useState<Map<number, { totalIn: number; totalOut: number }>>(
     new Map(transaction.aggregationByDate),
@@ -54,7 +53,7 @@ const Calendar = (): JSX.Element => {
         </S.HeaderDiv>
         <S.CalendarDiv>
           <MatrixView
-            headers={headers}
+            headers={WEEK_DAYS}
             matrix={matrix}
             dailyTotal={dailyTotal}
             selectDay={calendarDaySelector.day}
