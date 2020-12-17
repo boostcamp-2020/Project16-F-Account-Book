@@ -10,7 +10,6 @@ import FixedExpenditure from '@container/FixedExpenditure';
 import aggregateAPI from '@/libs/api/aggregate';
 import NumberUtils from '@/libs/numberUtils';
 import EmptyStateComponent from '@/components/transaction/EmptyState';
-import LoadingSpinner from '@/components/common/LoadingSpinner';
 import * as S from './styles';
 
 const RECENT_TRANSACTION_LIMIT = 3;
@@ -46,7 +45,9 @@ const DashboardContainer = (): JSX.Element => {
   }, [datePicker]);
 
   useEffect(() => {
-    updateAggregateStatus();
+    if (!transactionState.loading) {
+      updateAggregateStatus();
+    }
   }, [transactionState]);
 
   const getSpendingStatus = useCallback(
@@ -78,69 +79,59 @@ const DashboardContainer = (): JSX.Element => {
       <S.SelectorBox>
         <SelectMonth />
       </S.SelectorBox>
-      {transactionState.loading ? (
-        <LoadingSpinner />
-      ) : (
-        <>
-          <S.Box>
-            <S.BoxHeader>
-              <S.BoxTitle>{datePicker.month}월 소비/수입</S.BoxTitle>
-              <S.SpendingStatusDescription>
-                소비 습관{getSpendingStatus(overspendingIndexState.overspendingIndex)}
-              </S.SpendingStatusDescription>
-            </S.BoxHeader>
-            <S.BoxRow>
-              <AmountText isIncome={false} size="lg" amount={transactionState.totalOut} />
-            </S.BoxRow>
-            <S.BoxRow>
-              <AmountText isIncome size="lg" amount={transactionState.totalIn} />
-            </S.BoxRow>
-          </S.Box>
-          <S.Box>
-            <S.BoxHeader>
-              <S.BoxTitle>최근 내역</S.BoxTitle>
-              <Link to="/calendar">자세히 보기</Link>
-            </S.BoxHeader>
-            {transactionState.transactions.length !== 0 ? (
-              transactionState.transactions
-                .slice(0, RECENT_TRANSACTION_LIMIT)
-                .map((transaction) => (
-                  <S.RecentTransactionBoxItem key={`transaction${transaction.tid}`}>
-                    <TransactionListItem transaction={transaction} />
-                  </S.RecentTransactionBoxItem>
-                ))
-            ) : (
-              <EmptyStateComponent align="left" />
-            )}
-          </S.Box>
-          <FixedExpenditure />
-          <S.Box>
-            <S.BoxHeader>
-              <S.BoxTitle>카테고리 통계</S.BoxTitle>
-              <Link to="/aggregate-category">자세히 보기</Link>
-            </S.BoxHeader>
-            <S.BoxRow>{mostSpendingCategoryState.name}에 가장 많은 돈을 쓰셨어요</S.BoxRow>
-            <S.BoxRow>
-              사용한 금액 :{' '}
-              {NumberUtils.numberWithCommas(Number(mostSpendingCategoryState.aggregate || 0))}원
-            </S.BoxRow>
-          </S.Box>
 
-          <S.Box>
-            <S.BoxHeader>
-              <S.BoxTitle>기간별 통계</S.BoxTitle>
-              <Link to="/aggregate-period">자세히 보기</Link>
-            </S.BoxHeader>
-            <S.BoxRow>
-              {transactionState.mostOutDateDetail.date}일에 가장 많은 돈을 쓰셨어요
-            </S.BoxRow>
-            <S.BoxRow>
-              사용한 금액 :{' '}
-              {NumberUtils.numberWithCommas(transactionState.mostOutDateDetail.amount)}원
-            </S.BoxRow>
-          </S.Box>
-        </>
-      )}
+      <S.Box>
+        <S.BoxHeader>
+          <S.BoxTitle>{datePicker.month}월 소비/수입</S.BoxTitle>
+          <S.SpendingStatusDescription>
+            소비 습관{getSpendingStatus(overspendingIndexState.overspendingIndex)}
+          </S.SpendingStatusDescription>
+        </S.BoxHeader>
+        <S.BoxRow>
+          <AmountText isIncome={false} size="lg" amount={transactionState.totalOut} />
+        </S.BoxRow>
+        <S.BoxRow>
+          <AmountText isIncome size="lg" amount={transactionState.totalIn} />
+        </S.BoxRow>
+      </S.Box>
+      <S.Box>
+        <S.BoxHeader>
+          <S.BoxTitle>최근 내역</S.BoxTitle>
+          <Link to="/calendar">자세히 보기</Link>
+        </S.BoxHeader>
+        {transactionState.transactions.length !== 0 ? (
+          transactionState.transactions.slice(0, RECENT_TRANSACTION_LIMIT).map((transaction) => (
+            <S.RecentTransactionBoxItem key={`transaction${transaction.tid}`}>
+              <TransactionListItem transaction={transaction} />
+            </S.RecentTransactionBoxItem>
+          ))
+        ) : (
+          <EmptyStateComponent align="left" />
+        )}
+      </S.Box>
+      <FixedExpenditure />
+      <S.Box>
+        <S.BoxHeader>
+          <S.BoxTitle>카테고리 통계</S.BoxTitle>
+          <Link to="/aggregate-category">자세히 보기</Link>
+        </S.BoxHeader>
+        <S.BoxRow>{mostSpendingCategoryState.name}에 가장 많은 돈을 쓰셨어요</S.BoxRow>
+        <S.BoxRow>
+          사용한 금액 :{' '}
+          {NumberUtils.numberWithCommas(Number(mostSpendingCategoryState.aggregate || 0))}원
+        </S.BoxRow>
+      </S.Box>
+
+      <S.Box>
+        <S.BoxHeader>
+          <S.BoxTitle>기간별 통계</S.BoxTitle>
+          <Link to="/aggregate-period">자세히 보기</Link>
+        </S.BoxHeader>
+        <S.BoxRow>{transactionState.mostOutDateDetail.date}일에 가장 많은 돈을 쓰셨어요</S.BoxRow>
+        <S.BoxRow>
+          사용한 금액 : {NumberUtils.numberWithCommas(transactionState.mostOutDateDetail.amount)}원
+        </S.BoxRow>
+      </S.Box>
     </>
   );
 };

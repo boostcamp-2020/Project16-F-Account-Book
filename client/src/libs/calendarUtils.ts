@@ -26,7 +26,6 @@ const getDayMatrix = (year: number, month: number): string[][] => {
       result.push(dataArr.slice(i * weekSlice, i * weekSlice + weekSlice));
       i += 1;
     }
-    if (result.length > 5) result.pop();
     return result;
   };
   return resultMatrix();

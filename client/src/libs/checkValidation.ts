@@ -5,4 +5,11 @@ const checkValidation = (name: string, target: string): boolean => {
   return true;
 };
 
-export default checkValidation;
+const checkEmpty = (TransactionList: string[]): string[] => {
+  const keyList = ['tradeAt', 'amount', 'description', 'isIncome'];
+  return keyList.filter((key, i) => {
+    if (TransactionList[i] === '' || TransactionList[i] === '0') return false;
+    return true;
+  });
+};
+export { checkValidation, checkEmpty };

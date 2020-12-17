@@ -1,31 +1,35 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import DashBoardPage from '@/views/DashBoardPage';
-import LoginPage from '@/views/LoginPage';
-import CalendarPage from '@/views/CalendarPage';
-import DetailedFixedExpenditurePage from '@/views/DetailedFixedExpenditurePage';
-import PaymentManagePage from '@/views/PaymentManagePage';
-import AggregateCategoryPage from '@/views/AggregateCategoryPage';
 import GlobalStyled from './GlobalStyled';
-import CategoryManagePage from './views/CategoryManagePage';
-import AggregatePeriodPage from './views/AggregatePeriodPage';
 import './App.css';
+import LoadingSpinner from './components/common/LoadingSpinner';
+
+const Login = lazy(() => import('@/views/LoginPage'));
+const Calendar = lazy(() => import('@/views/CalendarPage'));
+const FixedExpenditure = lazy(() => import('@/views/DetailedFixedExpenditurePage'));
+const ManagePayment = lazy(() => import('@/views/PaymentManagePage'));
+const ManageCategory = lazy(() => import('@/views/CategoryManagePage'));
+const AggregateCategory = lazy(() => import('@/views/AggregateCategoryPage'));
+const AggregatePeriod = lazy(() => import('@/views/AggregatePeriodPage'));
+const Dashboard = lazy(() => import('@/views/DashBoardPage'));
 
 function App(): JSX.Element {
   return (
     <>
       <GlobalStyled />
-      <Switch>
-        <Route path="/login" component={LoginPage} />
-        <Route path="/calendar" component={CalendarPage} />
-        <Route path="/detailed-fixed-expenditure" component={DetailedFixedExpenditurePage} />
-        <Route path="/manage-payment" component={PaymentManagePage} />
-        <Route path="/manage-category" component={CategoryManagePage} />
-        <Route path="/aggregate-category" component={AggregateCategoryPage} />
-        <Route path="/aggregate-period" component={AggregatePeriodPage} />
-        <Route path="/" component={DashBoardPage} />
-        <Redirect from="*" to="/" />
-      </Switch>
+      <Suspense fallback={<LoadingSpinner />}>
+        <Switch>
+          <Route path="/login" component={Login} />
+          <Route path="/calendar" component={Calendar} />
+          <Route path="/detailed-fixed-expenditure" component={FixedExpenditure} />
+          <Route path="/manage-payment" component={ManagePayment} />
+          <Route path="/manage-category" component={ManageCategory} />
+          <Route path="/aggregate-category" component={AggregateCategory} />
+          <Route path="/aggregate-period" component={AggregatePeriod} />
+          <Route path="/" component={Dashboard} />
+          <Redirect from="*" to="/" />
+        </Switch>
+      </Suspense>
     </>
   );
 }

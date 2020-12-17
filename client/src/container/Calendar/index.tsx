@@ -1,19 +1,23 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/modules/index';
 import SelectMonth from '@/container/SelectMonth';
 import TransactionListContainer from '@/container/TransactionList';
 import TransactionSelectList from '@/container/TransactionSelectList';
 import AmountText from '@/components/transaction/AmountText';
-import ViewCalendar from '@components/calendar/CalendarView';
+import MatrixView from '@/components/calendar/MatrixView';
 import { getMonthlyTransactionThunk } from '@/modules/transaction';
+import { changeDay } from '@/modules/calendarDaySelector';
+import getDayMatrix from '@/libs/calendarUtils';
 import * as S from './styles';
+
+const WEEK_DAYS: string[] = ['월', '화', '수', '목', '금', '토', '일'];
 
 const Calendar = (): JSX.Element => {
   const { datePicker, transaction, calendarDaySelector } = useSelector((state: RootState) => state);
-  const dailyTotalInOut = new Map();
-  transaction.aggregationByDate.map((dayData) =>
-    dailyTotalInOut.set(String(dayData[0]), dayData[1]),
+  const matrix: string[][] = getDayMatrix(datePicker.year, datePicker.month);
+  const [dailyTotal, setDailyTotal] = useState<Map<number, { totalIn: number; totalOut: number }>>(
+    new Map(transaction.aggregationByDate),
   );
 
   const dispatch = useDispatch();
@@ -24,7 +28,16 @@ const Calendar = (): JSX.Element => {
 
   useEffect(() => {
     getMonthlyTransactions();
+    return () => {
+      dispatch(changeDay({ day: 0 }));
+    };
   }, [datePicker]);
+
+  useEffect(() => {
+    if (!transaction.loading) {
+      setDailyTotal(new Map(transaction.aggregationByDate));
+    }
+  }, [transaction]);
 
   return (
     <S.WarpCalendarDiv>
@@ -39,11 +52,11 @@ const Calendar = (): JSX.Element => {
           </S.InOutDiv>
         </S.HeaderDiv>
         <S.CalendarDiv>
-          <ViewCalendar
-            totalInOut={dailyTotalInOut}
-            lang="ko"
-            year={datePicker.year}
-            month={datePicker.month}
+          <MatrixView
+            headers={WEEK_DAYS}
+            matrix={matrix}
+            dailyTotal={dailyTotal}
+            selectDay={calendarDaySelector.day}
           />
         </S.CalendarDiv>
         {calendarDaySelector.day === 0 ? (

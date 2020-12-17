@@ -1,7 +1,7 @@
 import PaymentRequestDTO from '@/commons/dto/payment-request';
 import axios from '@/libs/axios';
-import endpoints from '@/libs/endpoints';
-import { PaymentModel } from '@commons/types/payment';
+import endpoints from '@/commons/endpoints';
+import { PaymentModel } from '@/commons/types/payment';
 import cache from '@/libs/cache/paymentCache';
 
 const paymentAPI = {

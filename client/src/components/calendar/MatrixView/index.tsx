@@ -1,22 +1,36 @@
 import React from 'react';
+import TableCell from '@/components/calendar/TableCell';
 import { MatrixViewTypes } from './types';
 import * as S from './styles';
 
-const MatrixView = ({ matrix, headers, cell }: MatrixViewTypes): JSX.Element => {
+const MatrixView = ({ headers, matrix, selectDay, dailyTotal }: MatrixViewTypes): JSX.Element => {
+  const getDailyTotal = (day: number) => {
+    if (dailyTotal.has(day)) {
+      return dailyTotal.get(day);
+    }
+    return undefined;
+  };
   return (
     <S.Matrix>
       <S.Table>
         <S.Thead>
           <S.HeaderTr>
-            {headers.map((v, i) => (
-              <S.Th key={`day${i.toString()}`}>{v}</S.Th>
+            {headers.map((dayName, i) => (
+              <S.Th key={`day${i.toString()}`}>{dayName}</S.Th>
             ))}
           </S.HeaderTr>
         </S.Thead>
         <S.Tbody>
           {matrix.map((row, i: number) => (
             <S.DayTr key={`date${i.toString()}`}>
-              {row.map((v, j) => cell(v, i * matrix[i].length + j))}
+              {row.map((day, j) => (
+                <TableCell
+                  day={day}
+                  key={`table${i * matrix[i].length + j}`}
+                  dailyTotal={getDailyTotal(Number(day))}
+                  selectDay={selectDay}
+                />
+              ))}
             </S.DayTr>
           ))}
         </S.Tbody>
@@ -24,5 +38,4 @@ const MatrixView = ({ matrix, headers, cell }: MatrixViewTypes): JSX.Element => 
     </S.Matrix>
   );
 };
-
-export default MatrixView;
+export default React.memo(MatrixView);

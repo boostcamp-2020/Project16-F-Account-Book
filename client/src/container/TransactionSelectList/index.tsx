@@ -25,12 +25,12 @@ const TransactionSelectList = (): JSX.Element => {
         <S.DateLabel>{calendarDaySelector.day}일</S.DateLabel>
         {transactionList ? (
           transactionList.map((transactionDay) => (
-            <TransactionListItemWrapper>
+            <TransactionListItemWrapper key={`transaction_Wrap${transactionDay.tid}`}>
               <TransactionListItem
                 toggleUpdateModal={() => {
                   toggleModal(transactionDay);
                 }}
-                key={`transaction_${transactionDay.tid}`}
+                key={`transactionSelect${transactionDay.tid}`}
                 transaction={transactionDay}
                 editable
               />

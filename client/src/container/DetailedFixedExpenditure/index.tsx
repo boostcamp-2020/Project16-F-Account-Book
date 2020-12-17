@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/modules';
 import numberUtils from '@libs/numberUtils';
 import FixedExpenditureItem from '@components/fixedExpenditure/Item';
+import SelectMonth from '../SelectMonth';
 import * as S from './styles';
 
 const DetailedFixedExpenditure = (): JSX.Element => {
@@ -46,6 +47,7 @@ const DetailedFixedExpenditure = (): JSX.Element => {
   }, [datePicker]);
   return (
     <>
+      <SelectMonth />
       <S.Box>
         <S.Title>고정적인 지출</S.Title>
         <S.Amount>총 {getAmount('both')} 원</S.Amount>
