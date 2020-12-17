@@ -10,7 +10,6 @@ import FixedExpenditure from '@container/FixedExpenditure';
 import aggregateAPI from '@/libs/api/aggregate';
 import NumberUtils from '@/libs/numberUtils';
 import EmptyStateComponent from '@/components/transaction/EmptyState';
-import LoadingSpinner from '@/components/common/LoadingSpinner';
 import * as S from './styles';
 
 const RECENT_TRANSACTION_LIMIT = 3;

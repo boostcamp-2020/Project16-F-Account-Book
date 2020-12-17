@@ -9,12 +9,13 @@ import MatrixView from '@/components/calendar/MatrixView';
 import { getMonthlyTransactionThunk } from '@/modules/transaction';
 import { changeDay } from '@/modules/calendarDaySelector';
 import getDayMatrix from '@/libs/calendarUtils';
-import { getWeekDays } from '@/libs/nationalCalendarUtils';
 import * as S from './styles';
+
+const WEEK_DAYS = ['월', '화', '수', '목', '금', '토', '일'];
 
 const Calendar = (): JSX.Element => {
   const { datePicker, transaction, calendarDaySelector } = useSelector((state: RootState) => state);
-  const headers: string[] = getWeekDays('ko');
+  const headers: string[] = WEEK_DAYS;
   const matrix: string[][] = getDayMatrix(datePicker.year, datePicker.month);
   const [dailyTotal, setDailyTotal] = useState<Map<number, { totalIn: number; totalOut: number }>>(
     new Map(transaction.aggregationByDate),
@@ -34,8 +35,10 @@ const Calendar = (): JSX.Element => {
   }, [datePicker]);
 
   useEffect(() => {
-    setDailyTotal(new Map(transaction.aggregationByDate));
-  }, [transaction.aggregationByDate]);
+    if (!transaction.loading) {
+      setDailyTotal(new Map(transaction.aggregationByDate));
+    }
+  }, [transaction]);
 
   return (
     <S.WarpCalendarDiv>
