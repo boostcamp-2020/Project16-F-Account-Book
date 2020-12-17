@@ -1,4 +1,6 @@
 export type MatrixViewTypes = {
-  year: number;
-  month: number;
+  headers: string[];
+  matrix: string[][];
+  selectDay: number;
+  dailyTotal: Map<number, { totalIn: number; totalOut: number }>;
 };

@@ -15,7 +15,6 @@ const getRem = (n: number): string => {
 
 const TableCell = ({ day, selectDay, dailyTotal }: TableCellTypes): JSX.Element => {
   const dispatch = useDispatch();
-
   const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const value = Number(e.currentTarget.innerText.split('\n')[0]);
     if (!dailyTotal) {
