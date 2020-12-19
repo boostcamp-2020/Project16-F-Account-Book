@@ -1,6 +1,7 @@
 import FixedExpenditureEntity from '@/entity/fixed-expenditure.entity';
 import UserEntity from '@/entity/user.entity';
 import TranscationEntity from '@/entity/transaction.entity';
+import { Transactional } from 'typeorm-transactional-cls-hooked';
 import { Repository, Between } from 'typeorm';
 import DateUtils from '@/lib/date-utils';
 import { FixedType, InputType, ResultType, ResponseType } from './types';
@@ -22,6 +23,7 @@ export default class FixedExpenditureService {
     this.transactionRepository = transactionRepository;
   }
 
+  @Transactional()
   public async getFixedExpenditure(
     uid: number,
     updateAt: Date | undefined,
@@ -92,7 +94,7 @@ export default class FixedExpenditureService {
         setDay.setDate(fixedData[0]);
         fixedArray.push({
           tradeAt: setDay,
-          amount: value.amount,
+          amount: Math.round(value.amount / 3),
           description: fixedData[1],
           uid,
         });
