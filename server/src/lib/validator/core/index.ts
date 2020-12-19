@@ -22,4 +22,8 @@ const isDateString = (value: any): boolean => {
   return regexp.test(value);
 };
 
-export { isNumber, notNull, nonZero, isDateString };
+const isBoolean = (value: any): boolean => {
+  return notNull(value) && (value.constructor === Boolean || value === 'true' || value === 'false');
+};
+
+export { isNumber, notNull, nonZero, isDateString, isBoolean };

@@ -1,4 +1,4 @@
-import ValidatorCore from '.';
+import * as ValidatorCore from '.';
 
 describe('Validator Core Tests', () => {
   it('isNumber() tests', () => {
@@ -36,5 +36,17 @@ describe('Validator Core Tests', () => {
     expect(ValidatorCore.isDateString('string')).toBe(false);
     expect(ValidatorCore.isDateString('string-string-string')).toBe(false);
     expect(ValidatorCore.isDateString(undefined)).toBe(false);
+  });
+
+  it('isBoolean() tests', () => {
+    expect(ValidatorCore.isBoolean(true)).toBe(true);
+    expect(ValidatorCore.isBoolean(false)).toBe(true);
+    expect(ValidatorCore.isBoolean('true')).toBe(true);
+    expect(ValidatorCore.isBoolean('false')).toBe(true);
+    expect(ValidatorCore.isBoolean(1)).toBe(false);
+    expect(ValidatorCore.isBoolean(0)).toBe(false);
+    expect(ValidatorCore.isBoolean('string')).toBe(false);
+    expect(ValidatorCore.isBoolean(null)).toBe(false);
+    expect(ValidatorCore.isBoolean(undefined)).toBe(false);
   });
 });
