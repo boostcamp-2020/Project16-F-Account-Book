@@ -35,24 +35,24 @@ const transactionAPI = {
   },
 
   postTransaction: async (data: TransactionRequestDTO): Promise<TransactionModel> => {
-    const newTransaction = await axios.post<TransactionModel[]>(endpoints.TRANSACTION_API, {
+    const newTransaction = await axios.post<TransactionModel>(endpoints.TRANSACTION_API, {
       ...data,
     });
-    const { year, month } = DateUtils.parseDate(new Date(newTransaction[0].tradeAt));
+    const { year, month } = DateUtils.parseDate(new Date(newTransaction.tradeAt));
     clearCache({ year, month });
-    return newTransaction[0];
+    return newTransaction;
   },
 
   updateTransaction: async (data: TransactionRequestDTO): Promise<TransactionModel> => {
-    const updatedTransaction = await axios.patch<TransactionModel[]>(
+    const updatedTransaction = await axios.patch<TransactionModel>(
       `${endpoints.TRANSACTION_API}/${data.tid}`,
       {
         ...data,
       },
     );
-    const { year, month } = DateUtils.parseDate(updatedTransaction[0].tradeAt);
+    const { year, month } = DateUtils.parseDate(updatedTransaction.tradeAt);
     clearCache({ year, month });
-    return updatedTransaction[0];
+    return updatedTransaction;
   },
 
   deleteTransaction: async (tid: number): Promise<number> => {

@@ -36,14 +36,15 @@ export default class TransactionService {
     return transactions;
   }
 
-  private async getTransaction(tid: number): Promise<TransactionDetail> {
+  private async getTransaction(tid: number): Promise<TransactionDetail | null> {
     const transaction = await this.transactionRepository.query(`
     select t1.tid, t1.amount, t1.trade_at as tradeAt, t1.description, t1.is_income as isIncome, t1.uid, t1.cid, t1.pid, 
     (select name from payment p1 where p1.pid = t1.pid) as paymentName, 
     (select name from category c1 where c1.cid = t1.cid) as categoryName
     from transaction t1
     where t1.tid = ${tid}`);
-    return transaction;
+
+    return transaction ? transaction[0] : null;
   }
 
   @Transactional()
@@ -57,6 +58,7 @@ export default class TransactionService {
     return newTransaction;
   }
 
+  @Transactional()
   public async updateTransaction(
     tid: number,
     uid: number,
@@ -78,6 +80,9 @@ export default class TransactionService {
     });
     await this.transactionRepository.save(mergedTransaction);
     const updatedTransaction = await this.getTransaction(tid);
+    if (!updatedTransaction) {
+      throw new DatabaseError('Fail to update transaction');
+    }
     return updatedTransaction;
   }
 
