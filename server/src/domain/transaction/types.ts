@@ -27,7 +27,6 @@ export type TransactionDetail = {
   uid: number;
   cid: number;
   pid: number;
-  user: UserEntity;
-  category: CategoryEntity;
-  payment: PaymentEntity;
+  paymentName: string;
+  categoryName: string;
 };
