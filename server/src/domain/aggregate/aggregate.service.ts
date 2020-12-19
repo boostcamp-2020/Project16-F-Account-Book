@@ -17,21 +17,13 @@ export default class AggregateService {
   ): Promise<AggregateResponse> {
     const { startDate, endDate } = DateUtils.getStartDateAndEndDate(year, month);
 
-    const query = `select t2.is_income as isIncome, c1.name as category, t1.aggregate, t2.tid, t2.amount, t2.trade_at as tradeAt, t2.description, p1.name as payment
-    from (select cid, sum(amount) as aggregate
-    from transaction
-    where uid = ${uid} and trade_at between '${DateUtils.dateToString(
-      startDate,
-    )}' and '${DateUtils.dateToString(endDate)}'
-    group by cid) t1, (select * from transaction where uid = ${uid} and trade_at between '${DateUtils.dateToString(
-      startDate,
-    )}' and '${DateUtils.dateToString(
-      endDate,
-    )}') t2, (select * from category where uid = ${uid}) c1, (select * from payment where uid = ${uid}) p1
-    where t2.cid = t1.cid and t1.cid = c1.cid and t2.pid = p1.pid
-    order by t2.is_income ASC, t1.aggregate DESC, t2.trade_at DESC;`;
-
-    const aggregateList: AggregateData[] = await this.transactionRepository.query(query);
+    const aggregateList: AggregateData[] = await this.transactionRepository.query(`
+    select t2.is_income as isIncome, (select name from category c1 where c1.cid = t1.cid) as category, t1.aggregate, t2.tid, t2.amount, t2.trade_at as tradeAt, t2.description, (select name from payment p1 where p1.pid = t2.pid) as payment
+    from (select cid, sum(amount) as aggregate from transaction where uid = ${uid} and trade_at between '${startDate}' and '${endDate}' group by cid) t1 inner join
+    transaction t2 on t1.cid = t2.cid
+    where t2.uid = ${uid} and t2.trade_at between '${startDate}' and '${endDate}'
+	order by t1.aggregate DESC, t2.trade_at DESC;
+    `);
     const incomeMap: Map<string, AggregateValue> = new Map();
     const expenditureMap: Map<string, AggregateValue> = new Map();
 
@@ -78,18 +70,13 @@ export default class AggregateService {
   public async getMaxCategory(uid: number, year: number, month: number): Promise<MaxCategory> {
     const { startDate, endDate } = DateUtils.getStartDateAndEndDate(year, month);
 
-    const query = `select category.name, t1.aggregate
-    from category, (select cid, sum(amount) as aggregate
-    from transaction 
-    where uid=${uid} and is_income=${false} and trade_at between '${DateUtils.dateToString(
-      startDate,
-    )}' and '${DateUtils.dateToString(endDate)}'
-    group by cid) t1
-    where category.cid = t1.cid
-    order by t1.aggregate DESC;`;
-
-    const maxCategory: Array<MaxCategory> = await this.transactionRepository.query(query);
-    return maxCategory[0];
+    const maxCategory: MaxCategory = await this.transactionRepository.query(`
+    select (select name from category c1 where c1.cid = t1.cid) as name, sum(amount) as aggregate
+    from transaction t1
+    where t1.uid = ${uid} and t1.trade_at between '${startDate}' and '${endDate}' and t1.is_income = false
+    group by cid order by aggregate DESC limit 1;
+    `);
+    return maxCategory;
   }
 
   public async getOverspendingIndex(
@@ -129,8 +116,8 @@ export default class AggregateService {
     const { sum } = await this.transactionRepository.sumAmountBetween({
       uid: user.uid,
       isIncome: false,
-      startDate: DateUtils.dateToString(startDate),
-      endDate: DateUtils.dateToString(endDate),
+      startDate,
+      endDate,
     });
 
     return Number(sum || 0);
