@@ -1,6 +1,6 @@
 import BadRequest from '@/common/error/bad-request';
 import { Context, Next } from 'koa';
-import core from '@/middleware/validator/core';
+import { notNull, isNumber } from '@/lib/validator/core';
 
 const MIN_YEAR = 1900;
 const MAX_YEAR = 3000;
@@ -9,11 +9,11 @@ const validate = async (ctx: Context, next: Next): Promise<void> => {
   const { query } = ctx;
   const { year, month } = query;
 
-  if (!year || !month) {
+  if (!notNull(year) || !notNull(month)) {
     throw new BadRequest('Invalid query parameter');
   }
 
-  if (!core.isNumber(year) || !core.isNumber(month)) {
+  if (!isNumber(year) || !isNumber(month)) {
     throw new BadRequest('Invalid query parameter');
   }
 
@@ -27,4 +27,4 @@ const validate = async (ctx: Context, next: Next): Promise<void> => {
   await next();
 };
 
-export default { validate };
+export default validate;
