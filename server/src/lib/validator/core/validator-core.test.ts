@@ -6,8 +6,6 @@ describe('Validator Core Tests', () => {
     expect(ValidatorCore.isNumber(2020)).toBe(true);
     expect(ValidatorCore.isNumber(0)).toBe(true);
     expect(ValidatorCore.isNumber('string1')).toBe(false);
-    expect(ValidatorCore.isNumber(null)).toBe(false);
-    expect(ValidatorCore.isNumber(undefined)).toBe(false);
   });
 
   it('notNull() tests', () => {
@@ -22,10 +20,15 @@ describe('Validator Core Tests', () => {
   it('nonZero() tests', () => {
     expect(ValidatorCore.nonZero('2020')).toBe(true);
     expect(ValidatorCore.nonZero(2020)).toBe(true);
+    expect(ValidatorCore.nonZero(-100)).toBe(true);
     expect(ValidatorCore.nonZero(0)).toBe(false);
-    expect(ValidatorCore.nonZero('string')).toBe(false);
-    expect(ValidatorCore.nonZero(null)).toBe(false);
-    expect(ValidatorCore.nonZero(undefined)).toBe(false);
+  });
+
+  it('isPositiveNumber() tests', () => {
+    expect(ValidatorCore.isPositiveNumber('2020')).toBe(true);
+    expect(ValidatorCore.isPositiveNumber(2020)).toBe(true);
+    expect(ValidatorCore.isPositiveNumber(0)).toBe(false);
+    expect(ValidatorCore.isPositiveNumber(-100)).toBe(false);
   });
 
   it('isDateString() tests', () => {
@@ -35,7 +38,6 @@ describe('Validator Core Tests', () => {
     expect(ValidatorCore.isDateString('2020-13-31')).toBe(false);
     expect(ValidatorCore.isDateString('string')).toBe(false);
     expect(ValidatorCore.isDateString('string-string-string')).toBe(false);
-    expect(ValidatorCore.isDateString(undefined)).toBe(false);
   });
 
   it('isBoolean() tests', () => {
@@ -46,7 +48,5 @@ describe('Validator Core Tests', () => {
     expect(ValidatorCore.isBoolean(1)).toBe(false);
     expect(ValidatorCore.isBoolean(0)).toBe(false);
     expect(ValidatorCore.isBoolean('string')).toBe(false);
-    expect(ValidatorCore.isBoolean(null)).toBe(false);
-    expect(ValidatorCore.isBoolean(undefined)).toBe(false);
   });
 });
