@@ -52,6 +52,7 @@ const TransactionUpdateModal = (): JSX.Element => {
 
   const [updatedTransaction, infoDispatch] = useReducer(onChangeReducer, {
     tid: data?.tid,
+    tradeAt: dateUtils.formatString(data?.tradeAt || new Date()),
   } as UpdateTransactionRequest);
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,7 +74,7 @@ const TransactionUpdateModal = (): JSX.Element => {
     if (!data) return;
     infoDispatch({
       tid: data.tid,
-      tradeAt: data.tradeAt,
+      tradeAt: dateUtils.formatString(data.tradeAt),
       amount: data.amount.toString(),
       description: data.description,
       isIncome: data.isIncome.toString(),
@@ -116,7 +117,7 @@ const TransactionUpdateModal = (): JSX.Element => {
               onChange={onChangeInput}
               placeholder="날짜선택"
               inputType="calendar"
-              value={dateUtils.getDate(updatedTransaction.tradeAt)}
+              value={dateUtils.formatString(updatedTransaction.tradeAt)}
             />
             <CustomSelectInput
               name="cid"
