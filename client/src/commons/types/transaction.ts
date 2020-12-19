@@ -9,17 +9,8 @@ export type TransactionModel = {
   uid: number;
   cid: number;
   pid: number;
-  payment: {
-    pid: number;
-    name: string;
-    uid: number;
-  };
-  category: {
-    cid: number;
-    name: string;
-    isIncome: boolean;
-    uid: number;
-  };
+  paymentName: string;
+  categoryName: string;
 };
 
 export type MonthTransactionsResponse = { date: YearMonthModel; list: TransactionModel[] };

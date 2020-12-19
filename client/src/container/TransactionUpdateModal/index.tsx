@@ -16,6 +16,7 @@ import TransactionRequestDTO from '@/commons/dto/transaction-request';
 import { deleteTransactionThunk, updateTransactionThunk } from '@/modules/transaction';
 import { getCategoryThunk } from '@/modules/category';
 import { getPaymentThunk } from '@/modules/payment';
+import dateUtils from '@/libs/dateUtils';
 import * as S from './styles';
 
 const MODAL_LIST_ARR = ['tradeAt', 'description', 'amount', 'pid', 'cid', 'isIncome'];
@@ -51,6 +52,7 @@ const TransactionUpdateModal = (): JSX.Element => {
 
   const [updatedTransaction, infoDispatch] = useReducer(onChangeReducer, {
     tid: data?.tid,
+    tradeAt: dateUtils.formatString(data?.tradeAt || new Date()),
   } as UpdateTransactionRequest);
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,14 +74,15 @@ const TransactionUpdateModal = (): JSX.Element => {
     if (!data) return;
     infoDispatch({
       tid: data.tid,
-      tradeAt: data.tradeAt,
+      tradeAt: dateUtils.formatString(data.tradeAt),
       amount: data.amount.toString(),
       description: data.description,
       isIncome: data.isIncome.toString(),
       cid: data.cid,
       pid: data.pid,
     });
-    setIsIncome(data.isIncome);
+
+    setIsIncome(Boolean(data.isIncome));
   }, [data]);
 
   const updateTransaction = useCallback(() => {
@@ -114,13 +117,13 @@ const TransactionUpdateModal = (): JSX.Element => {
               onChange={onChangeInput}
               placeholder="날짜선택"
               inputType="calendar"
-              value={updatedTransaction.tradeAt}
+              value={dateUtils.formatString(updatedTransaction.tradeAt)}
             />
             <CustomSelectInput
               name="cid"
               onChange={onChangeInput}
               placeholder="카테고리"
-              value={new CategoryDTO(data.category)}
+              value={{ id: data.cid, name: data.categoryName }}
             >
               {categoryList.filter((categoryItem) => categoryItem.isIncome === isIncome)}
             </CustomSelectInput>
@@ -128,7 +131,7 @@ const TransactionUpdateModal = (): JSX.Element => {
               name="pid"
               onChange={onChangeInput}
               placeholder="결제수단"
-              value={new PaymentDTO(data.payment)}
+              value={{ id: data.pid, name: data.paymentName }}
             >
               {paymentList}
             </CustomSelectInput>

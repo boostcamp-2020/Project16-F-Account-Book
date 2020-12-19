@@ -40,4 +40,4 @@ export const deleteTransactionAsync = createAsyncAction(
   DELETE_TRANSACTION,
   DELETE_TRANSACTION_SUCCESS,
   DELETE_TRANSACTION_FAILURE,
-)<string, TransactionModel, AxiosError>();
+)<string, number, AxiosError>();

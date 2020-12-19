@@ -18,11 +18,11 @@ const initialState: TransactionState = {
 };
 
 const updateTransactionState = (
-  type: 'post' | 'patch' | 'delete',
+  type: 'post' | 'patch',
   state: TransactionState,
   { payload }: PayloadAction<string, TransactionModel>,
 ): TransactionState => {
-  const { year, month } = DateUtils.parseDate(payload.tradeAt);
+  const { year, month } = DateUtils.parseDate(new Date(payload.tradeAt));
   if (!(state.date && year === state.date.year && month === state.date.month))
     return {
       ...state,
@@ -40,13 +40,29 @@ const updateTransactionState = (
 
     if (type === 'patch') {
       copiedState.transactions[subIndex] = payload;
-    } else {
-      copiedState.transactions.splice(subIndex, 1);
     }
   }
   copiedState.transactions.sort(
     (t1, t2) => new Date(t2.tradeAt).getTime() - new Date(t1.tradeAt).getTime(),
   );
+  const aggregation = aggregateTransactions(copiedState.transactions);
+
+  return {
+    ...state,
+    loading: false,
+    error: null,
+    ...aggregation,
+  };
+};
+
+const deleteTransactionState = (
+  state: TransactionState,
+  { payload }: PayloadAction<string, number>,
+): TransactionState => {
+  const copiedState = { ...state };
+  const subIndex = copiedState.transactions.findIndex((transaction) => transaction.tid === payload);
+  copiedState.transactions.splice(subIndex, 1);
+
   const aggregation = aggregateTransactions(copiedState.transactions);
 
   return {
@@ -113,7 +129,7 @@ const transactionReducer = createReducer<TransactionState, TransactionAction>(in
     error: null,
   }),
   [transactionActions.DELETE_TRANSACTION_SUCCESS]: (state, action) => {
-    const updatedState = updateTransactionState('delete', state, action);
+    const updatedState = deleteTransactionState(state, action);
     return updatedState;
   },
   [transactionActions.DELETE_TRANSACTION_FAILURE]: (state, action) => ({

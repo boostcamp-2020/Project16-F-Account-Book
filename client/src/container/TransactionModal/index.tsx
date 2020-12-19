@@ -22,7 +22,7 @@ import { TransactionModalProps } from './types';
 
 const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Element => {
   const [isIncome, setIsIncome] = useState(false);
-  const [validation, setValidation] = useState(new Set(['isIncome']));
+  const [validation, setValidation] = useState(new Set(['isIncome', 'tradeAt']));
   const { payment, category } = useSelector((state: RootState) => state);
   const categoryList = category.data.map((c) => new CategoryDTO(c));
   const paymentList = payment.data.map((p) => new PaymentDTO(p));
@@ -43,7 +43,9 @@ const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Ele
   const onChangeReducer = (state: PostTransactionRequest, action: PostTransactionRequest) => {
     return action;
   };
-  const [newTransaction, infoDispatch] = useReducer(onChangeReducer, {} as PostTransactionRequest);
+  const [newTransaction, infoDispatch] = useReducer(onChangeReducer, {
+    tradeAt: DateUtils.formatString(new Date()),
+  } as PostTransactionRequest);
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (checkValidation(e.target.name, e.target.value)) {

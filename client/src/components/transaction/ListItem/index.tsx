@@ -19,7 +19,7 @@ const TransactionListItem = ({
       </S.ListItemContentsRow>
       <S.ListItemContentsRow>
         <S.ListItemPaymentInfo>
-          {transaction.category.name} | {transaction.payment.name}
+          {transaction.categoryName} | {transaction.paymentName}
         </S.ListItemPaymentInfo>
         <S.ListItemAmount>
           <AmountText isIncome={transaction.isIncome} amount={transaction.amount} size="sm" />
