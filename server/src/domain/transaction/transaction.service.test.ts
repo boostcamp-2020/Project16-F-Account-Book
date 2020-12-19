@@ -1,5 +1,6 @@
 import { Connection, getConnection, getCustomRepository } from 'typeorm';
 import TestSeeder from '@/seed/test.seed';
+import DateUtils from '@/lib/date-utils';
 import TransactionService from './transaction.service';
 import TransactionRepository from './transaction.repository';
 
@@ -36,7 +37,6 @@ describe('TransactionService Tests', () => {
         year: 2020,
         month: 10,
       });
-      expect(transactionsOfMonth.length).toEqual(50);
       expect(
         transactionsOfMonth.every(
           (transaction) =>
@@ -51,7 +51,7 @@ describe('TransactionService Tests', () => {
     it('등록에 성공하면 생성된 엔티티 데이터를 반환한다.', async () => {
       const payload = {
         amount: 1000,
-        tradeAt: new Date('2020-12-03'),
+        tradeAt: '2020-12-03',
         description: '간식 사먹음',
         isIncome: false,
         uid: 1,
@@ -59,8 +59,8 @@ describe('TransactionService Tests', () => {
         pid: 1,
       };
       const newTransaction = await transactionService.createTransaction(payload);
-      expect(newTransaction.isIncome).toEqual(payload.isIncome);
-      expect(new Date(newTransaction.tradeAt)).toEqual(payload.tradeAt);
+      expect(newTransaction.isIncome).toEqual(payload.isIncome ? 1 : 0);
+      expect(DateUtils.dateToString(newTransaction.tradeAt)).toEqual(payload.tradeAt);
       expect(newTransaction.amount).toEqual(payload.amount);
       expect(newTransaction.description).toEqual(payload.description);
       expect(newTransaction.cid).toEqual(payload.cid);
@@ -73,7 +73,7 @@ describe('TransactionService Tests', () => {
     it('수정에 성공하면 수정된 엔티티 데이터를 반환한다.', async () => {
       const payload = {
         amount: 1000,
-        tradeAt: new Date('2020-12-03'),
+        tradeAt: '2020-12-03',
         description: '간식 사먹음',
         isIncome: false,
         uid: 1,
@@ -81,8 +81,8 @@ describe('TransactionService Tests', () => {
         pid: 1,
       };
       const updatedTransaction = await transactionService.updateTransaction(1, 1, payload);
-      expect(updatedTransaction.isIncome).toEqual(payload.isIncome);
-      expect(new Date(updatedTransaction.tradeAt)).toEqual(payload.tradeAt);
+      expect(updatedTransaction.isIncome).toEqual(payload.isIncome ? 1 : 0);
+      expect(DateUtils.dateToString(updatedTransaction.tradeAt)).toEqual(payload.tradeAt);
       expect(updatedTransaction.amount).toEqual(payload.amount);
       expect(updatedTransaction.description).toEqual(payload.description);
       expect(updatedTransaction.cid).toEqual(payload.cid);
@@ -92,10 +92,8 @@ describe('TransactionService Tests', () => {
   });
 
   describe('deleteTransaction() Tests', () => {
-    it('delete 된 내역을 반환한다.', async () => {
-      const deletedTransaction = await transactionService.deleteTransaction(1, 1);
-      expect(deletedTransaction).not.toBeNull();
-      expect(deletedTransaction.tid).toEqual(1);
+    it('delete 된 내역은 조회되지 않는다', async () => {
+      await transactionService.deleteTransaction(1, 1);
       expect(await transactionRepository.findOne({ where: { tid: 1 } })).toBeUndefined();
     });
   });
