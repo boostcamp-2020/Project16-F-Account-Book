@@ -35,33 +35,33 @@ const transactionAPI = {
   },
 
   postTransaction: async (data: TransactionRequestDTO): Promise<TransactionModel> => {
-    const newTransaction = await axios.post<TransactionModel>(endpoints.TRANSACTION_API, {
+    const newTransaction = await axios.post<TransactionModel[]>(endpoints.TRANSACTION_API, {
       ...data,
     });
-    const { year, month } = DateUtils.parseDate(newTransaction.tradeAt);
+    const { year, month } = DateUtils.parseDate(new Date(newTransaction[0].tradeAt));
     clearCache({ year, month });
-    return newTransaction;
+    return newTransaction[0];
   },
 
   updateTransaction: async (data: TransactionRequestDTO): Promise<TransactionModel> => {
-    const updatedTransaction = await axios.patch<TransactionModel>(
+    const updatedTransaction = await axios.patch<TransactionModel[]>(
       `${endpoints.TRANSACTION_API}/${data.tid}`,
       {
         ...data,
       },
     );
-    const { year, month } = DateUtils.parseDate(updatedTransaction.tradeAt);
+    const { year, month } = DateUtils.parseDate(updatedTransaction[0].tradeAt);
     clearCache({ year, month });
-    return updatedTransaction;
+    return updatedTransaction[0];
   },
 
-  deleteTransaction: async (tid: number): Promise<TransactionModel> => {
+  deleteTransaction: async (tid: number): Promise<number> => {
     const deletedTransaction = await axios.delete<TransactionModel>(
       `${endpoints.TRANSACTION_API}/${tid}`,
     );
     const { year, month } = DateUtils.parseDate(deletedTransaction.tradeAt);
     clearCache({ year, month });
-    return deletedTransaction;
+    return tid;
   },
 };
 
