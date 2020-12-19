@@ -19,15 +19,15 @@ const getDate = (date: string): string => {
   const tempDate = new Date(date);
   const stringDate = `${tempDate.getFullYear()}-${(tempDate.getMonth() + 1)
     .toString()
-    .padStart(2, '0')}-${tempDate.getDate()}`;
+    .padStart(2, '0')}-${tempDate.getDate().toString().padEnd(2, '0')}`;
 
   return stringDate;
 };
 
 const formatString = (date: Date): string => {
   const { year: yearToken, month: monthToken, date: dateToken } = parseDate(date);
-  return `${yearToken}-${monthToken >= 10 ? monthToken : `0${monthToken}`}-${
-    dateToken >= 10 ? `${dateToken}` : `0${dateToken}`
+  return `${yearToken}-${monthToken > 9 ? monthToken : `0${monthToken}`}-${
+    dateToken > 9 ? `${dateToken}` : `0${dateToken}`
   }`;
 };
 
