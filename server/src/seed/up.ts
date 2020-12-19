@@ -15,8 +15,10 @@ const up = async () => {
       endDate: new Date(),
     });
     await manager.insert('user', users);
-    await manager.insert('category', categories);
-    await manager.insert('payment', payments);
+    await Promise.all([
+      manager.insert('category', categories),
+      manager.insert('payment', payments),
+    ]);
     const transactionQuantity = 100000;
     for (let i = 0; i < transactions.length; i += transactionQuantity) {
       const remains = transactions.length - i;
