@@ -1,4 +1,3 @@
-import { TransactionModel } from '@/commons/types/transaction';
 import { createReducer } from 'typesafe-actions';
 import { TOGGLE_ON, TOGGLE_OFF } from './actions';
 import { UpdateModalAction, UpdateModalState } from './types';
