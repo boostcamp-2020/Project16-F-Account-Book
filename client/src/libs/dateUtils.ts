@@ -15,6 +15,15 @@ const parseDate = (date: Date | string): ParsedDateModel => {
   };
 };
 
+const getDate = (date: string): string => {
+  const tempDate = new Date(date);
+  const stringDate = `${tempDate.getFullYear()}-${(tempDate.getMonth() + 1)
+    .toString()
+    .padStart(2, '0')}-${tempDate.getDate()}`;
+
+  return stringDate;
+};
+
 const formatString = (date: Date): string => {
   const { year: yearToken, month: monthToken, date: dateToken } = parseDate(date);
   return `${yearToken}-${monthToken >= 10 ? monthToken : `0${monthToken}`}-${
@@ -78,4 +87,5 @@ export default {
   getStartEndDate,
   getEndDateOfMonth,
   makeDataForLineGraph,
+  getDate,
 };
