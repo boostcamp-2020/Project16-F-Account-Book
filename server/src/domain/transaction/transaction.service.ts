@@ -3,7 +3,7 @@ import TranscationEntity from '@/entity/transaction.entity';
 import TransactionRepository from '@/domain/transaction/transaction.repository';
 import { Between } from 'typeorm';
 import { Transactional } from 'typeorm-transactional-cls-hooked';
-import DatabaseError from '@/common/error/database';
+import ServerError from '@/common/error/server-error';
 import NotFoundError from '@/common/error/not-found';
 import {
   MonthlyTransactionDetailsQueryParams,
@@ -43,7 +43,7 @@ export default class TransactionService {
       relations: ['payment', 'category'],
     });
     if (!newTransaction) {
-      throw new DatabaseError('Fail to create new transaction');
+      throw new ServerError('Fail to create new transaction');
     }
     return newTransaction;
   }
@@ -74,7 +74,7 @@ export default class TransactionService {
       relations: ['payment', 'category'],
     });
     if (!updatedTransaction) {
-      throw new DatabaseError('Fail to update transaction');
+      throw new ServerError('Fail to update transaction');
     }
     return updatedTransaction;
   }
