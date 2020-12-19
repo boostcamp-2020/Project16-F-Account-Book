@@ -1,10 +1,10 @@
 /* eslint-disable class-methods-use-this */
-import TranscationEntity from '@/entity/transaction.entity';
 import TransactionRepository from '@/domain/transaction/transaction.repository';
-import { Between } from 'typeorm';
 import { Transactional } from 'typeorm-transactional-cls-hooked';
 import DatabaseError from '@/common/error/database';
 import NotFoundError from '@/common/error/not-found';
+import dateUtils from '@/lib/date-utils';
+import TranscationEntity from '@/entity/transaction.entity';
 import {
   MonthlyTransactionDetailsQueryParams,
   TransactionDetail,
@@ -23,32 +23,40 @@ export default class TransactionService {
     year,
     month,
   }: MonthlyTransactionDetailsQueryParams): Promise<TransactionDetail[]> {
-    const startDate = new Date(year, month - 1, 1);
-    const endDate = new Date(year, month, 0);
-    const transactions = await this.transactionRepository.find({
-      where: { uid, tradeAt: Between(startDate, endDate) },
-      relations: ['payment', 'category'],
-      order: { tradeAt: 'DESC' },
-    });
+    const { startDate, endDate } = dateUtils.getStartDateAndEndDate(year, month);
+
+    const transactions = await this.transactionRepository
+      .query(`select t1.tid, t1.amount, t1.trade_at as tradeAt, t1.description, t1.is_income as isIncome, t1.uid, t1.cid, t1.pid, 
+      (select name from payment p1 where p1.pid = t1.pid) as paymentName, 
+      (select name from category c1 where c1.cid = t1.cid) as categoryName
+      from transaction t1
+      where t1.uid = ${uid} and t1.trade_at between '${startDate}' and '${endDate}'
+      order by t1.trade_at DESC;`);
 
     return transactions;
   }
 
+  private async getTransaction(tid: number): Promise<TransactionDetail> {
+    const transaction = await this.transactionRepository.query(`
+    select t1.tid, t1.amount, t1.trade_at as tradeAt, t1.description, t1.is_income as isIncome, t1.uid, t1.cid, t1.pid, 
+    (select name from payment p1 where p1.pid = t1.pid) as paymentName, 
+    (select name from category c1 where c1.cid = t1.cid) as categoryName
+    from transaction t1
+    where t1.tid = ${tid}`);
+    return transaction;
+  }
+
   @Transactional()
-  public async createTransaction(data: TransactionFormData): Promise<TranscationEntity> {
+  public async createTransaction(data: TransactionFormData): Promise<TransactionDetail> {
     const transaction = this.transactionRepository.create(data);
     const { tid } = await this.transactionRepository.save(transaction);
-    const newTransaction = await this.transactionRepository.findOne({
-      where: { tid },
-      relations: ['payment', 'category'],
-    });
+    const newTransaction = await this.getTransaction(tid);
     if (!newTransaction) {
       throw new DatabaseError('Fail to create new transaction');
     }
     return newTransaction;
   }
 
-  @Transactional()
   public async updateTransaction(
     tid: number,
     uid: number,
@@ -62,25 +70,19 @@ export default class TransactionService {
     }
     const mergedTransaction = this.transactionRepository.merge(target, {
       amount,
-      tradeAt,
+      tradeAt: tradeAt.toString().slice(0, 10),
       description,
       isIncome,
       cid,
       pid,
     });
     await this.transactionRepository.save(mergedTransaction);
-    const updatedTransaction = await this.transactionRepository.findOne({
-      where: { tid },
-      relations: ['payment', 'category'],
-    });
-    if (!updatedTransaction) {
-      throw new DatabaseError('Fail to update transaction');
-    }
+    const updatedTransaction = await this.getTransaction(tid);
     return updatedTransaction;
   }
 
   @Transactional()
-  public async deleteTransaction(tid: number, uid: number): Promise<TransactionDetail> {
+  public async deleteTransaction(tid: number, uid: number): Promise<TranscationEntity> {
     const transaction = await this.transactionRepository.findOne({ where: { tid, uid } });
 
     if (!transaction) {
