@@ -16,6 +16,7 @@ import TransactionRequestDTO from '@/commons/dto/transaction-request';
 import { deleteTransactionThunk, updateTransactionThunk } from '@/modules/transaction';
 import { getCategoryThunk } from '@/modules/category';
 import { getPaymentThunk } from '@/modules/payment';
+import dateUtils from '@/libs/dateUtils';
 import * as S from './styles';
 
 const MODAL_LIST_ARR = ['tradeAt', 'description', 'amount', 'pid', 'cid', 'isIncome'];
@@ -79,7 +80,8 @@ const TransactionUpdateModal = (): JSX.Element => {
       cid: data.cid,
       pid: data.pid,
     });
-    setIsIncome(data.isIncome);
+
+    setIsIncome(Boolean(data.isIncome));
   }, [data]);
 
   const updateTransaction = useCallback(() => {
@@ -114,13 +116,13 @@ const TransactionUpdateModal = (): JSX.Element => {
               onChange={onChangeInput}
               placeholder="날짜선택"
               inputType="calendar"
-              value={updatedTransaction.tradeAt}
+              value={dateUtils.getDate(updatedTransaction.tradeAt)}
             />
             <CustomSelectInput
               name="cid"
               onChange={onChangeInput}
               placeholder="카테고리"
-              value={new CategoryDTO(data.category)}
+              value={{ id: data.cid, name: data.categoryName }}
             >
               {categoryList.filter((categoryItem) => categoryItem.isIncome === isIncome)}
             </CustomSelectInput>
@@ -128,7 +130,7 @@ const TransactionUpdateModal = (): JSX.Element => {
               name="pid"
               onChange={onChangeInput}
               placeholder="결제수단"
-              value={new PaymentDTO(data.payment)}
+              value={{ id: data.pid, name: data.paymentName }}
             >
               {paymentList}
             </CustomSelectInput>
