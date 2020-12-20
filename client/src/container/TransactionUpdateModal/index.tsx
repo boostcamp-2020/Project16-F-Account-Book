@@ -28,6 +28,10 @@ const TransactionUpdateModal = (): JSX.Element => {
   const { toggle, data } = useSelector((state: RootState) => state.updateModal);
   const categoryList = useMemo(() => category.data.map((c) => new CategoryDTO(c)), [category]);
   const paymentList = useMemo(() => payment.data.map((p) => new PaymentDTO(p)), [payment]);
+  const paymentNameList = useMemo(() => paymentList.map((p) => p.name), [category]);
+  const categoryNameList = useMemo(() => categoryList.map((c) => c.name), [payment]);
+  if (data && paymentNameList.includes(data?.paymentName)) validation.add('pid');
+  if (data && categoryNameList.includes(data?.categoryName)) validation.add('cid');
 
   const dispatch = useDispatch();
   const toggleModal = useCallback(() => {
