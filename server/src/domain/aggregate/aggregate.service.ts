@@ -70,13 +70,13 @@ export default class AggregateService {
   public async getMaxCategory(uid: number, year: number, month: number): Promise<MaxCategory> {
     const { startDate, endDate } = DateUtils.getStartDateAndEndDate(year, month);
 
-    const maxCategory: MaxCategory = await this.transactionRepository.query(`
+    const maxCategoryResult = await this.transactionRepository.query(`
     select (select name from category c1 where c1.cid = t1.cid) as name, sum(amount) as aggregate
     from transaction t1
     where t1.uid = ${uid} and t1.trade_at between '${startDate}' and '${endDate}' and t1.is_income = false
     group by cid order by aggregate DESC limit 1;
     `);
-    return maxCategory;
+    return maxCategoryResult ? maxCategoryResult[0] : null;
   }
 
   public async getOverspendingIndex(
