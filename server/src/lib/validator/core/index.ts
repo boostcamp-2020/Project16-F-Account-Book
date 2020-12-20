@@ -32,3 +32,7 @@ export const isDateString = (value: any): boolean => {
 export const isBoolean = (value: any): boolean => {
   return value.constructor === Boolean || value === 'true' || value === 'false';
 };
+
+export const isString = (value: any): boolean => {
+  return typeof value === 'string';
+};

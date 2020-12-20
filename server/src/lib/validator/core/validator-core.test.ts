@@ -49,4 +49,13 @@ describe('Validator Core Tests', () => {
     expect(ValidatorCore.isBoolean(0)).toBe(false);
     expect(ValidatorCore.isBoolean('string')).toBe(false);
   });
+
+  it('isString() tests', () => {
+    expect(ValidatorCore.isString('string')).toBe(true);
+    expect(ValidatorCore.isString(1)).toBe(false);
+    expect(ValidatorCore.isString(0)).toBe(false);
+    expect(ValidatorCore.isString(true)).toBe(false);
+    expect(ValidatorCore.isString(false)).toBe(false);
+    expect(ValidatorCore.isString(new Date())).toBe(false);
+  });
 });

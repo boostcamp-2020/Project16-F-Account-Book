@@ -105,6 +105,28 @@ it('description이 null이면 BadResquest Error가 던져진다', async () => {
   }
 });
 
+it('description이 string이 아니면 BadResquest Error가 던져진다', async () => {
+  const ctx = createMockContext();
+  try {
+    ctx.body = { ...mockBody, description: 1 };
+    await transactionValidator(ctx, mockNext);
+    fail();
+  } catch (err) {
+    expect(err.constructor).toEqual(BadRequest);
+  }
+});
+
+it('description이 string이 아니면 BadResquest Error가 던져진다', async () => {
+  const ctx = createMockContext();
+  try {
+    ctx.body = { ...mockBody, description: { text: 'string' } };
+    await transactionValidator(ctx, mockNext);
+    fail();
+  } catch (err) {
+    expect(err.constructor).toEqual(BadRequest);
+  }
+});
+
 it('tradeAt이 null이면 BadResquest Error가 던져진다', async () => {
   const ctx = createMockContext();
   try {

@@ -1,6 +1,13 @@
 import BadRequest from '@/common/error/bad-request';
 import { Context, Next } from 'koa';
-import { notNull, isNumber, isPositiveNumber, isDateString, isBoolean } from '@/lib/validator/core';
+import {
+  notNull,
+  isNumber,
+  isPositiveNumber,
+  isDateString,
+  isBoolean,
+  isString,
+} from '@/lib/validator/core';
 
 const validatePid = (pid: any): boolean => {
   if (notNull(pid) && isNumber(pid) && isPositiveNumber(pid)) {
@@ -17,10 +24,10 @@ const validateCid = (cid: any): boolean => {
 };
 
 const validateDescription = (description: any): boolean => {
-  if (notNull(description)) {
+  if (notNull(description) && isString(description)) {
     return true;
   }
-  throw new BadRequest('description must not be null');
+  throw new BadRequest('description must be string');
 };
 
 const validateTradeAt = (tradeAt: any): boolean => {
