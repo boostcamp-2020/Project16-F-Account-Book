@@ -8,7 +8,7 @@ type ConstructorProps = {
   uid: number;
 };
 @Entity('FixedExpenditure')
-@Index(['uid', 'tradeAt', 'description'])
+@Index(['uid', 'tradeAt'])
 export default class FixedExpenditureEntity {
   @PrimaryGeneratedColumn({ type: 'int' })
   fid!: number;
