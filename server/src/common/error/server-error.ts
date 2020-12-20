@@ -1,4 +1,4 @@
-export default class DatabaseError extends Error {
+export default class ServerError extends Error {
   status;
 
   constructor(message: string) {
