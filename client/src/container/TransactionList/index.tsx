@@ -21,6 +21,7 @@ const TransactionListContainer = ({ editable }: TransactionListContainerProps): 
   );
 
   const maxLength = transaction.aggregationByDate.length / 5;
+
   const changeExtraTransaction = () => {
     const newrenderedTransaction = renderedTransaction.concat(
       transaction.transactionDetailsByDate.slice(5 * length.current, 5 * length.current + 5),
@@ -64,7 +65,7 @@ const TransactionListContainer = ({ editable }: TransactionListContainerProps): 
     <>
       {transaction.transactionDetailsByDate.length !== 0 ? (
         renderedTransaction.map(([date, transactionDetails]) => (
-          <S.DateContainer key={`transaction_box_${date}`} ref={target}>
+          <S.DateContainer key={`transaction_box_${date}${Math.random()}`} ref={target}>
             <S.DateLabel>{date}일</S.DateLabel>
             {transactionDetails.map((transactionDetail) => (
               <S.TransactionListItemWrapper key={`transaction_Wrap${transactionDetail.tid}`}>
@@ -87,4 +88,4 @@ const TransactionListContainer = ({ editable }: TransactionListContainerProps): 
   );
 };
 
-export default TransactionListContainer;
+export default React.memo(TransactionListContainer);
