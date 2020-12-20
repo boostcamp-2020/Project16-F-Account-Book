@@ -1,6 +1,7 @@
 import Router from 'koa-router';
 import { getCustomRepository } from 'typeorm';
 import { Context } from 'koa';
+import { monthQueryValidator, transactionValidator } from '@/middleware/validator';
 import TransactionService from './transaction.service';
 import TransactionRepository from './transaction.repository';
 
@@ -13,7 +14,7 @@ export default class TransactionRouter extends Router {
   }
 
   initRouter(): void {
-    this.get('/', async (ctx: Context) => {
+    this.get('/', monthQueryValidator, async (ctx: Context) => {
       const { query } = ctx;
       const { year, month } = query;
       const transactionDetailsOfMonth = await this.transactionService.getTransactionDetailsOfMonth({
@@ -24,7 +25,7 @@ export default class TransactionRouter extends Router {
       ctx.status = 200;
       ctx.body = transactionDetailsOfMonth;
     });
-    this.post('/', async (ctx: Context) => {
+    this.post('/', transactionValidator, async (ctx: Context) => {
       const { uid } = ctx.state.user;
       const newTransaction = await this.transactionService.createTransaction({
         ...ctx.request.body,
@@ -34,7 +35,7 @@ export default class TransactionRouter extends Router {
       ctx.body = newTransaction;
     });
 
-    this.patch('/:transactionId', async (ctx: Context) => {
+    this.patch('/:transactionId', transactionValidator, async (ctx: Context) => {
       const { uid } = ctx.state.user;
       const { transactionId } = ctx.params;
       const updatedTransaction = await this.transactionService.updateTransaction(

@@ -1,5 +1,6 @@
 import Router from 'koa-router';
 import { Context } from 'koa';
+import { paymentValidator } from '@/middleware/validator';
 import PaymentService from './payment.service';
 import PaymentRepository from './payment.repository';
 
@@ -12,7 +13,7 @@ export default class PaymentRouter extends Router {
   }
 
   initRouter(): void {
-    this.post('/', async (ctx: Context) => {
+    this.post('/', paymentValidator, async (ctx: Context) => {
       const { uid } = ctx.state.user;
       const { name } = ctx.request.body;
       const newPayment = await this.paymentService.createPayment(name, uid);
@@ -26,7 +27,7 @@ export default class PaymentRouter extends Router {
       ctx.body = payment;
     });
 
-    this.patch('/:paymentId', async (ctx: Context) => {
+    this.patch('/:paymentId', paymentValidator, async (ctx: Context) => {
       const { uid } = ctx.state.user;
       const { paymentId } = ctx.params;
       const { name } = ctx.request.body;
