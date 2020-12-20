@@ -21,8 +21,8 @@ import * as S from './styles';
 
 const VALIDATION_LIST = new Set(['tradeAt', 'description', 'amount', 'isIncome']);
 const TransactionUpdateModal = (): JSX.Element => {
-  const [isIncome, setIsIncome] = useState(false);
   const { toggle, data } = useSelector((state: RootState) => state.updateModal);
+  const [isIncome, setIsIncome] = useState(Boolean(data?.isIncome));
   const { payment, category } = useSelector((state: RootState) => state);
   const categoryList = useMemo(() => category.data.map((c) => new CategoryDTO(c)), [category]);
   const paymentList = useMemo(() => payment.data.map((p) => new PaymentDTO(p)), [payment]);
@@ -119,11 +119,7 @@ const TransactionUpdateModal = (): JSX.Element => {
         <Modal show={toggle} toggleModal={toggleModal}>
           <ModalHeader text="거래내역 수정" toggleModal={toggleModal} />
           <S.ModalBody>
-            <ModalRadioButton
-              setIsIncome={setIsIncome}
-              onChange={onChangeInput}
-              value={updatedTransaction.isIncome === 'true'}
-            />
+            <ModalRadioButton setIsIncome={setIsIncome} onChange={onChangeInput} value={isIncome} />
             <ModalInput
               name="tradeAt"
               onChange={onChangeInput}

@@ -31,7 +31,7 @@ const ModalRadioButton = ({ setIsIncome, onChange, value }: ModalRadioButtonProp
           name="isIncome"
           value="true"
           onChange={onChangeRadioButton}
-          checked={!!value}
+          checked={value}
         />
         <label htmlFor="radio-income">수입</label>
       </S.RadioButtonWrapper>
