@@ -32,8 +32,12 @@ export default class FixedExpenditureService {
   ): Promise<ResponseType> {
     const startDate = DateUtils.dateToString(new Date(year, month, 1));
     const endDate = DateUtils.dateToString(new Date(year, Number(month) + 1, 0));
-
-    if (!updateAt || updateAt.getFullYear() < year || updateAt.getMonth() < month) {
+    const date = new Date();
+    if (
+      !updateAt ||
+      updateAt.getFullYear() < date.getFullYear() ||
+      updateAt.getMonth() < date.getMonth()
+    ) {
       await this.createFixedExpenditure(uid, year, month);
     }
 
