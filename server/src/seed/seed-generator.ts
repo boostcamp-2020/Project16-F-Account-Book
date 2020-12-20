@@ -92,13 +92,9 @@ const generateTransactions = ({
       const payment = payments[Math.floor(Math.random() * payments.length)];
       const amount = Math.floor(Math.random() * (MAX_AMOUNT - MIN_AMOUNT) + MIN_AMOUNT);
       const descriptionsOfCategory = descriptions[categoryIdx];
-      if (categoryIdx > 3) {
-        console.log(categoryIdx);
-        console.log(categories);
-      }
       const description =
         descriptionsOfCategory[Math.floor(Math.random() * descriptionsOfCategory.length)];
-      const tradeAt = generateRandomDate(startDateOfMonth, endDateOfMonth);
+      const tradeAt = generateRandomDate(new Date(startDateOfMonth), new Date(endDateOfMonth));
       const isIncome = false;
       const transaction = new TransactionEntity({
         amount,
