@@ -2,6 +2,7 @@ import Router from 'koa-router';
 import { Context } from 'koa';
 import { getCustomRepository } from 'typeorm';
 import TransactionRepository from '@/domain/transaction/transaction.repository';
+import { monthQueryValidator } from '@/middleware/validator';
 import AggregateService from './aggregate.service';
 
 export default class AggregateRouter extends Router {
@@ -13,7 +14,7 @@ export default class AggregateRouter extends Router {
   }
 
   initRouter(): void {
-    this.get('/category', async (ctx: Context) => {
+    this.get('/category', monthQueryValidator, async (ctx: Context) => {
       const { uid } = ctx.state.user;
       const { year, month } = ctx.query;
       const aggregateCategory = await this.aggregateService.getAggregateCategory(uid, year, month);
@@ -21,7 +22,7 @@ export default class AggregateRouter extends Router {
       ctx.body = aggregateCategory;
     });
 
-    this.get('/max-category', async (ctx: Context) => {
+    this.get('/max-category', monthQueryValidator, async (ctx: Context) => {
       const { uid } = ctx.state.user;
       const { year, month } = ctx.query;
       const maxCategory = await this.aggregateService.getMaxCategory(uid, year, month);
@@ -29,7 +30,7 @@ export default class AggregateRouter extends Router {
       ctx.body = maxCategory;
     });
 
-    this.get('/overspending-index', async (ctx: Context) => {
+    this.get('/overspending-index', monthQueryValidator, async (ctx: Context) => {
       const { user } = ctx.state;
       const { year, month } = ctx.query;
       const overspendingIndexInfo = await this.aggregateService.getOverspendingIndex(

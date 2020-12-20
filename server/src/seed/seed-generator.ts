@@ -7,6 +7,13 @@ import DateUtils from '@/lib/date-utils';
 const MIN_AMOUNT = 1000;
 const MAX_AMOUNT = 100000;
 
+const descriptions = [
+  [],
+  ['간식 구입', '부스트식당에서 밥먹음', '커피 한잔'],
+  ['버스비', '지하철비', '지각해서 택시'],
+  ['세탁비', '이너 티셔츠 구입', '바지 구입', '패딩 구입'],
+];
+
 const generateRandomDate = (start: Date, end: Date): Date => {
   return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
 };
@@ -67,11 +74,26 @@ const generateTransactions = ({
       }),
     );
 
+    transactions.push(
+      new TransactionEntity({
+        amount: 50000,
+        description: '휴대폰 비',
+        tradeAt: new Date(date.setDate(18)),
+        isIncome: false,
+        category: categories[2],
+        user,
+        payment: payments[1],
+      }),
+    );
+
     for (let i = 0; i < numOfTransactionsPerMonth - 1; i += 1) {
-      const category = categories[Math.floor(Math.random() * (categories.length - 1)) + 1];
+      const categoryIdx = Math.floor(Math.random() * (categories.length - 1)) + 1;
+      const category = categories[categoryIdx];
       const payment = payments[Math.floor(Math.random() * payments.length)];
       const amount = Math.floor(Math.random() * (MAX_AMOUNT - MIN_AMOUNT) + MIN_AMOUNT);
-      const description = `${user.name}의 가계부내역 ${i + 1}`;
+      const descriptionsOfCategory = descriptions[categoryIdx];
+      const description =
+        descriptionsOfCategory[Math.floor(Math.random() * descriptionsOfCategory.length)];
       const tradeAt = generateRandomDate(new Date(startDateOfMonth), new Date(endDateOfMonth));
       const isIncome = false;
       const transaction = new TransactionEntity({
@@ -119,13 +141,16 @@ const generateSeedData = ({
       socialId: `user${i + 1}-123456789`,
       socialType: `${providers[i % 3]}`,
     });
+    const categoriesOfUser = generateCategories(user);
+    const paymentsOfUser = generatePayments(user);
+
     users.push(user);
-    categories.push(...generateCategories(user));
-    payments.push(...generatePayments(user));
+    categories.push(...categoriesOfUser);
+    payments.push(...paymentsOfUser);
     transactions.push(
       ...generateTransactions({
-        categories,
-        payments,
+        categories: categoriesOfUser,
+        payments: paymentsOfUser,
         user,
         numOfTransactionsPerMonth,
         startDate,

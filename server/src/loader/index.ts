@@ -22,7 +22,7 @@ export default async (app: Koa<Koa.DefaultState, Koa.DefaultContext>): Promise<v
     try {
       await next();
     } catch (err) {
-      ctx.status = ctx.status ? ctx.status : 400;
+      ctx.status = err.status ? err.status : 400;
       ctx.body = `message: ${err.message}`;
       console.log('Error :', err.message);
     }

@@ -19,14 +19,14 @@ const AggregateCategory = (): JSX.Element => {
 
   const tabMenu = [
     {
-      tabName: '수입',
-      children: <AggregateCategoryMain list={aggregateCategory.data.income} isIncome />,
-    },
-    {
       tabName: '지출',
       children: (
         <AggregateCategoryMain list={aggregateCategory.data.expenditure} isIncome={false} />
       ),
+    },
+    {
+      tabName: '수입',
+      children: <AggregateCategoryMain list={aggregateCategory.data.income} isIncome />,
     },
   ];
   return <TabMenu list={tabMenu} />;

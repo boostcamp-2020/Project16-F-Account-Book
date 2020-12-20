@@ -42,6 +42,8 @@
 
 웹 기반으로 동작하는 개인 입출금 및 가계 재정을 시각화 및 분석할 수 있는 가계부 구현
 
+**[기능 상세 설명](https://github.com/boostcamp-2020/Project16-F-Account-Book/wiki/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C)**
+
 ```
 🗓 가계부 관리
 ```
@@ -87,37 +89,39 @@
 
 ### Architecture
 
-![스크린샷 2020-12-13 오전 3 18 13](https://user-images.githubusercontent.com/17294694/101991738-f3ccc400-3cf1-11eb-9af5-0842f99efecd.png)
+![스크린샷 2020-12-19 오후 3 55 58](https://user-images.githubusercontent.com/17294694/102683243-ccef2000-4212-11eb-8948-ce4a1ec43ae6.png)
 
 <br>
 
 ### 기술 특장점
 
-```
-👨‍💻 쿼리 최적화
-```
+- **[쿼리 최적화](https://github.com/boostcamp-2020/Project16-F-Account-Book/wiki/%EC%BF%BC%EB%A6%AC-%EC%B5%9C%EC%A0%81%ED%99%94)**
 
-- 대량의 더미 데이터를 생성하는 Seeder 모듈을 구현하고 생성된 데이터를 이용하여 Select 성능을 비교하여 쿼리를 최적화
 
-```
-🔧 리덕스를 활용한 상태관리
-```
-- 페이지, 컴포넌트 간의 공유되는 상태를 새로 불러오기보다는 전역적으로 관리하기 위하여 Redux 사용
-- 대부분의 상태관리에 필요한 데이터를 비동기적으로 실행되는 API 호출로 받아오게 되는데 이 과정을 Redux-Thunk 미들웨어로 구현
+    -  대량의 더미 데이터를 생성하는 Seeder 모듈을 구현하고 생성된 데이터를 이용하여 Select 성능을 비교하여 쿼리를 최적화
 
-```
-🔐 OAuth 로그인 구현 및 모듈화
-```
 
-- Kakao, Naver, Google OAuth 로그인 구현
-- 다양한 서비스의 OAuth 로그인과 연동할 수 있도록 OAuth 인증 로직을 모듈화
+- **Redux와 [캐시](https://github.com/boostcamp-2020/Project16-F-Account-Book/wiki/Cache)를 활용한 데이터 관리**
 
-```
-🚥 트래픽 분산 처리
-```
+    - 페이지, 컴포넌트 간의 공유되는 상태를 새로 불러오기보다는 전역적으로 관리하기 위하여 Redux 사용
+    - 대부분의 상태관리에 필요한 데이터를 비동기적으로 실행되는 API 호출로 받아오게 되는데 이 과정을 Redux-Thunk 미들웨어로 구현
 
-- Docker Swarm을 이용하여 클러스터 환경을 구축하고 필요에 따라 Docker 컨테이너를 스케일링 할 수 있도록 구현
-- JWT 인증을 이용하여 분산 세션에 대한 문제를 해결
+
+- **[Lazy Rendering](https://github.com/boostcamp-2020/Project16-F-Account-Book/wiki/%EB%9E%9C%EB%8D%94%EB%A7%81-%EC%B5%9C%EC%A0%81%ED%99%94)**
+
+    - 데이터의 양이 많더라도 렌더링이 빠르게 진행될 수 있도록 Lazy Rendering을 적용
+
+- **OAuth 로그인 구현 및 모듈화**
+
+    - Kakao, Naver, Google OAuth 로그인 구현
+    - 다양한 서비스의 OAuth 로그인과 연동할 수 있도록 OAuth 인증 로직을 모듈화
+
+
+- **[트래픽 분산 처리](https://github.com/boostcamp-2020/Project16-F-Account-Book/wiki/%ED%8A%B8%EB%9E%98%ED%94%BD-%EB%B6%84%EC%82%B0-%EC%B2%98%EB%A6%AC)**
+
+
+    - Docker Swarm을 이용하여 클러스터 환경을 구축하고 필요에 따라 Docker 컨테이너를 스케일링 할 수 있도록 구현
+    - JWT 인증을 이용하여 분산 세션에 대한 문제를 해결
 
 <br>
 

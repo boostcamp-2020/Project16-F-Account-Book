@@ -3,6 +3,7 @@ import { Context } from 'koa';
 import { getCustomRepository } from 'typeorm';
 import UserRepository from '@/domain/user/user.repository';
 import TransactionRepository from '@/domain/transaction/transaction.repository';
+import { monthQueryValidator } from '@/middleware/validator';
 import FixedExpenditureService from './fixed-expenditure.service';
 import FixedExpenditureRepository from './fixed-expenditure.repository';
 
@@ -19,7 +20,7 @@ export default class FixedExpenditureRouter extends Router {
   }
 
   initRouter(): void {
-    this.get('/', async (ctx: Context) => {
+    this.get('/', monthQueryValidator, async (ctx: Context) => {
       const { uid, updateAt } = ctx.state.user;
       const { year, month } = ctx.query;
       const fixedList = await this.fixedExpenditureService.getFixedExpenditure(

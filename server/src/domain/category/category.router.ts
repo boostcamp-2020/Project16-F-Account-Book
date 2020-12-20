@@ -1,5 +1,6 @@
 import Router from 'koa-router';
 import { Context } from 'koa';
+import { categoryValidator } from '@/middleware/validator';
 import CategoryService from './category.service';
 import CategoryRepository from './category.repository';
 
@@ -12,7 +13,7 @@ export default class CategoryRouter extends Router {
   }
 
   initRouter(): void {
-    this.post('/', async (ctx: Context) => {
+    this.post('/', categoryValidator, async (ctx: Context) => {
       const { uid } = ctx.state.user;
       const { name, isIncome } = ctx.request.body;
       const newCategory = await this.categoryService.createCategory(name, isIncome, uid);
@@ -26,7 +27,7 @@ export default class CategoryRouter extends Router {
       ctx.body = categories;
     });
 
-    this.patch('/:categoryId', async (ctx: Context) => {
+    this.patch('/:categoryId', categoryValidator, async (ctx: Context) => {
       const { uid } = ctx.state.user;
       const { categoryId } = ctx.params;
       const { name, isIncome } = ctx.request.body;

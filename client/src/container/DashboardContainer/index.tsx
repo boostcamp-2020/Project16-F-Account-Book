@@ -115,11 +115,17 @@ const DashboardContainer = (): JSX.Element => {
           <S.BoxTitle>카테고리 통계</S.BoxTitle>
           <Link to="/aggregate-category">자세히 보기</Link>
         </S.BoxHeader>
-        <S.BoxRow>{mostSpendingCategoryState.name}에 가장 많은 돈을 쓰셨어요</S.BoxRow>
-        <S.BoxRow>
-          사용한 금액 :{' '}
-          {NumberUtils.numberWithCommas(Number(mostSpendingCategoryState.aggregate || 0))}원
-        </S.BoxRow>
+        {mostSpendingCategoryState ? (
+          <>
+            <S.BoxRow>{mostSpendingCategoryState.name}에 가장 많은 돈을 쓰셨어요</S.BoxRow>
+            <S.BoxRow>
+              사용한 금액 :{' '}
+              {NumberUtils.numberWithCommas(Number(mostSpendingCategoryState.aggregate || 0))}원
+            </S.BoxRow>
+          </>
+        ) : (
+          <EmptyStateComponent align="left" />
+        )}
       </S.Box>
 
       <S.Box>
