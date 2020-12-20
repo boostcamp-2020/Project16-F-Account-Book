@@ -6,7 +6,7 @@ const MIN_YEAR = 1900;
 const MAX_YEAR = 3000;
 
 const validate = async (ctx: Context, next: Next): Promise<void> => {
-  const { query } = ctx;
+  const { query } = ctx.request;
   const { year, month } = query;
 
   if (!notNull(year) || !notNull(month)) {

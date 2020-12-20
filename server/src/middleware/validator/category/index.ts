@@ -17,7 +17,7 @@ export const validateName = (name: any): boolean => {
 };
 
 const validate = async (ctx: Context, next: Next): Promise<void> => {
-  const { body } = ctx;
+  const { body } = ctx.request;
   const { isIncome, name } = body;
 
   validateIsIncome(isIncome);

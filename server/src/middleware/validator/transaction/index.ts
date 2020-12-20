@@ -52,7 +52,7 @@ const validateAmount = (amount: any): boolean => {
 };
 
 const validate = async (ctx: Context, next: Next): Promise<void> => {
-  const { body } = ctx;
+  const { body } = ctx.request;
   const { pid, cid, description, tradeAt, isIncome, amount } = body;
 
   validatePid(pid);

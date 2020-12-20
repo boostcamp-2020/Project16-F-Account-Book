@@ -10,11 +10,10 @@ export const validateName = (name: any): boolean => {
 };
 
 const validate = async (ctx: Context, next: Next): Promise<void> => {
-  const { body } = ctx;
+  const { body } = ctx.request;
   const { name } = body;
 
   validateName(name);
-
   await next();
 };
 
