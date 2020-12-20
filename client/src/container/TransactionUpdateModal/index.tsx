@@ -19,23 +19,33 @@ import { getPaymentThunk } from '@/modules/payment';
 import dateUtils from '@/libs/dateUtils';
 import * as S from './styles';
 
+const VALIDATION_LIST = new Set(['tradeAt', 'description', 'amount', 'isIncome']);
 const TransactionUpdateModal = (): JSX.Element => {
   const [isIncome, setIsIncome] = useState(false);
   const { toggle, data } = useSelector((state: RootState) => state.updateModal);
   const { payment, category } = useSelector((state: RootState) => state);
-  const [validation, setValidation] = useState(
-    new Set(['tradeAt', 'description', 'amount', 'isIncome']),
-  );
   const categoryList = useMemo(() => category.data.map((c) => new CategoryDTO(c)), [category]);
   const paymentList = useMemo(() => payment.data.map((p) => new PaymentDTO(p)), [payment]);
-  const paymentNameList = useMemo(() => paymentList.map((p) => p.name), [category]);
-  const categoryNameList = useMemo(() => categoryList.map((c) => c.name), [payment]);
-  if (data && paymentNameList.includes(data?.paymentName)) validation.add('pid');
-  if (data && categoryNameList.includes(data?.categoryName)) validation.add('cid');
+  if (
+    data &&
+    categoryList.filter((categoryItem) => categoryItem.name === data.categoryName).length === 1
+  ) {
+    VALIDATION_LIST.add('cid');
+  }
+
+  if (
+    data &&
+    paymentList.filter((paymentItem) => paymentItem.name === data.paymentName).length === 1
+  ) {
+    VALIDATION_LIST.add('pid');
+  }
+  const [validation, setValidation] = useState(VALIDATION_LIST);
   const dispatch = useDispatch();
   const toggleModal = useCallback(() => {
     dispatch(toggleModalOff());
-    setValidation(new Set(['tradeAt', 'description', 'amount', 'isIncome']));
+    VALIDATION_LIST.delete('pid');
+    VALIDATION_LIST.delete('cid');
+    setValidation(VALIDATION_LIST);
   }, []);
 
   const getCategoryList = useCallback(() => {
@@ -49,7 +59,6 @@ const TransactionUpdateModal = (): JSX.Element => {
     getCategoryList();
     getPaymentList();
   }, []);
-
   const onChangeReducer = (state: UpdateTransactionRequest, action: UpdateTransactionRequest) => {
     return action;
   };
@@ -113,7 +122,7 @@ const TransactionUpdateModal = (): JSX.Element => {
             <ModalRadioButton
               setIsIncome={setIsIncome}
               onChange={onChangeInput}
-              value={updatedTransaction.isIncome === '1'}
+              value={updatedTransaction.isIncome === 'true'}
             />
             <ModalInput
               name="tradeAt"
