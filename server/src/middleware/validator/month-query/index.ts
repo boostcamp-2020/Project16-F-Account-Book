@@ -5,22 +5,27 @@ import { notNull, isNumber } from '@/lib/validator/core';
 const MIN_YEAR = 1900;
 const MAX_YEAR = 3000;
 
+const checkNotNull = (year: any, month: any) => {
+  return notNull(year) && notNull(month);
+};
+
+const checkIsNumber = (year: any, month: any) => {
+  return isNumber(year) && isNumber(month);
+};
+
+const checkRangeDate = (year: any, month: any) => {
+  return year >= MIN_YEAR && year <= MAX_YEAR && month >= 1 && month <= 12;
+};
+
 const validate = async (ctx: Context, next: Next): Promise<void> => {
   const { query } = ctx.request;
   const { year, month } = query;
 
-  if (!notNull(year) || !notNull(month)) {
-    throw new BadRequest('Invalid query parameter');
-  }
-
-  if (!isNumber(year) || !isNumber(month)) {
-    throw new BadRequest('Invalid query parameter');
-  }
-
-  const numYear = Number(year);
-  const numMonth = Number(month);
-
-  if (numYear < MIN_YEAR || numYear > MAX_YEAR || numMonth < 1 || numMonth > 12) {
+  if (
+    !checkNotNull(year, month) ||
+    !checkIsNumber(year, month) ||
+    !checkRangeDate(Number(year), Number(month))
+  ) {
     throw new BadRequest('Invalid query parameter');
   }
 

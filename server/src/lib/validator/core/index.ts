@@ -11,10 +11,7 @@ export const notNull = (value: any): boolean => {
 };
 
 export const nonZero = (value: any): boolean => {
-  if (Number(value) !== 0) {
-    return true;
-  }
-  return false;
+  return Number(value) !== 0;
 };
 
 export const isPositiveNumber = (value: any): boolean => {
