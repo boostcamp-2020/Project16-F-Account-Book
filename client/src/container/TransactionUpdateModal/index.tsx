@@ -19,19 +19,33 @@ import { getPaymentThunk } from '@/modules/payment';
 import dateUtils from '@/libs/dateUtils';
 import * as S from './styles';
 
-const MODAL_LIST_ARR = ['tradeAt', 'description', 'amount', 'pid', 'cid', 'isIncome'];
-
+const VALIDATION_LIST = new Set(['tradeAt', 'description', 'amount', 'isIncome']);
 const TransactionUpdateModal = (): JSX.Element => {
-  const [isIncome, setIsIncome] = useState(false);
-  const [validation, setValidation] = useState(new Set(MODAL_LIST_ARR));
-  const { payment, category } = useSelector((state: RootState) => state);
   const { toggle, data } = useSelector((state: RootState) => state.updateModal);
+  const [isIncome, setIsIncome] = useState(Boolean(data?.isIncome));
+  const { payment, category } = useSelector((state: RootState) => state);
   const categoryList = useMemo(() => category.data.map((c) => new CategoryDTO(c)), [category]);
   const paymentList = useMemo(() => payment.data.map((p) => new PaymentDTO(p)), [payment]);
+  if (
+    data &&
+    categoryList.filter((categoryItem) => categoryItem.name === data.categoryName).length === 1
+  ) {
+    VALIDATION_LIST.add('cid');
+  }
+
+  if (
+    data &&
+    paymentList.filter((paymentItem) => paymentItem.name === data.paymentName).length === 1
+  ) {
+    VALIDATION_LIST.add('pid');
+  }
+  const [validation, setValidation] = useState(VALIDATION_LIST);
   const dispatch = useDispatch();
   const toggleModal = useCallback(() => {
     dispatch(toggleModalOff());
-    setValidation(new Set(MODAL_LIST_ARR));
+    VALIDATION_LIST.delete('pid');
+    VALIDATION_LIST.delete('cid');
+    setValidation(VALIDATION_LIST);
   }, []);
 
   const getCategoryList = useCallback(() => {
@@ -45,7 +59,6 @@ const TransactionUpdateModal = (): JSX.Element => {
     getCategoryList();
     getPaymentList();
   }, []);
-
   const onChangeReducer = (state: UpdateTransactionRequest, action: UpdateTransactionRequest) => {
     return action;
   };
@@ -56,6 +69,11 @@ const TransactionUpdateModal = (): JSX.Element => {
   } as UpdateTransactionRequest);
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.name === 'isIncome') {
+      infoDispatch({ ...updatedTransaction, cid: 0 });
+      validation.delete('cid');
+      setValidation(new Set([...validation]));
+    }
     if (checkValidation(e.target.name, e.target.value)) {
       infoDispatch({ ...updatedTransaction, [e.target.name]: e.target.value });
       validation.add(e.target.name);
@@ -69,7 +87,6 @@ const TransactionUpdateModal = (): JSX.Element => {
       setValidation(new Set([...validation]));
     }
   };
-
   useEffect(() => {
     if (!data) return;
     infoDispatch({
@@ -100,18 +117,13 @@ const TransactionUpdateModal = (): JSX.Element => {
       toggleModalOff();
     }
   }, [data]);
-
   return (
     <>
       {data && (
         <Modal show={toggle} toggleModal={toggleModal}>
           <ModalHeader text="거래내역 수정" toggleModal={toggleModal} />
           <S.ModalBody>
-            <ModalRadioButton
-              setIsIncome={setIsIncome}
-              onChange={onChangeInput}
-              value={updatedTransaction.isIncome === 'true'}
-            />
+            <ModalRadioButton setIsIncome={setIsIncome} onChange={onChangeInput} value={isIncome} />
             <ModalInput
               name="tradeAt"
               onChange={onChangeInput}
