@@ -23,15 +23,14 @@ const updateTransactionState = (
   { payload }: PayloadAction<string, TransactionModel>,
 ): TransactionState => {
   const { year, month } = DateUtils.parseDate(new Date(payload.tradeAt));
-  if (!(state.date && year === state.date.year && month === state.date.month))
-    return {
-      ...state,
-      loading: false,
-      error: null,
-    };
-
   const copiedState = { ...state };
   if (type === 'post') {
+    if (!(state.date && year === state.date.year && month === state.date.month))
+      return {
+        ...state,
+        loading: false,
+        error: null,
+      };
     copiedState.transactions.push(payload);
   } else {
     const subIndex = copiedState.transactions.findIndex(
@@ -39,7 +38,11 @@ const updateTransactionState = (
     );
 
     if (type === 'patch') {
-      copiedState.transactions[subIndex] = payload;
+      if (!(state.date && year === state.date.year && month === state.date.month)) {
+        copiedState.transactions.splice(subIndex, 1);
+      } else {
+        copiedState.transactions[subIndex] = payload;
+      }
     }
   }
   copiedState.transactions.sort(
