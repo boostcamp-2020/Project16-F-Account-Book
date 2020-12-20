@@ -14,7 +14,7 @@ export default class UserService {
   public async getUserById(id: number): Promise<UserDTO> {
     const user = await this.userRepository.findOne({ where: { uid: id } });
     if (!user) {
-      throw new NotFoundError('user dosenot exist');
+      throw new NotFoundError('user dose not exist');
     }
 
     return new UserDTO(user);

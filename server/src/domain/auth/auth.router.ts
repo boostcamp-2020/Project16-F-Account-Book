@@ -29,8 +29,8 @@ class AuthRouter extends Router {
     });
 
     this.get('/test-login', async (ctx: Context) => {
-      const TEST_UID_START = Number(process.env.TEST_UID_START as string);
-      const TEST_UID_END = Number(process.env.TEST_UID_END as string);
+      const TEST_UID_START = Number((process.env.TEST_UID_START as string) || 1);
+      const TEST_UID_END = Number((process.env.TEST_UID_END as string) || 2400);
 
       if (!TEST_UID_START || !TEST_UID_END) {
         throw new ServerError('Test uid undefined');
