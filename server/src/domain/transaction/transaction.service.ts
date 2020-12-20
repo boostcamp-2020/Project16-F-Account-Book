@@ -1,7 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import TransactionRepository from '@/domain/transaction/transaction.repository';
 import { Transactional } from 'typeorm-transactional-cls-hooked';
-import DatabaseError from '@/common/error/database';
+import ServerError from '@/common/error/server-error';
 import NotFoundError from '@/common/error/not-found';
 import dateUtils from '@/lib/date-utils';
 import TranscationEntity from '@/entity/transaction.entity';
@@ -53,7 +53,7 @@ export default class TransactionService {
     const { tid } = await this.transactionRepository.save(transaction);
     const newTransaction = await this.getTransaction(tid);
     if (!newTransaction) {
-      throw new DatabaseError('Fail to create new transaction');
+      throw new ServerError('Fail to create new transaction');
     }
     return newTransaction;
   }
@@ -81,7 +81,7 @@ export default class TransactionService {
     await this.transactionRepository.save(mergedTransaction);
     const updatedTransaction = await this.getTransaction(tid);
     if (!updatedTransaction) {
-      throw new DatabaseError('Fail to update transaction');
+      throw new ServerError('Fail to update transaction');
     }
     return updatedTransaction;
   }

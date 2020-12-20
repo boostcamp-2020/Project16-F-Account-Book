@@ -1,4 +1,4 @@
-import DatabaseError from '@/common/error/database';
+import ServerError from '@/common/error/server-error';
 import NotFoundError from '@/common/error/not-found';
 import PaymentEntity from '@/entity/payment.entity';
 import { Repository } from 'typeorm';
@@ -15,7 +15,7 @@ export default class PaymentService {
     const newPayment = await this.paymentRepository.save(payment);
 
     if (!payment) {
-      throw new DatabaseError('Fail to create new payment');
+      throw new ServerError('Fail to create new payment');
     }
     return newPayment;
   }
@@ -38,7 +38,7 @@ export default class PaymentService {
     const updatedPayment = await this.paymentRepository.save(mergedPayment);
 
     if (!updatedPayment) {
-      throw new DatabaseError('Fail to updated payment');
+      throw new ServerError('Fail to updated payment');
     }
 
     return updatedPayment;

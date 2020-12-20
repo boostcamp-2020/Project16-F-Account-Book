@@ -1,4 +1,4 @@
-import DatabaseError from '@/common/error/database';
+import ServerError from '@/common/error/server-error';
 import NotFoundError from '@/common/error/not-found';
 import CategoryEntity from '@/entity/category.entity';
 import { Repository } from 'typeorm';
@@ -19,7 +19,7 @@ export default class CategoryService {
     const newCategory = await this.categoryRepository.save(category);
 
     if (!newCategory) {
-      throw new DatabaseError('Fail to create new category');
+      throw new ServerError('Fail to create new category');
     }
     return newCategory;
   }
@@ -47,7 +47,7 @@ export default class CategoryService {
     const updatedCategory = await this.categoryRepository.save(mergedCategory);
 
     if (!updatedCategory) {
-      throw new DatabaseError('Fail to update category');
+      throw new ServerError('Fail to update category');
     }
 
     return updatedCategory;

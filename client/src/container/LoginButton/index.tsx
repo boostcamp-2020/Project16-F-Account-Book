@@ -1,14 +1,19 @@
 import React from 'react';
 import OAuthLoginButton from '@/components/common/buttons/OAuthLoginButton';
-import StyledButtonBox from './styles';
+import TestLoginButton from '@/components/common/buttons/TestLoginButton';
+import * as S from './styles';
 
 const LoginButton = (): JSX.Element => {
   return (
-    <StyledButtonBox>
-      <OAuthLoginButton provider="google" />
-      <OAuthLoginButton provider="naver" />
-      <OAuthLoginButton provider="kakao" />
-    </StyledButtonBox>
+    <>
+      <S.StyledButtonBox>
+        <OAuthLoginButton provider="google" />
+        <OAuthLoginButton provider="naver" />
+        <OAuthLoginButton provider="kakao" />
+        <S.OrSeparator />
+        <TestLoginButton />
+      </S.StyledButtonBox>
+    </>
   );
 };
 
