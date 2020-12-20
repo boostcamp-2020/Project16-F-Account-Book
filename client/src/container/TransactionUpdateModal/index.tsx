@@ -19,24 +19,23 @@ import { getPaymentThunk } from '@/modules/payment';
 import dateUtils from '@/libs/dateUtils';
 import * as S from './styles';
 
-const MODAL_LIST_ARR = ['tradeAt', 'description', 'amount', 'pid', 'cid', 'isIncome'];
-
 const TransactionUpdateModal = (): JSX.Element => {
   const [isIncome, setIsIncome] = useState(false);
-  const [validation, setValidation] = useState(new Set(MODAL_LIST_ARR));
-  const { payment, category } = useSelector((state: RootState) => state);
   const { toggle, data } = useSelector((state: RootState) => state.updateModal);
+  const { payment, category } = useSelector((state: RootState) => state);
+  const [validation, setValidation] = useState(
+    new Set(['tradeAt', 'description', 'amount', 'isIncome']),
+  );
   const categoryList = useMemo(() => category.data.map((c) => new CategoryDTO(c)), [category]);
   const paymentList = useMemo(() => payment.data.map((p) => new PaymentDTO(p)), [payment]);
   const paymentNameList = useMemo(() => paymentList.map((p) => p.name), [category]);
   const categoryNameList = useMemo(() => categoryList.map((c) => c.name), [payment]);
   if (data && paymentNameList.includes(data?.paymentName)) validation.add('pid');
   if (data && categoryNameList.includes(data?.categoryName)) validation.add('cid');
-
   const dispatch = useDispatch();
   const toggleModal = useCallback(() => {
     dispatch(toggleModalOff());
-    setValidation(new Set(MODAL_LIST_ARR));
+    setValidation(new Set(['tradeAt', 'description', 'amount', 'isIncome']));
   }, []);
 
   const getCategoryList = useCallback(() => {
