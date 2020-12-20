@@ -39,7 +39,6 @@ const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Ele
     getCategoryList();
     getPaymentList();
   }, []);
-
   const onChangeReducer = (state: PostTransactionRequest, action: PostTransactionRequest) => {
     return action;
   };
@@ -51,14 +50,14 @@ const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Ele
     if (checkValidation(e.target.name, e.target.value)) {
       infoDispatch({ ...newTransaction, [e.target.name]: e.target.value });
       validation.add(e.target.name);
-      setValidation(validation);
+      setValidation(new Set([...validation]));
     } else {
       validation.delete(e.target.name);
-      setValidation(validation);
+      setValidation(new Set([...validation]));
     }
     if ((e.target.name === 'description' || e.target.name === 'amount') && e.target.value === '') {
       validation.delete(e.target.name);
-      setValidation(validation);
+      setValidation(new Set([...validation]));
     }
   };
 
@@ -82,7 +81,7 @@ const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Ele
         checkEmpty(['', `${parsedText.amount}`, clipText, 'false']).map((addList) =>
           validation.add(addList),
         );
-        setValidation(validation);
+        setValidation(new Set([...validation]));
         setIsIncome(false);
       } else {
         const { year: thisYear } = DateUtils.parseDate(new Date());
@@ -101,7 +100,7 @@ const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Ele
           clipText,
           `${parsedText.isDeposit}`,
         ]).map((addList) => validation.add(addList));
-        setValidation(validation);
+        setValidation(new Set([...validation]));
       }
     });
   }, []);
