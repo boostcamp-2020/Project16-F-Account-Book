@@ -28,6 +28,7 @@ const TransactionUpdateModal = (): JSX.Element => {
   const { toggle, data } = useSelector((state: RootState) => state.updateModal);
   const categoryList = useMemo(() => category.data.map((c) => new CategoryDTO(c)), [category]);
   const paymentList = useMemo(() => payment.data.map((p) => new PaymentDTO(p)), [payment]);
+
   const dispatch = useDispatch();
   const toggleModal = useCallback(() => {
     dispatch(toggleModalOff());
@@ -100,7 +101,6 @@ const TransactionUpdateModal = (): JSX.Element => {
       toggleModalOff();
     }
   }, [data]);
-
   return (
     <>
       {data && (
@@ -110,7 +110,7 @@ const TransactionUpdateModal = (): JSX.Element => {
             <ModalRadioButton
               setIsIncome={setIsIncome}
               onChange={onChangeInput}
-              value={updatedTransaction.isIncome === 'true'}
+              value={updatedTransaction.isIncome === '1'}
             />
             <ModalInput
               name="tradeAt"
