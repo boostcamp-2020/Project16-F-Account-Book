@@ -48,6 +48,7 @@ const TransactionModal = ({ show, toggleModal }: TransactionModalProps): JSX.Ele
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.name === 'isIncome') {
+      infoDispatch({ ...newTransaction, cid: 0 });
       validation.delete('cid');
       setValidation(new Set([...validation]));
     }

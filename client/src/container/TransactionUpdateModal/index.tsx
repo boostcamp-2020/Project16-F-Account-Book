@@ -69,6 +69,11 @@ const TransactionUpdateModal = (): JSX.Element => {
   } as UpdateTransactionRequest);
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.name === 'isIncome') {
+      infoDispatch({ ...updatedTransaction, cid: 0 });
+      validation.delete('cid');
+      setValidation(new Set([...validation]));
+    }
     if (checkValidation(e.target.name, e.target.value)) {
       infoDispatch({ ...updatedTransaction, [e.target.name]: e.target.value });
       validation.add(e.target.name);
@@ -82,7 +87,6 @@ const TransactionUpdateModal = (): JSX.Element => {
       setValidation(new Set([...validation]));
     }
   };
-
   useEffect(() => {
     if (!data) return;
     infoDispatch({
