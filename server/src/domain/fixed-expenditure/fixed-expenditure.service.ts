@@ -1,6 +1,7 @@
 import FixedExpenditureEntity from '@/entity/fixed-expenditure.entity';
 import UserEntity from '@/entity/user.entity';
 import TranscationEntity from '@/entity/transaction.entity';
+import { Transactional } from 'typeorm-transactional-cls-hooked';
 import { Repository, Between } from 'typeorm';
 import DateUtils from '@/lib/date-utils';
 import { FixedType, InputType, ResultType, ResponseType } from './types';
@@ -22,6 +23,7 @@ export default class FixedExpenditureService {
     this.transactionRepository = transactionRepository;
   }
 
+  @Transactional()
   public async getFixedExpenditure(
     uid: number,
     updateAt: Date | undefined,
@@ -37,9 +39,8 @@ export default class FixedExpenditureService {
 
     const fixedDatas: ResultType[] = await this.fixedExpenditureRepository
       .query(`select f1.fid, f1.trade_at as tradeAt, f1.amount as estimatedAmount, f1.description, t1.amount as paidAmount
-    from (select * from fixed_expenditure where uid=${uid} and trade_at between '${startDate}' and '${endDate}') f1 
-    left outer join (select * from transaction where uid=${uid} and trade_at between '${startDate}' and '${endDate}') t1 on f1.uid = t1.uid and f1.trade_at = t1.trade_at and t1.description = f1.description
-    order by f1.trade_at ASC;`);
+      from fixed_expenditure f1 left outer join transaction t1 on f1.uid = t1.uid and f1.trade_at = t1.trade_at and t1.description = f1.description
+      where f1.uid=${uid} and f1.trade_at between '${startDate}' and '${endDate}';`);
 
     const paid: FixedType[] = [];
     const estimated: FixedType[] = [];
@@ -93,7 +94,7 @@ export default class FixedExpenditureService {
         setDay.setDate(fixedData[0]);
         fixedArray.push({
           tradeAt: setDay,
-          amount: value.amount,
+          amount: Math.round(value.amount / 3),
           description: fixedData[1],
           uid,
         });

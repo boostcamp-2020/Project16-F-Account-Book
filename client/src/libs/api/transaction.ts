@@ -1,5 +1,5 @@
 import axios from '@/libs/axios';
-import endpoints from '@/libs/endpoints';
+import endpoints from '@/commons/endpoints';
 import { MonthTransactionsResponse, TransactionModel } from '@/commons/types/transaction';
 import TransactionRequestDTO from '@/commons/dto/transaction-request';
 import transactionCache from '@/libs/cache/transactionCache';
@@ -38,7 +38,7 @@ const transactionAPI = {
     const newTransaction = await axios.post<TransactionModel>(endpoints.TRANSACTION_API, {
       ...data,
     });
-    const { year, month } = DateUtils.parseDate(newTransaction.tradeAt);
+    const { year, month } = DateUtils.parseDate(new Date(newTransaction.tradeAt));
     clearCache({ year, month });
     return newTransaction;
   },
@@ -55,13 +55,13 @@ const transactionAPI = {
     return updatedTransaction;
   },
 
-  deleteTransaction: async (tid: number): Promise<TransactionModel> => {
+  deleteTransaction: async (tid: number): Promise<number> => {
     const deletedTransaction = await axios.delete<TransactionModel>(
       `${endpoints.TRANSACTION_API}/${tid}`,
     );
     const { year, month } = DateUtils.parseDate(deletedTransaction.tradeAt);
     clearCache({ year, month });
-    return deletedTransaction;
+    return tid;
   },
 };
 

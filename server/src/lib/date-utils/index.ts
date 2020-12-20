@@ -17,9 +17,9 @@ const countMonthBetween = (startDate: Date, endDate: Date): number => {
 const getStartDateAndEndDate = (
   year: number,
   month: number,
-): { startDate: Date; endDate: Date } => {
-  const startDate = new Date(year, month - 1, 1);
-  const endDate = new Date(year, month, 0);
+): { startDate: string; endDate: string } => {
+  const startDate = dateToString(new Date(year, month - 1, 1));
+  const endDate = dateToString(new Date(year, month, 0));
   return { startDate, endDate };
 };
 

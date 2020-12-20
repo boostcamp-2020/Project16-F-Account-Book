@@ -14,7 +14,7 @@ const GlobalStyled = createGlobalStyle`
     height: 100%;
 
     font-family: 'Noto Sans KR', sans-serif;
-
+    font-display: swap;
     ::-webkit-scrollbar {
       width: 0px;
       background: transparent; 

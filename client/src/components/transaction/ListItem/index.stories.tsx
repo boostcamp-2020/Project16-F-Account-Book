@@ -17,17 +17,8 @@ const mockTransactions = [
     uid: 1,
     cid: 1,
     pid: 3,
-    payment: {
-      pid: 3,
-      name: '농협은행 체크카드',
-      uid: 1,
-    },
-    category: {
-      cid: 1,
-      name: '월급',
-      isIncome: true,
-      uid: 1,
-    },
+    paymentName: '농협은행 체크카드',
+    categoryName: '월급',
   },
   {
     tid: 82,
@@ -38,17 +29,8 @@ const mockTransactions = [
     uid: 1,
     cid: 2,
     pid: 3,
-    payment: {
-      pid: 3,
-      name: '농협은행',
-      uid: 1,
-    },
-    category: {
-      cid: 2,
-      name: '식비',
-      isIncome: false,
-      uid: 1,
-    },
+    paymentName: '농협은행',
+    categoryName: '식비',
   },
   {
     tid: 83,
@@ -59,17 +41,8 @@ const mockTransactions = [
     uid: 1,
     cid: 3,
     pid: 3,
-    payment: {
-      pid: 3,
-      name: '농협은행',
-      uid: 1,
-    },
-    category: {
-      cid: 3,
-      name: '교통비',
-      isIncome: false,
-      uid: 1,
-    },
+    paymentName: '농협은행',
+    category: '교통비',
   },
   {
     tid: 84,
@@ -80,28 +53,7 @@ const mockTransactions = [
     uid: 1,
     cid: 2,
     pid: 3,
-    payment: {
-      pid: 3,
-      name: '농협은행',
-      uid: 1,
-    },
-    category: {
-      cid: 2,
-      name: '식비',
-      isIncome: false,
-      uid: 1,
-    },
+    paymentName: '농협은행',
+    category: '식비',
   },
 ];
-
-export const ListItemSample = (): JSX.Element => (
-  <TransactionListItem transaction={mockTransactions[0]} editable />
-);
-
-export const MultipleListItem = (): JSX.Element => (
-  <>
-    {mockTransactions.map((mockTransaction) => (
-      <TransactionListItem transaction={mockTransaction} editable />
-    ))}
-  </>
-);

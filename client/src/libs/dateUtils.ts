@@ -15,10 +15,10 @@ const parseDate = (date: Date | string): ParsedDateModel => {
   };
 };
 
-const formatString = (date: Date): string => {
+const formatString = (date: Date | string): string => {
   const { year: yearToken, month: monthToken, date: dateToken } = parseDate(date);
-  return `${yearToken}-${monthToken >= 10 ? monthToken : `0${monthToken}`}-${
-    dateToken >= 10 ? `${dateToken}` : `0${dateToken}`
+  return `${yearToken}-${monthToken > 9 ? monthToken : `0${monthToken}`}-${
+    dateToken > 9 ? `${dateToken}` : `0${dateToken}`
   }`;
 };
 

@@ -1,14 +1,24 @@
 import LoadingSpinner from '@/components/common/LoadingSpinner';
 import LineGraph from '@/components/transaction/LineGraph';
 import { RootState } from '@/modules';
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import EmptyStateComponent from '@/components/transaction/EmptyState';
+import { getMonthlyTransactionThunk } from '@/modules/transaction';
 import SelectMonth from '../SelectMonth';
 import * as S from './styles';
 
 const LineGraphContainer = (): JSX.Element => {
-  const { transaction } = useSelector((state: RootState) => state);
+  const { transaction, datePicker } = useSelector((state: RootState) => state);
+  const dispatch = useDispatch();
+  const getMonthlyTransactions = useCallback(() => {
+    dispatch(getMonthlyTransactionThunk(datePicker));
+  }, [datePicker]);
+
+  useEffect(() => {
+    getMonthlyTransactions();
+  }, [datePicker]);
+
   return (
     <>
       <SelectMonth />
